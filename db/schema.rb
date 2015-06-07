@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150603184948) do
+ActiveRecord::Schema.define(version: 20150607112632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,15 +24,18 @@ ActiveRecord::Schema.define(version: 20150603184948) do
     t.datetime "updated_at",    null: false
   end
 
-  create_table "employees", force: :cascade do |t|
-    t.string   "firstname"
-    t.string   "lastname"
-    t.string   "middlename"
-    t.string   "login"
-    t.boolean  "active"
-    t.integer  "staff_role_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+  create_table "auto_work_spaces", force: :cascade do |t|
+    t.string   "uuid"
+    t.string   "computername"
+    t.string   "short_name"
+    t.string   "os"
+    t.string   "os_user"
+    t.text     "comment"
+    t.string   "location"
+    t.boolean  "is_used",         default: true
+    t.boolean  "allow_anonymous", default: true
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   create_table "managements", force: :cascade do |t|
@@ -56,6 +59,7 @@ ActiveRecord::Schema.define(version: 20150603184948) do
     t.boolean  "can_view_aws_list_owned",     default: false
     t.boolean  "can_view_work_changes_owned", default: false
     t.boolean  "can_fill_control_list",       default: false
+    t.boolean  "can_manage_org_structure",    default: false
   end
 
   create_table "statuses", force: :cascade do |t|
@@ -72,17 +76,58 @@ ActiveRecord::Schema.define(version: 20150603184948) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "turn_types", force: :cascade do |t|
+    t.string   "name"
+    t.time     "start_time"
+    t.integer  "hour_duration"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "turns", force: :cascade do |t|
+    t.datetime "start"
+    t.datetime "end"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.string   "middle_name"
     t.string   "login"
-    t.boolean  "is_active",      default: true
+    t.boolean  "is_active",           default: true
     t.string   "position"
     t.integer  "staff_role_id"
     t.integer  "subdivision_id"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.string   "encrypted_password",  default: "",   null: false
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",       default: 0,    null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
   end
+
+  add_index "users", ["is_active"], name: "index_users_on_is_active", using: :btree
+  add_index "users", ["login"], name: "index_users_on_login", unique: true, using: :btree
+  add_index "users", ["staff_role_id"], name: "index_users_on_staff_role_id", using: :btree
+  add_index "users", ["subdivision_id"], name: "index_users_on_subdivision_id", using: :btree
+
+  create_table "work_spaces", force: :cascade do |t|
+    t.string   "name"
+    t.string   "code"
+    t.string   "short_name"
+    t.integer  "auto_work_space_id"
+    t.integer  "subdivision_id"
+    t.boolean  "is_used",            default: true
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  add_index "work_spaces", ["auto_work_space_id"], name: "index_work_spaces_on_auto_work_space_id", using: :btree
+  add_index "work_spaces", ["subdivision_id"], name: "index_work_spaces_on_subdivision_id", using: :btree
 
 end

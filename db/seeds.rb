@@ -5,6 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+Status.delete_all
 Status.create(:name => 'Открыто')
 Status.create(:name => 'Выполнено')
 Status.create(:name => 'Закрыто')
@@ -22,15 +23,18 @@ StaffRole.create(:name => 'Руководитель участка', :can_add_is
                  :can_view_employees_list => true,
                  :can_view_work_changes_owned => true,
                  :can_fill_control_list => true)
-StaffRole.create(:name => 'Инженер по охране труда',
+adm_id=StaffRole.create(:name => 'Инженер по охране труда',
                  :can_add_issue => true, :can_edit_issue => true,
                  :can_change_issue_status => true,
                  :can_shutdown_app => true,
                  :can_view_issue_report_local => true,
                  :can_view_employees_list => true,
                  :can_view_work_changes_owned => true,
-                 :can_fill_control_list => true
-)
+                 :can_fill_control_list => true, :can_manage_org_structure => true
+).id
+
+User.delete_all
+User.create
 
 
 
