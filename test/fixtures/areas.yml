@@ -1,13 +1,12 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  Management: MyString
-  name: MyString
-  short_name: MyString
-  belongs_to: 
+
+  name: area1
+  short_name: a1
+
 
 two:
-  Management: MyString
-  name: MyString
-  short_name: MyString
-  belongs_to: 
+  name: area2
+  short_name: a2
+

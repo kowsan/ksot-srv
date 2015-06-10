@@ -1,17 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  first_name: MyString
-  last_name: MyString
-  middle_name: MyString
-  login: MyString
-  is_active: false
-  position: MyString
+  first_name: fn1
+  last_name: ln1
+  middle_name: mn1
+  login: user1
+  is_active: true
+  position: user
 
 two:
-  first_name: MyString
-  last_name: MyString
-  middle_name: MyString
-  login: MyString
-  is_active: false
-  position: MyString
+  first_name: fn2
+  last_name: ln2
+  middle_name: mn22
+  login: user2
+  is_active: true
+  position: user2

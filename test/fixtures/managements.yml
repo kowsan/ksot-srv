@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  short_name: MyString
+  name: management1
+  short_name: m1
 
 two:
-  name: MyString
-  short_name: MyString
+  name: masnagement2
+  short_name: m2

@@ -1,0 +1,39 @@
+<%= form_for(@subdivision) do |f| %>
+  <% if @subdivision.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@subdivision.errors.count, "error") %> prohibited this subdivision from being saved:</h2>
+
+      <ul>
+      <% @subdivision.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <div class="container-fluid">
+
+        <div class="form-group">
+            <%= f.label 'Имя' %>
+            <%= f.text_field(:name, {:class => 'form-control', :placeholder => 'имя участка'}) %>
+        </div>
+        <div class="form-group">
+            <%= f.label 'Короткое имя' %>
+            <%= f.text_field(:short_name, {:class => 'form-control', :placeholder => 'имя участка короткое'}) %>
+        </div>
+
+
+        <div class="form-group">
+            <%= f.label 'Участок' %>
+            <%= f.collection_select(:area_id, Area.all, :id, :name, {}, {:class => ' form-control input-sm'}) %>
+        </div>
+
+
+        <div class="actions">
+            <%= f.submit({:class => 'btn btn-primary'}) %>
+        </div>
+    </div>
+<% end %>
+<script type="text/javascript">
+    $('#subdivisions').addClass('active');
+</script>

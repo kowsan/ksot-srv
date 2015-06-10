@@ -1,14 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Ksot</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+    <title>Ksot</title>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application'%>
+
+
 </head>
 <body>
+<div style="margin-left: 10px">
+    <% if !@logged_user.nil? %>
+        <div class="tabbable" style="background-color: #d9dde0;">
+            <ul class="nav nav-tabs backfont" id="myTab">
 
-<%= yield %>
 
+                <li class="divider-vertical"></li>
+
+
+                <li class="divider-vertical"></li>
+
+                <% if @can_manage_org_structure %>
+                    <li id="users"><%= link_to 'Пользователи', users_path %></li>
+                <% end %>
+
+                <% if @can_manage_org_structure %>
+                    <li id="subdivisions"><%= link_to 'Подразделения', subdivisions_path %></li>
+                <% end %>
+
+
+                <li class="divider-vertical"></li>
+
+                <li class="pull-right"><%= link_to 'Выйти', destroy_user_session_path, :method => :delete %></li>
+
+                <li class="pull-right">
+                    <a style="background-color: #ffffff; color: #ffffff; border: 0; margin-top: 1px;">Здравствуйте, <%= @logged_user.full_name %></a>
+                </li>
+
+            </ul>
+        </div>
+
+
+    <% end %>
+    <%= yield %>
+</div>
 </body>
 </html>

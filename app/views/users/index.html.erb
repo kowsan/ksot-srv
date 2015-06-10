@@ -1,25 +1,39 @@
 <p id="notice"><%= notice %></p>
+<br>
+<%= link_to 'Новый пользователь', new_user_path,{:class => 'btn btn-default'} %>
+<br>
+<br>
 
-<h1>Listing Users</h1>
+<table border="0">
+    <thead>
+    <th>Фамилия</th>
+    <th>Имя</th>
+    <th>Отчество</th>
+    <th>Активен?</th>
+    <th>Должность</th>
+    <th>Роль</th>
+    <th colspan="3">Действия</th>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    </thead>
 
-  <tbody>
+    <tbody>
     <% @users.each do |user| %>
-      <tr>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+        <tr>
+            <td><%= user.last_name %></td>
+            <td><%= user.first_name %></td>
+            <td><%= user.middle_name %></td>
+            <td><%= user.is_active %></td>
+            <td><%= user.position %></td>
+            <td><%= user.staff_role.name %></td>
+            <td><%= link_to 'Изменить', edit_user_path(user),{:class => 'btn btn-mini'} %></td>
+            <td><%= link_to 'Удалить', user, method: :delete, data: {confirm: 'Are you sure?'},:class => 'btn btn-mini btn-danger' %></td>
+        </tr>
     <% end %>
-  </tbody>
+    </tbody>
 </table>
 
 <br>
 
-<%= link_to 'New User', new_user_path %>
+<script type="text/javascript">
+    $('#users').addClass('active');
+</script>

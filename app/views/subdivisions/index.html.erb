@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+<br>
+<%= link_to 'Новое подразделение', new_subdivision_path,:class => 'btn btn-default' %>
+<br>
+<br>
+
+
+<table border="1">
+  <thead>
+  <tr>Имя</tr>
+  <tr>Короткое имя</tr>
+  <tr>Участок</tr>
+    <tr>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @subdivisions.each do |subdivision| %>
+      <tr><%= subdivision.name %></tr>
+      <tr><%= subdivision.short_name %></tr>
+      <tr><%= subdivision.area.name %></tr>
+
+        <td><%= link_to 'Редактировать', edit_subdivision_path(subdivision) %></td>
+        <td><%= link_to 'Удалить', subdivision, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<script type="text/javascript">
+    $('#subdivisions').addClass('active');
+</script>
+

@@ -1,6 +1,9 @@
 class Subdivision < ActiveRecord::Base
   has_many :users
   belongs_to :area
+  #validates_associated :area,:allow_nil => false,:allow_blank => false
+  validates_presence_of :name
+  validates_presence_of :area_id,:message => 'Не могут быть пустыми'
 
 
 end

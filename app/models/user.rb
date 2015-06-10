@@ -7,4 +7,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :rememberable, :trackable
   validates_presence_of :login,:first_name,:last_name
   validates_associated :staff_role,:subdivision
+  def full_name
+    "#{self.first_name} #{self.last_name}"
+  end
 end

@@ -4,8 +4,17 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+one:
+  uuid: one
+  os: linux
+  os_user: root
+  computername: station1
+  allow_anonymous: true
+
+
+two:
+  uuid: two
+  os: win
+  os_user: userrro
+  computername: station777
+  allow_anonymous: false

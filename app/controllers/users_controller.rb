@@ -1,10 +1,13 @@
 class UsersController < ApplicationController
+
+  before_action :check_permission
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :validate_access
 
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.includes(:staff_role).all
   end
 
   # GET /users/1
@@ -62,13 +65,25 @@ class UsersController < ApplicationController
   end
 
   private
+  def validate_access
+    unless @can_manage_org_structure
+      respond_to do |format|
+        format.any { render nothing: true, :status => :forbidden }
+      end
+    end
+  end
+
+  private
   # Use callbacks to share common setup or constraints between actions.
   def set_user
+
     @user = User.find(params[:id])
+
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params[:user].permit(:login, :password, :first_name, :last_name, :middle_name,:staff_role_id,:subdivision_id)
+    params[:user].permit(:login, :password, :first_name, :last_name, :middle_name, :staff_role_id, :subdivision_id)
   end
+
 end
