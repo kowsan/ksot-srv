@@ -15,17 +15,17 @@
 
         <div class="form-group">
             <%= f.label 'Имя' %>
-            <%= f.text_field(:name, {:class => 'form-control', :placeholder => 'имя участка'}) %>
+            <%= f.text_field(:name, {:class => 'form-control', :placeholder => 'имя '}) %>
         </div>
         <div class="form-group">
             <%= f.label 'Короткое имя' %>
-            <%= f.text_field(:short_name, {:class => 'form-control', :placeholder => 'имя участка короткое'}) %>
+            <%= f.text_field(:short_name, {:class => 'form-control', :placeholder => 'имя  короткое'}) %>
         </div>
 
 
         <div class="form-group">
             <%= f.label 'Участок' %>
-            <%= f.collection_select(:area_id, Area.all, :id, :name, {}, {:class => ' form-control input-sm'}) %>
+            <%= f.collection_select(:area_id, Area.all, :id, :name, {}, {:class => ' form-control input-large'}) %>
         </div>
 
 

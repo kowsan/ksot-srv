@@ -22,7 +22,9 @@
                 <% if @can_manage_org_structure %>
                     <li id="users"><%= link_to 'Пользователи', users_path %></li>
                 <% end %>
-
+                <% if @can_manage_org_structure %>
+                    <li id="managements"><%= link_to 'Управления', managements_path %></li>
+                <% end %>
                 <% if @can_manage_org_structure %>
                     <li id="subdivisions"><%= link_to 'Подразделения', subdivisions_path %></li>
                 <% end %>

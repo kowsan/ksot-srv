@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
 
-  before_action :check_permission
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :validate_access
+  before_action :check_permission, :validate_access
+
 
   # GET /users
   # GET /users.json

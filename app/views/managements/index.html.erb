@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Список управлений</h1>
+
+<table class="table">
+
+    <th data-align="center">Имя</th>
+    <th data-align="center">Краткое имя</th>
+    <th >Действия</th>
+    <% @managements.each do |management| %>
+        <tr>
+            <td><%= management.name %></td>
+            <td><%= management.short_name %></td>
+
+            <td><%= link_to 'Редактировать', edit_management_path(management),{:class => 'btn '} %>
+           <%= link_to 'Удалить', management, method: :delete, data: {confirm: 'Are you sure?'},:class => 'btn btn-danger' %></td>
+        </tr>
+    <% end %>
+
+</table>
+
+<br>
+
+<%= link_to 'New Management', new_management_path %>
+<script type="text/javascript">
+    $('#managements').addClass('active');
+</script>

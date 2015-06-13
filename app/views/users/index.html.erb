@@ -1,20 +1,20 @@
 <p id="notice"><%= notice %></p>
 <br>
-<%= link_to 'Новый пользователь', new_user_path,{:class => 'btn btn-default'} %>
+<%= link_to 'Новый пользователь', new_user_path, {:class => 'btn btn-default'} %>
 <br>
 <br>
 
-<table border="0">
-    <thead>
+<table border="0" class="table">
+
     <th>Фамилия</th>
     <th>Имя</th>
     <th>Отчество</th>
     <th>Активен?</th>
     <th>Должность</th>
     <th>Роль</th>
-    <th colspan="3">Действия</th>
+    <th>Действия</th>
 
-    </thead>
+
 
     <tbody>
     <% @users.each do |user| %>
@@ -25,8 +25,7 @@
             <td><%= user.is_active %></td>
             <td><%= user.position %></td>
             <td><%= user.staff_role.name %></td>
-            <td><%= link_to 'Изменить', edit_user_path(user),{:class => 'btn btn-mini'} %></td>
-            <td><%= link_to 'Удалить', user, method: :delete, data: {confirm: 'Are you sure?'},:class => 'btn btn-mini btn-danger' %></td>
+            <td><%= link_to 'Изменить', edit_user_path(user), {:class => 'btn '} %><%= link_to 'Удалить', user, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn  btn-danger' %></td>
         </tr>
     <% end %>
     </tbody>

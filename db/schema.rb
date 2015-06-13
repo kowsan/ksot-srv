@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150609174550) do
+ActiveRecord::Schema.define(version: 20150613191608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,5 +135,7 @@ ActiveRecord::Schema.define(version: 20150609174550) do
   add_index "work_spaces", ["auto_work_space_id"], name: "index_work_spaces_on_auto_work_space_id", using: :btree
   add_index "work_spaces", ["subdivision_id"], name: "index_work_spaces_on_subdivision_id", using: :btree
 
+  add_foreign_key "areas", "managements"
+  add_foreign_key "subdivisions", "areas"
   add_foreign_key "users", "staff_roles"
 end
