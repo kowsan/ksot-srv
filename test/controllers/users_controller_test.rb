@@ -1,8 +1,10 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
   setup do
-    @user = users(:one)
+    login_as_admin
+    @user = users(:admin)
   end
 
   test "should get index" do
@@ -18,7 +20,8 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should create user" do
     assert_difference('User.count') do
-      post :create, user: {  }
+      post :create, user: {first_name: 'Sanya', login: 'AK', last_name: 'ln',
+                           subdivision_id: subdivisions(:one).id, staff_role_id: staff_roles(:admin).id}
     end
 
     assert_redirected_to user_path(assigns(:user))
@@ -35,8 +38,8 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should update user" do
-    patch :update, id: @user, user: {  }
-    assert_redirected_to user_path(assigns(:user))
+    patch :update, id: @user, user: {}
+    assert_redirected_to users_path
   end
 
   test "should destroy user" do

@@ -1,9 +1,13 @@
 class WorkController < ApplicationController
-  before_action :check_permission, :except => [:app_login, :app_logout]
+  before_action :check_permission, :except => [:app_login, :app_logout,]
 
   def user_info
-    @l=@logged_user
-    @r=@staff_role
+    # @l=@logged_user
+    #@r=@staff_role
+  end
+
+  def summary
+
   end
 
   def app_login
@@ -15,7 +19,7 @@ class WorkController < ApplicationController
 
     x= a.save!
     if x
-      cookies[:app_id]=app_id
+      cookies['app_id']={:value => app_id, :expires => 2.years.from_now}
       respond_to do |format|
         format.json { render :json => a.to_json, :status => :created }
       end
@@ -30,6 +34,6 @@ class WorkController < ApplicationController
   private
   def app_params
     #protect any params
-    params.permit(:app_id, :name, :os, :os_user,:format)
+    params.permit(:app_id, :name, :os, :os_user, :format)
   end
 end

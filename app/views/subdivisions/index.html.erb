@@ -1,31 +1,27 @@
 <p id="notice"><%= notice %></p>
-<br>
-<%= link_to 'Новое подразделение', new_subdivision_path,:class => 'btn btn-default' %>
+<h1>Список подразделений</h1>
+
+<%= link_to 'Новое подразделение', new_subdivision_path, :class => 'btn' %>
 <br>
 <br>
 
 
-<table border="1">
-  <thead>
-  <tr>Имя</tr>
-  <tr>Короткое имя</tr>
-  <tr>Участок</tr>
-    <tr>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
+<table class="table">
 
-  <tbody>
+    <th>Имя</th>
+    <th>Короткое имя</th>
+    <th>Участок</th>
+    <th colspan="2">Действия</th>
     <% @subdivisions.each do |subdivision| %>
-      <tr><%= subdivision.name %></tr>
-      <tr><%= subdivision.short_name %></tr>
-      <tr><%= subdivision.area.name %></tr>
-
-        <td><%= link_to 'Редактировать', edit_subdivision_path(subdivision) %></td>
-        <td><%= link_to 'Удалить', subdivision, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+        <tr>
+            <td><%= subdivision.name %></td>
+            <td><%= subdivision.short_name %></td>
+            <td><%= subdivision.area.name %></td>
+            <td><%= link_to 'Редактировать', edit_subdivision_path(subdivision), :class => 'btn' %>
+                <%= link_to 'Удалить', subdivision, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger' %></td>
+        </tr>
     <% end %>
-  </tbody>
+
 </table>
 
 <br>

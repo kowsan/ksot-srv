@@ -1,12 +1,14 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+admin:
   first_name: fn1
   last_name: ln1
   middle_name: mn1
   login: user1
   is_active: true
   position: user
+  staff_role: :admin
+  subdivision: :one
 
 two:
   first_name: fn2
@@ -15,3 +17,5 @@ two:
   login: user2
   is_active: true
   position: user2
+  subdivision: :two
+  staff_role: :admin

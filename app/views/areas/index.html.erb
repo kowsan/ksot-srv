@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Список участков</h1>
+
+<%= link_to 'Новый участок', new_area_path,:class => 'btn' %>
+<br>
+<br>
+<table class="table">
+    <th>Наименование</th>
+    <th>Короткое имя</th>
+    <th>Управление</th>
+    <th colspan="2">Действия</th>
+
+    <tbody>
+    <% @areas.each do |area| %>
+        <tr>
+            <td><%= area.name %></td>
+            <td><%= area.short_name %></td>
+            <td><%= area.management.name %></td>
+
+            <td><%= link_to 'Редактировать', edit_area_path(area), :class => 'btn' %><%= link_to 'Удалить', area, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger' %></td>
+        </tr>
+    <% end %>
+    </tbody>
+</table>
+
+<br>
+<script type="text/javascript">
+    $('#areas').addClass('active');
+</script>

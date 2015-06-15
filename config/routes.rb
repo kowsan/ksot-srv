@@ -1,21 +1,31 @@
 Rails.application.routes.draw do
 
+  resources :issues
   get 'work/app_login'
-
   get 'work/app_logout'
   get 'work/user_info'
 
   devise_for :users
   devise_for :subdivisions
   devise_for :managements
+  devise_for :areas
+  devise_for :work_spaces
+  devise_scope :users do
+    get "sign_out", :to => "devise/sessions#destroy"
+  end
   resources :users
   resources :subdivisions
   resources :managements
+  resources :areas
+  resources :work_spaces
+
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'work#user_info'
+ root 'work#summary'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

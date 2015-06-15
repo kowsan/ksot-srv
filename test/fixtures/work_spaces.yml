@@ -5,9 +5,11 @@ one:
   code: MyString
   short_name: MyString
   is_used: false
+  subdivision: :one
 
 two:
   name: MyString
   code: MyString
   short_name: MyString
   is_used: false
+  subdivision: :two

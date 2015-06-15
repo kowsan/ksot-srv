@@ -1,6 +1,6 @@
 class ManagementsController < ApplicationController
   before_action :set_management, only: [:show, :edit, :update, :destroy]
-  before_action :check_permission
+  before_action :check_permission, :validate_access
 
   # GET /managements
   # GET /managements.json
@@ -55,21 +55,37 @@ class ManagementsController < ApplicationController
   # DELETE /managements/1
   # DELETE /managements/1.json
   def destroy
-    @management.destroy
-    respond_to do |format|
-      format.html { redirect_to managements_url, notice: 'Management was successfully destroyed.' }
-      format.json { head :no_content }
+    if @management.can_delete?
+      @management.destroy
+      respond_to do |format|
+        format.html { redirect_to managements_url, notice: 'Management was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+
+      respond_to do |format|
+        format.html { redirect_to managements_url,:status => :forbidden }
+        format.json { head :no_content,:status => :forbidden }
+      end
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_management
-      @management = Management.find(params[:id])
+  def validate_access
+    unless @can_manage_org_structure
+      respond_to do |format|
+        format.any { render nothing: true, :status => :forbidden }
+      end
     end
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def management_params
-      params[:management]
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_management
+    @management = Management.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def management_params
+    params[:management].permit(:name, :short_name)
+  end
 end

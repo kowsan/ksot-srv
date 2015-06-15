@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150613191608) do
+ActiveRecord::Schema.define(version: 20150614172850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,9 +33,20 @@ ActiveRecord::Schema.define(version: 20150613191608) do
     t.text     "comment"
     t.string   "location"
     t.boolean  "is_used",         default: true
-    t.boolean  "allow_anonymous", default: true
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.boolean  "allow_anonymous", default: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "work_space_id"
+  end
+
+  create_table "issues", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "status_id"
+    t.integer  "work_space_id"
+    t.datetime "close_date"
+    t.datetime "due_date"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "managements", force: :cascade do |t|
@@ -125,14 +136,12 @@ ActiveRecord::Schema.define(version: 20150613191608) do
     t.string   "name"
     t.string   "code"
     t.string   "short_name"
-    t.integer  "auto_work_space_id"
     t.integer  "subdivision_id"
-    t.boolean  "is_used",            default: true
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.boolean  "is_used",        default: true
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
-  add_index "work_spaces", ["auto_work_space_id"], name: "index_work_spaces_on_auto_work_space_id", using: :btree
   add_index "work_spaces", ["subdivision_id"], name: "index_work_spaces_on_subdivision_id", using: :btree
 
   add_foreign_key "areas", "managements"

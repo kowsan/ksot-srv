@@ -43,7 +43,7 @@ class SubdivisionsController < ApplicationController
   def update
     respond_to do |format|
       if @subdivision.update(subdivision_params)
-        format.html { redirect_to @subdivision, notice: 'Subdivision was successfully updated.' }
+        format.html { redirect_to subdivisions_path, notice: 'Subdivision was successfully updated.' }
         format.json { render :show, status: :ok, location: @subdivision }
       else
         format.html { render :edit }
@@ -75,7 +75,7 @@ class SubdivisionsController < ApplicationController
       @subdivision = Subdivision.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Never trust parameters from the scary internet, only allow the white list through.            validate_access
     def subdivision_params
       params[:subdivision].permit(:name,:short_name,:area_id)
     end

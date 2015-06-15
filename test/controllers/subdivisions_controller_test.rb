@@ -1,8 +1,10 @@
 require 'test_helper'
 
 class SubdivisionsControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
   setup do
     @subdivision = subdivisions(:one)
+    login_as_admin
   end
 
   test "should get index" do
@@ -18,7 +20,7 @@ class SubdivisionsControllerTest < ActionController::TestCase
 
   test "should create subdivision" do
     assert_difference('Subdivision.count') do
-      post :create, subdivision: {  }
+      post :create, subdivision: {name: 'sd1', area_id: areas(:one).id}
     end
 
     assert_redirected_to subdivision_path(assigns(:subdivision))
@@ -35,8 +37,8 @@ class SubdivisionsControllerTest < ActionController::TestCase
   end
 
   test "should update subdivision" do
-    patch :update, id: @subdivision, subdivision: {  }
-    assert_redirected_to subdivision_path(assigns(:subdivision))
+    patch :update, id: @subdivision, subdivision: {:short_name => '123'}
+    assert_redirected_to subdivisions_path
   end
 
   test "should destroy subdivision" do

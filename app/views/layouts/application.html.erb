@@ -1,48 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Ksot</title>
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag 'application'%>
+    <title>КСОТ</title>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
 
 
 </head>
 <body>
 <div style="margin-left: 10px">
-    <% if !@logged_user.nil? %>
-        <div class="tabbable" style="background-color: #d9dde0;">
-            <ul class="nav nav-tabs backfont" id="myTab">
+
+    <div class="tabbable" style="background-color: #d9dde0;">
+        <ul class="nav nav-tabs backfont" id="myTab">
 
 
-                <li class="divider-vertical"></li>
+            <% if @can_manage_org_structure %>
+                <li id="workspaces"><%= link_to 'Рабочие места', work_spaces_path %></li>
+                <li id="users"><%= link_to 'Пользователи', users_path %></li>
+                <li id="managements"><%= link_to 'Управления', managements_path %></li>
+                <li id="areas"><%= link_to 'Участки', areas_path %></li>
+                <li id="subdivisions"><%= link_to 'Подразделения', subdivisions_path %></li>
+            <% end %>
+            <% if @can_add_issue %>
+                <li id="issues"><%= link_to 'Нарушения' %>
+            <% end %>
+            <% if AutoWorkSpace.can_anonymous?(cookies['app_id']) %>
+                <li id="krest">крестикккк</li>
+            <% end %>
 
+            <% if @logged_user.nil? %>
 
-                <li class="divider-vertical"></li>
+                <!--<li class="pull-right"><%= link_to 'Войти', new_user_session_path, :method => :get %></li>-->
+            <% else %>
 
-                <% if @can_manage_org_structure %>
-                    <li id="users"><%= link_to 'Пользователи', users_path %></li>
-                <% end %>
-                <% if @can_manage_org_structure %>
-                    <li id="managements"><%= link_to 'Управления', managements_path %></li>
-                <% end %>
-                <% if @can_manage_org_structure %>
-                    <li id="subdivisions"><%= link_to 'Подразделения', subdivisions_path %></li>
-                <% end %>
-
-
-                <li class="divider-vertical"></li>
-
-                <li class="pull-right"><%= link_to 'Выйти', destroy_user_session_path, :method => :delete %></li>
+                <li class="pull-right"><%= link_to 'Выйти', destroy_user_session_path, :method => :get %></li>
 
                 <li class="pull-right">
                     <a style="background-color: #ffffff; color: #ffffff; border: 0; margin-top: 1px;">Здравствуйте, <%= @logged_user.full_name %></a>
                 </li>
+            <% end %>
+        </ul>
+    </div>
 
-            </ul>
-        </div>
 
 
-    <% end %>
     <%= yield %>
 </div>
 </body>

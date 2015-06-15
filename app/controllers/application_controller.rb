@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
   # with: :null_session
   def check_permission
     authenticate_user!
-
     @logged_user = User.includes(:staff_role).find(current_user.id)
     @current_user_id = @logged_user.id
     @staff_role = @logged_user.staff_role
@@ -23,9 +22,7 @@ class ApplicationController < ActionController::Base
     @can_view_aws_list_owned = @staff_role.can_view_aws_list_owned?
 
     @can_view_work_changes_owned = @staff_role.can_view_work_changes_owned?
-
     @can_fill_control_list = @staff_role.can_fill_control_list?
-
     @can_manage_org_structure=@staff_role.can_manage_org_structure?
 
 

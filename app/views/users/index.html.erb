@@ -1,29 +1,37 @@
 <p id="notice"><%= notice %></p>
 <br>
-<%= link_to 'Новый пользователь', new_user_path, {:class => 'btn btn-default'} %>
+<%= link_to 'Новый пользователь', new_user_path, :class => 'btn ' %>
 <br>
 <br>
 
-<table border="0" class="table">
-
+<table class="table">
+    <th>Логин</th>
     <th>Фамилия</th>
     <th>Имя</th>
     <th>Отчество</th>
     <th>Активен?</th>
     <th>Должность</th>
+    <th>Подразделение</th>
     <th>Роль</th>
     <th>Действия</th>
-
 
 
     <tbody>
     <% @users.each do |user| %>
         <tr>
+            <td><%= user.login %></td>
             <td><%= user.last_name %></td>
             <td><%= user.first_name %></td>
             <td><%= user.middle_name %></td>
-            <td><%= user.is_active %></td>
+            <td>
+                <% if user.is_active %>
+                    <span class="icon-ok"></span>
+                <% else %>
+                    <span class="icon-off"></span>
+                <% end %>
+            </td>
             <td><%= user.position %></td>
+            <td><%= user.subdivision.name %></td>
             <td><%= user.staff_role.name %></td>
             <td><%= link_to 'Изменить', edit_user_path(user), {:class => 'btn '} %><%= link_to 'Удалить', user, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn  btn-danger' %></td>
         </tr>

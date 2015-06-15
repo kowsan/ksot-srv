@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Список рабочих мест</h1>
+<%= link_to 'Новое рабочее место', new_work_space_path, :class => 'btn btn-default' %>
+<br>
+<br>
+<table class="table">
+    <th>Наименование</th>
+    <th>Код</th>
+    <th>Короткое имя</th>
+    <th>Подразделение</th>
+    <th>Активно</th>
+    <th>Действия</th>
+    <% @work_spaces.each do |work_space| %>
+        <tr>
+            <td><%= work_space.name %></td>
+            <td><%= work_space.code %></td>
+            <td><%= work_space.short_name %></td>
+            <td><%= work_space.subdivision.name %></td>
+            <td>
+                <% if work_space.is_used? %>
+                    <span class="icon-ok"></span>
+                <% else %>
+                    <span class="icon-off"></span>
+                <% end %>
+            </td>
+            <td><%= work_space.subdivision.name %></td>
+
+            <td><%= link_to 'Редактировать', edit_work_space_path(work_space), :class => 'btn' %><%= link_to 'Удалить', work_space, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger' %></td>
+        </tr>
+    <% end %>
+
+</table>
+
+<br>
+<script type="text/javascript">
+    $('#workspaces').addClass('active');
+</script>
+

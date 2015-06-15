@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-
+  before_filter :check_permission, :validate_access
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :check_permission, :validate_access
+
 
 
   # GET /users
@@ -43,9 +43,10 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to users_path, notice: "Пользователь #{@user.login} обновлен" }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
@@ -83,7 +84,10 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params[:user].permit(:login, :password, :first_name, :last_name, :middle_name, :staff_role_id, :subdivision_id)
+    if params[:user][:password].to_s==''
+      params[:user].reject! { |x| x=='password' }
+    end
+    params[:user].permit(:login, :password, :first_name, :last_name, :middle_name, :staff_role_id, :subdivision_id, :is_active)
   end
 
 end

@@ -4,9 +4,16 @@ one:
 
   name: area1
   short_name: a1
+  management: :one
 
 
 two:
   name: area2
   short_name: a2
+  management: :two
+
+three:
+  name: area3
+  short_name: a2
+  management: :one
 

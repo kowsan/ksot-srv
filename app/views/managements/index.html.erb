@@ -1,19 +1,24 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Список управлений</h1>
-
+<%= link_to 'Новое управления', new_management_path, :class => 'btn' %>
+<br>
+<br>
 <table class="table">
 
-    <th data-align="center">Имя</th>
-    <th data-align="center">Краткое имя</th>
-    <th >Действия</th>
+    <th>Имя</th>
+    <th>Краткое имя</th>
+    <td>Участков</td>
+    <td>Подразделений</td>
+    <th>Действия</th>
     <% @managements.each do |management| %>
         <tr>
             <td><%= management.name %></td>
             <td><%= management.short_name %></td>
-
-            <td><%= link_to 'Редактировать', edit_management_path(management),{:class => 'btn '} %>
-           <%= link_to 'Удалить', management, method: :delete, data: {confirm: 'Are you sure?'},:class => 'btn btn-danger' %></td>
+            <td><%= management.areas.count %></td>
+            <td><%= management.subdivisions.count %></td>
+            <td><%= link_to 'Редактировать', edit_management_path(management), {:class => 'btn '} %>
+                <%= link_to 'Удалить', management, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger' %></td>
         </tr>
     <% end %>
 
@@ -21,7 +26,7 @@
 
 <br>
 
-<%= link_to 'New Management', new_management_path %>
+
 <script type="text/javascript">
     $('#managements').addClass('active');
 </script>
