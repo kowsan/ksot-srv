@@ -1,9 +1,16 @@
 class WorkController < ApplicationController
-  before_action :check_permission, :except => [:app_login, :app_logout,]
+  before_action :check_permission, :except => [:app_login, :app_logout, :user_info]
 
   def user_info
-    # @l=@logged_user
-    #@r=@staff_role
+    @allow_anon='false'
+
+    if current_user
+      @allow_anon='you authed'
+
+    else
+      @allow_anon=AutoWorkSpace.can_anonymous?(cookies['app_id'])
+    end
+
   end
 
   def summary

@@ -1,1 +1,5 @@
 <h1>User info</h1>
+<b><%= @allow_anon.to_s %></b>
+<% unless current_user %>
+   <%=  link_to 'Авторизация',new_user_session_path,:class=> 'btn'  %>
+<% end %>

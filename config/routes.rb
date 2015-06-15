@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root 'work#user_info'
 
   resources :issues
   get 'work/app_login'
@@ -25,7 +26,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
- root 'work#summary'
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
