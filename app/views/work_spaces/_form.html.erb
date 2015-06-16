@@ -34,10 +34,13 @@
             <%= f.label 'Подразделение' %>
             <%= f.collection_select(:subdivision_id, Subdivision.all, :id, :name, {}, {:class => ' form-control input-large'}) %>
         </div>
-
+        <div class="form-group">
+            <%= f.label 'Связанные виды нарушений' %>
+            <%= render :partial => 'layouts/switch_list', :locals => {:assigned => @assigned, :other => @other, :model_name => 'work_space[issue_type]', :title_assigned => 'связанные', :title_other => 'Остальные'} %>
+        </div>
 
         <div class="actions">
-            <%= f.submit({:class => 'btn btn-primary'}) %>
+            <%= f.submit({:onclick => "$('#selected option').attr('selected', 'selected');",:class => 'btn btn-primary'}) %>
         </div>
     </div>
 <% end %>

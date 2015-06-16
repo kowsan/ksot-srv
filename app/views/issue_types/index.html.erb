@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Виды нарушений</h1>
+<%= link_to 'Новый вид нарушения', new_issue_type_path,:class => 'btn' %>
+<br>
+<br>
+<table class="table">
+    <th>Наименование</th>
+    <th>Критичность</th>
+
+    <tbody>
+    <% @issue_types.each do |issue_type| %>
+        <tr>
+            <td><%= issue_type.name %></td>
+            <td><%= issue_type.critical_type.name %></td>
+            <td><%= link_to 'Редактировать', edit_issue_type_path(issue_type), :class => 'btn' %><%= link_to 'Удалить', issue_type, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger' %></td>
+        </tr>
+    <% end %>
+    </tbody>
+</table>
+<script type="text/javascript">
+    $('#issuetypes').addClass('active');
+</script>
+
+

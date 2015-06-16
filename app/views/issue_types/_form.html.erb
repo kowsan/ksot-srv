@@ -1,0 +1,33 @@
+<%= form_for(@issue_type) do |f| %>
+    <% if @issue_type.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@issue_type.errors.count, "error") %> prohibited this issue_type from being saved:</h2>
+
+            <ul>
+                <% @issue_type.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <div class="container-fluid">
+
+        <div class="form-group">
+            <%= f.label 'Наименование' %>
+            <%= f.text_field(:name, {:class => 'form-control', :placeholder => ''}) %>
+        </div>
+        <div class="form-group">
+            <%= f.label 'Критичность' %>
+            <%= f.collection_select(:critical_type_id, CriticalType.all, :id, :name, {}, {:class => ' form-control input-sm'}) %>
+        </div>
+
+
+        <div class="actions">
+            <%= f.submit( :class => 'btn btn-primary') %>
+        </div>
+    </div>
+<% end %>
+<script type="text/javascript">
+    $('#issuetypes').addClass('active');
+</script>

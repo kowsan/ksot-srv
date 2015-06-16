@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :issue_types
+  resources :critical_types
   root 'work#user_info'
 
   resources :issues
@@ -11,6 +13,7 @@ Rails.application.routes.draw do
   devise_for :managements
   devise_for :areas
   devise_for :work_spaces
+  devise_for :issue_types
   devise_scope :users do
     get "sign_out", :to => "devise/sessions#destroy"
   end
@@ -19,6 +22,7 @@ Rails.application.routes.draw do
   resources :managements
   resources :areas
   resources :work_spaces
+  resources :issue_types
 
 
 

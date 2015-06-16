@@ -1,6 +1,6 @@
 class WorkSpacesController < ApplicationController
   before_action :set_work_space, only: [:show, :edit, :update, :destroy]
-  before_action :check_permission,:validate_access
+  before_action :check_permission, :validate_access
 
   # GET /work_spaces
   # GET /work_spaces.json
@@ -16,19 +16,25 @@ class WorkSpacesController < ApplicationController
   # GET /work_spaces/new
   def new
     @work_space = WorkSpace.new
+    @assigned=nil
+    @other=IssueType.all
   end
 
   # GET /work_spaces/1/edit
   def edit
+
   end
 
   # POST /work_spaces
   # POST /work_spaces.json
   def create
     @work_space = WorkSpace.new(work_space_params)
-
+    x= @work_space.save!
+    it=params[:work_space][:issue_type]
+    @work_space.issue_types.clear
+    @work_space.issue_types << IssueType.find(it)
     respond_to do |format|
-      if @work_space.save
+      if x
         format.html { redirect_to @work_space, notice: 'Work space was successfully created.' }
         format.json { render :show, status: :created, location: @work_space }
       else
@@ -41,6 +47,9 @@ class WorkSpacesController < ApplicationController
   # PATCH/PUT /work_spaces/1
   # PATCH/PUT /work_spaces/1.json
   def update
+    it=params[:work_space][:issue_type]
+    @work_space.issue_types.clear
+    @work_space.issue_types << IssueType.find(it)
     respond_to do |format|
       if @work_space.update(work_space_params)
         format.html { redirect_to work_spaces_path, notice: 'Work space was successfully updated.' }
@@ -70,13 +79,16 @@ class WorkSpacesController < ApplicationController
       end
     end
   end
-    # Use callbacks to share common setup or constraints between actions.
-    def set_work_space
-      @work_space = WorkSpace.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def work_space_params
-      params[:work_space].permit(:name,:code,:short_name,:subdivision_id,:is_used)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_work_space
+    @work_space = WorkSpace.find(params[:id])
+    @assigned=@work_space.issue_types
+    @other=IssueType.all-@assigned
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def work_space_params
+    params[:work_space].permit(:name, :code, :short_name, :subdivision_id, :is_used, :issue_type)
+  end
 end

@@ -13,40 +13,46 @@ Status.create(:name => 'Закрыто')
 
 StaffRole.delete_all
 StaffRole.create!(:name => 'Пользователь', :can_add_issue => true, :can_edit_issue => true,
-                 :can_change_issue_status => true)
+                  :can_change_issue_status => true)
 StaffRole.create!(:name => 'Продвинутый пользователь', :can_add_issue => true, :can_edit_issue => true,
-                 :can_change_issue_status => true, :can_shutdown_app => true)
+                  :can_change_issue_status => true, :can_shutdown_app => true)
 StaffRole.create!(:name => 'Руководитель участка', :can_add_issue => true, :can_edit_issue => true,
-                 :can_change_issue_status => true,
-                 :can_shutdown_app => true,
-                 :can_view_issue_report_local => true,
-                 :can_view_employees_list => true,
-                 :can_view_work_changes_owned => true,
-                 :can_fill_control_list => true)
+                  :can_change_issue_status => true,
+                  :can_shutdown_app => true,
+                  :can_view_issue_report_local => true,
+                  :can_view_employees_list => true,
+                  :can_view_work_changes_owned => true,
+                  :can_fill_control_list => true)
 adm_id=StaffRole.create!(:name => 'Инженер по охране труда',
-                        :can_add_issue => true, :can_edit_issue => true,
-                        :can_change_issue_status => true,
-                        :can_shutdown_app => true,
-                        :can_view_issue_report_local => true,
-                        :can_view_employees_list => true,
-                        :can_view_work_changes_owned => true,
-                        :can_fill_control_list => true, :can_manage_org_structure => true
+                         :can_add_issue => true, :can_edit_issue => true,
+                         :can_change_issue_status => true,
+                         :can_shutdown_app => true,
+                         :can_view_issue_report_local => true,
+                         :can_view_employees_list => true,
+                         :can_view_work_changes_owned => true,
+                         :can_fill_control_list => true, :can_manage_org_structure => true
 )
 
 User.delete_all
 
 
-Management.create!(:name=> 'Руководство')
-Management.create!(:name=> 'Дирекция-1')
-Management.create!(:name=> 'Дирекция-2')
-Area.create!(:name=> 'Участок 1',:management_id=> Management.first.id)
-Area.create!(:name=> 'Участок 2',:management_id=> Management.last.id)
+Management.create!(:name => 'Руководство')
+Management.create!(:name => 'Дирекция-1')
+Management.create!(:name => 'Дирекция-2')
+Area.create!(:name => 'Участок 1', :management_id => Management.first.id)
+Area.create!(:name => 'Участок 2', :management_id => Management.last.id)
 
 
-Subdivision.create!(:name=> 'Подразделение 1',:area_id=>Area.first.id)
-Subdivision.create!(:name=> 'Подразделение 2',:area_id=>Area.last.id)
+Subdivision.create!(:name => 'Подразделение 1', :area_id => Area.first.id)
+Subdivision.create!(:name => 'Подразделение 2', :area_id => Area.last.id)
 
-u= User.new(:login => 'admin', :password => 'admin',:last_name=>'Инженер',:first_name=>'Охрана')
+u= User.new(:login => 'admin', :password => 'admin', :last_name => 'Инженер', :first_name => 'Охрана')
 u.subdivision_id=Subdivision.first.id
 u.staff_role=adm_id
 u.save!
+
+
+CriticalType.create!(:name => 'Желтый', :color => 'yellow')
+CriticalType.create!(:name => 'Оранжевый', :color => 'orange')
+CriticalType.create!(:name => 'Синий', :color => 'blue')
+CriticalType.create!(:name => 'Красный', :color => 'red')

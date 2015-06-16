@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Critical Types</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @critical_types.each do |critical_type| %>
+      <tr>
+        <td><%= critical_type.name %></td>
+        <td><%= link_to 'Show', critical_type %></td>
+        <td><%= link_to 'Edit', edit_critical_type_path(critical_type) %></td>
+        <td><%= link_to 'Destroy', critical_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Critical type', new_critical_type_path %>
