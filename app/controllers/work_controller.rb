@@ -6,6 +6,7 @@ class WorkController < ApplicationController
 
     if current_user
       @allow_anon='you authed'
+      check_permission
 
     else
       @allow_anon=AutoWorkSpace.can_anonymous?(cookies['app_id'])

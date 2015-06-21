@@ -1,0 +1,102 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Список АРМ</h1>
+
+<p>Не распределенные</p>
+<table class="table">
+
+    <th>ID</th>
+    <th>UUID</th>
+    <th>имя ПК</th>
+    <th>Краткое имя</th>
+    <th>ОС</th>
+    <th>Пользователь ОС</th>
+    <th>Комментарий</th>
+    <th>Расположение</th>
+    <th>Анонимный режим</th>
+    <th>Действия</th>
+
+    <tbody>
+    <% @unassigned.each do |auto_work_space| %>
+        <% cache do %>
+            <tr>
+                <td><%= auto_work_space.id %></td>
+                <td><%= auto_work_space.uuid %></td>
+                <td><%= auto_work_space.computername %></td>
+                <td><%= auto_work_space.short_name %></td>
+                <td><%= auto_work_space.os %></td>
+                <td><%= auto_work_space.os_user %></td>
+                <td><%= auto_work_space.comment %></td>
+                <td><%= auto_work_space.location %></td>
+                <td>
+                    <% if auto_work_space.allow_anonymous? %>
+                        <span class="icon-ok"></span>
+                    <% else %>
+                        <span class="icon-off"></span>
+                    <% end %>
+                </td>
+
+                <td><%= link_to 'Редактировать', edit_auto_work_space_path(auto_work_space), {:class => 'btn'} %><%= link_to 'Удалить', auto_work_space, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger' %></td>
+            </tr>
+        <% end %>
+    <% end %>
+    </tbody>
+</table>
+
+
+
+<p>Привязанные</p>
+<table class="table">
+
+    <th>ID</th>
+    <th>UUID</th>
+    <th>имя ПК</th>
+    <th>Краткое имя</th>
+    <th>ОС</th>
+    <th>Пользователь ОС</th>
+    <th>Комментарий</th>
+    <th>Расположение</th>
+    <th>Анонимный режим</th>
+    <th>Привязано к</th>
+    <th>Действия</th>
+
+    <tbody>
+    <% @auto_work_spaces.each do |auto_work_space| %>
+        <% cache do %>
+            <tr>
+                <td><%= auto_work_space.id %></td>
+                <td><%= auto_work_space.uuid %></td>
+                <td><%= auto_work_space.computername %></td>
+                <td><%= auto_work_space.short_name %></td>
+                <td><%= auto_work_space.os %></td>
+                <td><%= auto_work_space.os_user %></td>
+                <td><%= auto_work_space.comment %></td>
+                <td><%= auto_work_space.location %></td>
+                <!--<td><%= auto_work_space.is_used? %></td>-->
+                <td>
+                    <% if auto_work_space.allow_anonymous? %>
+                        <span class="icon-ok"></span>
+                    <% else %>
+                        <span class="icon-off"></span>
+                    <% end %>
+                </td>
+                <td>
+                    <% if auto_work_space.work_space.nil? %>
+                        Не привязано
+                    <% else %>
+                        <%= link_to auto_work_space.work_space.name, edit_work_space_path(auto_work_space.work_space_id) %>
+                    <% end %>
+                </td>
+
+                <td><%= link_to 'Редактировать', edit_auto_work_space_path(auto_work_space), {:class => 'btn'} %><%= link_to 'Удалить', auto_work_space, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger' %></td>
+            </tr>
+        <% end %>
+    <% end %>
+    </tbody>
+</table>
+
+<br>
+
+<script type="text/javascript">
+    $('#autoworkspaces').addClass('active');
+</script>

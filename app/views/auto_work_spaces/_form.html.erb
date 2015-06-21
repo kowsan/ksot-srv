@@ -1,0 +1,56 @@
+<%= form_for(@auto_work_space) do |f| %>
+    <% if @auto_work_space.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@auto_work_space.errors.count, "error") %> prohibited this auto_work_space from being
+                saved:</h2>
+
+            <ul>
+                <% @auto_work_space.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+    <div class="container-fluid">
+
+        <div class="form-group">
+            <%= f.label 'ID' %>
+            <%= f.text_field(:id, {:class => 'form-control', :readonly => true, :placeholder => ''}) %>
+        </div>
+        <div class="form-group">
+            <%= f.label 'UUID' %>
+            <%= f.text_field(:uuid, {:class => 'form-control', :readonly => true, :placeholder => ''}) %>
+        </div>
+        <div class="form-group">
+            <%= f.label 'Активно' %>
+            <%= f.check_box(:is_used, {:class => 'form-control', :placeholder => ''}) %>
+        </div>
+        <div class="form-group">
+            <%= f.label 'Короткое имя' %>
+            <%= f.text_field(:short_name, {:class => 'form-control', :placeholder => ''}) %>
+        </div>
+        <div class="form-group">
+            <%= f.label 'ОС' %>
+            <%= f.text_field(:os, {:class => 'form-control', :readonly => true, :placeholder => ''}) %>
+        </div>
+        <div class="form-group">
+            <%= f.label 'Пользователь ОС' %>
+            <%= f.text_field(:os_user, {:class => 'form-control', :readonly => true, :placeholder => ''}) %>
+        </div>
+        <div class="form-group">
+            <%= f.label 'Расположение' %>
+            <%= f.text_field(:location, {:class => 'form-control', :placeholder => ''}) %>
+        </div>
+
+        <div class="form-group">
+            <%= f.label 'Рабочее место' %>
+            <%= f.collection_select(:work_space_id, WorkSpace.all, :id, :name, {:include_blank=> true}, {:class => ' form-control input-sm'}) %>
+        </div>
+
+
+        <div class="actions">
+            <%= f.submit({:class => 'btn btn-primary'}) %>
+        </div>
+    </div>
+
+<% end %>
