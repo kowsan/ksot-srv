@@ -1,5 +1,6 @@
 class IssuesController < ApplicationController
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
+  before_action :check_permission, :validate_access
 
   # GET /issues
   # GET /issues.json
@@ -14,6 +15,14 @@ class IssuesController < ApplicationController
 
   # GET /issues/new
   def new
+    ws=AutoWorkSpace.find_by_uuid(cookies['app_id'])
+    unless ws.nil?
+      begin
+        @issue_types=ws.issue_types
+      rescue
+
+      end
+    end
     @issue = Issue.new
   end
 
@@ -62,13 +71,21 @@ class IssuesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_issue
-      @issue = Issue.find(params[:id])
+  def validate_access
+    unless @can_add_issue
+      respond_to do |format|
+        format.any { render nothing: true, :status => :forbidden }
+      end
     end
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def issue_params
-      params.require(:issue).permit(:belongs_to, :belongs_to, :belongs_to, :close_date)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_issue
+    @issue = Issue.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def issue_params
+    params.require(:issue).permit(:belongs_to, :belongs_to, :belongs_to, :close_date)
+  end
 end

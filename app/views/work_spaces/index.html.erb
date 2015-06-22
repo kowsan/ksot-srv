@@ -1,10 +1,10 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Список рабочих мест</h1>
-<%= link_to 'Новое рабочее место', new_work_space_path, :class => 'btn btn-default' %>
+<%= link_to 'Новое рабочее место', new_work_space_path, :class => 'btn btn-success btn-sm' %>
 <br>
 <br>
-<table class="table">
+<table class=" table table-striped table-hover">
     <th>Наименование</th>
     <th>Код</th>
     <th>Короткое имя</th>
@@ -19,14 +19,24 @@
             <td><%= work_space.subdivision.name %></td>
             <td>
                 <% if work_space.is_used? %>
-                    <span class="icon-ok"></span>
+                    <span class="icon-ok btn"></span>
                 <% else %>
                     <span class="icon-off"></span>
                 <% end %>
             </td>
+            <td>
+                <div class="btn-group">
+                    <a href="#" class="btn btn-primary btn-group-sm btn-sm">Действия</a>
+                    <a href="#" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><%= link_to 'Редактировать', edit_work_space_path(work_space), :class => '' %></li>
 
+                        <li class="divider"></li>
+                        <li><%= link_to 'Удалить', work_space, method: :delete, data: {confirm: 'Are you sure?'}, :class => '' %></li>
+                    </ul>
+                </div>
+            </td>
 
-            <td><%= link_to 'Редактировать', edit_work_space_path(work_space), :class => 'btn' %><%= link_to 'Удалить', work_space, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger' %></td>
         </tr>
     <% end %>
 

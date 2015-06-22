@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150621080412) do
+ActiveRecord::Schema.define(version: 20150622204241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20150621080412) do
     t.text     "note_due"
     t.text     "note_measures"
     t.text     "info"
+    t.integer  "issue_type_id"
   end
 
   create_table "managements", force: :cascade do |t|

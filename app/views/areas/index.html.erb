@@ -2,7 +2,7 @@
 
 <h1>Список участков</h1>
 
-<%= link_to 'Новый участок', new_area_path,:class => 'btn' %>
+<%= link_to 'Новый участок', new_area_path,:class => 'btn btn-success btn-sm' %>
 <br>
 <br>
 <table class="table">
@@ -18,7 +18,8 @@
             <td><%= area.short_name %></td>
             <td><%= area.management.name %></td>
 
-            <td><%= link_to 'Редактировать', edit_area_path(area), :class => 'btn' %><%= link_to 'Удалить', area, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger' %></td>
+            <td><%= link_to 'Редактировать', edit_area_path(area), :class => 'btn btn-info' %>
+                <%= link_to 'Удалить', area, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger' %></td>
         </tr>
     <% end %>
     </tbody>

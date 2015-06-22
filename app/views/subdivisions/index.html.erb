@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 <h1>Список подразделений</h1>
 
-<%= link_to 'Новое подразделение', new_subdivision_path, :class => 'btn' %>
+<%= link_to 'Новое подразделение', new_subdivision_path, :class => 'btn btn-success btn-sm' %>
 <br>
 <br>
 
@@ -17,7 +17,7 @@
             <td><%= subdivision.name %></td>
             <td><%= subdivision.short_name %></td>
             <td><%= subdivision.area.name %></td>
-            <td><%= link_to 'Редактировать', edit_subdivision_path(subdivision), :class => 'btn' %>
+            <td><%= link_to 'Редактировать', edit_subdivision_path(subdivision), :class => 'btn btn-info' %>
                 <%= link_to 'Удалить', subdivision, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger' %></td>
         </tr>
     <% end %>

@@ -12,9 +12,9 @@
             </select>
         </td>
         <td>
-            <input type="button" value="→" onclick="moveOptions(this.form.selected, this.form.available_columns);">
+            <input type="button" value="→" class="pager" onclick="moveOptions(this.form.selected, this.form.available_columns);">
             </br>
-            <input type="button" value="←" onclick="moveOptions(this.form.available_columns, this.form.selected);selectAllOptions()">
+            <input type="button" class="pager" value="←" onclick="moveOptions(this.form.available_columns, this.form.selected);selectAllOptions()">
         </td>
         <td>
             <label for="selected"><%= title_other %></label>

@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Список управлений</h1>
-<%= link_to 'Новое управления', new_management_path, :class => 'btn' %>
+<h1>Список дирекций</h1>
+<%= link_to 'Новая дирекция', new_management_path, :class => 'btn btn-success btn-sm' %>
 <br>
 <br>
 <table class="table">
@@ -17,7 +17,7 @@
             <td><%= management.short_name %></td>
             <td><%= management.areas.count %></td>
             <td><%= management.subdivisions.count %></td>
-            <td><%= link_to 'Редактировать', edit_management_path(management), {:class => 'btn '} %>
+            <td><%= link_to 'Редактировать', edit_management_path(management), {:class => 'btn btn-info'} %>
                 <%= link_to 'Удалить', management, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger' %></td>
         </tr>
     <% end %>

@@ -10,34 +10,34 @@
 <body>
 <div style="margin-left: 10px">
     <% unless @logged_user.nil? %>
-        <div class="tabbable" style="background-color: #d9dde0;">
-            <ul class="nav nav-tabs backfont" id="myTab">
+
+        <ul class="nav nav-tabs" id="myTab">
 
 
-                <% if @can_manage_org_structure %>
-                    <li id="workspaces"><%= link_to 'Рабочие места', work_spaces_path %></li>
-                    <li id="users"><%= link_to 'Пользователи', users_path %></li>
-                    <li id="managements"><%= link_to 'Управления', managements_path %></li>
-                    <li id="areas"><%= link_to 'Участки', areas_path %></li>
-                    <li id="subdivisions"><%= link_to 'Подразделения', subdivisions_path %></li>
-                    <li id="issuetypes"><%= link_to 'Виды нарушений', issue_types_path %></li>
-                    <li id="autoworkspaces"><%= link_to 'АРМ', auto_work_spaces_path %></li>
-                <% end %>
-                <% if @can_add_issue %>
-                    <li id="issues"><%= link_to 'Нарушения' %>
-                <% end %>
+            <% if @can_manage_org_structure %>
+                <li id="workspaces"><%= link_to 'Рабочие места', work_spaces_path %></li>
+                <li id="users"><%= link_to 'Пользователи', users_path %></li>
+                <li id="managements"><%= link_to 'Дирекции', managements_path %></li>
+                <li id="areas"><%= link_to 'Участки', areas_path %></li>
+                <li id="subdivisions"><%= link_to 'Подразделения', subdivisions_path %></li>
+                <li id="issuetypes"><%= link_to 'Виды нарушений', issue_types_path %></li>
+                <li id="autoworkspaces"><%= link_to 'АРМ', auto_work_spaces_path %></li>
+            <% end %>
+            <% if @can_add_issue %>
+                <li id="issues"><%= link_to 'Нарушения' %>
+            <% end %>
 
 
 
 
-                <li class="pull-right"><%= link_to 'Выйти', destroy_user_session_path, :method => :get %></li>
+            <li class="pull-right"><%= link_to 'Выйти', destroy_user_session_path, :method => :get %></li>
 
-                <li class="pull-right">
-                    <a style="background-color: #ffffff; color: #ffffff; border: 0; margin-top: 1px;">Здравствуйте, <%= @logged_user.full_name %></a>
-                </li>
+            <li class="pull-right">
+                <a style="background-color: #ffffff; color: #ffffff; border: 0; margin-top: 1px;">Здравствуйте, <%= @logged_user.full_name %></a>
+            </li>
 
-            </ul>
-        </div>
+        </ul>
+
     <% end %>
 
 
