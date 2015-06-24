@@ -1,28 +1,48 @@
+<style>
+
+
+    .row-centered {
+        text-align: center;
+    }
+
+    .col-centered {
+        display: inline-block;
+        float: none;
+        /* reset the text-align */
+        text-align: left;
+        /* inline-block space fix */
+        margin-right: -4px;
+    }
+</style>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <div class="col-lg-2">
-        <div class="form-group">
-            <%= f.label 'Логин', :class => 'control-label' %><br/>
-            <%= f.text_field :login, autofocus: true, :class => 'form-control input-lg' %>
+    <div class="container-fluid">
+        <div class="row row-centered">
+            <div class="col-lg-5 col-centered">
+                <div class="form-group">
+                    <%= f.label 'Логин', :class => 'control-label' %><br/>
+                    <%= f.text_field :login, autofocus: true, :class => 'form-control input-lg' %>
+                </div>
+            </div>
+        </div>
+        <div class="row row-centered">
+            <div class="col-lg-5 col-centered">
+                <div class="form-group">
+                    <%= f.label 'Пароль', :class => 'control-label' %><br/>
+                    <%= f.password_field :password, autocomplete: 'off', :class => 'form-control input-lg ' %>
+                </div>
+            </div>
         </div>
 
-        <div class="form-group">
-            <%= f.label 'Пароль', :class => 'control-label' %><br/>
-            <%= f.password_field :password, autocomplete: 'off', :class => 'form-control input-lg ' %>
+        <div class="row-centered row">
+            <div class="col-lg-5 col-centered">
+                <div class="form-group">
+                    <%= f.submit "Вход", {:class => 'btn-default btn col-lg-5'} %>
+
+                </div>
+            </div>
         </div>
 
-        <!--
-        <% if devise_mapping.rememberable? -%>-->
-            <!--<div class="field">-->
-            <!--<%= f.check_box :remember_me %>-->
-            <!--<%= f.label :remember_me %>-->
-            <!--</div>-->
-            <!--
-        <% end -%>-->
-
-        <div class="actions">
-            <%= f.submit "Вход", {:class => 'btn-default btn'} %>
-        </div>
     </div>
 <% end %>
-
+</div>
 <%= render "devise/shared/links" %>
