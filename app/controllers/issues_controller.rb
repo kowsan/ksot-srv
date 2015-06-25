@@ -18,12 +18,13 @@ class IssuesController < ApplicationController
     ws=AutoWorkSpace.find_by_uuid(cookies['app_id'])
     unless ws.nil?
       begin
-        @issue_types=ws.issue_types
+        @issue_types=ws.work_space.issue_types
       rescue
 
       end
     end
     @issue = Issue.new
+
   end
 
   # GET /issues/1/edit
@@ -34,10 +35,11 @@ class IssuesController < ApplicationController
   # POST /issues.json
   def create
     @issue = Issue.new(issue_params)
+    @issue.author =@logged_user
 
     respond_to do |format|
       if @issue.save
-        format.html { redirect_to @issue, notice: 'Issue was successfully created.' }
+        format.html { redirect_to issues_url, notice: 'Issue was successfully created.' }
         format.json { render :show, status: :created, location: @issue }
       else
         format.html { render :new }
@@ -51,7 +53,7 @@ class IssuesController < ApplicationController
   def update
     respond_to do |format|
       if @issue.update(issue_params)
-        format.html { redirect_to @issue, notice: 'Issue was successfully updated.' }
+        format.html { redirect_to issues_url, notice: 'Issue was successfully updated.' }
         format.json { render :show, status: :ok, location: @issue }
       else
         format.html { render :edit }
@@ -72,6 +74,12 @@ class IssuesController < ApplicationController
 
   private
   def validate_access
+
+    begin
+      @workspace=AutoWorkSpace.find_by_uuid(cookies['app_id']).work_space
+    rescue
+      @workspace=nil
+    end
     unless @can_add_issue
       respond_to do |format|
         format.any { render nothing: true, :status => :forbidden }
@@ -86,6 +94,6 @@ class IssuesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def issue_params
-    params.require(:issue).permit(:belongs_to, :belongs_to, :belongs_to, :close_date)
+    params.require(:issue).permit(:violator_id, :status_id, :issue_type_id, :close_date, :note_due)
   end
 end

@@ -44,13 +44,7 @@ class IssueTypesController < ApplicationController
   def update
     respond_to do |format|
       if @issue_type.update(issue_type_params)
-        format.html { redirect_to issue_types_path, notice: 'Issue type  def validate_access
-    unless @can_manage_org_structure
-      respond_to do |format|
-        format.any { render nothing: true, :status => :forbidden }
-      end
-    end
-  endwas successfully updated.' }
+        format.html { redirect_to issue_types_path, notice: '' }
         format.json { render :show, status: :ok, location: @issue_type }
       else
         format.html { render :edit }

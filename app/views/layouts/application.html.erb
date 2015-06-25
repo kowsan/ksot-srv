@@ -24,13 +24,13 @@
                 <li id="autoworkspaces"><%= link_to 'АРМ', auto_work_spaces_path %></li>
             <% end %>
             <% if @can_add_issue %>
-                <li id="issues"><%= link_to 'Нарушения' %>
+                <li id="issues"><%= link_to 'Нарушения', issues_path %>
             <% end %>
 
 
 
 
-            <li class="pull-right"><%= link_to 'Выйти', destroy_user_session_path, :method => :get %></li>
+            <li class="pull-right"><%= link_to 'Выйти', destroy_user_session_path, :method => :get, :class => 'btn btn-sm btn-danger' %></li>
 
             <li class="pull-right">
                 <a style="background-color: #ffffff; color: #ffffff; border: 0; margin-top: 1px;">Здравствуйте, <%= @logged_user.full_name %></a>

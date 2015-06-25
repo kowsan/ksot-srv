@@ -1,3 +1,6 @@
+<script>
+    $('#issues').addClass("active")
+</script>
 <%= form_for(@issue) do |f| %>
     <% if @issue.errors.any? %>
         <div id="error_explanation">
@@ -11,40 +14,81 @@
         </div>
     <% end %>
 
-    <div class="form-group">
-        <%= f.label 'ФИО лица, выявившего нарушение ' %><br>
-        <input class="form-control" type="text" placeholder="" disabled="" value="<%= @logged_user.full_name %>">
-    </div>
+    <% if @workspace!=@workspace %>
+        <div class="alert  alert-warning">
 
-    <div class="form-group">
-        <%= f.label 'ФИО нарушителя' %><br>
-        <%= f.collection_select(:violator_id, User.all, :id, :full_name, {}, {:class => ' form-control input'}) %>
-    </div>
-    <div class="form-group">
-        <%= f.label 'Статус нарушения' %> <br>
-        <%= f.collection_select(:status_id, Status.all, :id, :name, {}, {:class => ' form-control input'}) %>
-    </div>
+            <strong>Не получится создать нарушение с неопределенного рабочего места</strong>
 
-    <div class="form-group">
-        <%= f.label 'Выявленное нарушение' %> <br>
-        <% if @issue_types.nil? %>
-            <div class="alert  alert-warning">
+        </div>
 
-                <strong>Нет доступных видов нарушения для вашего рабочего места</strong>
+    <% else %>
 
+
+        <div class="form-group">
+            <%= f.label 'ФИО лица, выявившего нарушение ' %><br>
+            <input class="form-control" type="text" placeholder="" disabled="" value="<%= @logged_user.full_name %>">
+        </div>
+
+        <div class="form-group">
+            <%= f.label 'ФИО нарушителя' %><br>
+            <%= f.collection_select(:violator_id, User.all, :id, :full_name, {}, {:class => ' form-control input'}) %>
+        </div>
+        <div class="form-group">
+            <%= f.label 'Статус нарушения' %> <br>
+            <%= f.collection_select(:status_id, Status.all, :id, :name, {}, {:class => ' form-control input'}) %>
+        </div>
+
+        <div class="form-group">
+            <%= f.label 'Выявленное нарушение' %> <br>
+            <% if @issue_types.nil? %>
+                <div class="alert  alert-warning">
+
+                    <strong>Нет доступных видов нарушения для вашего рабочего места</strong>
+
+                </div>
+            <% else %>
+                <%= f.collection_select(:issue_type_id, @issue_types, :id, :name, {}, {:class => ' form-control input'}) %>
+
+            <% end %>
+
+        </div>
+
+        <div class="form-group">
+            <%= f.label 'Ответственный за устранение' %><br>
+            <%= f.collection_select(:assigned_id, User.all, :id, :full_name, {}, {:class => ' form-control input'}) %>
+        </div>
+
+
+        <div class="form-group">
+            <%= f.label 'Отметка о выполнении' %><br>
+            <%= f.text_field(:note_due, {:class => ' form-control input'}) %>
+        </div>
+        <div class="form-group">
+            <%= f.label 'Оперативные меры' %><br>
+            <%= f.text_field(:note_measures, {:class => ' form-control input'}) %>
+        </div>
+        <div class="form-group">
+            <%= f.label 'Дата выполнения' %><br>
+
+            <div id='datetimepicker2' class="input-group date">  <%= f.text_field(:due_date, {:class => ' form-control input date'}) %>
+                <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
             </div>
-        <% else %>
-            <%= f.collection_select(:issue_type_id, @issue_types, :id, :name, {}, {:class => ' form-control input'}) %>
+        </div>
 
-        <% end %>
-
-    </div>
-    <div class="form-group">
-        <%= f.submit({:class => 'btn btn-primary', :id => 'issue_add'}) %>
-    </div>
-    <script>
-        <% if @issue_types.nil? %>
-        $('#issue_add').hide()
-        <%end%>
-    </script>
+        <div class="form-group">
+            <%= f.submit({:class => 'btn btn-primary', :id => 'issue_add'}) %>
+        </div>
+        <script>
+            <% if @issue_types.nil? %>
+            $('#issue_add').hide()
+            <%end%>
+            $(function () {
+                $('#datetimepicker2').datetimepicker({
+                    locale: 'ru'
+                });
+            });
+        </script>
+    <% end %>
 <% end %>

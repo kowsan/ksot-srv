@@ -1,25 +1,25 @@
 <p id="notice"><%= notice %></p>
-
+<script>
+    $('#issues').addClass("active")
+</script>
 <h1>Listing Issues</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Belongs to</th>
-      <th>Belongs to</th>
-      <th>Belongs to</th>
-      <th>Close date</th>
+<table class="table table-striped table-hovee">
+
+      <th>Создал</th>
+      <th>Статус</th>
+      <th>Нарушитель</th>
+      <th>Создано</th>
       <th colspan="3"></th>
-    </tr>
-  </thead>
+
 
   <tbody>
     <% @issues.each do |issue| %>
       <tr>
-        <td><%= issue.belongs_to %></td>
-        <td><%= issue.belongs_to %></td>
-        <td><%= issue.belongs_to %></td>
-        <td><%= issue.close_date %></td>
+        <td><%= issue.author.full_name %></td>
+        <td><%= issue.status.name %></td>
+        <td><%= issue.violator.full_name %></td>
+        <td><%= issue.created_at.to_s %></td>
         <td><%= link_to 'Show', issue %></td>
         <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
         <td><%= link_to 'Destroy', issue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
