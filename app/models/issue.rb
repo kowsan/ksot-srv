@@ -7,7 +7,7 @@ class Issue < ActiveRecord::Base
   belongs_to :violator,:class_name => 'User'
   belongs_to :modifier,:class_name => 'User'
 
-
+  validates_presence_of :status_id,:violator_id,:assigned_id
 
 
 end

@@ -45,7 +45,7 @@ class AutoWorkSpacesController < ApplicationController
   def update
     respond_to do |format|
       if @auto_work_space.update(auto_work_space_params)
-        format.html { redirect_to @auto_work_space, notice: 'Auto work space was successfully updated.' }
+        format.html { redirect_to auto_work_spaces_path, notice: 'АРМ был обновлен' }
         format.json { render :show, status: :ok, location: @auto_work_space }
       else
         format.html { render :edit }

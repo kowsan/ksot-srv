@@ -1,5 +1,6 @@
 <h1>Новое нарушение</h1>
-
+<% @issue.due_date=Time.current+2.days %>
+<% @issue.created_at=Time.current %>
 <div class="col-lg-5">
     <%= render 'form' %>
 

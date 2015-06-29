@@ -1,11 +1,11 @@
 class IssuesController < ApplicationController
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
-  before_action :check_permission, :validate_access
+  before_action :check_permission, :validate_access_ws
 
   # GET /issues
   # GET /issues.json
   def index
-    @issues = Issue.all
+    @issues = Issue.includes(:issue_type,:status,:author,:violator,:assigned,:work_space).all
   end
 
   # GET /issues/1
@@ -15,20 +15,19 @@ class IssuesController < ApplicationController
 
   # GET /issues/new
   def new
-    ws=AutoWorkSpace.find_by_uuid(cookies['app_id'])
-    unless ws.nil?
-      begin
-        @issue_types=ws.work_space.issue_types
-      rescue
-
-      end
-    end
+    get_ws
     @issue = Issue.new
 
   end
 
   # GET /issues/1/edit
   def edit
+    get_ws
+    unless @can_edit_issue
+      respond_to do |format|
+        format.any { render nothing: true, :status => :forbidden }
+      end
+    end
   end
 
   # POST /issues
@@ -39,7 +38,7 @@ class IssuesController < ApplicationController
 
     respond_to do |format|
       if @issue.save
-        format.html { redirect_to issues_url, notice: 'Issue was successfully created.' }
+        format.html { redirect_to issues_url, notice: 'Нарушение успешно добавлено, №'+@issue.id.to_s }
         format.json { render :show, status: :created, location: @issue }
       else
         format.html { render :new }
@@ -53,7 +52,7 @@ class IssuesController < ApplicationController
   def update
     respond_to do |format|
       if @issue.update(issue_params)
-        format.html { redirect_to issues_url, notice: 'Issue was successfully updated.' }
+        format.html { redirect_to issues_url, notice: 'Нарушение №'+@issue.id.to_s+' обновлено.' }
         format.json { render :show, status: :ok, location: @issue }
       else
         format.html { render :edit }
@@ -67,19 +66,15 @@ class IssuesController < ApplicationController
   def destroy
     @issue.destroy
     respond_to do |format|
-      format.html { redirect_to issues_url, notice: 'Issue was successfully destroyed.' }
+      format.html { redirect_to issues_url, notice: 'Нарушение №'+@issue.id.to_s+' удалено.' }
       format.json { head :no_content }
     end
   end
 
   private
-  def validate_access
+  def validate_access_ws
 
-    begin
-      @workspace=AutoWorkSpace.find_by_uuid(cookies['app_id']).work_space
-    rescue
-      @workspace=nil
-    end
+
     unless @can_add_issue
       respond_to do |format|
         format.any { render nothing: true, :status => :forbidden }
@@ -89,11 +84,23 @@ class IssuesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_issue
+
     @issue = Issue.find(params[:id])
+  end
+
+  def get_ws
+    ws=AutoWorkSpace.find_by_uuid(session[:app_id])
+    unless ws.nil?
+      begin
+        @issue_types=ws.work_space.issue_types
+      rescue
+        @issue_types=nil
+      end
+    end
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def issue_params
-    params.require(:issue).permit(:violator_id, :status_id, :issue_type_id, :close_date, :note_due)
+    params.require(:issue).permit(:violator_id, :status_id, :issue_type_id,:assigned_id, :close_date, :note_due,:due_date,:note_measures)
   end
 end

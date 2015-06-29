@@ -13,19 +13,43 @@
 
         <ul class="nav nav-tabs" id="myTab">
 
-
-            <% if @can_manage_org_structure %>
-                <li id="workspaces"><%= link_to 'Рабочие места', work_spaces_path %></li>
-                <li id="users"><%= link_to 'Пользователи', users_path %></li>
-                <li id="managements"><%= link_to 'Дирекции', managements_path %></li>
-                <li id="areas"><%= link_to 'Участки', areas_path %></li>
-                <li id="subdivisions"><%= link_to 'Подразделения', subdivisions_path %></li>
-                <li id="issuetypes"><%= link_to 'Виды нарушений', issue_types_path %></li>
-                <li id="autoworkspaces"><%= link_to 'АРМ', auto_work_spaces_path %></li>
-            <% end %>
             <% if @can_add_issue %>
                 <li id="issues"><%= link_to 'Нарушения', issues_path %>
             <% end %>
+            <% if @can_manage_org_structure %>
+                <li id="users"><%= link_to 'Сотрудники', users_path %></li>
+                <li id="issuetypes"><%= link_to 'Виды нарушений', issue_types_path %></li>
+                <li id="autoworkspaces"><%= link_to 'РМ и АРМ', auto_work_spaces_path,:id=>'arm' %></li>
+                <li id="workspaces"><%= link_to 'Рабочие места', work_spaces_path %></li>
+                <li id="areas"><%= link_to 'Участки', areas_path %></li>
+                <li id="subdivisions"><%= link_to 'Подразделения', subdivisions_path %></li>
+                <li id="managements"><%= link_to 'Дирекции', managements_path %></li>
+
+
+
+
+
+                <script type="text/javascript">
+                    reloadData()
+                    function reloadData() {
+
+                        $.getJSON('/auto_work_spaces.json').done(function (json) {
+                            var count=json.length
+                            console.log("unassigned: count", json.length)
+                            if (count>0)
+                            {
+                             $('#arm').html('РМ и АРМ<span class="badge">'+count.toString()+'</span>')
+                            } else {
+                                $('#arm').html('РМ и АРМ')
+                            }
+                        })
+
+                    }
+                    setInterval(reloadData,30000)
+
+                </script>
+            <% end %>
+
 
 
 

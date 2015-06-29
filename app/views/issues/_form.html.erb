@@ -14,21 +14,19 @@
         </div>
     <% end %>
 
-    <% if @workspace!=@workspace %>
-        <div class="alert  alert-warning">
 
-            <strong>Не получится создать нарушение с неопределенного рабочего места</strong>
-
-        </div>
-
-    <% else %>
 
 
         <div class="form-group">
             <%= f.label 'ФИО лица, выявившего нарушение ' %><br>
             <input class="form-control" type="text" placeholder="" disabled="" value="<%= @logged_user.full_name %>">
         </div>
+        <div class="form-group">
+            <%= f.label 'Дата проверки ' %><br>
 
+               <input type="text" value="<%=@issue.created_at.strftime("%d.%m.%Y %H:%M")%>" class ='form-control' readonly>
+
+        </div>
         <div class="form-group">
             <%= f.label 'ФИО нарушителя' %><br>
             <%= f.collection_select(:violator_id, User.all, :id, :full_name, {}, {:class => ' form-control input'}) %>
@@ -69,11 +67,9 @@
         </div>
         <div class="form-group">
             <%= f.label 'Дата выполнения' %><br>
+            <div class="input-group date">
 
-            <div id='datetimepicker2' class="input-group date">  <%= f.text_field(:due_date, {:class => ' form-control input date'}) %>
-                <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
+                <%= f.text_field(:due_date, :value => @issue.due_date.strftime("%d.%m.%Y %H:%M") || '', :class => ' form-control input date') %>
             </div>
         </div>
 
@@ -85,10 +81,10 @@
             $('#issue_add').hide()
             <%end%>
             $(function () {
-                $('#datetimepicker2').datetimepicker({
+                $('.input-group .date').datetimepicker({
                     locale: 'ru'
                 });
             });
         </script>
-    <% end %>
+
 <% end %>

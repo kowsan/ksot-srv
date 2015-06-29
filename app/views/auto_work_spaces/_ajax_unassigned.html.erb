@@ -1,0 +1,57 @@
+<table class="table table-striped table-hovee">
+    <th>ID</th>
+    <th>UUID</th>
+    <th>имя ПК</th>
+    <th>ОС</th>
+    <th>Пользователь ОС</th>
+    <th>Действия</th>
+
+
+    <tbody id="it">
+
+    <!-- get json with issues -->
+    <script type="text/javascript">
+        function reloadData() {
+
+            $.getJSON('/auto_work_spaces.json').done(function (json) {
+                $("#it").html("");
+
+                console.log("unassigned: count",json.length)
+                $.each(json, function (k, v) {
+                    var rowcontent = ''
+
+                    rowcontent += '<td>' + v.id + '</td>'
+                    rowcontent += '<td>' + v.uuid + '</td>'
+                    rowcontent += '<td>' + v.computername + '</td>'
+                    rowcontent += '<td>' + v.os + '</td>'
+                    rowcontent += '<td>' + v.os_user + '</td>'
+
+                    rowcontent += '<td><a href="' + v.edit_url + '" class="btn btn-primary btn-sm" >Редактировать</a>'
+
+                    if (v.delete_url != undefined) {
+
+                        rowcontent += '&nbsp;<a data-confirm="Удалить?" rel="nofollow" data-method="delete" href="' + v.delete_url + '" class="btn btn-danger btn-sm" >Удалить</a>'
+                    }
+                    else {
+
+                        rowcontent += '</td>'
+                    }
+                    // $("#it tbody").append("<tr><td>" + json.id + "</td></tr>")
+                    $("#it").append("<tr>" + rowcontent + "</tr>")
+
+                })
+
+            }).fail(function () {
+
+                console.log('failed to get isssues');
+            })
+        }
+    </script>
+
+
+    </tbody>
+</table>
+<script type="text/javascript">
+    reloadData();
+   setInterval(reloadData, 30000)
+</script>

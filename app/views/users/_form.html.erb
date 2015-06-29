@@ -38,11 +38,15 @@
         </div>
         <div class="form-group">
             <%= f.label 'Роль' %>
-            <%= f.collection_select(:staff_role_id, StaffRole.all, :id, :name, {}, {:class => ' form-control input-lg'}) %>
+            <%= f.collection_select(:staff_role_id, StaffRole.all, :id, :name, {}, {:class => ' form-control '}) %>
         </div>
         <div class="form-group">
             <%= f.label 'Подразделение' %>
-            <%= f.collection_select(:subdivision_id, Subdivision.all, :id, :name, {}, {:class => ' form-control input-lg'}) %>
+            <%= f.collection_select(:subdivision_id, Subdivision.all, :id, :name, {}, {:class => ' form-control '}) %>
+        </div>
+        <div class="form-group">
+            <%= f.label 'Должность' %>
+            <%= f.text_field(:position, {:class => ' form-control '}) %>
         </div>
 
         <div class="actions">

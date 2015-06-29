@@ -87,7 +87,7 @@ class UsersController < ApplicationController
     if params[:user][:password].to_s==''
       params[:user].reject! { |x| x=='password' }
     end
-    params[:user].permit(:login, :password, :first_name, :last_name, :middle_name, :staff_role_id, :subdivision_id, :is_active)
+    params[:user].permit(:login, :password, :first_name, :last_name, :middle_name, :staff_role_id, :subdivision_id, :is_active,:position)
   end
 
 end
