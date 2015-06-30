@@ -7,17 +7,17 @@
     <th>Действия</th>
 
 
-    <tbody id="it">
+    <tbody id="assignedit">
 
     <!-- get json with issues -->
     <script type="text/javascript">
         function reloadData() {
 
             $.getJSON('/auto_work_spaces.json').done(function (json) {
-                $("#it").html("");
+                $("#assignedit").html("");
 
-                console.log("unassigned: count",json.unassigned.length)
-                $.each(json.unassigned, function (k, v) {
+                console.log("unassigned: count",json.assigned.length)
+                $.each(json.assigned, function (k, v) {
                     var rowcontent = ''
                     rowcontent += '<td>' + v.id + '</td>'
                     rowcontent += '<td>' + v.uuid + '</td>'
@@ -36,7 +36,7 @@
                         rowcontent += '</td>'
                     }
                     // $("#it tbody").append("<tr><td>" + json.id + "</td></tr>")
-                    $("#it").append("<tr>" + rowcontent + "</tr>")
+                    $("#assignedit").append("<tr>" + rowcontent + "</tr>")
 
                 })
 
@@ -52,5 +52,5 @@
 </table>
 <script type="text/javascript">
     reloadData();
-   setInterval(reloadData, 30000)
+    setInterval(reloadData, 30000)
 </script>

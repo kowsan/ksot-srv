@@ -72,6 +72,6 @@ class AutoWorkSpacesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def auto_work_space_params
-    params[:auto_work_space].permit(:uuid,:is_used,:short_name,:os,:os_user,:location,:work_space_id)
+    params[:auto_work_space].permit(:uuid,:is_used,:short_name,:os,:os_user,:location,:work_space_id,:deny_close,:allow_anonymous)
   end
 end

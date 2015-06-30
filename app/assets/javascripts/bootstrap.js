@@ -758,6 +758,7 @@ if (typeof jQuery === 'undefined') {
   var Dropdown = function (element) {
     $(element).on('click.bs.dropdown', this.toggle)
   }
+    console.log("dropdown")
 
   Dropdown.VERSION = '3.3.4'
 

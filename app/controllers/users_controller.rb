@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.includes(:staff_role).all
+    @users = User.includes(:staff_role).page params[:page]
   end
 
   # GET /users/1

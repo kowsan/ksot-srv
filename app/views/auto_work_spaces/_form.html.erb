@@ -26,9 +26,20 @@
             <%= f.check_box(:is_used, {:class => 'checkbox', :placeholder => ''}) %>
         </div>
         <div class="form-group">
+            <%= f.label 'Работа в анонимном режиме' %>
+            <%= f.check_box(:allow_anonymous, {:class => 'checkbox', :placeholder => ''}) %>
+        </div>
+        <div class="form-group">
+            <%= f.label 'Запрет выхода из приложения' %>
+            <%= f.check_box(:deny_close, {:class => 'checkbox', :placeholder => ''}) %>
+        </div>
+        <div class="form-group">
             <%= f.label 'Короткое имя' %>
             <%= f.text_field(:short_name, {:class => 'form-control', :placeholder => ''}) %>
         </div>
+
+
+
         <div class="form-group">
             <%= f.label 'ОС' %>
             <%= f.text_field(:os, {:class => 'form-control', :readonly => true, :placeholder => ''}) %>

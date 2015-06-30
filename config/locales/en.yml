@@ -24,3 +24,9 @@ en:
     submit:
       create: "Создать"
       update: "Обновить"
+ views:
+   pagination:
+     next: "Следующая"
+     first: "Первая"
+     previous: "Предыдущая"
+     last: "Последняя"

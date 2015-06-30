@@ -4,8 +4,39 @@ class IssuesController < ApplicationController
 
   # GET /issues
   # GET /issues.json
+
+
+  def monthly
+    out=Array.new
+    date=params[:date].to_date || Date.current
+    (date.at_beginning_of_month.yday..date.at_end_of_month.yday).each do |d|
+
+
+      cd=(date.at_beginning_of_year+d-1).to_date
+      ## puts d,cd
+      iss= Issue.includes(:critical_type).where('date(issues.created_at) =?', cd).maximum(:weight) || 0
+
+
+      if iss==0
+        clr='white'
+      else
+       clr=CriticalType.where(:weight => iss).first.color.to_s
+      end
+      h=Hash.new
+      h["day_#{cd.day}"]=clr
+      out << h
+
+    end
+
+    puts out
+    respond_to do |format|
+      format.json{ render :json => out.to_json}
+    end
+
+  end
+
   def index
-    @issues = Issue.includes(:issue_type,:status,:author,:violator,:assigned,:work_space).all
+    @issues = Issue.includes(:issue_type, :status, :author, :violator, :assigned, :work_space).page params[:page]
   end
 
   # GET /issues/1
@@ -89,7 +120,7 @@ class IssuesController < ApplicationController
   end
 
   def get_ws
-    ws=AutoWorkSpace.find_by_uuid(session[:app_id])
+    ws=AutoWorkSpace.find_by_uuid(cookies[:app_id])
     unless ws.nil?
       begin
         @issue_types=ws.work_space.issue_types
@@ -101,6 +132,6 @@ class IssuesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def issue_params
-    params.require(:issue).permit(:violator_id, :status_id, :issue_type_id,:assigned_id, :close_date, :note_due,:due_date,:note_measures)
+    params.require(:issue).permit(:violator_id, :status_id, :issue_type_id, :assigned_id, :close_date, :note_due, :due_date, :note_measures)
   end
 end

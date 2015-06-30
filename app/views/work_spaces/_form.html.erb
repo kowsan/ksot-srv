@@ -12,28 +12,30 @@
     <% end %>
 
 
-
+    <div class="form-group">
+        <%= f.label 'Код рабочего места' %>
+        <%= f.text_field(:code, {:class => 'form-control', :placeholder => ''}) %>
+    </div>
         <div class="form-group">
             <%= f.label 'Наименование' %>
             <%= f.text_field(:name, {:class => 'form-control', :placeholder => ''}) %>
         </div>
         <div class="form-group">
-            <%= f.label 'Короткое имя' %>
+            <%= f.label 'Короткое название' %>
             <%= f.text_field(:short_name, {:class => 'form-control', :placeholder => ''}) %>
         </div>
+
+    <div class="form-group">
+        <%= f.label 'Подразделение' %>
+        <%= f.collection_select(:subdivision_id, Subdivision.all, :id, :name, {}, {:class => ' form-control input-large'}) %>
+    </div>
+
+
         <div class="form-group">
-            <%= f.label 'Код' %>
-            <%= f.text_field(:code, {:class => 'form-control', :placeholder => ''}) %>
-        </div>
-        <div class="form-group">
-            <%= f.label 'Активно' %>
+            <%= f.label 'Используемое РМ' %>
             <%= f.check_box(:is_used, {:class => 'checkbox', :placeholder => ''}) %>
         </div>
 
-        <div class="form-group">
-            <%= f.label 'Подразделение' %>
-            <%= f.collection_select(:subdivision_id, Subdivision.all, :id, :name, {}, {:class => ' form-control input-large'}) %>
-        </div>
         <div class="form-group">
             <%= f.label 'Связанные виды нарушений' %>
             <%= render :partial => 'layouts/switch_list', :locals => {:assigned => @assigned, :other => @other, :model_name => 'work_space[issue_type]', :title_assigned => 'связанные', :title_other => 'Остальные'} %>

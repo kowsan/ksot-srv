@@ -9,7 +9,7 @@ class WorkController < ApplicationController
       check_permission
 
     else
-      @allow_anon=AutoWorkSpace.can_anonymous?(session[:app_id])
+      @allow_anon=AutoWorkSpace.can_anonymous?(cookies[:app_id])
     end
 
   end
@@ -27,7 +27,7 @@ class WorkController < ApplicationController
 
     x= a.save!
     if x
-      session[:app_id]=app_id
+      cookies[:app_id]=app_id
       respond_to do |format|
         format.json { render :json => a.to_json, :status => :created }
       end

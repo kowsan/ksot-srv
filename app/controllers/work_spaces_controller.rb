@@ -32,7 +32,7 @@ class WorkSpacesController < ApplicationController
     x= @work_space.save!
     it=params[:work_space][:issue_type]
     @work_space.issue_types.clear
-    @work_space.issue_types << IssueType.find(it)
+    @work_space.issue_types << IssueType.find(it)  unless it.nil?
     respond_to do |format|
       if x
         format.html { redirect_to @work_space, notice: 'Work space was successfully created.' }
@@ -49,7 +49,7 @@ class WorkSpacesController < ApplicationController
   def update
     it=params[:work_space][:issue_type]
     @work_space.issue_types.clear
-    @work_space.issue_types << IssueType.find(it)
+    @work_space.issue_types << IssueType.find(it)  unless it.nil?
     respond_to do |format|
       if @work_space.update(work_space_params)
         format.html { redirect_to work_spaces_path, notice: 'Work space was successfully updated.' }
