@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150630140215) do
+ActiveRecord::Schema.define(version: 20150701184841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20150630140215) do
     t.string   "short_name"
     t.string   "os"
     t.string   "os_user"
-    t.text     "comment"
+    t.text     "comment",         default: ""
     t.string   "location"
     t.boolean  "is_used",         default: true
     t.boolean  "allow_anonymous", default: false

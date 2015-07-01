@@ -5,7 +5,7 @@ class AutoWorkSpacesController < ApplicationController
   # GET /auto_work_spaces
   # GET /auto_work_spaces.json
   def index
-    @auto_work_spaces = AutoWorkSpace.where('work_space_id is not null' )
+    @auto_work_spaces = AutoWorkSpace.where('work_space_id is not null')
     @unassigned = AutoWorkSpace.unassigned
 
   end
@@ -72,6 +72,6 @@ class AutoWorkSpacesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def auto_work_space_params
-    params[:auto_work_space].permit(:uuid,:is_used,:short_name,:os,:os_user,:location,:work_space_id,:deny_close,:allow_anonymous)
+    params[:auto_work_space].permit(:uuid, :is_used, :short_name, :os, :os_user, :location, :work_space_id, :deny_close, :allow_anonymous, :comment)
   end
 end

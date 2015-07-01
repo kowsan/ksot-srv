@@ -37,12 +37,12 @@
         </div>
 
         <div class="form-group">
-            <%= f.label 'Связанные виды нарушений' %>
-            <%= render :partial => 'layouts/switch_list', :locals => {:assigned => @assigned, :other => @other, :model_name => 'work_space[issue_type]', :title_assigned => 'связанные', :title_other => 'Остальные'} %>
+            <%= f.label ' Виды нарушений' %>
+            <%= render :partial => 'layouts/switch_list', :locals => {:assigned => @assigned, :other => @other, :model_name => 'work_space[issue_type]', :title_assigned => 'связанные', :title_other => 'остальные'} %>
         </div>
 
         <div class="actions">
-            <%= f.submit({:onclick => "$('#selected option').attr('selected', 'selected');",:class => 'btn btn-primary btn-lg'}) %>
+            <%= f.submit({:onclick => "$('#selected option').attr('selected', 'selected');",:class => 'btn btn-primary'}) %>
         </div>
 
 <% end %>

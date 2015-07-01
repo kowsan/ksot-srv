@@ -89,6 +89,14 @@
         <div class="col-lg-2 col-centered" style="width: 75px;height: 75px;border: 1px solid black; background-color: white">&nbsp;</div>
     </div>
 
+    <% if current_user.nil? %>
+        <div class="alert  alert-warning row row-centered">
+
+            <h4>Внимание!</h4>
+
+            <p>Необходимо ввести нарушения! Нажмите "Авторизация" для продолжения.</p>
+        </div>
+    <% end %>
 </div>
 
 

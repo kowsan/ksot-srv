@@ -4,6 +4,9 @@
     <th>имя ПК</th>
     <th>ОС</th>
     <th>Пользователь ОС</th>
+    <th>Короткое имя</th>
+    <th>Комментарий</th>
+    <th>Расположение</th>
     <th>Действия</th>
 
 
@@ -24,7 +27,9 @@
                     rowcontent += '<td>' + v.computername + '</td>'
                     rowcontent += '<td>' + v.os + '</td>'
                     rowcontent += '<td>' + v.os_user + '</td>'
-
+                    rowcontent += '<td>' + v.short_name + '</td>'
+                    rowcontent += '<td>' + v.comment + '</td>'
+                    rowcontent += '<td>' + v.location + '</td>'
                     rowcontent += '<td><a href="' + v.edit_url + '" class="btn btn-primary btn-sm" >Редактировать</a>'
 
                     if (v.delete_url != undefined) {

@@ -10,6 +10,7 @@
     <th>Короткое имя</th>
     <th>Подразделение</th>
     <th>Активно</th>
+    <th>Виды нарушения</th>
     <th>Действия</th>
     <% @work_spaces.each do |work_space| %>
         <tr>
@@ -19,9 +20,16 @@
             <td><%= work_space.subdivision.name %></td>
             <td>
                 <% if work_space.is_used? %>
-                    <span class="icon-ok btn"></span>
+                    <span class="glyphicon glyphicon-ok"></span>
                 <% else %>
-                    <span class="icon-off"></span>
+                    <span class="glyphicon glyphicon-off"></span>
+                <% end %>
+            </td>
+
+
+            <td>
+                <% work_space.issue_types.each do |i| %>
+                  <%= i.name %><br>
                 <% end %>
             </td>
             <td>
