@@ -18,7 +18,7 @@ class IssuesController < ApplicationController
 
 
       if iss==0
-        clr='lightgray'
+        clr='#97D077'
       else
        clr=CriticalType.where(:weight => iss).first.color.to_s
       end

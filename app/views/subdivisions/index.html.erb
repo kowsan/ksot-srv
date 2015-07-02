@@ -17,8 +17,8 @@
             <td><%= subdivision.name %></td>
             <td><%= subdivision.short_name %></td>
             <td><%= subdivision.area.name %></td>
-            <td><%= link_to 'Редактировать', edit_subdivision_path(subdivision), :class => 'btn btn-info' %>
-                <%= link_to 'Удалить', subdivision, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger' %></td>
+            <td><%= link_to 'Редактировать', edit_subdivision_path(subdivision), :class => 'btn btn-info btn-sm' %>
+                <%= link_to 'Удалить', subdivision, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger btn-sm' %></td>
         </tr>
     <% end %>
 

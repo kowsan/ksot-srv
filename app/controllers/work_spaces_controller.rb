@@ -35,7 +35,7 @@ class WorkSpacesController < ApplicationController
     @work_space.issue_types << IssueType.find(it)  unless it.nil?
     respond_to do |format|
       if x
-        format.html { redirect_to @work_space, notice: 'Work space was successfully created.' }
+        format.html { redirect_to work_spaces_path, notice: 'Рабочее место создано.' }
         format.json { render :show, status: :created, location: @work_space }
       else
         format.html { render :new }
@@ -52,7 +52,7 @@ class WorkSpacesController < ApplicationController
     @work_space.issue_types << IssueType.find(it)  unless it.nil?
     respond_to do |format|
       if @work_space.update(work_space_params)
-        format.html { redirect_to work_spaces_path, notice: 'Work space was successfully updated.' }
+        format.html { redirect_to work_spaces_path, notice: 'Рабочее место обновлено.' }
         format.json { render :show, status: :ok, location: @work_space }
       else
         format.html { render :edit }

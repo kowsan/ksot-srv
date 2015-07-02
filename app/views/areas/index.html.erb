@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Список участков</h1>
+<h4 style="color: orange">Список участков (<%= @areas.count %>)</h4>
 
 <%= link_to 'Новый участок', new_area_path,:class => 'btn btn-success btn-sm' %>
 <br>
@@ -9,7 +9,7 @@
     <th>Наименование</th>
     <th>Короткое имя</th>
     <th>Управление</th>
-    <th colspan="2">Действия</th>
+    <th colspan="2"  >Действия</th>
 
     <tbody>
     <% @areas.each do |area| %>
@@ -18,8 +18,8 @@
             <td><%= area.short_name %></td>
             <td><%= area.management.name %></td>
 
-            <td><%= link_to 'Редактировать', edit_area_path(area), :class => 'btn btn-info' %>
-                <%= link_to 'Удалить', area, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger' %></td>
+            <td><%= link_to '', edit_area_path(area), :class => 'btn glyphicon glyphicon-edit btn-primary  btn-sm' %>
+                <%= link_to '', area, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn  glyphicon btn-danger glyphicon-remove btn-sm ' %></td>
         </tr>
     <% end %>
     </tbody>

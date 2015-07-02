@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-    <div class="container-fluid">
+    <div class="container-fluid ">
 
         <div class="form-group">
             <%= f.label 'Имя' %>
@@ -21,11 +21,18 @@
             <%= f.label 'Короткое имя' %>
             <%= f.text_field(:short_name, {:class => 'form-control', :placeholder => 'краткое наименование'}) %>
         </div>
+        <div class="form-group">
+            <%= f.label 'Дирекция' %>
+            <%= f.collection_select(:management_id,Management.all,:id,:name,{}, :class => 'form-control input', :placeholder => 'краткое наименование') %>
+        </div>
+
+
         <div class="actions">
-            <%= f.submit({:class => 'btn btn-primary'}) %>
+            <%= f.submit({:class => 'btn btn-primary btn-sm'}) %>
         </div>
 
     </div>
+
 <% end %>
 <script type="text/javascript">
     $('#areas').addClass('active');

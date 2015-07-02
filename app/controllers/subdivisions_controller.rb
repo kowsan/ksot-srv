@@ -29,7 +29,7 @@ class SubdivisionsController < ApplicationController
 
     respond_to do |format|
       if @subdivision.save
-        format.html { redirect_to @subdivision, notice: 'Подразделение создано успешно.' }
+        format.html { redirect_to subdivisions_path, notice: 'Подразделение создано успешно.' }
         format.json { render :show, status: :created, location: @subdivision }
       else
         format.html { render :new }
