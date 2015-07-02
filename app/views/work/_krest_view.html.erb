@@ -17,7 +17,31 @@
         margin-right: -4px;
     }
 </style>
+
+<script>
+    var day = 0
+    $(function () {
+        $('.input-group .date').datetimepicker({
+            locale: 'ru',
+            format: 'MM.YYYY'
+        });
+    });
+    function getCalendarData() {
+        $.getJSON("/issues/monthly.json", {date: $('#month').val()}).done(function (json) {
+            console.log(json.length)
+            day = json.length
+
+        })
+    }
+</script>
+<br>
 <div class="container">
+    <input type="hidden" id="daycount">
+
+    <div class="input-group date ">
+        <input type="text" class="form-control input date" value="" id="month">
+        <button type="submit" onclick="getCalendarData();return false;">Получить данные</button>
+    </div>
     <div class="row row-centered">
         <div id="d_1" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: green">1
 
@@ -57,14 +81,12 @@
         <div id="d_26" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: darkcyan">26</div>
         <div id="d_27" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: yellowgreen">27</div>
     </div>
-    <div class="row row-centered">
-        <div id="d_28" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: red">
-            <% if day >= 28 %>
-                <%= '28' %>
-            <% else %>
-                <%= '&nbsp;' %>
-            <% end %>
-        </div>
+    <div class="row row-centered" id="footer1">
+        <div id="d_28" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: red">28</div>
+
+
+
+
         <div id="d_29" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: navajowhite">
             <% if day >= 29 %>
                 <%= '29' %>
@@ -78,7 +100,7 @@
                 <%= '&nbsp;' %>
             <% end %></div>
     </div>
-    <div class="row row-centered">
+    <div class="row row-centered" id="footer2">
         <div id="d_31" class="col-lg-2 col-centered" style="width: 75px;height: 75px;border: 1px solid black; background-color: magenta">
             <% if day >= 31 %>
                 <%= '31' %>
@@ -88,6 +110,7 @@
         <div class="col-lg-2 col-centered" style="width: 75px;height: 75px;border: 1px solid black; background-color: white">&nbsp;</div>
         <div class="col-lg-2 col-centered" style="width: 75px;height: 75px;border: 1px solid black; background-color: white">&nbsp;</div>
     </div>
+
 
     <% if current_user.nil? %>
         <div class="alert  alert-warning row row-centered">

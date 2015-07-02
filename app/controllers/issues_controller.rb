@@ -8,7 +8,7 @@ class IssuesController < ApplicationController
 
   def monthly
     out=Array.new
-    date=params[:date].to_date || Date.current
+    date=Date.strptime(params[:date].to_s,"%m.%Y") || Date.current
     (date.at_beginning_of_month.yday..date.at_end_of_month.yday).each do |d|
 
 
