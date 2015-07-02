@@ -19,6 +19,7 @@ class WorkController < ApplicationController
   end
 
   def app_login
+
     app_id=app_params[:app_id] || ''
     name=app_params[:name] || ''
     os = app_params[:os] || ''
@@ -26,8 +27,15 @@ class WorkController < ApplicationController
     a = AutoWorkSpace.where(:uuid => app_id).first_or_create(:computername => name, :os => os, :os_user => osuser)
 
     x= a.save!
+
     if x
       cookies[:app_id]=app_id
+      if current_user
+        check_permission
+        a[:deny_close]=false if @can_shutdown_app
+      end
+
+
       respond_to do |format|
         format.json { render :json => a.to_json, :status => :created }
       end

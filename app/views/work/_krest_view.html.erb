@@ -1,6 +1,3 @@
-<% @date =Date.today
-   day = @date.end_of_month.day
-%>
 <style>
 
 
@@ -19,96 +16,115 @@
 </style>
 
 <script>
-    var day = 0
-    $(function () {
+
+
+    function getCalendarData() {
+        if ($('#month').val().toString().length != 7) {
+
+            return false;
+        }
+        $.each($("div[id^='day_']"), function () {
+            $(this).html("&nbsp;")
+            $(this).css("background-color", "lightgray")
+        });
+
+
+        $.ajax({
+            url: "/issues/monthly.json",
+            data: {date: $('#month').val()},
+            cache: true,
+             type: "GET",
+            dataType: "json",
+            statusCode: {
+                304: function () {
+                    console.log("data cached not rewrite");
+                },
+                200: function (json,status,xhr) {
+                    console.log('Data not cached',status,xhr)
+                    $("#data").val(json.length)
+
+                    $.each(json, function (k, v) {
+                        var day = (k + 1).toString()
+                        $("#day_" + day).css("background-color", v.color)
+                        $('#day_' + day).html(day)
+
+                    })
+
+
+                }
+            }
+        }).done(function (json) {
+
+
+        })
+    }
+    $(document).ready(function () {
         $('.input-group .date').datetimepicker({
             locale: 'ru',
             format: 'MM.YYYY'
         });
+        setInterval(getCalendarData, 60000)
+        getCalendarData()
     });
-    function getCalendarData() {
-        $.getJSON("/issues/monthly.json", {date: $('#month').val()}).done(function (json) {
-            console.log(json.length)
-            day = json.length
 
-        })
-    }
 </script>
 <br>
 <div class="container">
-    <input type="hidden" id="daycount">
+
 
     <div class="input-group date ">
-        <input type="text" class="form-control input date" value="" id="month">
-        <button type="submit" onclick="getCalendarData();return false;">Получить данные</button>
+
+        <input type="text" class="form-control input date" value="<%= Date.current.strftime("%m.%Y") %>" id="month">
+        <button type="submit"  class="btn btn-success" onclick="getCalendarData();return false;">Получить данные</button>
     </div>
     <div class="row row-centered">
-        <div id="d_1" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: green">1
-
-        </div>
-        <div id="d_2" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: green">2</div>
-        <div id="d_3" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: blue">3</div>
+        <div id="day_1" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">1</div>
+        <div id="day_2" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">2</div>
+        <div id="day_3" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">3</div>
     </div>
     <div class="row row-centered">
-        <div id="d_4" class="col-lg-2 col-centered" style="width: 75px;height: 75px; background-image: url(<%= image_path('krest.gif') %>); background-size: cover; border: 1px solid black; background-color: red;">4</div>
-        <div id="d_5" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: orange">5</div>
-        <div id="d_6" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: blue">6</div>
+        <div id="day_4" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black; background-color: white;">4</div>
+        <div id="day_5" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">5</div>
+        <div id="day_6" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">6</div>
     </div>
     <div class="row row-centered">
-        <div id="d_7" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: magenta">7</div>
-        <div id="d_8" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: orange">8</div>
-        <div id="d_9" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: blue">9</div>
-        <div id="d_10" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: lightblue">10</div>
-        <div id="d_11" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: orange">11</div>
-        <div id="d_12" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: purple">12</div>
-        <div id="d_13" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: blue">13</div>
+        <div id="day_7" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">7</div>
+        <div id="day_8" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">8</div>
+        <div id="day_9" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">9</div>
+        <div id="day_10" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">10</div>
+        <div id="day_11" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">11</div>
+        <div id="day_12" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">12</div>
+        <div id="day_13" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">13</div>
     </div>
     <div class="row row-centered">
-        <div id="d_14" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: yellow">14</div>
-        <div id="d_15" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: purple">15</div>
-        <div id="d_16" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: black">16</div>
-        <div id="d_17" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: grey">17</div>
-        <div id="d_18" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: #408140">18</div>
-        <div id="d_19" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: darkcyan">19</div>
-        <div id="d_20" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: yellowgreen">20</div>
+        <div id="day_14" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">14</div>
+        <div id="day_15" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">15</div>
+        <div id="day_16" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">16</div>
+        <div id="day_17" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">17</div>
+        <div id="day_18" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">18</div>
+        <div id="day_19" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">19</div>
+        <div id="day_20" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">20</div>
     </div>
     <div class="row row-centered">
-        <div id="d_21" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: yellow">21</div>
-        <div id="d_22" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: purple">22</div>
-        <div id="d_23" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: black">23</div>
-        <div id="d_24" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: grey">24</div>
-        <div id="d_25" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: #408140">25</div>
-        <div id="d_26" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: darkcyan">26</div>
-        <div id="d_27" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: yellowgreen">27</div>
+        <div id="day_21" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">21</div>
+        <div id="day_22" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">22</div>
+        <div id="day_23" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">23</div>
+        <div id="day_24" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">24</div>
+        <div id="day_25" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">25</div>
+        <div id="day_26" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">26</div>
+        <div id="day_27" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">27</div>
     </div>
-    <div class="row row-centered" id="footer1">
-        <div id="d_28" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: red">28</div>
+    <div class="row row-centered">
+        <div id="day_28" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">28</div>
 
 
-
-
-        <div id="d_29" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: navajowhite">
-            <% if day >= 29 %>
-                <%= '29' %>
-            <% else %>
-                <%= '&nbsp;' %>
-            <% end %></div>
-        <div id="d_30" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: blue">
-            <% if day >= 30 %>
-                <%= '30' %>
-            <% else %>
-                <%= '&nbsp;' %>
-            <% end %></div>
+        <div id="day_29" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">29</div>
+        <div id="day_30" class="col-lg-2 col-centered" style="width: 75px;height: 75px; border: 1px solid black;background-color: white">30</div>
     </div>
     <div class="row row-centered" id="footer2">
-        <div id="d_31" class="col-lg-2 col-centered" style="width: 75px;height: 75px;border: 1px solid black; background-color: magenta">
-            <% if day >= 31 %>
-                <%= '31' %>
-            <% else %>
-                <%= '&nbsp;'.html_safe %>
-            <% end %></div>
-        <div class="col-lg-2 col-centered" style="width: 75px;height: 75px;border: 1px solid black; background-color: white">&nbsp;</div>
-        <div class="col-lg-2 col-centered" style="width: 75px;height: 75px;border: 1px solid black; background-color: white">&nbsp;</div>
+        <div id="day_31" class="col-lg-2 col-centered" style="width: 75px;height: 75px;border: 1px solid black; background-color: white">31</div>
+        <div id="day_32" class="col-lg-2 col-centered" style="width: 75px;height: 75px;border: 1px solid black; background-color: white">&nbsp;</div>
+        <div id="day_33" class="col-lg-2 col-centered" style="width: 75px;height: 75px;border: 1px solid black; background-color: white">&nbsp;</div>
     </div>
 
 

@@ -10,7 +10,7 @@
 <body>
 <div style="margin-left: 10px">
     <ul class="nav nav-tabs" id="myTab">
-        <li id="krest" ><%= link_to 'Нарушения', work_user_info_path %></li>
+        <li id="krest"><%= link_to 'Нарушения', work_user_info_path %></li>
         <% unless @logged_user.nil? %>
             <% if @can_add_issue %>
                 <li id="issues"><%= link_to 'Ведомость', issues_path %>
@@ -48,10 +48,13 @@
 
 
 
-            <li class="pull-right"><%= link_to 'Выйти', destroy_user_session_path, :method => :get, :class => 'btn btn-sm btn-danger' %></li>
 
             <li class="pull-right">
-                <a style="background-color: #ffffff; color: #ffffff; border: 0; margin-top: 1px;">Здравствуйте, <%= @logged_user.full_name %></a>
+
+                    <div>Здравствуйте,<b> <%= @logged_user.full_name %> </b><%= link_to 'Выйти', destroy_user_session_path, :method => :get, :class => 'btn btn-sm btn-danger' %></div>
+
+
+
             </li>
 
 

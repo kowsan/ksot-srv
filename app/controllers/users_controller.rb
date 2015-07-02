@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.includes(:staff_role).page params[:page]
+    @users = User.unscoped.includes(:staff_role).page params[:page]
   end
 
   # GET /users/1
@@ -78,7 +78,7 @@ class UsersController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_user
 
-    @user = User.find(params[:id])
+    @user = User.unscoped.find(params[:id])
 
   end
 

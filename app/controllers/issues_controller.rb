@@ -1,6 +1,6 @@
 class IssuesController < ApplicationController
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
-  before_action :check_permission, :validate_access_ws
+  before_action :check_permission, :validate_access_ws ,:except => :monthly
 
   # GET /issues
   # GET /issues.json
@@ -18,17 +18,17 @@ class IssuesController < ApplicationController
 
 
       if iss==0
-        clr='white'
+        clr='lightgray'
       else
        clr=CriticalType.where(:weight => iss).first.color.to_s
       end
       h=Hash.new
-      h["day_#{cd.day}"]=clr
+      h["color"]=clr
       out << h
 
     end
 
-    puts out
+   # puts out
     respond_to do |format|
       format.json{ render :json => out.to_json}
     end
