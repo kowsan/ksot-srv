@@ -36,10 +36,10 @@ adm_id=StaffRole.create!(:name => 'Инженер по охране труда',
 User.delete_all
 
 
-Management.create!(:name => 'Южная Дирекция скоростного сообщения!')
+management_id=Management.create!(:name => 'Южная Дирекция скоростного сообщения!')
 # Management.create!(:name => 'Дирекция-2')
-Area.create!(:name => 'Участок 1', :management_id => Management.first.id)
-Area.create!(:name => 'Участок 2', :management_id => Management.last.id)
+Area.create!(:name => 'Участок 1', :management_id => management_id)
+Area.create!(:name => 'Участок 2', :management_id => management_id)
 
 
 Subdivision.create!(:name => 'Подразделение 1', :area_id => Area.first.id)
