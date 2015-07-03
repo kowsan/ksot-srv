@@ -52,7 +52,7 @@ u.save!
 
 u= User.new(:login => 'user', :password => 'user', :last_name => 'Обычный', :first_name => 'Пользователь')
 u.subdivision_id=Subdivision.first.id
-u.staff_role=adm_id
+u.staff_role=user_id
 u.save!
 
 
