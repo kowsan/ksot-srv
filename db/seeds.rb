@@ -36,9 +36,8 @@ adm_id=StaffRole.create!(:name => 'Инженер по охране труда',
 User.delete_all
 
 
-Management.create!(:name => 'Руководство')
-Management.create!(:name => 'Дирекция-1')
-Management.create!(:name => 'Дирекция-2')
+Management.create!(:name => 'Южная Дирекция скоростного сообщения!')
+# Management.create!(:name => 'Дирекция-2')
 Area.create!(:name => 'Участок 1', :management_id => Management.first.id)
 Area.create!(:name => 'Участок 2', :management_id => Management.last.id)
 
@@ -46,7 +45,7 @@ Area.create!(:name => 'Участок 2', :management_id => Management.last.id)
 Subdivision.create!(:name => 'Подразделение 1', :area_id => Area.first.id)
 Subdivision.create!(:name => 'Подразделение 2', :area_id => Area.last.id)
 
-u= User.new(:login => 'admin', :password => 'admin', :last_name => 'Инженер', :first_name => 'Охрана')
+u= User.new(:login => 'admin', :password => 'admin', :last_name => 'Пользователь', :first_name => 'Системный')
 u.subdivision_id=Subdivision.first.id
 u.staff_role=adm_id
 u.save!
