@@ -50,8 +50,13 @@ u.subdivision_id=Subdivision.first.id
 u.staff_role=adm_id
 u.save!
 
+u= User.new(:login => 'user', :password => 'user', :last_name => 'Обычный', :first_name => 'Пользователь')
+u.subdivision_id=Subdivision.first.id
+u.staff_role=adm_id
+u.save!
 
-CriticalType.create!(:name => 'Желтый', :color => 'yellow')
-CriticalType.create!(:name => 'Оранжевый', :color => 'orange')
-CriticalType.create!(:name => 'Синий', :color => 'blue')
-CriticalType.create!(:name => 'Красный', :color => 'red')
+
+CriticalType.create!(:name => 'Желтый', :color => '#FFFF00')
+CriticalType.create!(:name => 'Оранжевый', :color => '#FFB570')
+CriticalType.create!(:name => 'Синий', :color => '#7EA6E0')
+CriticalType.create!(:name => 'Красный', :color => '#EA6B66')
