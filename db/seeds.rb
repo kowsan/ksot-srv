@@ -12,7 +12,7 @@ Status.create(:name => 'Закрыто')
 
 
 StaffRole.delete_all
-StaffRole.create!(:name => 'Пользователь', :can_add_issue => true, :can_edit_issue => true,
+user_id=StaffRole.create!(:name => 'Пользователь', :can_add_issue => true, :can_edit_issue => true,
                   :can_change_issue_status => true)
 StaffRole.create!(:name => 'Продвинутый пользователь', :can_add_issue => true, :can_edit_issue => true,
                   :can_change_issue_status => true, :can_shutdown_app => true)
