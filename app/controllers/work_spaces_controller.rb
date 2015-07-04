@@ -30,7 +30,7 @@ class WorkSpacesController < ApplicationController
   def create
 
     @work_space = WorkSpace.new(work_space_params)
-    x= @work_space.save!
+    x= @work_space.save
     it=params[:work_space][:issue_type]
     @work_space.issue_types.clear
     @work_space.issue_types << IssueType.find(it)  unless it.nil?
