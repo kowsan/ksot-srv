@@ -19,6 +19,9 @@ module Ksot
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]t
     config.i18n.available_locales = [:en, :ru]
+
+# rails will fallback to en, no matter what is set as config.i18n.default_locale
+    config.i18n.fallbacks = [:en]
     config.i18n.default_locale = :ru
     config.assets.paths << "#{Rails}/vendor/assets/fonts"
     # Do not swallow errors in after_commit/after_rollback callbacks.

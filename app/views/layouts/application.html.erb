@@ -8,8 +8,8 @@
 
 </head>
 <body>
-<div style="margin-left: 10px">
-    <h3 >Система автоматизированного учета результатов комплексной оценки состояния охраны труда</h3>
+<div style="margin: 20px">
+    <h3>Система автоматизированного учета результатов комплексной оценки состояния охраны труда</h3>
     <ul class="nav nav-tabs" id="myTab">
         <li id="krest"><%= link_to 'Нарушения', work_user_info_path %></li>
         <% unless @logged_user.nil? %>
@@ -54,8 +54,8 @@
 
             <li class="pull-right">
 
-                    <div>Здравствуйте,<b> <%= @logged_user.full_name %> </b><%= link_to 'Выйти', destroy_user_session_path, :method => :get, :class => 'btn btn-sm btn-warning' %></div>
-
+                <div>Здравствуйте,<b> <%= @logged_user.full_name %> </b><%= link_to 'Выйти', destroy_user_session_path, :method => :get, :class => 'btn btn-sm btn-warning' %>
+                </div>
 
 
             </li>

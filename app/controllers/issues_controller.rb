@@ -1,10 +1,19 @@
 class IssuesController < ApplicationController
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
-  before_action :check_permission, :validate_access_ws ,:except => :monthly
+  before_action :check_permission, :validate_access_ws ,:except => [:monthly,:next_date]
 
   # GET /issues
   # GET /issues.json
+  def next_date
+    offset=params[:offset] || 0
+    date=Date.strptime(params[:date].to_s,"%m.%Y") || Date.current
+    date=date+offset.to_i.month
+    out=date.to_datetime.strftime("%m.%Y")
 
+    respond_to do |format|
+      format.json{ render :json => out.to_json}
+    end
+  end
 
   def monthly
     out=Array.new
@@ -28,7 +37,7 @@ class IssuesController < ApplicationController
 
     end
 
-   # puts out
+
     respond_to do |format|
       format.json{ render :json => out.to_json}
     end

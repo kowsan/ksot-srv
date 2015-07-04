@@ -28,6 +28,7 @@ class WorkSpacesController < ApplicationController
   # POST /work_spaces
   # POST /work_spaces.json
   def create
+
     @work_space = WorkSpace.new(work_space_params)
     x= @work_space.save!
     it=params[:work_space][:issue_type]

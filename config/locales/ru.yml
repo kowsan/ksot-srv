@@ -30,3 +30,9 @@ ru:
      first: "Первая"
      previous: "Предыдущая"
      last: "Последняя"
+
+ ru:
+   activerecord:
+     errors:
+       messages:
+         record_invalid: "Обьект не валиден"

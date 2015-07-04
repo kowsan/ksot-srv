@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :critical_types
   root 'work#user_info'
   get 'issues/monthly'
+  get 'issues/next_date'
 
   resources :issues
   get 'work/app_login'

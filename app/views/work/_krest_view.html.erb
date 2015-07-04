@@ -19,7 +19,7 @@
 
 
     function getCalendarData() {
-        if ($('#month').val().toString().length != 7) {
+        if ($('#month').html().toString().length != 7) {
 
             return false;
         }
@@ -31,16 +31,16 @@
 
         $.ajax({
             url: "/issues/monthly.json",
-            data: {date: $('#month').val()},
+            data: {date: $('#month').html()},
             cache: true,
-             type: "GET",
+            type: "GET",
             dataType: "json",
             statusCode: {
                 304: function () {
                     console.log("data cached not rewrite");
                 },
-                200: function (json,status,xhr) {
-                    console.log('Data not cached',status,xhr)
+                200: function (json, status, xhr) {
+                    console.log('Data not cached', status, xhr)
                     $("#data").val(json.length)
 
                     $.each(json, function (k, v) {
@@ -48,7 +48,9 @@
                         $("#day_" + day).css("background-color", v.color)
                         $('#day_' + day).html(day)
 
+
                     })
+                    $('#info_date').html($('#month').html())
 
 
                 }
@@ -70,12 +72,9 @@
 </script>
 <br>
 <div class="container">
-
-
-    <div class="input-group date ">
-
-        <input type="text" class="form-control input date" value="<%= Date.current.strftime("%m.%Y") %>" id="month">
-        <button type="submit"  class="btn btn-primary" onclick="getCalendarData();return false;">Получить данные</button>
+    <div class="row row-centered">
+        <h2 id="info_date"><%= Date.current.strftime("%m.%Y") %></h2>
+        <br><br>
     </div>
     <div class="row row-centered">
         <div id="day_1" class="col-lg-2 col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">1</div>
@@ -137,5 +136,65 @@
         </div>
     <% end %>
 </div>
+<div class="row col-lg-5 pull-left">
+    <button class="btn btn-primary" id="prev_month"><%= (Date.current-1.month).strftime("%m.%Y") %></button>
+    <button class="btn btn-success btn-lg " id="month"><%= Date.current.strftime("%m.%Y") %></button>
+    <button class="btn btn-primary" id="next_month"><%= (Date.current+1.month).strftime("%m.%Y") %></button>
+</div>
+<script>
+
+    $('#month').click(function () {
+
+        getCalendarData()
+
+    })
+
+
+    $("#next_month").click(function () {
+        var pm = ''
+        var cm = ''
+        var cd = $('#month').html()
+        $.getJSON("/issues/next_date.json", {offset: 1, date: $('#month').html()}).done(function (json) {
+            console.log(json);
+            pm = json.toString()
+            $.getJSON("/issues/next_date.json", {offset: 2, date: $('#month').html()}).done(function (json) {
+                console.log(json);
+                cm = json.toString()
+                $('#prev_month').html(cd)
+                $('#month').html(pm)
+                $('#next_month').html(cm)
+                $('#month').click()
+            })
+        })
+
+        console.log(pm, cd, cm)
+
+
+    });
+
+
+    $("#prev_month").click(function () {
+        var pm = ''
+        var cm = ''
+        var cd = $('#month').html()
+        $.getJSON("/issues/next_date.json", {offset: -1, date: $('#month').html()}).done(function (json) {
+            console.log(json);
+            pm = json.toString()
+            $.getJSON("/issues/next_date.json", {offset: -2, date: $('#month').html()}).done(function (json) {
+                console.log(json);
+                cm = json.toString()
+                $('#prev_month').html(cm)
+                $('#month').html(pm)
+                $('#next_month').html(cd)
+                $('#month').click()
+            })
+
+        })
+
+        console.log(pm, cd, cm)
+
+
+    });
+</script>
 
 
