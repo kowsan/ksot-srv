@@ -63,5 +63,8 @@ ct_red=CriticalType.create!(:name => 'Красный', :color => '#EA6B66')
 
 
 it1=IssueType.create!(name: "Вскрыт спецпакет", critical_type_id: ct_yellow.id)
+system_ws=WorkSpace.create!(:name=> 'Системное',:short_name=> 'sys',:subdivision_id=>Subdivision.first.id)
+system_ws.issue_types=IssueType.all
+system_ws.save!
 
 
