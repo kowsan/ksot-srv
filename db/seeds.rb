@@ -38,8 +38,8 @@ User.delete_all
 
 management_id=Management.create!(:name => 'Южная Дирекция скоростного сообщения!')
 # Management.create!(:name => 'Дирекция-2')
-Area.create!(:name => 'Участок 1', :management_id => management_id)
-Area.create!(:name => 'Участок 2', :management_id => management_id)
+Area.create!(:name => 'Участок 1', :management_id => management_id.id)
+Area.create!(:name => 'Участок 2', :management_id =>  management_id.id)
 
 
 Subdivision.create!(:name => 'Подразделение 1', :area_id => Area.first.id)
@@ -62,6 +62,6 @@ ct_blue=CriticalType.create!(:name => 'Синий', :color => '#7EA6E0')
 ct_red=CriticalType.create!(:name => 'Красный', :color => '#EA6B66')
 
 
-it1=IssueType.create!(name: "Вскрыт спецпакет", critical_type_id: ct_yellow)
+it1=IssueType.create!(name: "Вскрыт спецпакет", critical_type_id: ct_yellow.id)
 
 
