@@ -42,7 +42,7 @@ namespace :deploy do
     set :unicorn_pid, "#{deploy_to}/shared/pids/unicorn.pid"
     on roles(:all), wait: 10 do
       execute :bash, "--login -c 'cd #{deploy_to}/current ; bundle exec  rake assets:precompile'"
-
+      execute :bash, "--login -c 'cp -rf #{deploy_to}/current/app/assets/fonts/*  #{deploy_to}/current/public/assets/ '"
       execute :bash, "--login -c 'if [ -f #{deploy_to}/shared/pids/unicorn.pid ] && [ -e /proc/$(cat #{deploy_to}/shared/pids/unicorn.pid) ]; then kill -USR2 `cat #{deploy_to}/shared/pids/unicorn.pid`; else cd #{deploy_to}/current && bundle exec unicorn_rails -c #{deploy_to}/current/config/unicorn.rb -E production -D; fi'"
     end
   end
