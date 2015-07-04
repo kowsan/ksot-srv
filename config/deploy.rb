@@ -1,7 +1,6 @@
 # config valid only for current version of Capistrano
 lock '3.4.0'
-require 'rvm/capistrano'
-require 'bundler/capistrano'
+require 'capistrano/deploy'
 set :application, 'ksot_srv'
 set :repo_url, 'git@github.com:kowsan/ksot-srv.git'
 
@@ -42,6 +41,7 @@ namespace :deploy do
     set :unicorn_conf, "#{deploy_to}/current/config/unicorn.rb"
     set :unicorn_pid, "#{deploy_to}/shared/pids/unicorn.pid"
     on roles(:all), wait: 10 do
+      execute :rake, 'assets:precompile'
       execute :bash, "--login -c 'if [ -f #{deploy_to}/shared/pids/unicorn.pid ] && [ -e /proc/$(cat #{deploy_to}/shared/pids/unicorn.pid) ]; then kill -USR2 `cat #{deploy_to}/shared/pids/unicorn.pid`; else cd #{deploy_to}/current && bundle exec unicorn_rails -c #{deploy_to}/current/config/unicorn.rb -E production -D; fi'"
     end
   end
