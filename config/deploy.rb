@@ -41,7 +41,7 @@ namespace :deploy do
     set :unicorn_conf, "#{deploy_to}/current/config/unicorn.rb"
     set :unicorn_pid, "#{deploy_to}/shared/pids/unicorn.pid"
     on roles(:all), wait: 10 do
-      execute :bash, "--login -c 'if [ -f /www/rails/wishes/shared/pids/unicorn.pid ] && [ -e /proc/$(cat /www/rails/wishes/shared/pids/unicorn.pid) ]; then kill -USR2 `cat /www/rails/wishes/shared/pids/unicorn.pid`; else cd /www/rails/wishes/current && bundle exec unicorn_rails -c /www/rails/wishes/current/config/unicorn.rb -E production -D; fi'"
+      execute :bash, "--login -c 'if [ -f #{deploy_to}/shared/pids/unicorn.pid ] && [ -e /proc/$(cat #{deploy_to}/shared/pids/unicorn.pid) ]; then kill -USR2 `cat #{deploy_to}/shared/pids/unicorn.pid`; else cd #{deploy_to}/current && bundle exec unicorn_rails -c #{deploy_to}/current/config/unicorn.rb -E production -D; fi'"
     end
   end
 end
