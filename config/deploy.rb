@@ -23,7 +23,7 @@ set :scm, :git
 # set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml','config/unicorn.rb')
+set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml', 'config/unicorn.rb')
 
 # Default value for linked_dirs is []
 # set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
@@ -41,7 +41,7 @@ namespace :deploy do
     set :unicorn_conf, "#{deploy_to}/current/config/unicorn.rb"
     set :unicorn_pid, "#{deploy_to}/shared/pids/unicorn.pid"
     on roles(:all), wait: 10 do
-      execute :bash, "--login -c 'cd #{deploy_to}'"
+      execute :bash, "--login -c 'cd #{deploy_to} && bundle exec  rake assets:precompile'"
       execute :rake, 'assets:precompile'
       execute :bash, "--login -c 'if [ -f #{deploy_to}/shared/pids/unicorn.pid ] && [ -e /proc/$(cat #{deploy_to}/shared/pids/unicorn.pid) ]; then kill -USR2 `cat #{deploy_to}/shared/pids/unicorn.pid`; else cd #{deploy_to}/current && bundle exec unicorn_rails -c #{deploy_to}/current/config/unicorn.rb -E production -D; fi'"
     end
@@ -53,7 +53,7 @@ namespace :deploy do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
       within release_path do
-      #  execute :rake, 'cache:clear'
+        #  execute :rake, 'cache:clear'
       end
     end
   end
