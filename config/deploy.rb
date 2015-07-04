@@ -1,6 +1,7 @@
 # config valid only for current version of Capistrano
 lock '3.4.0'
-
+require 'rvm/capistrano'
+require 'bundler/capistrano'
 set :application, 'ksot_srv'
 set :repo_url, 'git@github.com:kowsan/ksot-srv.git'
 
