@@ -1,7 +1,7 @@
 <%= form_for(@issue_type) do |f| %>
     <% if @issue_type.errors.any? %>
         <div id="error_explanation">
-            <h2><%= pluralize(@issue_type.errors.count, "error") %> prohibited this issue_type from being saved:</h2>
+            <h2><%= pluralize(@issue_type.errors.count, "ошибок") %> препятствуют сохранению:</h2>
 
             <ul>
                 <% @issue_type.errors.full_messages.each do |message| %>
