@@ -12,7 +12,7 @@ Status.create(:name => 'Закрыто')
 
 
 StaffRole.delete_all
-StaffRole.create!(:name => 'Пользователь', :can_add_issue => true, :can_edit_issue => true,
+user_id=StaffRole.create!(:name => 'Пользователь', :can_add_issue => true, :can_edit_issue => true,
                   :can_change_issue_status => true)
 StaffRole.create!(:name => 'Продвинутый пользователь', :can_add_issue => true, :can_edit_issue => true,
                   :can_change_issue_status => true, :can_shutdown_app => true)
@@ -45,15 +45,15 @@ Area.create!(:name => 'Участок 2', :management_id =>  management_id.id)
 Subdivision.create!(:name => 'Подразделение 1', :area_id => Area.first.id)
 Subdivision.create!(:name => 'Подразделение 2', :area_id => Area.last.id)
 
-u= User.new(:login => 'admin', :password => 'admin', :last_name => 'Пользователь', :first_name => 'Системный')
-u.subdivision_id=Subdivision.first.id
-u.staff_role=adm_id
-u.save!
+u1= User.new(:login => 'admin', :password => 'admin', :last_name => 'Пользователь', :first_name => 'Системный')
+u1.subdivision_id=Subdivision.first.id
+u1.staff_role=adm_id
+u1.save!
 
-u= User.new(:login => 'user', :password => 'user', :last_name => 'Обычный', :first_name => 'Пользователь')
-u.subdivision_id=Subdivision.first.id
-u.staff_role=user_id
-u.save!
+u2= User.new(:login => 'user', :password => 'user', :last_name => 'Обычный', :first_name => 'Пользователь')
+u2.subdivision_id=Subdivision.first.id
+u2.staff_role=user_id
+u2.save!
 
 
 ct_yellow=CriticalType.create!(:name => 'Желтый', :color => '#FFFF00')
