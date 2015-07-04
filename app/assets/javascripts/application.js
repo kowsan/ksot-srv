@@ -12,13 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
-
 //= require moment
 //= require moment/ru
 //= require bootstrap
 //= require bootstrap-datetimepicker
 //= require bootstrap-sprockets
-// = require_tree .
+//= require_tree .
 $(document).ready(function () {
         $('.dropdown-toggle').dropdown();
     }
