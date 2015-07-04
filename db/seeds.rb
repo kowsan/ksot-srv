@@ -63,6 +63,21 @@ ct_red=CriticalType.create!(:name => 'Красный', :color => '#EA6B66')
 
 
 it1=IssueType.create!(name: "Вскрыт спецпакет", critical_type_id: ct_yellow.id)
+it2=IssueType.create!(name: 'Не явка на рабочее место в срок',critical_type_id: ct_yellow.id)
+it3=IssueType.create!(name: 'Опоздание с обеда',critical_type_id: ct_yellow.id)
+it4=IssueType.create!(name: 'Покинул пост без уважительной причины',critical_type_id: ct_red.id)
+it5=IssueType.create!(name: 'Нарушение правил, обеспечивающих безопасность движения на железнодорожном транспорте',
+                      critical_type_id: ct_yellow.id)
+it6=IssueType.create!(name: 'Повреждение железнодорожного пути, защитных лесонасаждений, снегозащитных ограждений и других путевых объектов, сооружений и устройств сигнализации и связи',
+                      critical_type_id: ct_yellow.id)
+
+it7=IssueType.create!(name: 'Проход по железнодорожным путям в неустановленных местах',
+                      critical_type_id: ct_yellow.id)
+it8=IssueType.create!(name: 'Подкладывание на железнодорожные пути предметов, которые могут вызвать нарушение движения поездов',
+                      critical_type_id: ct_yellow.id)
+it9=IssueType.create!(name: 'Несоблюдение установленных габаритов при погрузке и выгрузке грузов',
+                      critical_type_id: ct_yellow.id)
+
 system_ws=WorkSpace.create!(:name=> 'Системное',:short_name=> 'sys',:subdivision_id=>Subdivision.first.id)
 system_ws.issue_types=IssueType.all
 system_ws.save!
