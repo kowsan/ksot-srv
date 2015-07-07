@@ -56,10 +56,10 @@ u2.staff_role=user_id
 u2.save!
 
 
-ct_yellow=CriticalType.create!(:name => 'Желтый', :color => '#FFFF00')
-ct_orange=CriticalType.create!(:name => 'Оранжевый', :color => '#FFB570')
-ct_blue=CriticalType.create!(:name => 'Синий', :color => '#7EA6E0')
-ct_red=CriticalType.create!(:name => 'Красный', :color => '#EA6B66')
+ct_yellow=CriticalType.create!(:name => 'Желтый', :color => '#FFFF00',:weight=> 10)
+ct_orange=CriticalType.create!(:name => 'Оранжевый', :color => '#FFB570',:weight=> 20)
+ct_blue=CriticalType.create!(:name => 'Синий', :color => '#7EA6E0',:weight=> 30)
+ct_red=CriticalType.create!(:name => 'Красный', :color => '#EA6B66',:weight=> 50)
 
 
 it1=IssueType.create!(name: "Вскрыт спецпакет", critical_type_id: ct_yellow.id)
