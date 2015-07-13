@@ -6,6 +6,7 @@
     <th>Пользователь ОС</th>
     <th>Короткое имя</th>
     <th>Комментарий</th>
+    <th>Последнее подключение</th>
     <th>Расположение</th>
     <th>Действия</th>
 
@@ -29,6 +30,7 @@
                     rowcontent += '<td>' + v.os_user + '</td>'
                     rowcontent += '<td>' + v.short_name + '</td>'
                     rowcontent += '<td>' + v.comment + '</td>'
+                    rowcontent += '<td>' + v.updated_at + '</td>'
                     rowcontent += '<td>' + v.location + '</td>'
                     rowcontent += '<td><a href="' + v.edit_url + '" class="btn glyphicon glyphicon-edit btn-primary  btn-sm" ></a>'
 
