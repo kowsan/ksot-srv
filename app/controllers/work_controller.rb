@@ -27,7 +27,7 @@ class WorkController < ApplicationController
     a.computername=name
     a.os=os
     a.os_user=osuser
-
+    a.updated_at=Time.current
     x= a.save!
 
     if x
