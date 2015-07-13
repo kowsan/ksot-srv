@@ -19,7 +19,6 @@ class WorkController < ApplicationController
   end
 
   def app_login
-
     app_id=app_params[:app_id] || ''
     name=app_params[:name] || ''
     os = app_params[:os] || ''

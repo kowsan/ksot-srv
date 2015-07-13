@@ -29,20 +29,12 @@
 
             <td>
                 <% work_space.issue_types.each do |i| %>
-                  <%= i.name %><br>
+                    <%= i.name %><br>
                 <% end %>
             </td>
-            <td>
-                <div class="btn-group">
-                    <a href="#" class="btn btn-primary btn-group-sm btn-sm">Действия</a>
-                    <a href="#" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><%= link_to 'Редактировать', edit_work_space_path(work_space), :class => '' %></li>
+            <td><%= link_to '', edit_work_space_path(work_space), :class => 'btn glyphicon glyphicon-edit btn-primary  btn-sm' %>
+                <%= link_to '', work_space, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn glyphicon glyphicon-remove btn-danger  btn-sm' %>
 
-                        <li class="divider"></li>
-                        <li><%= link_to 'Удалить', work_space, method: :delete, data: {confirm: 'Are you sure?'}, :class => '' %></li>
-                    </ul>
-                </div>
             </td>
 
         </tr>

@@ -36,7 +36,7 @@
             <td><%= issue.due_date.strftime('%d.%m.%Y') %></td>
             <td><%= issue.note_measures %></td>
             <td>
-                <%= link_to 'Редактировать', edit_issue_path(issue), {:class => 'btn btn-info btn-sm '} %>
+                <%= link_to '', edit_issue_path(issue), {:class => 'btn glyphicon glyphicon-edit btn-primary  btn-sm '} %>
                 <!--
                 <%= link_to('Удалить', issue, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger btn-sm ') %>
                 -->

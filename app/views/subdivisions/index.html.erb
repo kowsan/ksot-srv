@@ -17,8 +17,8 @@
             <td><%= subdivision.name %></td>
             <td><%= subdivision.short_name %></td>
             <td><%= subdivision.area.name %></td>
-            <td><%= link_to 'Редактировать', edit_subdivision_path(subdivision), :class => 'btn btn-info btn-sm' %>
-                <%= link_to 'Удалить', subdivision, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger btn-sm' %></td>
+            <td><%= link_to '', edit_subdivision_path(subdivision), :class => 'btn glyphicon glyphicon-edit btn-primary  btn-sm' %>
+                <%= link_to '', subdivision, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn glyphicon glyphicon-remove btn-danger  btn-sm' %></td>
         </tr>
     <% end %>
 

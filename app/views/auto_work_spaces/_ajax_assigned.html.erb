@@ -30,11 +30,11 @@
                     rowcontent += '<td>' + v.short_name + '</td>'
                     rowcontent += '<td>' + v.comment + '</td>'
                     rowcontent += '<td>' + v.location + '</td>'
-                    rowcontent += '<td><a href="' + v.edit_url + '" class="btn btn-primary btn-sm" >Редактировать</a>'
+                    rowcontent += '<td><a href="' + v.edit_url + '" class="btn glyphicon glyphicon-edit btn-primary  btn-sm" ></a>'
 
                     if (v.delete_url != undefined) {
 
-                        rowcontent += '&nbsp;<a data-confirm="Удалить?" rel="nofollow" data-method="delete" href="' + v.delete_url + '" class="btn btn-danger btn-sm" >Удалить</a>'
+                        rowcontent += '&nbsp;<a data-confirm="Удалить?" rel="nofollow" data-method="delete" href="' + v.delete_url + '" class="btn glyphicon glyphicon-remove btn-danger  btn-sm" >Удалить</a>'
                     }
                     else {
 
