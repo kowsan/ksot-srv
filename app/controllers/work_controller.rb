@@ -25,6 +25,9 @@ class WorkController < ApplicationController
     os = app_params[:os] || ''
     osuser = app_params[:os_user] || ''
     a = AutoWorkSpace.where(:uuid => app_id).first_or_create(:computername => name, :os => os, :os_user => osuser)
+    a.computername=name
+    a.os=os
+    a.os_user=osuser
 
     x= a.save!
 
