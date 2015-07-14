@@ -24,7 +24,7 @@
         <div class="form-group">
             <%= f.label 'Дата проверки ' %><br>
 
-               <input type="text" value="<%=@issue.created_at.strftime("%d.%m.%Y %H:%M")%>" class ='form-control' readonly>
+               <input type="text" value="<%=@issue.created_at.to_formatted_s(:ru)%>" class ='form-control' readonly>
 
         </div>
         <div class="form-group">

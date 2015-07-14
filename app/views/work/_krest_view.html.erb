@@ -73,7 +73,7 @@
 <br>
 <div class="container">
     <div class="row row-centered">
-        <h2 id="info_date"><%= (Time.current+Time.now.utc_offset).strftime("%m.%Y") %></h2>
+        <h2 id="info_date"><%= (Time.current).strftime("%m.%Y") %></h2>
         <br><br>
     </div>
     <div class="row row-centered">
@@ -137,9 +137,9 @@
     <% end %>
 </div>
 <div class="row col-lg-5 pull-left">
-    <button class="btn btn-primary" id="prev_month"><%= (Time.current+Time.now.utc_offset-1.month).strftime("%m.%Y") %></button>
-    <button class="btn btn-success btn-lg " id="month"><%= (Time.current+Time.now.utc_offset).strftime("%m.%Y") %></button>
-    <button class="btn btn-primary" id="next_month"><%= (Time.current+Time.now.utc_offset+1.month).strftime("%m.%Y") %></button>
+    <button class="btn btn-primary" id="prev_month"><%= (Time.current-1.month).strftime("%m.%Y") %></button>
+    <button class="btn btn-success btn-lg " id="month"><%= (Time.current).strftime("%m.%Y") %></button>
+    <button class="btn btn-primary" id="next_month"><%= (Time.current+1.month).strftime("%m.%Y") %></button>
 </div>
 <script>
 

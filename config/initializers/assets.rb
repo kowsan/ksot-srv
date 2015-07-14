@@ -9,3 +9,5 @@ Rails.application.config.assets.paths << Rails.root.join('app', 'assets', 'fonts
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 Rails.application.config.assets.precompile += %w( bootstrap.css bootsrap.js glyphicons-halflings-regular.woff2 glyphicons-halflings-regular.woff glyphicons-halflings-regular.ttf   )
+
+Time::DATE_FORMATS[:ru] = '%d.%m.%Y %H:%M'
