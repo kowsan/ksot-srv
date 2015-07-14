@@ -46,10 +46,10 @@ class IssuesController < ApplicationController
 
   def index
     begin
-      @from=Time.strptime(params[:from],"%d.%m.%Y %H:%M") rescue @from= Time.current.at_beginning_of_month-Time.now.utc_offset
+      @from=Time.strptime(params[:from],"%d.%m.%Y %H:%M") rescue @from= Time.current.at_beginning_of_month+Time.now.utc_offset
     end
     begin
-      @to=Time.strptime(params[:to],"%d.%m.%Y %H:%M") rescue @to=Time.current.at_end_of_month-Time.now.utc_offset
+      @to=Time.strptime(params[:to],"%d.%m.%Y %H:%M") rescue @to=Time.current.at_end_of_month+Time.now.utc_offset
     end
     @issues = Issue.includes(:issue_type, :status, :author, :violator, :assigned, :work_space).where(:created_at=> @from..@to).page params[:page]
   end
