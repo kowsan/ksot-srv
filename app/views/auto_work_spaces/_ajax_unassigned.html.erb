@@ -1,4 +1,5 @@
-<table class="table table-striped table-hovee">
+<p id="unassignedpara">Не распределенные</p>
+<table class="table table-striped table-hovee" id="maintbl">
     <th>ID</th>
     <th>UUID</th>
     <th>имя ПК</th>
@@ -11,25 +12,37 @@
 
     <!-- get json with issues -->
     <script type="text/javascript">
-        function reloadData() {
+        function reloadUnassignedData() {
 
             $.getJSON('/auto_work_spaces.json').done(function (json) {
                 $("#it").html("");
+                if (json.unassigned.length==0)
+                {
+                    $('#maintbl').hide()
+                    $('#unassignedpara').hide()
+                }
+                else
+                {
+                    $('#maintbl').show()
+                    $('#unassignedpara').show()
+                }
 
                 console.log("unassigned: count",json.unassigned.length)
                 $.each(json.unassigned, function (k, v) {
                     var rowcontent = ''
+
                     rowcontent += '<td>' + v.id + '</td>'
                     rowcontent += '<td>' + v.uuid + '</td>'
                     rowcontent += '<td>' + v.computername + '</td>'
                     rowcontent += '<td>' + v.os + '</td>'
                     rowcontent += '<td>' + v.os_user + '</td>'
 
-                    rowcontent += '<td><a href="' + v.edit_url + '" class="btn btn-primary btn-sm" >Редактировать</a>'
+                    rowcontent += '<td><a href="' + v.edit_url + '" class="btn glyphicon glyphicon-edit btn-primary  btn-sm"" ></a>'
 
                     if (v.delete_url != undefined) {
 
-                        rowcontent += '&nbsp;<a data-confirm="Удалить?" rel="nofollow" data-method="delete" href="' + v.delete_url + '" class="btn btn-danger btn-sm" >Удалить</a>'
+
+                        rowcontent += '&nbsp;<a data-confirm="Удалить?" rel="nofollow" data-method="delete" href="' + v.delete_url + '" class=" glyphicon glyphicon-remove btn btn-danger btn-sm" ></a>'
                     }
                     else {
 
@@ -51,6 +64,6 @@
     </tbody>
 </table>
 <script type="text/javascript">
-    reloadData();
-   setInterval(reloadData, 120000)
+    reloadUnassignedData();
+   setInterval(reloadUnassignedData, 10000)
 </script>

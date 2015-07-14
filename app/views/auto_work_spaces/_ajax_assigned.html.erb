@@ -20,7 +20,7 @@
             $.getJSON('/auto_work_spaces.json').done(function (json) {
                 $("#assignedit").html("");
 
-                console.log("unassigned: count",json.assigned.length)
+                console.log("assigned: count",json.assigned.length)
                 $.each(json.assigned, function (k, v) {
                     var rowcontent = ''
                     rowcontent += '<td>' + v.id + '</td>'
@@ -59,5 +59,5 @@
 </table>
 <script type="text/javascript">
     reloadData();
-    setInterval(reloadData, 30000)
+    setInterval(reloadData, 60000)
 </script>

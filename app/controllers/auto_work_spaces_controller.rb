@@ -59,7 +59,7 @@ class AutoWorkSpacesController < ApplicationController
   def destroy
     @auto_work_space.destroy
     respond_to do |format|
-      format.html { redirect_to auto_work_spaces_url, notice: 'Auto work space was successfully destroyed.' }
+      format.html { redirect_to auto_work_spaces_url, notice: 'АРМ удалено' }
       format.json { head :no_content }
     end
   end
