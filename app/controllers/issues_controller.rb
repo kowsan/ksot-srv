@@ -18,7 +18,7 @@ class IssuesController < ApplicationController
   def monthly
 
 
-@out=Array.new
+    @out=Array.new
 
 
     date=Date.strptime(params[:date].to_s, "%m.%Y") || Date.current
@@ -42,12 +42,16 @@ class IssuesController < ApplicationController
     end
 
 
-
-
   end
 
   def index
-    @issues = Issue.includes(:issue_type, :status, :author, :violator, :assigned, :work_space).page params[:page]
+    begin
+      @from=Time.strptime(params[:from],"%d.%m.%Y %H:%M") rescue @from= Time.current.at_beginning_of_month-Time.now.utc_offset
+    end
+    begin
+      @to=Time.strptime(params[:to],"%d.%m.%Y %H:%M") rescue @to=Time.current.at_end_of_month-Time.now.utc_offset
+    end
+    @issues = Issue.includes(:issue_type, :status, :author, :violator, :assigned, :work_space).where(:created_at=> @from..@to).page params[:page]
   end
 
   # GET /issues/1
