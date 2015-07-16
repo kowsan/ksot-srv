@@ -18,47 +18,53 @@
             <% end %>
             <% if @can_manage_org_structure %>
                 <li id="users"><%= link_to 'Сотрудники', users_path %></li>
-                <li id="issuetypes"><%= link_to 'Виды нарушений', issue_types_path %></li>
-                <li id="workspaces"><%= link_to 'Рабочие места', work_spaces_path %></li>
-                <li id="autoworkspaces"><%= link_to 'АРМ', auto_work_spaces_path, :id => 'arm' %></li>
 
-                <li id="subdivisions"><%= link_to 'Подразделения', subdivisions_path %></li>
-                <li id="areas"><%= link_to 'Участки', areas_path %></li>
 
-                <!--<li id="managements"><%= link_to 'Дирекции', managements_path %></li>-->
-
-                <script type="text/javascript">
-                    reloadData()
-                    function reloadData() {
-
-                        $.getJSON('/auto_work_spaces.json').done(function (json) {
-                            var count = json.unassigned.length
-                            console.log("unassigned: count", json.unassigned.length)
-                            if (count > 0) {
-                                $('#arm').html('АРМ<span class="badge">' + count.toString() + '</span>')
-                            } else {
-                                $('#arm').html('АРМ')
-                            }
-                        })
-
-                    }
-                    setInterval(reloadData, 10000)
-
-                </script>
             <% end %>
+            <li id="users"><%= link_to 'Профиль', user_path @logged_user %></li>
+            <% if @can_manage_org_structure %>
+            <li id="issuetypes"><%= link_to 'Виды нарушений', issue_types_path %></li>
+            <li id="workspaces"><%= link_to 'Рабочие места', work_spaces_path %></li>
+            <li id="autoworkspaces"><%= link_to 'АРМ', auto_work_spaces_path, :id => 'arm' %></li>
+
+            <li id="subdivisions"><%= link_to 'Подразделения', subdivisions_path %></li>
+            <li id="areas"><%= link_to 'Участки', areas_path %></li>
+
+            <!--<li id="managements"><%= link_to 'Дирекции', managements_path %></li>-->
+
+            <script type="text/javascript">
+                reloadData()
+                function reloadData() {
+
+                    $.getJSON('/auto_work_spaces.json').done(function (json) {
+                        var count = json.unassigned.length
+                        console.log("unassigned: count", json.unassigned.length)
+                        if (count > 0) {
+                            $('#arm').html('АРМ<span class="badge">' + count.toString() + '</span>')
+                        } else {
+                            $('#arm').html('АРМ')
+                        }
+                    })
+
+                }
+                setInterval(reloadData, 10000)
+
+            </script>
+        <% end %>
 
 
 
 
 
 
-            <li class="pull-right">
+        <li class="pull-right">
 
-                <div>Сотрудник: <b> <%= @logged_user.full_name %> </b><%= link_to 'Выйти', destroy_user_session_path, :method => :get, :class => 'btn btn-sm btn-warning' %>
-                </div>
+            <div>Сотрудник:
+                <b> <%= @logged_user.full_name %> </b><%= link_to 'Выйти', destroy_user_session_path, :method => :get, :class => 'btn btn-sm btn-warning' %>
+            </div>
 
 
-            </li>
+        </li>
 
 
         <% end %>
