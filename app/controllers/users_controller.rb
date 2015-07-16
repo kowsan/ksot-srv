@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_filter :check_permission, :validate_access
+  before_filter :check_permission
+  before_filter :validate_access, except: :show
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
 
 
   # GET /users
@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @readnonly=!@user.staff_role.can_manage_org_structure?
   end
 
   # GET /users/new
@@ -43,10 +44,15 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-
+        fp=params[:fromprofile] || false
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to users_path, notice: "Пользователь #{@user.login} обновлен" }
+         if fp
+           format.html { redirect_to user_path @logged_user, notice: "Пользователь #{@user.login} обновлен" }
+         else
+           format.html { redirect_to users_path, notice: "Пользователь #{@user.login} обновлен" }
+         end
+
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
@@ -67,11 +73,12 @@ class UsersController < ApplicationController
 
   private
   def validate_access
-    unless @can_manage_org_structure
-      respond_to do |format|
-        format.any { render nothing: true, :status => :forbidden }
-      end
-    end
+   # unless @can_manage_org_structure
+    #  respond_to do |format|
+    #    format.any { render nothing: true, :status => :forbidden }
+   #   end
+   # end
+    true
   end
 
   private
@@ -87,7 +94,12 @@ class UsersController < ApplicationController
     if params[:user][:password].to_s==''
       params[:user].reject! { |x| x=='password' }
     end
-    params[:user].permit(:login, :password, :first_name, :last_name, :middle_name, :staff_role_id, :subdivision_id, :is_active,:position)
+    if @logged_user.staff_role.can_manage_org_structure?
+      params[:user].permit(:login, :password, :first_name, :last_name, :middle_name, :staff_role_id, :subdivision_id, :is_active, :position)
+    else
+      params[:user].permit(:password, :position)
+    end
+
   end
 
 end
