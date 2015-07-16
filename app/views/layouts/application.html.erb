@@ -21,7 +21,7 @@
 
 
             <% end %>
-            <li id="users"><%= link_to 'Профиль', user_path @logged_user %></li>
+            <li id="profile"><%= link_to 'Профиль', user_url(@logged_user.id)  %></li>
             <% if @can_manage_org_structure %>
             <li id="issuetypes"><%= link_to 'Виды нарушений', issue_types_path %></li>
             <li id="workspaces"><%= link_to 'Рабочие места', work_spaces_path %></li>
