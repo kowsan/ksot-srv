@@ -31,12 +31,12 @@
                     rowcontent += '<td>' + v.os_user + '</td>'
                     rowcontent += '<td>' + v.short_name + '</td>'
 
-                    rowcontent += '<td>'
+                    rowcontent += '<td><ul>'
                     $.each(v.workspaces, function (kk, vv) {
-                      rowcontent += vv.name+'<br>'
+                      rowcontent += '<li>'+vv.name+'</li>'
 
                     })
-                    rowcontent += '</td>';
+                    rowcontent += '</ul></td>';
                     rowcontent += '<td>' + v.comment + '</td>'
                     rowcontent += '<td>' + v.updated_at + '</td>'
                     rowcontent += '<td>' + v.location + '</td>'
