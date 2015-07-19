@@ -47,10 +47,18 @@ class IssuesController < ApplicationController
 
   def index
     begin
-      @from=Time.strptime(params[:from],"%d.%m.%Y %H:%M") rescue @from= Time.current.at_beginning_of_month
+      @from_t=Time.strptime((params[:from_t] || '00:00'),"%H:%M")
+      @from=Time.strptime(params[:from],"%d.%m.%Y")
+      @from =@from+@from_t.hour.hours+@from_t.min.minutes
+    rescue
+      @from= Time.current.at_beginning_of_month
     end
     begin
-      @to=Time.strptime(params[:to],"%d.%m.%Y %H:%M") rescue @to=Time.current.at_end_of_month
+      @to_t=Time.strptime((params[:to_t] || '23:59'),"%H:%M")
+      @to=Time.strptime(params[:to],"%d.%m.%Y")
+      @to =@to+@to_t.hour.hours+@to_t.min.minutes
+    rescue
+      @to=Time.current.at_end_of_month
     end
     @issues = Issue.includes(:issue_type, :status, :author, :violator, :assigned, :work_space).where(:created_at=> @from..@to).page params[:page]
   end

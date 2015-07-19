@@ -14,12 +14,12 @@
 
     <div class="form-group" style="position: relative">
         <label>С</label>
-        <input value="<%= (@from).strftime("%d.%m.%Y %H:%M") %>" class="form-control input date input-sm" type="text" id="from" name="from">
+        <input value="<%= (@from).strftime("%d.%m.%Y") %>" class="form-control input date input-sm" type="text" id="from" name="from">
     </div>
 
     <div class="form-group" style="position: relative">
         <label>По</label>
-        <input value="<%= (@to).strftime("%d.%m.%Y %H:%M") %>" class="form-control input date input-sm" type="text" id="to" name="to">
+        <input value="<%= (@to).strftime("%d.%m.%Y") %>" class="form-control input date input-sm" type="text" id="to" name="to">
     </div>
 
     <input type="submit" value="Выбрать" class="btn btn-primary btn-sm">
@@ -68,10 +68,14 @@
 <script>
     $(function () {
         $('.form-group #from').datetimepicker({
-            locale: 'ru'
+            locale: 'ru',
+            showTodayButton: true,
+            format: 'DD.MM.YYYY'
         });
         $('.form-group #to').datetimepicker({
-            locale: 'ru'
+            locale: 'ru',
+            showTodayButton: true,
+            format: 'DD.MM.YYYY'
         });
     });
 </script>
