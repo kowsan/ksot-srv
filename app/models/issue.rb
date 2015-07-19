@@ -9,6 +9,7 @@ class Issue < ActiveRecord::Base
   has_one :critical_type,:through => :issue_type
 
   validates_presence_of :status_id,:violator_id,:assigned_id
+  validates_presence_of :work_space_id
 
 
 end

@@ -1,6 +1,7 @@
 class IssuesController < ApplicationController
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
   before_action :check_permission, :validate_access_ws, :except => [:monthly, :next_date]
+  before_action :get_ws,:only => [:new,:edit,:create]
 
   # GET /issues
   # GET /issues.json
@@ -82,6 +83,8 @@ class IssuesController < ApplicationController
     @issue = Issue.new(issue_params)
     @issue.author =@logged_user
 
+    @issue.work_space=@ws
+
     respond_to do |format|
       if @issue.save
         format.html { redirect_to issues_url, notice: 'Нарушение успешно добавлено, №'+@issue.id.to_s }
@@ -138,6 +141,7 @@ class IssuesController < ApplicationController
     ws=AutoWorkSpace.find_by_uuid(cookies[:app_id])
     unless ws.nil?
       begin
+        @ws=ws.work_space
         @issue_types=ws.work_space.issue_types
       rescue
         @issue_types=nil
@@ -147,6 +151,6 @@ class IssuesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def issue_params
-    params.require(:issue).permit(:violator_id, :status_id, :issue_type_id, :assigned_id, :close_date, :note_due, :due_date, :note_measures)
+    params.require(:issue).permit(:violator_id, :status_id, :issue_type_id, :assigned_id, :close_date, :note_due, :due_date, :note_measures,:work_space_id)
   end
 end

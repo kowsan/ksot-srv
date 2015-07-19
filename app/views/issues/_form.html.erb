@@ -17,74 +17,76 @@
 
 
 
-        <div class="form-group">
-            <%= f.label 'ФИО лица, выявившего нарушение ' %><br>
-            <input class="form-control" type="text" placeholder="" disabled="" value="<%= @logged_user.full_name %>">
-        </div>
-        <div class="form-group">
-            <%= f.label 'Дата проверки ' %><br>
+    <div class="form-group">
+        <%= f.label 'ФИО лица, выявившего нарушение ' %><br>
+        <input class="form-control" type="text" placeholder="" disabled="" value="<%= @logged_user.full_name %>">
+    </div>
+    <div class="form-group">
+        <%= f.label 'Дата проверки ' %><br>
 
-               <input type="text" value="<%=@issue.created_at.to_formatted_s(:ru)%>" class ='form-control' readonly>
+        <input type="text" value="<%= @issue.created_at.to_formatted_s(:ru) %>" class='form-control' readonly>
 
-        </div>
-        <div class="form-group">
-            <%= f.label 'ФИО нарушителя' %><br>
-            <%= f.collection_select(:violator_id, User.all, :id, :full_name, {}, {:class => ' form-control input'}) %>
-        </div>
-        <div class="form-group">
-            <%= f.label 'Статус нарушения' %> <br>
-            <%= f.collection_select(:status_id, Status.all, :id, :name, {}, {:class => ' form-control input'}) %>
-        </div>
+    </div>
 
-        <div class="form-group">
-            <%= f.label 'Выявленное нарушение' %> <br>
-            <% if @issue_types.nil? %>
-                <div class="alert  alert-warning">
+    <div class="form-group">
+        <%= f.label 'ФИО нарушителя' %><br>
+        <%= f.collection_select(:violator_id, User.all, :id, :full_name, {}, {:class => ' form-control input'}) %>
+    </div>
+    <div class="form-group">
+        <%= f.label 'Статус нарушения' %> <br>
+        <%= f.collection_select(:status_id, Status.all, :id, :name, {}, {:class => ' form-control input'}) %>
+    </div>
 
-                    <strong>Нет доступных видов нарушения для вашего рабочего места</strong>
+    <div class="form-group">
+        <%= f.label 'Выявленное нарушение' %> <br>
+        <% if @issue_types.nil? %>
+            <div class="alert  alert-warning">
 
-                </div>
-            <% else %>
-                <%= f.collection_select(:issue_type_id, @issue_types, :id, :name, {}, {:class => ' form-control input'}) %>
+                <strong>Нет доступных видов нарушения для вашего рабочего места</strong>
 
-            <% end %>
-
-        </div>
-
-        <div class="form-group">
-            <%= f.label 'Ответственный за устранение' %><br>
-            <%= f.collection_select(:assigned_id, User.all, :id, :full_name, {}, {:class => ' form-control input'}) %>
-        </div>
-
-
-        <div class="form-group">
-            <%= f.label 'Отметка о выполнении' %><br>
-            <%= f.text_field(:note_due, {:class => ' form-control input'}) %>
-        </div>
-        <div class="form-group">
-            <%= f.label 'Оперативные меры' %><br>
-            <%= f.text_field(:note_measures, {:class => ' form-control input'}) %>
-        </div>
-        <div class="form-group">
-            <%= f.label 'Дата выполнения' %><br>
-            <div class="input-group date">
-
-                <%= f.text_field(:due_date, :value => @issue.due_date.strftime("%d.%m.%Y %H:%M") || '', :class => ' form-control input date') %>
             </div>
-        </div>
+        <% else %>
+            <%= f.collection_select(:issue_type_id, @issue_types, :id, :name, {}, {:class => ' form-control input'}) %>
 
-        <div class="form-group">
-            <%= f.submit({:class => 'btn btn-primary', :id => 'issue_add'}) %>
+        <% end %>
+
+    </div>
+
+    <div class="form-group">
+        <%= f.label 'Ответственный за устранение' %><br>
+        <%= f.collection_select(:assigned_id, User.all, :id, :full_name, {}, {:class => ' form-control input'}) %>
+    </div>
+
+
+    <div class="form-group">
+        <%= f.label 'Отметка о выполнении' %><br>
+        <%= f.text_field(:note_due, {:class => ' form-control input'}) %>
+    </div>
+    <div class="form-group">
+        <%= f.label 'Оперативные меры' %><br>
+        <%= f.text_field(:note_measures, {:class => ' form-control input'}) %>
+    </div>
+    <div class="form-group">
+        <%= f.label 'Дата выполнения' %><br>
+
+        <div class="input-group date">
+
+            <%= f.text_field(:due_date, :value => @issue.due_date.strftime("%d.%m.%Y %H:%M") || '', :class => ' form-control input date') %>
         </div>
-        <script>
-            <% if @issue_types.nil? %>
-            $('#issue_add').hide()
-            <%end%>
-            $(function () {
-                $('.input-group .date').datetimepicker({
-                    locale: 'ru'
-                });
+    </div>
+
+    <div class="form-group">
+        <%= f.submit({:class => 'btn btn-primary', :id => 'issue_add'}) %>
+    </div>
+    <script>
+        <% if @issue_types.nil? %>
+        $('#issue_add').hide()
+        <%end%>
+        $(function () {
+            $('.input-group .date').datetimepicker({
+                locale: 'ru'
             });
-        </script>
+        });
+    </script>
 
 <% end %>
