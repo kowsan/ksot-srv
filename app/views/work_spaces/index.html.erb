@@ -10,6 +10,7 @@
     <th>Короткое имя</th>
     <th>Подразделение</th>
     <th>Активно</th>
+    <th>Связанные АРМ</th>
     <th>Виды нарушения</th>
     <th>Действия</th>
     <% @work_spaces.each do |work_space| %>
@@ -25,12 +26,23 @@
                     <span class="glyphicon glyphicon-off"></span>
                 <% end %>
             </td>
+            <td>
+                <% if work_space.auto_work_spaces.empty? %>
+                    <span class="glyphicon glyphicon-ok"></span>
+                <% else %>
+                    <span class="glyphicon glyphicon-unchecked"></span>
+                <% end %>
+            </td>
 
 
             <td>
-                <% work_space.issue_types.each do |i| %>
-                    <%= i.name %><br>
-                <% end %>
+                <ul>
+                    <% work_space.issue_types.each do |i| %>
+                        <li>
+                            <%= i.name %><br>
+                        </li>
+                    <% end %>
+                </ul>
             </td>
             <td><%= link_to '', edit_work_space_path(work_space), :class => 'btn glyphicon glyphicon-edit btn-primary  btn-sm' %>
                 <%= link_to '', work_space, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn glyphicon glyphicon-remove btn-danger  btn-sm' %>
