@@ -31,7 +31,10 @@
 
         $.ajax({
             url: "/issues/monthly.json",
-            data: {date: $('#month').html()},
+            data: {
+                date: $('#month').html(),
+                work_space_id: $('#ws_id_work_space_id').val()
+            },
             cache: true,
             type: "GET",
             dataType: "json",
@@ -40,7 +43,7 @@
                     console.log("data cached not rewrite");
                 },
                 200: function (json, status, xhr) {
-                    console.log('Data not cached', status, xhr)
+
                     $("#data").val(json.length)
 
                     $.each(json, function (k, v) {
@@ -60,18 +63,30 @@
 
         })
     }
+
     $(document).ready(function () {
         $('.input-group .date').datetimepicker({
             locale: 'ru',
             format: 'MM.YYYY'
         });
+        $('#ws_id_work_space_id').change(function () {
+            getCalendarData();
+            console.log($('#ws_id_work_space_id').val())
+        })
         setInterval(getCalendarData, 60000)
         getCalendarData()
     });
 
 </script>
 <br>
+<div class="row ">
+
+    <div class="col-lg-1"><label>Рабочее место</label></div>
+    <div class="col-lg-3 "><%= collection_select(:ws_id, :work_space_id, WorkSpace.all, :id, :name, {}, {:class => ' form-control input'}) %> </div>
+
+</div>
 <div class="container">
+
     <div class="row row-centered">
         <h2 id="info_date"><%= (Time.current).strftime("%m.%Y") %></h2>
         <br><br>

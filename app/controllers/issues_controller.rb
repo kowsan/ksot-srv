@@ -1,7 +1,7 @@
 class IssuesController < ApplicationController
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
   before_action :check_permission, :validate_access_ws, :except => [:monthly, :next_date]
-  before_action :get_ws,:only => [:new,:edit,:create]
+  before_action :get_ws, :only => [:new, :edit, :create]
 
   # GET /issues
   # GET /issues.json
@@ -18,7 +18,8 @@ class IssuesController < ApplicationController
 
   def monthly
 
-
+    ws_id=params[:work_space_id]
+    w_spaces=WorkSpace.find(ws_id)
     @out=Array.new
 
 
@@ -28,7 +29,7 @@ class IssuesController < ApplicationController
 
       cd=(date.at_beginning_of_year+d-1).to_date
       ## puts d,cd
-      iss= Issue.includes(:critical_type).where('date(issues.created_at) =?', cd).maximum(:weight) || 0
+      iss= Issue.includes(:critical_type).includes(:work_space).where('date(issues.created_at) =?', cd).where(:work_space=> w_spaces).maximum(:weight) || 0
 
 
       if iss==0
@@ -47,20 +48,20 @@ class IssuesController < ApplicationController
 
   def index
     begin
-      @from_t=Time.strptime((params[:from_t] || '00:00'),"%H:%M")
-      @from=Time.strptime(params[:from],"%d.%m.%Y")
+      @from_t=Time.strptime((params[:from_t] || '00:00'), "%H:%M")
+      @from=Time.strptime(params[:from], "%d.%m.%Y")
       @from =@from+@from_t.hour.hours+@from_t.min.minutes
     rescue
       @from= Time.current.at_beginning_of_month
     end
     begin
-      @to_t=Time.strptime((params[:to_t] || '23:59'),"%H:%M")
-      @to=Time.strptime(params[:to],"%d.%m.%Y")
+      @to_t=Time.strptime((params[:to_t] || '23:59'), "%H:%M")
+      @to=Time.strptime(params[:to], "%d.%m.%Y")
       @to =@to+@to_t.hour.hours+@to_t.min.minutes
     rescue
       @to=Time.current.at_end_of_month
     end
-    @issues = Issue.includes(:issue_type, :status, :author, :violator, :assigned, :work_space).where(:created_at=> @from..@to).page params[:page]
+    @issues = Issue.includes(:issue_type, :status, :author, :violator, :assigned, :work_space).where(:created_at => @from..@to).page params[:page]
   end
 
   # GET /issues/1
@@ -159,6 +160,6 @@ class IssuesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def issue_params
-    params.require(:issue).permit(:violator_id, :status_id, :issue_type_id, :assigned_id, :close_date, :note_due, :due_date, :note_measures,:work_space_id)
+    params.require(:issue).permit(:violator_id, :status_id, :issue_type_id, :assigned_id, :close_date, :note_due, :due_date, :note_measures, :work_space_id)
   end
 end
