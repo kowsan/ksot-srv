@@ -1,5 +1,5 @@
 class AutoWorkSpace < ActiveRecord::Base
-  # belongs_to :work_space
+   belongs_to :work_space
   has_and_belongs_to_many :work_spaces
 
   def self.unassigned
