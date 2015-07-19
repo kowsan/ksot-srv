@@ -1,8 +1,9 @@
 class AutoWorkSpace < ActiveRecord::Base
-  belongs_to :work_space
+  # belongs_to :work_space
+  has_and_belongs_to_many :work_spaces
 
   def self.unassigned
-    where(:work_space_id => nil)
+    AutoWorkSpace.includes(:work_spaces).all.reject{|x| x.work_spaces.count >0}
   end
 
   def self.can_anonymous?(app_id)

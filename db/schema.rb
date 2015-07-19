@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150719103139) do
+ActiveRecord::Schema.define(version: 20150719160906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,8 +36,12 @@ ActiveRecord::Schema.define(version: 20150719103139) do
     t.boolean  "allow_anonymous", default: true
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
-    t.integer  "work_space_id"
     t.boolean  "deny_close",      default: true
+  end
+
+  create_table "auto_work_spaces_work_spaces", id: false, force: :cascade do |t|
+    t.integer "auto_work_space_id", null: false
+    t.integer "work_space_id",      null: false
   end
 
   create_table "critical_types", force: :cascade do |t|

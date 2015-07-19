@@ -5,7 +5,7 @@
     <th>ОС</th>
     <th>Пользователь ОС</th>
     <th>Короткое имя</th>
-    <th>Рабочее место</th>
+    <th>Рабочие места</th>
     <th>Комментарий</th>
     <th>Последнее подключение</th>
     <th>Расположение</th>
@@ -21,7 +21,7 @@
             $.getJSON('/auto_work_spaces.json').done(function (json) {
                 $("#assignedit").html("");
 
-                console.log("assigned: count",json.assigned.length)
+                console.log("assigned: count", json.assigned.length)
                 $.each(json.assigned, function (k, v) {
                     var rowcontent = ''
                     rowcontent += '<td>' + v.id + '</td>'
@@ -30,7 +30,13 @@
                     rowcontent += '<td>' + v.os + '</td>'
                     rowcontent += '<td>' + v.os_user + '</td>'
                     rowcontent += '<td>' + v.short_name + '</td>'
-                    rowcontent += '<td>' + v.work_space_name + '</td>'
+
+                    rowcontent += '<td>'
+                    $.each(v.workspaces, function (kk, vv) {
+                      rowcontent += vv.name+'<br>'
+
+                    })
+                    rowcontent += '</td>';
                     rowcontent += '<td>' + v.comment + '</td>'
                     rowcontent += '<td>' + v.updated_at + '</td>'
                     rowcontent += '<td>' + v.location + '</td>'
@@ -38,7 +44,8 @@
 
                     if (v.delete_url != undefined) {
 
-                        rowcontent += '&nbsp;<a data-confirm="Удалить?" rel="nofollow" data-method="delete" href="' + v.delete_url + '" class="btn glyphicon glyphicon-remove btn-danger  btn-sm" >Удалить</a>'
+                        rowcontent += '&nbsp;' + '<a data-confirm="Удалить?" rel="nofollow" data-method="delete" href="' + v.delete_url + '" class="btn glyphicon glyphicon-remove btn-danger  btn-sm" ></a>'
+                        //$(rowcontent).append()
                     }
                     else {
 

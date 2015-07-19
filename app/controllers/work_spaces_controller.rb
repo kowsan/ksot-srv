@@ -5,7 +5,7 @@ class WorkSpacesController < ApplicationController
   # GET /work_spaces
   # GET /work_spaces.json
   def index
-    @work_spaces = WorkSpace.all
+    @work_spaces = WorkSpace.unscoped.all
   end
 
   # GET /work_spaces/1
