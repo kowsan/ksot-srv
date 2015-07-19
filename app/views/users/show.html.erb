@@ -1,66 +1,69 @@
-<p id="notice"><%= notice %></p>
-<%= form_for(@user) do |f| %>
-    <% if @user.errors.any? %>
-        <div id="error_explanation">
-            <h2>Следующие ошибки мешают созданию пользователя:</h2>
+<div class="col-lg-5">
+    <h4>Мой профиль</h4>
+    <%= form_for(@user) do |f| %>
+        <% if @user.errors.any? %>
+            <div id="error_explanation">
+                <h2>Следующие ошибки мешают созданию пользователя:</h2>
 
-            <ul>
-                <% @user.errors.full_messages.each do |message| %>
-                    <li><%= message %></li>
-                <% end %>
-            </ul>
+                <ul>
+                    <% @user.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                    <% end %>
+                </ul>
+            </div>
+        <% end %>
+
+        <input type="hidden" value="fromprofile" name="fromprofile">
+
+        <div class="container-fluid">
+
+            <div class="form-group">
+                <%= f.label 'Логин' %>
+                <%= f.text_field(:login, {:class => 'form-control', :readonly => @readnonly, :placeholder => 'Логин пользователя'}) %>
+            </div>
+            <div class="form-group">
+                <%= f.label 'Пароль' %>
+                <%= f.text_field(:password, {:class => 'form-control', :placeholder => 'Пароль пользователя'}) %>
+            </div>
+            <div class="form-group">
+                <%= f.label 'Активен' %>
+                <%= f.check_box(:is_active, {:class => 'checkbox', :readonly => @readnonly}) %>
+            </div>
+            <div class="form-group">
+                <%= f.label 'Имя' %>
+                <%= f.text_field(:first_name, {:class => 'form-control', :readonly => @readnonly, :placeholder => 'Имя'}) %>
+            </div>
+            <div class="form-group">
+                <%= f.label 'Фамилия' %>
+                <%= f.text_field(:last_name, {:class => 'form-control', :readonly => @readnonly, :placeholder => 'Фамилия'}) %>
+            </div>
+            <div class="form-group">
+                <%= f.label 'Отчество' %>
+                <%= f.text_field(:middle_name, {:class => 'form-control', :readonly => @readnonly, :placeholder => 'Отчество'}) %>
+            </div>
+            <div class="form-group">
+                <%= f.label 'Роль' %>
+                <%= f.collection_select(:staff_role_id, StaffRole.all, :id, :name, {}, {:class => ' form-control ', :readonly => @readnonly}) %>
+            </div>
+            <div class="form-group">
+                <%= f.label 'Подразделение' %>
+                <%= f.collection_select(:subdivision_id, Subdivision.all, :id, :name, {}, {:class => ' form-control ', :readonly => @readnonly}) %>
+            </div>
+            <div class="form-group">
+                <%= f.label 'Должность' %>
+                <%= f.text_field(:position, {:class => ' form-control '}) %>
+            </div>
+
+            <div class="actions">
+                <%= f.submit({:class => 'btn btn-primary'}) %>
+            </div>
         </div>
     <% end %>
 
-    <input type="hidden" value="fromprofile" name="fromprofile">
-    <div class="container-fluid">
-
-        <div class="form-group">
-            <%= f.label 'Логин' %>
-            <%= f.text_field(:login, {:class => 'form-control', :readonly => @readnonly,:placeholder => 'Логин пользователя'}) %>
-        </div>
-        <div class="form-group">
-            <%= f.label 'Пароль' %>
-            <%= f.text_field(:password, {:class => 'form-control', :placeholder => 'Пароль пользователя'}) %>
-        </div>
-        <div class="form-group">
-            <%= f.label 'Активен' %>
-            <%= f.check_box(:is_active, {:class => 'checkbox',:readonly => @readnonly}) %>
-        </div>
-        <div class="form-group">
-            <%= f.label 'Имя' %>
-            <%= f.text_field(:first_name, {:class => 'form-control',:readonly => @readnonly, :placeholder => 'Имя'}) %>
-        </div>
-        <div class="form-group">
-            <%= f.label 'Фамилия' %>
-            <%= f.text_field(:last_name, {:class => 'form-control',:readonly => @readnonly, :placeholder => 'Фамилия'}) %>
-        </div>
-        <div class="form-group">
-            <%= f.label 'Отчество' %>
-            <%= f.text_field(:middle_name, {:class => 'form-control',:readonly => @readnonly, :placeholder => 'Отчество'}) %>
-        </div>
-        <div class="form-group">
-            <%= f.label 'Роль' %>
-            <%= f.collection_select(:staff_role_id, StaffRole.all, :id, :name, {}, {:class => ' form-control ',:readonly => @readnonly}) %>
-        </div>
-        <div class="form-group">
-            <%= f.label 'Подразделение' %>
-            <%= f.collection_select(:subdivision_id, Subdivision.all, :id, :name, {}, {:class => ' form-control ',:readonly => @readnonly}) %>
-        </div>
-        <div class="form-group">
-            <%= f.label 'Должность' %>
-            <%= f.text_field(:position, {:class => ' form-control '}) %>
-        </div>
-
-        <div class="actions">
-            <%= f.submit({:class => 'btn btn-primary'}) %>
-        </div>
-    </div>
-<% end %>
 
 
 
-
-<script type="text/javascript">
-    $('#profile').addClass('active');
-</script>
+    <script type="text/javascript">
+        $('#profile').addClass('active');
+    </script>
+</div>
