@@ -16,7 +16,7 @@
 
     <!-- get json with issues -->
     <script type="text/javascript">
-        function reloadData() {
+        function reloadAssigned() {
 
             $.getJSON('/auto_work_spaces.json').done(function (json) {
                 $("#assignedit").html("");
@@ -60,6 +60,6 @@
     </tbody>
 </table>
 <script type="text/javascript">
-    reloadData();
-    setInterval(reloadData, 60000)
+    reloadAssigned();
+    setInterval(reloadAssigned, 60000)
 </script>
