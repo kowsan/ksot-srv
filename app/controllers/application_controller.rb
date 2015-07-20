@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
       return @workspaces
     end
 
-    return AutoWorkSpace.all
+    return WorkSpace.all
 
 
   end
