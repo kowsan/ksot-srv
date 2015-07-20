@@ -23,6 +23,9 @@ StaffRole.create!(:name => 'Руководитель участка', :can_add_i
                   :can_view_employees_list => true,
                   :can_view_work_changes_owned => true,
                   :can_fill_control_list => true)
+
+
+
 adm_id=StaffRole.create!(:name => 'Инженер по охране труда',
                          :can_add_issue => true, :can_edit_issue => true,
                          :can_change_issue_status => true,
@@ -30,7 +33,8 @@ adm_id=StaffRole.create!(:name => 'Инженер по охране труда',
                          :can_view_issue_report_local => true,
                          :can_view_employees_list => true,
                          :can_view_work_changes_owned => true,
-                         :can_fill_control_list => true, :can_manage_org_structure => true
+                         :can_fill_control_list => true,
+                         :can_manage_org_structure => true
 )
 
 User.delete_all
