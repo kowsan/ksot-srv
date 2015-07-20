@@ -28,8 +28,25 @@ class ApplicationController < ActionController::Base
 
   end
 
+  def get_available_work_spaces
+    if @logged_user.staff_role.area_owner?
+      @workspaces=@logged_user.subdivision.area.work_spaces
+      return @workspaces
+    end
+    if @logged_user.staff_role.subdivision_owner?
+      @workspaces=@logged_user.subdivision.work_spaces
+      return @workspaces
+    end
+
+    if @logged_user.staff_role.can_manage_org_structure?
+      @workspaces=WorkSpace.all
+      return @workspaces
+    end
+
+    return AutoWorkSpace.all
 
 
+  end
 
 
 end

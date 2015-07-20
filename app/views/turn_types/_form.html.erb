@@ -1,17 +1,49 @@
 <%= form_for(@turn_type) do |f| %>
-  <% if @turn_type.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@turn_type.errors.count, "error") %> prohibited this turn_type from being saved:</h2>
+    <% if @turn_type.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@turn_type.errors.count, "error") %> prohibited this turn_type from being saved:</h2>
 
-      <ul>
-      <% @turn_type.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+            <ul>
+                <% @turn_type.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+    <div class="form-group">
+        <%= f.label 'Код рабочего места' %>
+        <%= f.text_field(:name, {:class => 'form-control', :placeholder => ''}) %>
     </div>
-  <% end %>
+    <div class="form-group">
+        <%= f.label '1-я смена - начало (чч:мм)' %>
+        <%= f.time_select(:start_time, {:class => 'form-control', :placeholder => ''}) %>
+    </div>
+    <div class="form-group">
+        <%= f.label 'Короткое название' %>
+        <%= f.number_fiels(:short_name, {:class => 'form-control', :placeholder => ''}) %>
+    </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="form-group">
+        <%= f.label 'Подразделение' %>
+        <%= f.collection_select(:subdivision_id, Subdivision.all, :id, :name, {}, {:class => ' form-control input-large'}) %>
+    </div>
+
+
+    <div class="form-group">
+        <%= f.label 'Используемое РМ' %>
+        <%= f.check_box(:is_used, {:class => 'checkbox', :placeholder => ''}) %>
+    </div>
+
+    <div class="form-group">
+        <%= f.label ' Виды нарушений' %>
+        <%= render :partial => 'layouts/switch_list', :locals => {:assigned => @assigned, :other => @other, :model_name => 'work_space[issue_type]', :title_assigned => 'связанные', :title_other => 'остальные'} %>
+    </div>
+
+    <div class="actions">
+        <%= f.submit({:onclick => "$('#selected option').attr('selected', 'selected');", :class => 'btn btn-primary'}) %>
+    </div>
+
+    <div class="actions">
+        <%= f.submit %>
+    </div>
 <% end %>

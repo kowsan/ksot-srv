@@ -159,7 +159,7 @@ class IssuesController < ApplicationController
     unless ws.nil?
       begin
         @ws=ws.work_space
-        @issue_types=ws.work_space.issue_types
+        @issue_types=ws.work_spaces.issue_types
       rescue
         @issue_types=nil
       end

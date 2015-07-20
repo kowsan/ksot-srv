@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :issue_types
   resources :critical_types
+  resources :turn_types
   root 'work#user_info'
   get 'issues/monthly'
   get 'issues/next_date'
@@ -17,6 +18,7 @@ Rails.application.routes.draw do
   devise_for :work_spaces
   devise_for :issue_types
   devise_for :auto_work_spaces
+  devise_for :turn_types
   devise_scope :users do
     get "sign_out", :to => "devise/sessions#destroy"
   end

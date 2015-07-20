@@ -7,9 +7,18 @@ class WorkController < ApplicationController
     if current_user
       @allow_anon='you authed'
       check_permission
+      get_available_work_spaces
 
     else
       @allow_anon=AutoWorkSpace.can_anonymous?(cookies[:app_id])
+      if @allow_anon
+        # get arm workspaces
+        @workspaces=WorkSpace.all
+
+      else
+
+      end
+
     end
 
   end

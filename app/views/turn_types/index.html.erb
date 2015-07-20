@@ -1,6 +1,6 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Listing Turn Types</h1>
+
+<h4 style="color: orange">Схемы смен</h4>
 
 <table>
   <thead>
@@ -12,9 +12,9 @@
   <tbody>
     <% @turn_types.each do |turn_type| %>
       <tr>
-        <td><%= link_to 'Show', turn_type %></td>
-        <td><%= link_to 'Edit', edit_turn_type_path(turn_type) %></td>
-        <td><%= link_to 'Destroy', turn_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+        <td><%= link_to 'Редактировать', edit_turn_type_path(turn_type) %>
+        <%= link_to 'Удалить', turn_type, method: :delete, data: { confirm: 'Are you sure?' },:class => 'btn btn-danger' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -22,4 +22,4 @@
 
 <br>
 
-<%= link_to 'New Turn type', new_turn_type_path %>
+<%= link_to 'Создать схему смен', new_turn_type_path %>
