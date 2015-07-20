@@ -17,7 +17,7 @@ class IssuesController < ApplicationController
   end
 
   def monthly
-
+    get_available_work_spaces unless @logged_user.nil?
     ws_id=params[:work_space_id]
     w_spaces=WorkSpace.find(ws_id)
     @out=Array.new

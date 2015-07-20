@@ -31,20 +31,20 @@ class ApplicationController < ActionController::Base
   def get_available_work_spaces
     if @logged_user.staff_role.area_owner?
       @workspaces=@logged_user.subdivision.area.work_spaces
-      return @workspaces
+      return
     end
     if @logged_user.staff_role.subdivision_owner?
       @workspaces=@logged_user.subdivision.work_spaces
-      return @workspaces
+      return
     end
 
     if @logged_user.staff_role.can_manage_org_structure?
       @workspaces=WorkSpace.all
-      return @workspaces
+      return
     end
 
-    return AutoWorkSpace.find_by_uuid(cookies[:app_id]).work_spaces
-
+     @workspaces=AutoWorkSpace.find_by_uuid(cookies[:app_id]).work_spaces
+     return
 
   end
 
