@@ -29,13 +29,18 @@ class IssuesController < ApplicationController
 
       cd=(date.at_beginning_of_year+d-1).to_date
       ## puts d,cd
-      iss= Issue.includes(:critical_type).includes(:work_space).where('date(issues.created_at) =?', cd).where(:work_space=> w_spaces).maximum(:weight) || 0
+      iss= Issue.includes(:critical_type).includes(:work_space).where('date(issues.created_at) =?', cd).where(:work_space => w_spaces).maximum(:weight) || 0
 
+      if Date.current >= cd
+        if iss==0
+          clr='#97D077'
 
-      if iss==0
-        clr='#97D077'
+        else
+          clr=CriticalType.where(:weight => iss).first.color.to_s
+        end
+
       else
-        clr=CriticalType.where(:weight => iss).first.color.to_s
+        clr='#ffffff'
       end
       h=Hash.new
       h["color"]=clr
@@ -162,4 +167,5 @@ class IssuesController < ApplicationController
   def issue_params
     params.require(:issue).permit(:violator_id, :status_id, :issue_type_id, :assigned_id, :close_date, :note_due, :due_date, :note_measures, :work_space_id)
   end
+
 end
