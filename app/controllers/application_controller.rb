@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
       return @workspaces
     end
 
-    return WorkSpace.all
+    return AutoWorkSpace.find_by_uuid(cookies[:app_id]).work_spaces
 
 
   end
