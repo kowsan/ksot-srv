@@ -37,26 +37,31 @@
         <%= f.collection_select(:status_id, Status.all, :id, :name, {}, {:class => ' form-control input'}) %>
     </div>
 
+
+
+    <div class="form-group">
+        <%= f.label 'Ответственный за устранение' %><br>
+        <%= f.collection_select(:assigned_id, User.all, :id, :full_name, {}, {:class => ' form-control input'}) %>
+    </div>
+    <div class="form-group">
+        <%= f.label 'Рабочее место' %><br>
+
+        <%= f.collection_select(:work_space_id, @workspaces, :id, :name, {}, {multiple: false, :class => ' form-control input'}) %>
+    </div>
     <div class="form-group">
         <%= f.label 'Выявленное нарушение' %> <br>
-        <% if @issue_types.nil? %>
+        <% if 1==2 %>
             <div class="alert  alert-warning">
 
                 <strong>Нет доступных видов нарушения для вашего рабочего места</strong>
 
             </div>
         <% else %>
-            <%= f.collection_select(:issue_type_id, @issue_types, :id, :name, {}, {:class => ' form-control input'}) %>
+            <%= f.collection_select(:issue_type_id, IssueType.all, :id, :name, {}, {:class => ' form-control input'}) %>
 
         <% end %>
 
     </div>
-
-    <div class="form-group">
-        <%= f.label 'Ответственный за устранение' %><br>
-        <%= f.collection_select(:assigned_id, User.all, :id, :full_name, {}, {:class => ' form-control input'}) %>
-    </div>
-
 
     <div class="form-group">
         <%= f.label 'Отметка о выполнении' %><br>
@@ -79,13 +84,42 @@
         <%= f.submit({:class => 'btn btn-primary', :id => 'issue_add'}) %>
     </div>
     <script>
-        <% if @issue_types.nil? %>
-        $('#issue_add').hide()
-        <%end%>
-        $(function () {
+        function getissuetypes() {
+            var value = $('#issue_work_space_id option:selected').val()
+            console.log(value)
+            $.getJSON('/work_spaces/get_issue_types.json',
+                    {
+                        work_space_id: value
+                    }
+            ).done(function (json) {
+                        $('#issue_issue_type_id').find('option').remove().end()
+                        $.each(json, function (k, v) {
+                            $('#issue_issue_type_id').append($("<option></option>")
+                                    .attr("value", v.id)
+                                    .text(v.name));
+                        })
+                        if (json.length==0)
+                        {
+                          $('#issue_add').hide()
+                        }
+                        else
+                        {
+                            $('#issue_add').show()
+                        }
+                    })
+        }
+
+        $(document).ready(function () {
             $('.input-group .date').datetimepicker({
                 locale: 'ru'
             });
+
+
+            $('#issue_work_space_id').change(function () {
+                getissuetypes();
+            })
+            getissuetypes()
+
         });
     </script>
 

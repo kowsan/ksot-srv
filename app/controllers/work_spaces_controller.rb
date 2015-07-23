@@ -8,6 +8,11 @@ class WorkSpacesController < ApplicationController
     @work_spaces = WorkSpace.unscoped.all
   end
 
+  def get_issue_types
+    ws=params[:work_space_id]
+    @issue_types= WorkSpace.find(ws).issue_types
+  end
+
   # GET /work_spaces/1
   # GET /work_spaces/1.json
   def show
@@ -33,7 +38,7 @@ class WorkSpacesController < ApplicationController
     x= @work_space.save
     it=params[:work_space][:issue_type]
     @work_space.issue_types.clear
-    @work_space.issue_types << IssueType.find(it)  unless it.nil?
+    @work_space.issue_types << IssueType.find(it) unless it.nil?
     respond_to do |format|
       if x
         format.html { redirect_to work_spaces_path, notice: 'Рабочее место создано.' }
@@ -50,7 +55,7 @@ class WorkSpacesController < ApplicationController
   def update
     it=params[:work_space][:issue_type]
     @work_space.issue_types.clear
-    @work_space.issue_types << IssueType.find(it)  unless it.nil?
+    @work_space.issue_types << IssueType.find(it) unless it.nil?
     respond_to do |format|
       if @work_space.update(work_space_params)
         format.html { redirect_to work_spaces_path, notice: 'Рабочее место обновлено.' }

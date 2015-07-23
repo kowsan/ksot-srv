@@ -1,7 +1,7 @@
 class IssuesController < ApplicationController
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
   before_action :check_permission, :validate_access_ws, :except => [:monthly, :next_date]
-  before_action :get_ws, :only => [:new, :edit, :create]
+
 
   # GET /issues
   # GET /issues.json
@@ -79,14 +79,15 @@ class IssuesController < ApplicationController
 
   # GET /issues/new
   def new
-    get_ws
+
+    @workspaces=get_available_work_spaces
     @issue = Issue.new
 
   end
 
   # GET /issues/1/edit
   def edit
-    get_ws
+
     unless @can_edit_issue
       respond_to do |format|
         format.any { render nothing: true, :status => :forbidden }
@@ -100,7 +101,7 @@ class IssuesController < ApplicationController
     @issue = Issue.new(issue_params)
     @issue.author =@logged_user
 
-    @issue.work_space=@ws
+
 
     respond_to do |format|
       if @issue.save
@@ -154,17 +155,7 @@ class IssuesController < ApplicationController
     @issue = Issue.find(params[:id])
   end
 
-  def get_ws
-    ws=AutoWorkSpace.find_by_uuid(cookies[:app_id])
-    unless ws.nil?
-      begin
-        @ws=ws.work_space
-        @issue_types=ws.work_spaces.issue_types
-      rescue
-        @issue_types=nil
-      end
-    end
-  end
+
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def issue_params

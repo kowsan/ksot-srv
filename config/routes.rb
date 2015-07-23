@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :turn_types
   root 'work#user_info'
   get 'issues/monthly'
+  get 'work_spaces/get_issue_types'
   get 'issues/next_date'
 
   resources :issues
