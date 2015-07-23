@@ -87,7 +87,7 @@ class IssuesController < ApplicationController
 
   # GET /issues/1/edit
   def edit
-
+    @workspaces=get_available_work_spaces
     unless @can_edit_issue
       respond_to do |format|
         format.any { render nothing: true, :status => :forbidden }
