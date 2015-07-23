@@ -2,24 +2,35 @@ class WorkController < ApplicationController
   before_action :check_permission, :except => [:app_login, :app_logout, :user_info]
 
   def user_info
-    @allow_anon='false'
 
+
+    ws=AutoWorkSpace.current_aws(cookies[:app_id])
+    if ws.nil?
+      @allow_anon=false
+    else
+      if ws.work_spaces.count==0
+        @allow_anon=false
+      else
+       @allow_anon=ws.allow_anonymous?
+      end
+    end
     if current_user
       @allow_anon='you authed'
       check_permission
-      get_available_work_spaces
-
-    else
-      @allow_anon=AutoWorkSpace.can_anonymous?(cookies[:app_id])
-      if @allow_anon
-        # get arm workspaces
-        @workspaces=WorkSpace.all
-
-      else
-
+      @workspaces= get_available_work_spaces
+      if @workspaces.nil?
+        @allow_anon=false
       end
 
+    else
+      @workspaces= get_available_work_spaces
+      if @workspaces.nil?
+        @allow_anon=false
+      end
     end
+
+
+
 
   end
 

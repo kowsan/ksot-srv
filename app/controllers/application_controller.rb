@@ -29,22 +29,31 @@ class ApplicationController < ActionController::Base
   end
 
   def get_available_work_spaces
-    if @logged_user.staff_role.area_owner?
-      @workspaces=@logged_user.subdivision.area.work_spaces
-      return
-    end
-    if @logged_user.staff_role.subdivision_owner?
-      @workspaces=@logged_user.subdivision.work_spaces
-      return
+    begin
+      if @logged_user.staff_role.area_owner?
+        return @logged_user.subdivision.area.work_spaces
+
+      end
+
+      if @logged_user.staff_role.subdivision_owner?
+        return @logged_user.subdivision.work_spaces
+
+      end
+
+      if @logged_user.staff_role.can_manage_org_structure?
+        return WorkSpace.all
+      end
+    rescue
+
+      begin
+        return AutoWorkSpace.current_aws(cookies[:app_id]).work_spaces.all
+      rescue
+        return nil
+      end
+
+
     end
 
-    if @logged_user.staff_role.can_manage_org_structure?
-      @workspaces=WorkSpace.all
-      return
-    end
-
-     @workspaces=AutoWorkSpace.find_by_uuid(cookies[:app_id]).work_spaces
-     return
 
   end
 
