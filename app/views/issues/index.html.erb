@@ -51,7 +51,13 @@
             <td><%= issue.status.name %></td>
             <td><%= issue.issue_type.name %></td>
             <td><%= issue.assigned.full_name %></td>
-            <td><%= (issue.due_date).strftime('%d.%m.%Y') %></td>
+            <td>
+                <% if issue.due_date.nil? %>
+                    &nbsp;
+                <% else %>
+                    <%= (issue.due_date).strftime('%d.%m.%Y') unless issue.due_date.nil? %>
+                <% end %>
+            </td>
             <td><%= issue.note_measures %></td>
             <td>
                 <%= link_to '', edit_issue_path(issue), {:class => 'btn glyphicon glyphicon-edit btn-primary  btn-sm '} %>
