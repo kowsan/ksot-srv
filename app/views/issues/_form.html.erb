@@ -57,7 +57,7 @@
 
             </div>
         <% else %>
-            <%= f.collection_select(:issue_type_id, IssueType.all, :id, :name, {}, {:class => ' form-control input'}) %>
+            <%= f.collection_select(:issue_type_id, @workspaces.first.issue_types, :id, :name, {}, {:class => ' form-control input'}) %>
 
         <% end %>
 
@@ -84,8 +84,39 @@
         <%= f.submit({:class => 'btn btn-primary', :id => 'issue_add'}) %>
     </div>
     <script>
+        function fixOldIt() {
+            <% unless @issue.new_record? %>
+
+
+            $('#issue_issue_type_id').find('option').each(function () {
+                console.log($(this).val())
+                if ($(this).val().toString() == '<%= @issue.issue_type.id %>') {
+                    $(this).attr('selected', true);
+                }
+
+            });
+            <%end%>
+        }
+
+        $(document).ready(function () {
+
+            $('.input-group .date').datetimepicker({
+                locale: 'ru'
+            });
+
+            getissuetypes()
+            $('#issue_work_space_id').change(function () {
+                getissuetypes();
+            })
+
+
+        });
+
+
         function getissuetypes() {
+
             var value = $('#issue_work_space_id option:selected').val()
+
             console.log(value)
             $.getJSON('/work_spaces/get_issue_types.json',
                     {
@@ -94,33 +125,22 @@
             ).done(function (json) {
                         $('#issue_issue_type_id').find('option').remove().end()
                         $.each(json, function (k, v) {
+
                             $('#issue_issue_type_id').append($("<option></option>")
                                     .attr("value", v.id)
                                     .text(v.name));
+
                         })
-                        if (json.length==0)
-                        {
-                          $('#issue_add').hide()
+                        fixOldIt()
+                        if (json.length == 0) {
+                            $('#issue_add').hide()
                         }
-                        else
-                        {
+                        else {
+
                             $('#issue_add').show()
                         }
                     })
         }
-
-        $(document).ready(function () {
-            $('.input-group .date').datetimepicker({
-                locale: 'ru'
-            });
-
-
-            $('#issue_work_space_id').change(function () {
-                getissuetypes();
-            })
-            getissuetypes()
-
-        });
     </script>
 
 <% end %>
