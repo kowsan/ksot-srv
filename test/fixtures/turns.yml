@@ -1,9 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  start: 2015-06-07 14:19:28
-  end: 2015-06-07 14:19:28
+  day_date: 2015-07-28
+  first_time: 2015-07-28 00:23:44
+  first_duration: 1
+  second_time: 2015-07-28 00:23:44
+  second_duration: 1
+  is_dayoff: false
 
 two:
-  start: 2015-06-07 14:19:28
-  end: 2015-06-07 14:19:28
+  day_date: 2015-07-28
+  first_time: 2015-07-28 00:23:44
+  first_duration: 1
+  second_time: 2015-07-28 00:23:44
+  second_duration: 1
+  is_dayoff: false

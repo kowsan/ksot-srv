@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Day date:</strong>
+  <%= @turn.day_date %>
+</p>
+
+<p>
+  <strong>First time:</strong>
+  <%= @turn.first_time %>
+</p>
+
+<p>
+  <strong>First duration:</strong>
+  <%= @turn.first_duration %>
+</p>
+
+<p>
+  <strong>Second time:</strong>
+  <%= @turn.second_time %>
+</p>
+
+<p>
+  <strong>Second duration:</strong>
+  <%= @turn.second_duration %>
+</p>
+
+<p>
+  <strong>Is dayoff:</strong>
+  <%= @turn.is_dayoff %>
+</p>
+
+<%= link_to 'Edit', edit_turn_path(@turn) %> |
+<%= link_to 'Back', turns_path %>

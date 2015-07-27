@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720213255) do
+ActiveRecord::Schema.define(version: 20150727212344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -126,24 +126,15 @@ ActiveRecord::Schema.define(version: 20150720213255) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "turn_dates", force: :cascade do |t|
-    t.date    "day"
-    t.integer "turn_type_id"
-  end
-
-  create_table "turn_types", force: :cascade do |t|
-    t.string   "name"
-    t.time     "start_time"
-    t.integer  "hour_duration"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
   create_table "turns", force: :cascade do |t|
-    t.datetime "start"
-    t.datetime "end"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.date     "day_date"
+    t.time     "first_time"
+    t.integer  "first_duration"
+    t.time     "second_time"
+    t.integer  "second_duration"
+    t.boolean  "is_dayoff",       default: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   create_table "users", force: :cascade do |t|
