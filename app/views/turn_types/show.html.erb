@@ -1,4 +1,39 @@
 <p id="notice"><%= notice %></p>
 
+<p>
+  <strong>Name:</strong>
+  <%= @turn_type.name %>
+</p>
+
+<p>
+  <strong>First start at:</strong>
+  <%= @turn_type.first_start_at %>
+</p>
+
+<p>
+  <strong>First duration:</strong>
+  <%= @turn_type.first_duration %>
+</p>
+
+<p>
+  <strong>Second start at:</strong>
+  <%= @turn_type.second_start_at %>
+</p>
+
+<p>
+  <strong>Second duration:</strong>
+  <%= @turn_type.second_duration %>
+</p>
+
+<p>
+  <strong>Reminder before end:</strong>
+  <%= @turn_type.reminder_before_end %>
+</p>
+
+<p>
+  <strong>Is day off:</strong>
+  <%= @turn_type.is_day_off %>
+</p>
+
 <%= link_to 'Edit', edit_turn_type_path(@turn_type) %> |
 <%= link_to 'Back', turn_types_path %>

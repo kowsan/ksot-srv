@@ -1,4 +1,4 @@
-<%= form_for(@turn_type) do |f| %>
+<%= form_for(@turn_type, :html => {:class => 'form-horizontal'}) do |f| %>
     <% if @turn_type.errors.any? %>
         <div id="error_explanation">
             <h2><%= pluralize(@turn_type.errors.count, "error") %> prohibited this turn_type from being saved:</h2>
@@ -10,40 +10,102 @@
             </ul>
         </div>
     <% end %>
-    <div class="form-group">
-        <%= f.label 'Код рабочего места' %>
-        <%= f.text_field(:name, {:class => 'form-control', :placeholder => ''}) %>
-    </div>
-    <div class="form-group">
-        <%= f.label '1-я смена - начало (чч:мм)' %>
-        <%= f.time_select(:start_time, {:class => 'form-control', :placeholder => ''}) %>
-    </div>
-    <div class="form-group">
-        <%= f.label 'Короткое название' %>
-        <%= f.number_fiels(:short_name, {:class => 'form-control', :placeholder => ''}) %>
-    </div>
-
-    <div class="form-group">
-        <%= f.label 'Подразделение' %>
-        <%= f.collection_select(:subdivision_id, Subdivision.all, :id, :name, {}, {:class => ' form-control input-large'}) %>
-    </div>
 
 
     <div class="form-group">
-        <%= f.label 'Используемое РМ' %>
-        <%= f.check_box(:is_used, {:class => 'checkbox', :placeholder => ''}) %>
+        <%= f.label 'Наименование', :class => 'col-lg-3 control-label' %>
+
+        <div class="col-lg-9">
+            <%= f.text_field :name, :class => 'form-control input' %>
+        </div>
     </div>
 
     <div class="form-group">
-        <%= f.label ' Виды нарушений' %>
-        <%= render :partial => 'layouts/switch_list', :locals => {:assigned => @assigned, :other => @other, :model_name => 'work_space[issue_type]', :title_assigned => 'связанные', :title_other => 'остальные'} %>
+        <%= f.label 'Это выходной', :class => 'col-lg-2 control-label' %>
+        <div class="col-lg-9">
+            <%= f.check_box :is_day_off, :class => 'checkbox' %>
+        </div>
     </div>
+    <div id="common_shemes">
+        <div class="form-group">
+            <%= f.label 'Начало первой смены', :class => 'col-lg-3 control-label' %>
+
+            <div class="col-lg-9">
+                <%= f.time_select :first_start_at, :class => 'form-control input' %>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <%= f.label 'Продолжительность первой смены', :class => 'col-lg-3 control-label' %>
+
+            <div class="col-lg-9">
+                <%= f.time_select :first_duration %>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class='col-lg-3 control-label'>Поддерка второй смены?</label>
+
+            <div class="col-lg-9">
+                <input type="checkbox" id="secondsmenesupport" value="Вторая смена вкл" checked>
+            </div>
+        </div>
+
+        <div id="secondsmene">
+            <div class="form-group">
+                <%= f.label 'Начало второй смены', :class => 'col-lg-3 control-label' %>
+                <div class="col-lg-9">
+                    <%= f.time_select :second_start_at %>
+                </div>
+            </div>
+            <div class="form-group">
+                <%= f.label 'Продолжительность второй смены', :class => 'col-lg-3 control-label' %>
+
+                <div class="col-lg-9">
+                    <%= f.time_select :second_duration %>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <%= f.label 'Напоминать перед окончанием смены за, минут', :class => 'col-lg-3 control-label' %>
+            <div class="col-lg-9">
+                <%= f.number_field :reminder_before_end %>
+            </div>
+        </div>
+    </div>
+
 
     <div class="actions">
-        <%= f.submit({:onclick => "$('#selected option').attr('selected', 'selected');", :class => 'btn btn-primary'}) %>
-    </div>
-
-    <div class="actions">
-        <%= f.submit %>
+        <%= f.submit(:class=>'btn btn-primary') %>
     </div>
 <% end %>
+<script>
+
+    $(document).ready(function () {
+        $('#turn_type_is_day_off').change(function () {
+            if ($(this).is(":checked")) {
+                //'checked' event code
+                console.log('cb is checked')
+
+                $('#common_shemes').hide()
+            } else {
+                console.log('cb is unchecked')
+                $('#common_shemes').show()
+            }
+
+        });
+        $('#secondsmenesupport').change(function () {
+            if ($(this).is(":checked")) {
+                //'checked' event code
+                console.log('cb is checked')
+
+                $('#secondsmene').show()
+            } else {
+                console.log('cb is unchecked')
+                $('#secondsmene').hide()
+            }
+
+        });
+
+    });
+</script>

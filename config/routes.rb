@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :turn_types
   resources :turns
   resources :issue_types
   resources :critical_types

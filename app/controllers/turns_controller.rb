@@ -29,7 +29,7 @@ class TurnsController < ApplicationController
 
     respond_to do |format|
       if @turn.save
-        format.html { redirect_to @turn, notice: 'Turn was successfully created.' }
+        format.html { redirect_to turns_path, notice: 'Turn was successfully created.' }
         format.json { render :show, status: :created, location: @turn }
       else
         format.html { render :new }
@@ -43,7 +43,7 @@ class TurnsController < ApplicationController
   def update
     respond_to do |format|
       if @turn.update(turn_params)
-        format.html { redirect_to @turn, notice: 'Turn was successfully updated.' }
+        format.html { redirect_to turns_path, notice: 'Turn was successfully updated.' }
         format.json { render :show, status: :ok, location: @turn }
       else
         format.html { render :edit }
@@ -70,6 +70,6 @@ class TurnsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def turn_params
-      params.require(:turn).permit(:day_date, :first_time, :first_duration, :second_time, :second_duration, :is_dayoff)
+      params.require(:turn).permit(:day_date, :turn_type_id)
     end
 end
