@@ -19,7 +19,7 @@ class IssuesController < ApplicationController
   def monthly
     @workspaces=get_available_work_spaces #unless @logged_user.nil?
     ws_id=params[:work_space_id]
-    w_spaces=WorkSpace.find(ws_id)
+  #  w_spaces=WorkSpace.find(ws_id)
     @out=Array.new
 
 
@@ -30,15 +30,14 @@ class IssuesController < ApplicationController
       cd=(date.at_beginning_of_year+d-1).to_date
       ## puts d,cd
       if Date.current >= cd
-        iss= Issue.includes(:critical_type).includes(:work_space).where('date(issues.created_at) =?', cd).where(:work_space => w_spaces).maximum(:weight) || 0
-        if iss==0
-          clr='#97D077'
 
-        else
-
-          clr=CriticalType.where(:weight => iss).first.color.to_s
-        end
-
+        clr=Issue.max_on(cd,ws_id)
+        # iss= Issue.includes(:critical_type).includes(:work_space).where('date(issues.created_at) =?', cd).where(:work_space => w_spaces).maximum(:weight) || 0
+        # if iss==0
+        #   clr='#97D077'
+        # else
+        #   clr=CriticalType.where(:weight => iss).first.color.to_s
+        # end
       else
         clr='#ffffff'
       end
