@@ -46,7 +46,7 @@
         <tr>
             <td><%= issue.id %></td>
             <td><%= issue.author.full_name %></td>
-            <td><%= (issue.created_at).strftime('%d.%m.%Y') %></td>
+            <td><%= (issue.created_at.to_date).strftime('%d.%m.%Y') %></td>
             <td><%= issue.violator.full_name %></td>
             <td><%= issue.status.name %></td>
             <td><%= issue.issue_type.name %></td>
