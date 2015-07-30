@@ -46,7 +46,7 @@ class IssuesController < ApplicationController
 
 
       h=Hash.new
-      h["color"]=clr
+      h["c"]=clr
       @out << h
 
     end
