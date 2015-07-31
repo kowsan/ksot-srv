@@ -1,11 +1,11 @@
 class IssueTypesController < ApplicationController
-  before_action :set_issue_type, only: [:show, :edit, :update, :destroy]
-  before_action :check_permission,:validate_access
+  before_action :set_issue_type, only: [:show, :edit, :update, :destroy,:enable]
+  before_action :check_permission, :validate_access
 
   # GET /issue_types
   # GET /issue_types.json
   def index
-    @issue_types = IssueType.all
+    @issue_types = IssueType.unscoped.order('is_enabled desc').all
   end
 
   # GET /issue_types/1
@@ -56,11 +56,28 @@ class IssueTypesController < ApplicationController
   # DELETE /issue_types/1
   # DELETE /issue_types/1.json
   def destroy
-    @issue_type.destroy
+    #@issue_type.destroy
+    @issue_type.is_enabled=false
+    # @issue_type.work_spaces.clear
+    @issue_type.save!
     respond_to do |format|
       format.html { redirect_to issue_types_path, notice: 'Issue type was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+
+  def enable
+
+    #@issue_type.destroy
+    @issue_type.is_enabled=true
+    # @issue_type.work_spaces.clear
+    @issue_type.save!
+    respond_to do |format|
+      format.html { redirect_to issue_types_path, notice: 'Issue type was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+
   end
 
   private
@@ -71,13 +88,14 @@ class IssueTypesController < ApplicationController
       end
     end
   end
-    # Use callbacks to share common setup or constraints between actions.
-    def set_issue_type
-      @issue_type = IssueType.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def issue_type_params
-      params.require(:issue_type).permit(:name,:critical_type_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_issue_type
+    @issue_type = IssueType.unscoped.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def issue_type_params
+    params.require(:issue_type).permit(:name, :critical_type_id)
+  end
 end

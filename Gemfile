@@ -54,3 +54,4 @@ gem 'kaminari'
 
 
 gem 'redis'
+gem 'unscoped_associations'

@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h4 style="color: orange">Виды нарушений</h4>
-<%= link_to 'Новый вид нарушения', new_issue_type_path,:class => 'btn btn-success btn-sm' %>
+<%= link_to 'Новый вид нарушения', new_issue_type_path, :class => 'btn btn-success btn-sm' %>
 <br>
 <br>
 <table class="table table-striped table-hover">
@@ -13,12 +13,19 @@
     <tbody>
     <% @issue_types.each do |issue_type| %>
         <tr>
-            <td><font style="background-color: <%= issue_type.critical_type.color %>"><%= issue_type.critical_type.name %></font></td>
+            <td>
+                <font style="background-color: <%= issue_type.critical_type.color %>"><%= issue_type.critical_type.name %></font>
+            </td>
             <td><%= issue_type.name %></td>
 
             <td><%= link_to '', edit_issue_type_path(issue_type), :class => 'btn glyphicon glyphicon-edit btn-primary  btn-sm' %>
-                <%= link_to '', issue_type, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn glyphicon glyphicon-remove btn-danger  btn-sm' %></td>
-        </tr>
+                <% if issue_type.is_enabled? %>
+                    <%= link_to '', issue_type, method: :delete, data: {confirm: 'Вы действительно хотите сделать недостуным данный вид нарушения. Все существующие привязки будут сохранены но станут недоступны при создании или обновлении нарушений. В дальнейшем вы сможете задействовать вид  нарушения '}, :class => 'btn glyphicon glyphicon-off btn-danger  btn-sm' %>
+                <% else %>
+                    <%= link_to('', enable_issue_type_path(issue_type),  :class => 'btn glyphicon glyphicon-ok btn-success  btn-sm')%>
+                <% end %>
+            </td>
+                </tr>
     <% end %>
     </tbody>
 </table>

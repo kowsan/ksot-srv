@@ -1,6 +1,6 @@
 class Issue < ActiveRecord::Base
   belongs_to :author, :class_name => 'User'
-  belongs_to :issue_type
+  belongs_to :issue_type, unscoped: true
   belongs_to :status
   belongs_to :work_space
   belongs_to :assigned, :class_name => 'User'
@@ -10,6 +10,7 @@ class Issue < ActiveRecord::Base
 
   validates_presence_of :status_id, :violator_id, :assigned_id
   validates_presence_of :work_space_id
+
 
 
   after_save :update_cache
@@ -33,7 +34,7 @@ class Issue < ActiveRecord::Base
     # w = Issue.includes(:critical_type).includes(:work_space).where('date(issues.created_at) =?', d).where(:work_space_id => work_space_id).maximum(:weight) || 0
     #$redis.set(key,w)
     if $redis.get(key).nil?
-      w = Issue.includes(:critical_type).includes(:work_space).where('issues.created_at >=? AND issues.created_at <=?',date.at_beginning_of_day,date.at_end_of_day).where(:work_space_id => work_space_id).maximum(:weight) || 0
+      w = Issue.includes(:critical_type).includes(:work_space).where('issues.created_at >=? AND issues.created_at <=?', date.at_beginning_of_day, date.at_end_of_day).where(:work_space_id => work_space_id).maximum(:weight) || 0
       if w==0
         clr='#97D077'
       else

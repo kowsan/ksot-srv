@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   resources :turn_types
   resources :turns
-  resources :issue_types
+  resources :issue_types do
+     member do
+         get 'enable'
+
+     end
+  end
   resources :critical_types
 
   root 'work#user_info'
