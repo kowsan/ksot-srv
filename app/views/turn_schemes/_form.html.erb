@@ -54,7 +54,7 @@
             var content = ''
 
 
-            content += '<div class="row"><br>\n\n    <div class="col-sm-1">\n        <input type="text" class="form-control  date" name="day[]">\n    </div>\n    <div class="col-sm-5">\n        <select name="turn_type_id[]" class="form-control input">\n        </select>\n    </div>\n    <div class="col-sm-1"><a href="#" class="btn btn-danger"\n                             onclick="$(event.target).parent().parent().remove();return false;">Удалить</a></div>\n</div>\n\n'
+            content += '<div class="row"><br>\n\n    <div class="col-sm-3">\n        <input type="text" class="form-control  date" name="day[]">\n    </div>\n    <div class="col-sm-5">\n        <select name="turn_type_id[]" class="form-control input">\n        </select>\n    </div>\n    <div class="col-sm-1"><a href="#" class="btn btn-danger"\n                             onclick="$(event.target).parent().parent().remove();return false;">Удалить</a></div>\n</div>\n\n'
             $('#addday').append(content)
             $('.date').datetimepicker({
                 locale: 'ru',
