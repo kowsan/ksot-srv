@@ -1,10 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Turn Types</h1>
+<h1>Виды смен</h1>
 
-<table>
-  <thead>
-    <tr>
+<table class="table table-striped table-hover">
+
       <th>Name</th>
       <th>First start at</th>
       <th>First duration</th>
@@ -13,8 +12,7 @@
       <th>Reminder before end</th>
       <th>Is day off</th>
       <th colspan="3"></th>
-    </tr>
-  </thead>
+
 
   <tbody>
     <% @turn_types.each do |turn_type| %>
