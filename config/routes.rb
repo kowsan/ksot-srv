@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
+  resources :exclusion_days
+  resources :turn_schemes
   resources :turn_types
-  resources :turns
   resources :issue_types do
      member do
          get 'enable'
@@ -26,7 +27,7 @@ Rails.application.routes.draw do
   devise_for :work_spaces
   devise_for :issue_types
   devise_for :auto_work_spaces
-  devise_for :turns
+
 
   devise_scope :users do
     get "sign_out", :to => "devise/sessions#destroy"

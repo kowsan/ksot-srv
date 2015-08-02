@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h4>Схемы смен</h4>
+
+<table class="table table-hover table-striped">
+
+    <th>ID</th>
+    <th>Имя</th>
+    <th>Комментарий</th>
+    <th colspan="3"></th>
+
+
+
+    <% @turn_schemes.each do |turn_scheme| %>
+        <tr>
+            <td><%= turn_scheme.id %></td>
+            <td><%= turn_scheme.name %></td>
+            <td><%= turn_scheme.comment %></td>
+            <td><%= link_to 'Show', turn_scheme %></td>
+            <td><%= link_to 'Edit', edit_turn_scheme_path(turn_scheme) %></td>
+            <td><%= link_to 'Destroy', turn_scheme, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+        </tr>
+    <% end %>
+
+</table>
+
+<br>
+
+<%= link_to 'Новая схема смен', new_turn_scheme_path %>

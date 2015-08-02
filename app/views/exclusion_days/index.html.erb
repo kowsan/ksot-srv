@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Exclusion Days</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Day</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @exclusion_days.each do |exclusion_day| %>
+      <tr>
+        <td><%= exclusion_day.day %></td>
+        <td><%= link_to 'Show', exclusion_day %></td>
+        <td><%= link_to 'Edit', edit_exclusion_day_path(exclusion_day) %></td>
+        <td><%= link_to 'Destroy', exclusion_day, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Exclusion day', new_exclusion_day_path %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150731211955) do
+ActiveRecord::Schema.define(version: 20150802134603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,15 @@ ActiveRecord::Schema.define(version: 20150731211955) do
     t.datetime "updated_at",             null: false
     t.integer  "weight",     default: 1
   end
+
+  create_table "exclusion_days", force: :cascade do |t|
+    t.date     "day"
+    t.integer  "turn_type_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "exclusion_days", ["turn_type_id"], name: "index_exclusion_days_on_turn_type_id", using: :btree
 
   create_table "issue_types", force: :cascade do |t|
     t.string   "name"
@@ -125,6 +134,14 @@ ActiveRecord::Schema.define(version: 20150731211955) do
     t.integer  "area_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "turn_schemes", force: :cascade do |t|
+    t.string   "name"
+    t.text     "comment"
+    t.integer  "turn_type_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "turn_types", force: :cascade do |t|

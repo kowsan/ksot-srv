@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TurnTest < ActiveSupport::TestCase
+class ExclusionDayTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
