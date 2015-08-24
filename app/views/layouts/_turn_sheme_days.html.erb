@@ -1,14 +1,31 @@
+<label>Месяц</label>
+<select id="month">
+    <option value="01">Январь</option>
+    <option value="02">Февраль</option>
+    <option value="03">Март</option>
+    <option value="04">Апрель</option>
+    <option value="05">Май</option>
+    <option value="06">Июнь</option>
+    <option value="07">Июль</option>
+    <option value="08">Август</option>
+    <option value="09">Сентябрь</option>
+    <option value="10">Октябрь</option>
+    <option value="11">Ноябрь</option>
+    <option value="12">Декабрь</option>
+</select>
+<select id="year">
+    <% (Date.current.year-2..Date.current.year+5).to_a.each do |a| %>
+        <option value="<%= a.to_i %>" <%= 'selected' if Date.current.year.to_i==a.to_i %> ><%= a.to_s %></option>
+    <% end %>
+</select>
+
 <table class="query-columns" border="0">
     <tbody>
     <tr>
         <td>
             <label for="selected">Дни в схеме</label>
-            <select id="selected" name="<%= model_name %>[]" multiple="multiple" size="15" style="width: 100%">
-                <% unless assigned.nil? %>
-                    <% assigned.each do |ou| %>
-                        <option value=<%= ou.id %>><%= ou.display_name %></option>
-                    <% end %>
-                <% end %>
+            <select id="selected" name="days[]" multiple="multiple" size="15" style="width: 100%">
+
             </select>
         </td>
         <td>
@@ -17,13 +34,9 @@
             <input type="button" class="pager" value="←" onclick="moveOptions(this.form.available_columns, this.form.selected);selectAllOptions()">
         </td>
         <td>
-            <label for="selected">Выбранные дни</label>
+            <label for="selected">Доступные дни</label>
             <select multiple="multiple" id="available_columns" name="available_columns" size="15" style="width: 100%">
-                <% unless other.nil? %>
-                    <% other.each do |ou| %>
-                        <option value=<%= ou.id %>><%= ou.display_name %></option>
-                    <% end %>
-                <% end %>
+
             </select>
         </td>
     </tr>
@@ -33,8 +46,33 @@
 
 
 <script>
-    $(document).ready(function () {
+    function getdays() {
+        var m = $('#month').val()
+        var y = $('#year').val()
+        $.getJSON('/issues/days_in_month', {month: m, year: y}).done(function (data) {
+            console.log(data)
+            $('#available_columns').html('')
+            for (var i = 1; i <=data; i++) {
+                var z = i.toString()
+                if (z.length == 1) {
+                    z = '0' + z;
+                }
+                z = z +'.'+ m.toString() + '.' + y.toString()
+                $('#available_columns').append("<option value=\'" + z + "\'>" + z + "</option>")
+            }
+        })
+    }
 
+    $(document).ready(function () {
+        $('#month').change(function () {
+            var m = $(this).val()
+            getdays()
+        });
+        $('#year').change(function () {
+            var y = $(this).val()
+            getdays()
+
+        });
 //
     })
 

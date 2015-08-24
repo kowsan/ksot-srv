@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get 'issues/monthly'
   get 'work_spaces/get_issue_types'
   get 'issues/next_date'
+  get 'issues/days_in_month'
 
   resources :issues
   get 'work/app_login'

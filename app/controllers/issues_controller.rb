@@ -3,8 +3,16 @@ class IssuesController < ApplicationController
   before_action :check_permission, :validate_access_ws, :except => [:monthly, :next_date]
 
 
-  # GET /issues
-  # GET /issues.json
+  def days_in_month
+    params[:month]
+    params[:year]
+    res=Time.days_in_month(params[:month].to_i,params[:year].to_i)
+    respond_to do |format|
+      format.json {render :json => res}
+    end
+  end
+
+
   def next_date
     offset=params[:offset] || 0
     date=Date.strptime(params[:date].to_s, "%m.%Y") || Date.current
