@@ -47,7 +47,7 @@
             <label class='col-lg-3 control-label'>Поддерка второй смены?</label>
 
             <div class="col-lg-9">
-                <input type="checkbox" id="secondsmenesupport" value="Вторая смена вкл" checked>
+                <%= f.check_box :support2 %>
             </div>
         </div>
 
@@ -87,14 +87,14 @@
                 //'checked' event code
                 console.log('cb is checked')
 
-                $('#common_shemes').hide()
+                $('#common_shemes').fadeOut("fast")
             } else {
                 console.log('cb is unchecked')
-                $('#common_shemes').show()
+                $('#common_shemes').fadeIn("fast")
             }
 
         });
-        $('#secondsmenesupport').change(function () {
+        $('#turn_type_support2').change(function () {
             if ($(this).is(":checked")) {
                 //'checked' event code
                 console.log('cb is checked')
@@ -106,6 +106,7 @@
             }
 
         });
-
+        $("#turntypes").addClass("active")
     });
+
 </script>

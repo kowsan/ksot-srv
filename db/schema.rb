@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150802190811) do
+ActiveRecord::Schema.define(version: 20150824174142) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -154,8 +154,9 @@ ActiveRecord::Schema.define(version: 20150802190811) do
     t.time     "second_duration"
     t.integer  "reminder_before_end"
     t.boolean  "is_day_off"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.boolean  "support2",            default: true
   end
 
   create_table "turns", force: :cascade do |t|

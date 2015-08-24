@@ -1,5 +1,6 @@
 class TurnTypesController < ApplicationController
   before_action :set_turn_type, only: [:show, :edit, :update, :destroy]
+  before_action :check_permission,:validate_access
 
   # GET /turn_types
   # GET /turn_types.json
@@ -33,7 +34,7 @@ class TurnTypesController < ApplicationController
 
     respond_to do |format|
       if @turn_type.save
-        format.html { redirect_to @turn_type, notice: 'Turn type was successfully created.' }
+        format.html { redirect_to turn_types_path, notice: 'Тип смены был добавлен.' }
         format.json { render :show, status: :created, location: @turn_type }
       else
         format.html { render :new }
@@ -47,7 +48,7 @@ class TurnTypesController < ApplicationController
   def update
     respond_to do |format|
       if @turn_type.update(turn_type_params)
-        format.html { redirect_to @turn_type, notice: 'Turn type was successfully updated.' }
+        format.html { redirect_to turn_types_path, notice: 'Тип смены был обновлен.' }
         format.json { render :show, status: :ok, location: @turn_type }
       else
         format.html { render :edit }
@@ -61,7 +62,7 @@ class TurnTypesController < ApplicationController
   def destroy
     @turn_type.destroy
     respond_to do |format|
-      format.html { redirect_to turn_types_url, notice: 'Turn type was successfully destroyed.' }
+      format.html { redirect_to turn_types_url, notice: 'Тип смены был удален.' }
       format.json { head :no_content }
     end
   end
@@ -71,9 +72,16 @@ class TurnTypesController < ApplicationController
     def set_turn_type
       @turn_type = TurnType.find(params[:id])
     end
+  def validate_access
+    unless @can_manage_org_structure
+      respond_to do |format|
+        format.any { render nothing: true, :status => :forbidden }
+      end
+    end
+  end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def turn_type_params
-      params.require(:turn_type).permit(:name, :first_start_at, :first_duration, :second_start_at, :second_duration, :reminder_before_end, :is_day_off)
+      params.require(:turn_type).permit(:name, :first_start_at, :first_duration,:support2, :second_start_at, :second_duration, :reminder_before_end, :is_day_off)
     end
 end
