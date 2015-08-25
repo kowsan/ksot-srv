@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150824174142) do
+ActiveRecord::Schema.define(version: 20150825183722) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,13 +55,10 @@ ActiveRecord::Schema.define(version: 20150824174142) do
   create_table "exclusion_days", force: :cascade do |t|
     t.date     "day"
     t.integer  "turn_type_id"
+    t.integer  "turn_scheme_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
-    t.integer  "turn_scheme_id"
   end
-
-  add_index "exclusion_days", ["turn_scheme_id"], name: "index_exclusion_days_on_turn_scheme_id", using: :btree
-  add_index "exclusion_days", ["turn_type_id"], name: "index_exclusion_days_on_turn_type_id", using: :btree
 
   create_table "issue_types", force: :cascade do |t|
     t.string   "name"
@@ -157,13 +154,6 @@ ActiveRecord::Schema.define(version: 20150824174142) do
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
     t.boolean  "support2",            default: true
-  end
-
-  create_table "turns", force: :cascade do |t|
-    t.date     "day_date"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "turn_type_id"
   end
 
   create_table "users", force: :cascade do |t|

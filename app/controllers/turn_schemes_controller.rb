@@ -26,9 +26,19 @@ class TurnSchemesController < ApplicationController
   # POST /turn_schemes.json
   def create
     @turn_scheme = TurnScheme.new(turn_scheme_params)
+    s=@turn_scheme.save!
+
+    params[:day].each_with_index do |i,index|
+     dates=i.split(',')
+
+      dates.each do |d|
+        dt=d.to_date
+        ExclusionDay.find_or_create_by(day: dt,turn_type_id: params[:turn_type_id][index],turn_scheme_id: @turn_scheme.id)
+      end
+    end
 
     respond_to do |format|
-      if @turn_scheme.save
+      if s
         format.html { redirect_to @turn_scheme, notice: 'Turn scheme was successfully created.' }
         format.json { render :show, status: :created, location: @turn_scheme }
       else

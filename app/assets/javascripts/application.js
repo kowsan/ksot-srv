@@ -20,6 +20,7 @@
 //= require jquery.plugin
 //= require jquery.datepick
 //= require jquery.datepick-ru
+
 $(document).ready(function () {
         $('.dropdown-toggle').dropdown();
     }

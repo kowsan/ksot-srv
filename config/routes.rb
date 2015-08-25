@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :exclusion_days
   resources :turn_schemes
   resources :turn_types
   resources :issue_types do
