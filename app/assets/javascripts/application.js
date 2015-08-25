@@ -17,7 +17,9 @@
 //= require bootstrap
 //= require bootstrap-datetimepicker
 //= require bootstrap-sprockets
-//= require_tree .
+//= require jquery.plugin
+//= require jquery.datepick
+//= require jquery.datepick-ru
 $(document).ready(function () {
         $('.dropdown-toggle').dropdown();
     }
