@@ -20,23 +20,29 @@ class TurnSchemesController < ApplicationController
 
   # GET /turn_schemes/1/edit
   def edit
+
   end
 
   # POST /turn_schemes
   # POST /turn_schemes.json
   def create
-    @turn_scheme = TurnScheme.new(turn_scheme_params)
-    s=@turn_scheme.save!
+    s=false
+    TurnScheme.transaction do
+      @turn_scheme = TurnScheme.new(turn_scheme_params)
+      s=@turn_scheme.save
+      if s
 
-    params[:day].each_with_index do |i,index|
-     dates=i.split(',')
+        params[:day].each_with_index do |i, index|
+          dates=i.split(',')
 
-      dates.each do |d|
-        dt=d.to_date
-        ExclusionDay.find_or_create_by(day: dt,turn_type_id: params[:turn_type_id][index],turn_scheme_id: @turn_scheme.id)
+          dates.each do |d|
+            dt=d.to_date
+            ExclusionDay.find_or_create_by(day: dt, turn_type_id: params[:turn_type_id][index], turn_scheme_id: @turn_scheme.id)
+          end
+        end
+
       end
     end
-
     respond_to do |format|
       if s
         format.html { redirect_to @turn_scheme, notice: 'Turn scheme was successfully created.' }
@@ -51,9 +57,21 @@ class TurnSchemesController < ApplicationController
   # PATCH/PUT /turn_schemes/1
   # PATCH/PUT /turn_schemes/1.json
   def update
+    @turn_scheme.transaction do
+     @turn_scheme.exclusion_days.clear
+      params[:day].each_with_index do |i, index|
+        dates=i.split(',')
+
+        dates.each do |d|
+          dt=d.to_date
+          ExclusionDay.find_or_create_by(day: dt, turn_type_id: params[:turn_type_id][index], turn_scheme_id: @turn_scheme.id)
+        end
+      end
+
+    end
     respond_to do |format|
       if @turn_scheme.update(turn_scheme_params)
-        format.html { redirect_to @turn_scheme, notice: 'Turn scheme was successfully updated.' }
+        format.html { redirect_to turn_schemes_path, notice: 'Turn scheme was successfully updated.' }
         format.json { render :show, status: :ok, location: @turn_scheme }
       else
         format.html { render :edit }

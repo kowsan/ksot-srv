@@ -10,7 +10,7 @@
     <th>Наименование</th>
     <th>Начало первой смены</th>
     <th>Продолжительность первой смены</th>
-    <th>Поддержка 2 смены</th>
+    <th>Количество смен</th>
     <th>Начало второй смены</th>
     <th>Продолжительность второй смены</th>
     <th>Напоминать об окончании</th>
@@ -20,19 +20,25 @@
 
     <tbody>
     <% @turn_types.each do |turn_type| %>
-        <tr>
+        <tr
+        <% if turn_type.is_day_off? %>
+                class="danger" title="Выходной день"
+        <% end %>
+        >
             <td><%= turn_type.name %></td>
-            <td><%= turn_type.first_start_at.strftime('%H:%M') %></td>
-            <td><%= turn_type.first_duration.strftime('%H:%M') %></td>
+            <td><%= turn_type.first_start_at.strftime('%H:%M') unless turn_type.is_day_off? %></td>
+            <td><%= turn_type.first_duration.strftime('%H:%M') unless turn_type.is_day_off? %></td>
             <td>
-                <% if turn_type.support2? %>
-                    2х сменка
-                <% else %>
-                    1 сменка
+                <% unless turn_type.is_day_off? %>
+                    <% if turn_type.support2? %>
+                        2
+                    <% else %>
+                        1
+                    <% end %>
                 <% end %>
             </td>
-            <td><%= turn_type.second_start_at.strftime('%H:%M') %></td>
-            <td><%= turn_type.second_duration.strftime('%H:%M') %></td>
+            <td><%= turn_type.second_start_at.strftime('%H:%M') if turn_type.support2? %>&nbsp;</td>
+            <td><%= turn_type.second_duration.strftime('%H:%M') if turn_type.support2? %>&nbsp;</td>
             <td><%= turn_type.reminder_before_end %></td>
 
 

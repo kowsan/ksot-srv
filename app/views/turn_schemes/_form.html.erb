@@ -25,18 +25,36 @@
             <%= f.label 'Вид смены(Тип добавляемых дней)' %>
             <%= f.collection_select(:turn_type_id, TurnType.all, :id, :name, {}, {:class => ' form-control input-large'}) %>
         </div>
-        <% if @turn_scheme.new_record?%>
+
         <div class="row">
             <h5 class="alert-danger">Дни исключения из схемы(будет применен указанный вид схемы)</h5>
         </div>
         <div class="row" id="addday">
+            <% @turn_scheme.turn_types.distinct.each do |tt| %>
+                <div class="form-group"><br>
+
+
+                    <textarea type="text" rows="10" class="form-control" name="day[]" title="Список дней исключений. Вставьте через разделитель запятая или выберите из календаря"><%= tt.exclusion_days.join(',') %></textarea>
+
+                    <div class="col-sm-5">
+                        <%= collection_select(:turn_type_id,nil, TurnType.all, :id, :name,{:selected => tt.id}, { :class => 'form-control'}) %>
+
+
+                    </div>
+                    <div class="col-sm-1"><a href="#" class="btn btn-danger"
+                                             onclick="$(event.target).parent().parent().remove();return false;">Удалить</a>
+                    </div>
+                    <br><br>
+                </div>
+            <% end %>
+
 
         </div>
 
-            <div class="row">
-                <input type="button" class="btn btn-info btn-sm" value="Добавить дни исключения" id="addbtn">
-            </div>
-        <% end %>
+        <div class="row">
+            <input type="button" class="btn btn-info btn-sm" value="Добавить дни исключения" id="addbtn">
+        </div>
+
         <br><br>
 
         <div class="actions">
@@ -55,7 +73,15 @@
 
 
     $(document).ready(function () {
+        $('textarea[name="day[]"]').each(function () {
+            $(this).datepick({
+                multiSelect: 999,
+                multiSeparator: ',',
+                monthsToShow: [2, 3]
 
+
+            })
+        })
         $('#addbtn').click(function () {
             //add new day template
             var content = ''
@@ -71,7 +97,7 @@
                 $(this).datepick({
                     multiSelect: 999,
                     multiSeparator: ',',
-                    monthsToShow: [2, 2]
+                    monthsToShow: [2, 3]
 
 
                 })
@@ -84,6 +110,6 @@
             })
 
         })
-
+        $('#turnschemes').addClass('active')
     })
 </script>

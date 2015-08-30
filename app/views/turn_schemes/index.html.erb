@@ -16,9 +16,9 @@
             <td><%= turn_scheme.id %></td>
             <td><%= turn_scheme.name %></td>
             <td><%= turn_scheme.comment %></td>
-            <td><%= link_to 'Show', turn_scheme %></td>
-            <td><%= link_to 'Edit', edit_turn_scheme_path(turn_scheme) %></td>
-            <td><%= link_to 'Destroy', turn_scheme, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+            <td><%= link_to '', edit_turn_scheme_path(turn_scheme), {:class => 'btn glyphicon glyphicon-edit btn-primary  btn-sm '} %>
+
+            </td>
         </tr>
     <% end %>
 
@@ -27,3 +27,6 @@
 <br>
 
 <%= link_to 'Новая схема смен', new_turn_scheme_path %>
+<script type="text/javascript">
+    $('#turnschemes').addClass('active')
+</script>
