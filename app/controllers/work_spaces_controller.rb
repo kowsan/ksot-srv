@@ -88,13 +88,13 @@ class WorkSpacesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_work_space
-    @work_space = WorkSpace.find(params[:id])
+    @work_space = WorkSpace.unscoped.find(params[:id])
     @assigned=@work_space.issue_types
     @other=IssueType.all-@assigned
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def work_space_params
-    params[:work_space].permit(:name, :code, :short_name, :subdivision_id, :is_used, :issue_type)
+    params[:work_space].permit(:name, :code, :short_name, :subdivision_id, :is_used, :issue_type,:turn_scheme_id)
   end
 end
