@@ -43,6 +43,7 @@ class ApplicationController < ActionController::Base
       if @logged_user.staff_role.can_manage_org_structure?
         return WorkSpace.all
       end
+      return AutoWorkSpace.current_aws(cookies[:app_id]).work_spaces.all
     rescue
 
       begin

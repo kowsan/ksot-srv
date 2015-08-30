@@ -8,4 +8,10 @@ class ExclusionDay < ActiveRecord::Base
     day.strftime("%d.%m.%Y")
   end
 
+
+
+
+
+
+
 end
