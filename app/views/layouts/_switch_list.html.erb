@@ -1,26 +1,28 @@
 <table class="query-columns" border="0">
     <tbody>
     <tr>
+        <td>    <label for="selected"><%= title_other %></label>
+            <select multiple="multiple" id="available_columns" name="available_columns" size="15" style="width: 100%">
+                <% unless other.nil? %>
+                    <% other.each do |ou| %>
+                        <option value=<%= ou.id %>><%= ou.display_name %></option>
+                    <% end %>
+                <% end %>
+            </select>
+
+        </td>
+
+        <td>
+            <input type="button" class="pager" value="→" onclick="moveOptions(this.form.available_columns, this.form.selected);selectAllOptions()">
+            </br>
+            <input type="button" value="←" class="pager" onclick="moveOptions(this.form.selected, this.form.available_columns);">
+
+        </td>
         <td>
             <label for="selected"><%= title_assigned %></label>
             <select id="selected" name="<%= model_name %>[]" multiple="multiple" size="15" style="width: 100%">
                 <% unless assigned.nil? %>
                     <% assigned.each do |ou| %>
-                        <option value=<%= ou.id %>><%= ou.display_name %></option>
-                    <% end %>
-                <% end %>
-            </select>
-        </td>
-        <td>
-            <input type="button" value="→" class="pager" onclick="moveOptions(this.form.selected, this.form.available_columns);">
-            </br>
-            <input type="button" class="pager" value="←" onclick="moveOptions(this.form.available_columns, this.form.selected);selectAllOptions()">
-        </td>
-        <td>
-            <label for="selected"><%= title_other %></label>
-            <select multiple="multiple" id="available_columns" name="available_columns" size="15" style="width: 100%">
-                <% unless other.nil? %>
-                    <% other.each do |ou| %>
                         <option value=<%= ou.id %>><%= ou.display_name %></option>
                     <% end %>
                 <% end %>

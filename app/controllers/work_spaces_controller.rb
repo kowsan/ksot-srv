@@ -1,5 +1,5 @@
 class WorkSpacesController < ApplicationController
-  before_action :set_work_space, only: [:show, :edit, :update, :destroy]
+  before_action :set_work_space, only: [:show, :edit, :update, :destroy,:enable]
   before_action :check_permission, :validate_access
 
   # GET /work_spaces
@@ -70,9 +70,18 @@ class WorkSpacesController < ApplicationController
   # DELETE /work_spaces/1
   # DELETE /work_spaces/1.json
   def destroy
-    @work_space.destroy
+    @work_space.is_used=false
+    @work_space.save!
     respond_to do |format|
-      format.html { redirect_to work_spaces_path, notice: 'Work space was successfully destroyed.' }
+      format.html { redirect_to work_spaces_path, notice: 'Рабочее место отключено.' }
+      format.json { head :no_content }
+    end
+  end
+  def enable
+    @work_space.is_used=true
+    @work_space.save!
+    respond_to do |format|
+      format.html { redirect_to work_spaces_path, notice: 'Рабочее место задействовано.' }
       format.json { head :no_content }
     end
   end

@@ -22,7 +22,7 @@
                 <% if issue_type.is_enabled? %>
                     <%= link_to '', issue_type, method: :delete, data: {confirm: 'Вы действительно хотите сделать недостуным данный вид нарушения. Все существующие привязки будут сохранены но станут недоступны при создании или обновлении нарушений. В дальнейшем вы сможете задействовать вид  нарушения '}, :class => 'btn glyphicon glyphicon-off btn-danger  btn-sm' %>
                 <% else %>
-                    <%= link_to('', enable_issue_type_path(issue_type),  :class => 'btn glyphicon glyphicon-ok btn-success  btn-sm')%>
+                    <%= link_to('', enable_issue_type_path(issue_type), method: :patch,  :class => 'btn glyphicon glyphicon-ok btn-success  btn-sm')%>
                 <% end %>
             </td>
                 </tr>

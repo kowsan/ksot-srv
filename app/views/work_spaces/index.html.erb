@@ -54,7 +54,11 @@
                 <% end %>
             </td>
             <td><%= link_to '', edit_work_space_path(work_space), :class => 'btn glyphicon glyphicon-edit btn-primary  btn-sm' %>
-                <!--%= link_to '', work_space, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn glyphicon glyphicon-remove btn-danger  btn-sm' %-->
+                <% if work_space.is_used? %>
+                    <%= link_to '', work_space, method: :delete, data: {confirm: 'Вы действительно хотите сделать недостуным данное рабочее место. Все существующие привязки будут сохранены. В дальнейшем вы сможете задействовать рабочее место '}, :class => 'btn glyphicon glyphicon-off btn-danger  btn-sm' %>
+                <% else %>
+                    <%= link_to('', enable_work_space_path(work_space),method: :patch,  :class => 'btn glyphicon glyphicon-ok btn-success  btn-sm')%>
+                <% end %>
 
             </td>
 

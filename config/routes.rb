@@ -2,10 +2,9 @@ Rails.application.routes.draw do
   resources :turn_schemes
   resources :turn_types
   resources :issue_types do
-     member do
-         get 'enable'
-
-     end
+    member do
+      patch 'enable'
+    end
   end
   resources :critical_types
 
@@ -36,7 +35,12 @@ Rails.application.routes.draw do
   resources :subdivisions
   resources :managements
   resources :areas
-  resources :work_spaces
+  resources :work_spaces do
+    member do
+      patch 'enable'
+    end
+  end
+
   resources :issue_types
   resources :auto_work_spaces
 
