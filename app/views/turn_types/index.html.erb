@@ -22,7 +22,7 @@
     <% @turn_types.each do |turn_type| %>
         <tr
         <% if turn_type.is_day_off? %>
-                class="danger" title="Выходной день"
+        class="danger" title="Выходной день"
         <% end %>
         >
             <td><%= turn_type.name %></td>
@@ -37,9 +37,17 @@
                     <% end %>
                 <% end %>
             </td>
-            <td><%= turn_type.second_start_at.strftime('%H:%M') if turn_type.support2? %>&nbsp;</td>
-            <td><%= turn_type.second_duration.strftime('%H:%M') if turn_type.support2? %>&nbsp;</td>
-            <td><%= turn_type.reminder_before_end %></td>
+            <td>
+                <% unless turn_type.is_day_off? %>
+                    <%= turn_type.second_start_at.strftime('%H:%M') if turn_type.support2? %>
+                <% end %>
+                &nbsp;</td>
+            <td>
+                <% unless turn_type.is_day_off? %>
+                    <%= turn_type.second_duration.strftime('%H:%M') if turn_type.support2? %>
+                <% end %>
+                &nbsp;</td>
+            <td> <% unless turn_type.is_day_off? %><%= turn_type.reminder_before_end %><%end%>&nbsp;</td>
 
 
             <td><%= link_to '', edit_turn_type_path(turn_type), {:class => 'btn glyphicon glyphicon-edit btn-primary  btn-sm '} %><%= link_to '', turn_type, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn glyphicon glyphicon-off btn-danger  btn-sm ' %></td>
