@@ -39,7 +39,8 @@ class IssuesController < ApplicationController
       ## puts d,cd
       if Date.current >= cd
 
-       clr=Issue.max_on_day(cd,ws_id)
+      # clr=Issue.max_on_day(cd,ws_id)
+       clr=Issue.max_on(cd,ws_id)
        #  iss= Issue.includes(:critical_type).includes(:work_space).where('issues.created_at >=? AND issues.created_at <=?',cd.at_beginning_of_day,cd.at_end_of_day).where(:work_space_id => ws_id).maximum(:weight) || 0
        #  if iss==0
        #    clr='#97D077'

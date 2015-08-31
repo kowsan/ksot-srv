@@ -11,5 +11,5 @@ class WorkSpace < ActiveRecord::Base
     self.name
   end
   default_scope {where(:is_used => true)}
-
+   after_save :drop_redis_cache
 end

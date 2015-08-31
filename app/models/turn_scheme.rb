@@ -4,4 +4,8 @@ class TurnScheme < ActiveRecord::Base
   has_many :exclusion_days,:dependent => :destroy
   belongs_to :turn_type
   validates_presence_of :name,:turn_type_id
+  after_save :drop_redis_cache
+
+
+
 end

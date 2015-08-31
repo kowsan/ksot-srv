@@ -100,6 +100,7 @@ class Issue < ActiveRecord::Base
             clr2=CriticalType.where(:weight => w2).first.color.to_s
           end
           clr="#{clr1},#{clr2}"
+          puts "2 smene detect#{clr}"
 
         else
           clr='#97D077'
