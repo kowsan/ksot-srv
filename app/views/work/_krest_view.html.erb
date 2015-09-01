@@ -35,7 +35,7 @@
     .triangle_trg_<%= c.to_s.gsub('#','')%>_<%= c1.to_s.gsub('#','')%>:before {
         content: '';
         position: absolute;
-        left: 0px;
+        left: 2px;
         top: -60px;
         width: 0;
         height: 1px;
@@ -90,7 +90,7 @@
                             $("#day_" + day).attr("style", "width: 60px; height: 60px; background-color: white;")
 
                             $('#day_' + day).append("<div style='z-index: 10;  position: absolute;'>" + day + "</div>")
-                            $('#day_' + day).append("<div class='triangle_" + c1 + "_" + c2 + "'></div>")
+                            $('#day_' + day).append("<div class='triangle_trg_" + c1 + "_" + c2 + "'></div>")
 
                         } else {
                             var c1 = v.c.toString().replace("#", '')
@@ -99,7 +99,7 @@
                             $("#day_" + day).attr("style", "width: 60px; height: 60px; background-color: white;")
 
                             $('#day_' + day).append("<div style='z-index: 10;  position: absolute;'>" + day + "</div>")
-                            $('#day_' + day).append("<div class='triangle_trg_" + c1 + "_" + c2 + "'></div>")
+                            $('#day_' + day).append("<div class='triangle_" + c1 + "_" + c2 + "'></div>")
                         }
 
                     })
