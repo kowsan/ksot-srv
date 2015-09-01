@@ -73,7 +73,7 @@ class Issue < ActiveRecord::Base
         when 0
           w = Issue.includes(:critical_type).includes(:work_space).where('issues.created_at >=? AND issues.created_at <=?', date.at_beginning_of_day, date.at_end_of_day).where(:work_space_id => work_space_id).maximum(:weight) || 0
           if w==0
-            clr='#97D077'
+            clr='#333333'
           else
             clr=CriticalType.where(:weight => w).first.color.to_s
           end
