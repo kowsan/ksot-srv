@@ -31,7 +31,7 @@
     </div>
     <div class="form-group">
         <%= f.label 'Схема смен' %>
-        <%= f.collection_select(:turn_scheme_id, TurnScheme.all, :id, :name, {:include_blank=> true}, {:class => ' form-control input-large'}) %>
+        <%= f.collection_select(:turn_scheme_id, TurnScheme.all, :id, :name, {:include_blank=> false}, {:class => ' form-control input-large'}) %>
     </div>
 
 
