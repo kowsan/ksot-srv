@@ -43,7 +43,11 @@
 
     <tbody>
     <% @issues.each do |issue| %>
-        <tr>
+        <tr
+        <% unless issue.work_space.is_used? %>
+        class="warning"  title="Рабочее место не задействовано. В кресте не будет отображаться"
+        <% end %>
+        >
             <td><%= issue.id %></td>
             <td><%= issue.author.full_name %></td>
             <td><%= (issue.created_at.to_date).strftime('%d.%m.%Y') %></td>
