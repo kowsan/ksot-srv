@@ -23,6 +23,7 @@
         border-left: 60px solid transparent;
 
     }
+
     .triangle_trg_<%= c.to_s.gsub('#','')%>_<%= c1.to_s.gsub('#','')%> {
         width: 0;
         height: 0;
@@ -43,6 +44,7 @@
         border-left: 60px solid transparent;
 
     }
+
     <%end%>
     <%end%>
     /* special  */
@@ -57,9 +59,14 @@
 
             return false;
         }
-        $.each($("div[id^='day_']"), function () {
+        $.each($("div[style^='z-index: 10;  position: absolute;']"), function () {
             $(this).html("&nbsp;")
-            $(this).css("background-color", "white")
+            // $(this).css("background-color", "white")
+        });
+        $.each($("div[id^='reset_']"), function () {
+            $(this).removeAttr('class').addClass('triangle_97D077_97D077')
+
+            $(this).removeAttr('style')
         });
 
 
@@ -88,18 +95,18 @@
                             var c2 = colorz[1].toString().replace("#", '')
 //
                             $("#day_" + day).attr("style", "width: 60px; height: 60px; background-color: white;")
-
+                            $("#day_" + day).html('')
                             $('#day_' + day).append("<div style='z-index: 10;  position: absolute;'>" + day + "</div>")
-                            $('#day_' + day).append("<div class='triangle_trg_" + c1 + "_" + c2 +"' style='background-color:red'"+"></div>")
+                            $('#day_' + day).append("<div id='reset_' class='triangle_trg_" + c1 + "_" + c2 + "' style='background-color:red'" + "></div>")
 
                         } else {
                             var c1 = v.c.toString().replace("#", '')
                             var c2 = c1
 //
                             $("#day_" + day).attr("style", "width: 60px; height: 60px; background-color: white;")
-
+                            $("#day_" + day).html('')
                             $('#day_' + day).append("<div style='z-index: 10;  position: absolute;'>" + day + "</div>")
-                            $('#day_' + day).append("<div class='triangle_" + c1 + "_" + c2 + "'></div>")
+                            $('#day_' + day).append("<div id='reset_' class='triangle_" + c1 + "_" + c2 + "'></div>")
                         }
 
                     })
@@ -144,70 +151,70 @@
         <br><br>
     </div>
     <div class="row row-centered">
-        <div id="day_1" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">1</div>
-        <div id="day_2" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">2</div>
-        <div id="day_3" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">3</div>
+        <div id="day_1" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_2" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_3" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
     </div>
     <div class="row row-centered">
-        <div id="day_4" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black; background-color: white;">4</div>
-        <div id="day_5" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">5</div>
-        <div id="day_6" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">6</div>
+        <div id="day_4" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black; background-color: white;"></div>
+        <div id="day_5" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_6" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
     </div>
     <div class="row row-centered">
-        <div id="day_7" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">7</div>
-        <div id="day_8" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">8</div>
-        <div id="day_9" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">9</div>
-        <div id="day_10" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">10</div>
-        <div id="day_11" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">11</div>
-        <div id="day_12" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">12</div>
-        <div id="day_13" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">13</div>
+        <div id="day_7" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_8" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_9" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_10" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_11" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_12" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_13" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
     </div>
     <div class="row row-centered">
-        <div id="day_14" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">14</div>
-        <div id="day_15" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">15</div>
-        <div id="day_16" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">16</div>
-        <div id="day_17" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">17</div>
-        <div id="day_18" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">18</div>
-        <div id="day_19" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">19</div>
-        <div id="day_20" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">20</div>
+        <div id="day_14" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_15" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_16" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_17" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_18" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_19" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_20" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
     </div>
     <div class="row row-centered">
-        <div id="day_21" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">21</div>
-        <div id="day_22" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">22</div>
-        <div id="day_23" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">23</div>
-        <div id="day_24" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">24</div>
-        <div id="day_25" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">25</div>
-        <div id="day_26" class="col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">26</div>
-        <div id="day_27" class="col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">27</div>
+        <div id="day_21" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_22" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_23" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_24" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_25" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_26" class="col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_27" class="col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
     </div>
     <div class="row row-centered">
-        <div id="day_28" class="  col-centered" style="width: 60px;height: 60px;background-color: white">
+        <div id="day_28" class="  col-centered" style="width: 60px;height: 60px;border: 1px solid black;background-color: white">
             <div style="z-index: 10;  position: absolute;">-</div>
             <div class="triangle_FCFCFC_FCFCFC"></div>
         </div>
 
 
-        <div id="day_29" class="col-centered" style="width: 60px;height: 60px; background-color: white">29
+        <div id="day_29" class="  col-centered" style="width: 60px; height: 60px; background-color: white;">
             <div style="z-index: 10;  position: absolute;">-</div>
-            <div class="triangle_FCFCFC_FCFCFC"></div>
+            <div id="reset_" class="triangle_97D077_97D077"></div>
         </div>
-        <div id="day_30" class="col-centered" style="width: 60px;height: 60px; background-color: white">30
+        <div id="day_30" class="  col-centered" style="width: 60px; height: 60px; background-color: white;">
             <div style="z-index: 10;  position: absolute;">-</div>
-            <div class="triangle_FCFCFC_FCFCFC"></div>
+            <div id="reset_" class="triangle_97D077_97D077"></div>
         </div>
     </div>
     <div class="row row-centered" id="footer2">
-        <div id="day_31" class="  col-centered" style="width: 60px;height: 60px; background-color: white">
+        <div id="day_31" class="  col-centered" style="width: 60px; height: 60px; background-color: white;">
             <div style="z-index: 10;  position: absolute;">-</div>
-            <div class="triangle_FCFCFC_FCFCFC"></div>
+            <div id="reset_" class="triangle_97D077_97D077"></div>
         </div>
-        <div id="day_32" class="  col-centered" style="width: 60px;height: 60px; background-color: white">
+        <div id="day_32" class="  col-centered" style="width: 60px; height: 60px; background-color: white;">
             <div style="z-index: 10;  position: absolute;">-</div>
-            <div class="triangle_FCFCFC_FCFCFC"></div>
+            <div id="reset_" class="triangle_97D077_97D077"></div>
         </div>
-        <div id="day_33" class="  col-centered" style="width: 60px;height: 60px; background-color: white">
+        <div id="day_33" class="  col-centered" style="width: 60px; height: 60px; background-color: white;">
             <div style="z-index: 10;  position: absolute;">-</div>
-            <div class="triangle_FCFCFC_FCFCFC"></div>
+            <div id="reset_" class="triangle_97D077_97D077"></div>
         </div>
     </div>
 
@@ -267,6 +274,7 @@
         $.getJSON("/issues/next_date.json", {offset: -1, date: $('#month').html()}).done(function (json) {
             console.log(json);
             pm = json.toString()
+
             $.getJSON("/issues/next_date.json", {offset: -2, date: $('#month').html()}).done(function (json) {
                 console.log(json);
                 cm = json.toString()
