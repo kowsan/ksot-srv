@@ -48,6 +48,25 @@ class Issue < ActiveRecord::Base
     return $redis.get(key)
   end
 
+  def self.smene_count(date, work_space_id)
+    ws= WorkSpace.find(work_space_id)
+    q= ws.turn_scheme.exclusion_days.where(:day => date).limit(1)
+    if q.blank?
+      puts "date not in exclusion day" #do standart check for turn shmeme
+      tt=TurnType.find(ws.turn_scheme.turn_type.id)
+    else
+      puts "date  in exclusion day"
+      #get turn_type from custom turn_sheme
+      tt=TurnType.find(q.first.turn_type.id)
+
+    end
+    #get turn type
+
+    #get smens count in day
+    sc=tt.count
+    sc
+  end
+
   def self.max_on(date, work_space_id)
     key='turn_'+work_space_id.to_s+date.to_s
 
@@ -66,8 +85,8 @@ class Issue < ActiveRecord::Base
       #get turn type
 
       #get smens count in day
-      sc=tt.count
-
+     sc=tt.count
+      # sc=self.smene_count(date, work_space_id)
 
       case sc
         when 0

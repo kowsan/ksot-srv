@@ -6,9 +6,9 @@ class IssuesController < ApplicationController
   def days_in_month
     params[:month]
     params[:year]
-    res=Time.days_in_month(params[:month].to_i,params[:year].to_i)
+    res=Time.days_in_month(params[:month].to_i, params[:year].to_i)
     respond_to do |format|
-      format.json {render :json => res}
+      format.json { render :json => res }
     end
   end
 
@@ -27,7 +27,7 @@ class IssuesController < ApplicationController
   def monthly
     @workspaces=get_available_work_spaces #unless @logged_user.nil?
     ws_id=params[:work_space_id]
-  #  w_spaces=WorkSpace.find(ws_id)
+    #  w_spaces=WorkSpace.find(ws_id)
     @out=Array.new
 
 
@@ -39,18 +39,28 @@ class IssuesController < ApplicationController
       ## puts d,cd
       if Date.current >= cd
 
-      # clr=Issue.max_on_day(cd,ws_id)
-       clr=Issue.max_on(cd,ws_id)
-       #  iss= Issue.includes(:critical_type).includes(:work_space).where('issues.created_at >=? AND issues.created_at <=?',cd.at_beginning_of_day,cd.at_end_of_day).where(:work_space_id => ws_id).maximum(:weight) || 0
-       #  if iss==0
-       #    clr='#97D077'
-       #  else
-       #    clr=CriticalType.where(:weight => iss).first.color.to_s
-       #  end
+        # clr=Issue.max_on_day(cd,ws_id)
+        clr=Issue.max_on(cd, ws_id)
+        #  iss= Issue.includes(:critical_type).includes(:work_space).where('issues.created_at >=? AND issues.created_at <=?',cd.at_beginning_of_day,cd.at_end_of_day).where(:work_space_id => ws_id).maximum(:weight) || 0
+        #  if iss==0
+        #    clr='#97D077'
+        #  else
+        #    clr=CriticalType.where(:weight => iss).first.color.to_s
+        #  end
       else
-        clr='#FCFCFC'
-      end
+        #check for wyh
+        sc= Issue.smene_count(cd, ws_id)
+        case sc
+          when 0
+            clr='#333333'
+          when 1
+            clr='#FCFCFC'
+          when 2
+            clr='#FCFCFC,#FCFCFC'
+        end
 
+
+      end
 
 
       h=Hash.new
@@ -80,12 +90,12 @@ class IssuesController < ApplicationController
     @issues = Issue.includes(:issue_type, :status, :author, :violator, :assigned, :work_space).where(:created_at => @from..@to).page params[:page]
   end
 
-  # GET /issues/1
-  # GET /issues/1.json
+# GET /issues/1
+# GET /issues/1.json
   def show
   end
 
-  # GET /issues/new
+# GET /issues/new
   def new
 
     @workspaces=get_available_work_spaces
@@ -93,7 +103,7 @@ class IssuesController < ApplicationController
 
   end
 
-  # GET /issues/1/edit
+# GET /issues/1/edit
   def edit
     @workspaces=get_available_work_spaces
     unless @can_edit_issue
@@ -103,12 +113,11 @@ class IssuesController < ApplicationController
     end
   end
 
-  # POST /issues
-  # POST /issues.json
+# POST /issues
+# POST /issues.json
   def create
     @issue = Issue.new(issue_params)
     @issue.author =@logged_user
-
 
 
     respond_to do |format|
@@ -122,8 +131,8 @@ class IssuesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /issues/1
-  # PATCH/PUT /issues/1.json
+# PATCH/PUT /issues/1
+# PATCH/PUT /issues/1.json
   def update
     respond_to do |format|
       if @issue.update(issue_params)
@@ -136,8 +145,8 @@ class IssuesController < ApplicationController
     end
   end
 
-  # DELETE /issues/1
-  # DELETE /issues/1.json
+# DELETE /issues/1
+# DELETE /issues/1.json
   def destroy
     @issue.destroy
     respond_to do |format|
@@ -157,15 +166,14 @@ class IssuesController < ApplicationController
     end
   end
 
-  # Use callbacks to share common setup or constraints between actions.
+# Use callbacks to share common setup or constraints between actions.
   def set_issue
 
     @issue = Issue.find(params[:id])
   end
 
 
-
-  # Never trust parameters from the scary internet, only allow the white list through.
+# Never trust parameters from the scary internet, only allow the white list through.
   def issue_params
     params.require(:issue).permit(:violator_id, :status_id, :issue_type_id, :assigned_id, :close_date, :note_due, :due_date, :note_measures, :work_space_id)
   end
