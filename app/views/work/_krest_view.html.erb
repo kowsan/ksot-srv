@@ -1,106 +1,5 @@
 <style>
 
-
-
-
-
-
-
-    .green {
-        background-color: rgb(151, 208, 119);
-
-    }
-    .yellow {
-        background-color: rgb(255, 255, 0);
-    }
-
-    .orange {
-        background-color: rgb(255, 181, 112);
-    }
-
-    .blue {
-        background-color: #7EA6E0;
-    }
-
-    .red {
-        background-color: #EA6B66;
-    }
-
-
-    .triangle-topleft {
-        width: 0;
-        height: 0;
-        border-right: 60px solid transparent;
-        display: inline-block;
-
-    }
-
-    .trg-tl-green {
-        border-top: 60px solid rgb(151, 208, 119);
-    }
-
-    .trg-tl-yellow {
-        border-top: 60px solid rgb(255, 255, 0);
-    }
-
-    .trg-tl-orange {
-        border-top: 60px solid rgb(255, 181, 112);
-    }
-
-    .trg-tl-blue {
-        border-top: 60px solid #7EA6E0;
-    }
-
-    .trg-tl-red {
-        border-top: 60px solid #EA6B66;
-    }
-
-
-
-    .triangle-bottomright {
-        width: 0;
-        height: 0;
-        border-left: 60px solid transparent;
-        display: inline-block;
-
-    }
-
-    .mrg {
-        margin-left: -64px;
-    }
-
-
-    .trg-tb-green {
-        border-bottom: 60px solid rgb(151, 208, 119);
-    }
-
-    .trg-tb-yellow {
-        border-bottom: 60px solid rgb(255, 255, 0);
-    }
-
-    .trg-tb-orange {
-        border-bottom: 60px solid rgb(255, 181, 112);
-    }
-
-    .trg-tb-blue {
-        border-bottom: 60px solid #7EA6E0;
-    }
-
-    .trg-tb-red {
-        border-bottom: 60px solid #EA6B66;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
     .row-centered {
         text-align: center;
     }
@@ -114,24 +13,23 @@
         margin-right: -4px;
     }
 
-    .triangle-topleft {
+    .triangle {
         width: 0;
         height: 0;
+        border-top: 60px solid red;
         border-right: 60px solid transparent;
-        display: inline-block;
-
+        position: relative;
     }
 
-    .triangle-bottomright {
+    .triangle:before {
+        content: '';
+        position: absolute;
+        left: 0px;
+        top: -60px;
         width: 0;
         height: 0;
+        border-bottom: 60px solid green;
         border-left: 60px solid transparent;
-        display: inline-block;
-
-    }
-
-    .mrg {
-        margin-left: -73px;
     }
 </style>
 
@@ -174,8 +72,12 @@
                             c2 = colorz[1]
 //                            $("#day_" + day).addClass('triangle-topleft').addClass('trg-tl-green').removeAttr('style')
 //                            $('#day_' + day).html(day)
-                            $("#day_" + day).append("<div class=\"triangle-topleft trg-tl-green\">"+day+"</div>\n  <div class=\"triangle-bottomright trg-tb-red mrg\"></div>").removeAttr('style')
-                           // $('#day_' + day).html(day)
+                            $("#day_" + day).attr("style","width: 60px; height: 60px; background-color: white;")
+
+                            $('#day_' + day).append("<div style='z-index: 10;  position: absolute;'>"+day+"</div>")
+                            $('#day_' + day).append("<div class='triangle'></div>")
+                            //$("#day_" + day).addClass('triangle')
+
 
                         } else {
                             $("#day_" + day).css("background-color", v.c)
@@ -203,7 +105,7 @@
             getCalendarData();
             console.log($('#ws_id_work_space_id').val())
         })
-        setInterval(getCalendarData, 60000)
+        //setInterval(getCalendarData, 60000)
         getCalendarData()
     });
 
@@ -217,7 +119,7 @@
     <% end %>
 
 </div>
-<div class="container">
+<div class="container-fluid">
 
     <div class="row row-centered">
         <h2 id="info_date"><%= (Time.current).strftime("%m.%Y") %></h2>
