@@ -48,7 +48,7 @@ class IssuesController < ApplicationController
        #    clr=CriticalType.where(:weight => iss).first.color.to_s
        #  end
       else
-        clr='#ffffff'
+        clr='#FCFCFC'
       end
 
 

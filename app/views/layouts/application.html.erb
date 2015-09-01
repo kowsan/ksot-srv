@@ -4,9 +4,22 @@
     <title>КСОТ</title>
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+    <style>
+        .row-centered {
+            text-align: center;
+            border-spacing: 1px ;
+        }
 
+        .col-centered {
+            display: inline-block;
+            float: none;
+            /* reset the text-align */
+            text-align: left;
+            /* inline-block space fix */
+            margin-right: -1px;
 
-
+        }
+    </style>
 </head>
 <body>
 <div style="margin: 20px">

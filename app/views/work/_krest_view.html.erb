@@ -1,38 +1,35 @@
-<style>
+<style id="s1">
+    <%clrz=CriticalType.distinct(:color).collect { |y| y.color }.append('#FFFFFF').append('#97D077').append('#FCFCFC')%>
+    <% clrz.each do |c|%>
+    <% clrz.each do |c1|%>
 
-    .row-centered {
-        text-align: center;
-    }
-
-    .col-centered {
-        display: inline-block;
-        float: none;
-        /* reset the text-align */
-        text-align: left;
-        /* inline-block space fix */
-        margin-right: -4px;
-    }
-
-    .triangle {
+    .triangle_<%= c.to_s.gsub('#','')%>_<%= c1.to_s.gsub('#','')%> {
         width: 0;
         height: 0;
-        border-top: 60px solid red;
+        border-top: 60px solid <%=c.to_s%>;
         border-right: 60px solid transparent;
         position: relative;
+
     }
 
-    .triangle:before {
+    .triangle_<%= c.to_s.gsub('#','')%>_<%= c1.to_s.gsub('#','')%>:before {
         content: '';
         position: absolute;
         left: 0px;
         top: -60px;
         width: 0;
         height: 0;
-        border-bottom: 60px solid green;
+        border-bottom: 60px solid <%=c1.to_s%>;
         border-left: 60px solid transparent;
-    }
-</style>
 
+    }
+
+    <%end%>
+    <%end%>
+    /* special  */
+
+</style>
+<input type="hidden" id="styles">
 <script>
 
 
@@ -68,20 +65,22 @@
                         var day = (k + 1).toString()
                         if (v.c.indexOf(",") != -1) {
                             var colorz = v.c.split(',')
-                            c1 = colorz[0]
-                            c2 = colorz[1]
-//                            $("#day_" + day).addClass('triangle-topleft').addClass('trg-tl-green').removeAttr('style')
-//                            $('#day_' + day).html(day)
-                            $("#day_" + day).attr("style","width: 60px; height: 60px; background-color: white;")
+                            var c1 = colorz[0].toString().replace("#", '')
+                            var c2 = colorz[1].toString().replace("#", '')
+//
+                            $("#day_" + day).attr("style", "width: 60px; height: 60px; background-color: white;")
 
-                            $('#day_' + day).append("<div style='z-index: 10;  position: absolute;'>"+day+"</div>")
-                            $('#day_' + day).append("<div class='triangle'></div>")
-                            //$("#day_" + day).addClass('triangle')
-
+                            $('#day_' + day).append("<div style='z-index: 10;  position: absolute;'>" + day + "</div>")
+                            $('#day_' + day).append("<div class='triangle_" + c1 + "_" + c2 + "'></div>")
 
                         } else {
-                            $("#day_" + day).css("background-color", v.c)
-                            $('#day_' + day).html(day)
+                            var c1 = v.c.toString().replace("#", '')
+                            var c2 = c1
+//
+                            $("#day_" + day).attr("style", "width: 60px; height: 60px; background-color: white;")
+
+                            $('#day_' + day).append("<div style='z-index: 10;  position: absolute;'>" + day + "</div>")
+                            $('#day_' + day).append("<div class='triangle_" + c1 + "_" + c2 + "'></div>")
                         }
 
                     })
@@ -159,31 +158,48 @@
         <div id="day_23" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">23</div>
         <div id="day_24" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">24</div>
         <div id="day_25" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">25</div>
-        <div id="day_26" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">26</div>
-        <div id="day_27" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">27</div>
+        <div id="day_26" class="col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">26</div>
+        <div id="day_27" class="col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">27</div>
     </div>
     <div class="row row-centered">
-        <div id="day_28" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">28</div>
+        <div id="day_28" class="  col-centered" style="width: 60px;height: 60px;background-color: white">
+            <div style="z-index: 10;  position: absolute;">-</div>
+            <div class="triangle_FCFCFC_FCFCFC"></div>
+        </div>
 
 
-        <div id="day_29" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">29</div>
-        <div id="day_30" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white">30</div>
+        <div id="day_29" class="col-centered" style="width: 60px;height: 60px; background-color: white">29
+            <div style="z-index: 10;  position: absolute;">-</div>
+            <div class="triangle_FCFCFC_FCFCFC"></div>
+        </div>
+        <div id="day_30" class="col-centered" style="width: 60px;height: 60px; background-color: white">30
+            <div style="z-index: 10;  position: absolute;">-</div>
+            <div class="triangle_FCFCFC_FCFCFC"></div>
+        </div>
     </div>
     <div class="row row-centered" id="footer2">
-        <div id="day_31" class="  col-centered" style="width: 60px;height: 60px;border: 1px solid black; background-color: white">31</div>
-        <div id="day_32" class="  col-centered" style="width: 60px;height: 60px;border: 1px solid black; background-color: white">&nbsp;</div>
-        <div id="day_33" class="  col-centered" style="width: 60px;height: 60px;border: 1px solid black; background-color: white">&nbsp;</div>
+        <div id="day_31" class="  col-centered" style="width: 60px;height: 60px; background-color: white">
+            <div style="z-index: 10;  position: absolute;">-</div>
+            <div class="triangle_FCFCFC_FCFCFC"></div></div>
+        <div id="day_32" class="  col-centered" style="width: 60px;height: 60px; background-color: white">
+            <div style="z-index: 10;  position: absolute;">-</div>
+            <div class="triangle_FCFCFC_FCFCFC"></div></div>
+        <div id="day_33" class="  col-centered" style="width: 60px;height: 60px; background-color: white">
+            <div style="z-index: 10;  position: absolute;">-</div>
+            <div class="triangle_FCFCFC_FCFCFC"></div></div>
     </div>
 
+</div>
 
-    <% if current_user.nil? %>
-        <div class="alert  alert-warning row row-centered">
 
-            <h4>Внимание!</h4>
+<% if current_user.nil? %>
+    <div class="alert  alert-warning row row-centered">
 
-            <p>Необходимо ввести нарушения! Нажмите "Авторизация" для продолжения.</p>
-        </div>
-    <% end %>
+        <h4>Внимание!</h4>
+
+        <p>Необходимо ввести нарушения! Нажмите "Авторизация" для продолжения.</p>
+    </div>
+<% end %>
 </div>
 <div class="row col-lg-5 pull-left">
     <button class="btn btn-primary btn-sm" id="prev_month"><%= (Time.current-1.month).strftime("%m.%Y") %></button>
