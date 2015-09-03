@@ -1,5 +1,5 @@
 <style id="s1">
-    <%clrz=CriticalType.distinct(:color).collect { |y| y.color }.append('#FFFFFF').append('#97D077').append('#333333').append('#FCFCFC')%>
+    <%clrz=CriticalType.distinct(:color).collect { |y| y.color }.append('#FFFFFF').append('#97D077').append('#FCFCFC')%>
     <% clrz.each do |c|%>
     <% clrz.each do |c1|%>
 
@@ -47,6 +47,12 @@
 
     <%end%>
     <%end%>
+    .triangle_333333_333333{
+
+        background-color: #e3e3e3;
+        width: 60px;
+        height: 60px;
+    }
     /* special  */
 
 </style>
@@ -136,7 +142,7 @@
 
 </script>
 <br>
-<div class="row " style="background-image: <%= image_tag('day_off.png') %>">
+<div class="row " >
 
 
     <div class="col-lg-1"><label>Рабочее место</label></div>
@@ -214,7 +220,7 @@
             <div id="reset_" class="triangle_trg_FCFCFC_FCFCFC"></div>
         </div>
         <div id="day_33" class="  col-centered" style="width: 60px; height: 60px; background-color: white;">
-            <div style="z-index: 10;  position: absolute;"><%=  image_tag('day_off.png',:size => '60x60')%></div>
+            <div style="z-index: 10;  position: absolute;">-</div>
             <div id="reset_" class="triangle_trg_FCFCFC_FCFCFC"></div>
         </div>
     </div>
