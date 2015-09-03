@@ -60,7 +60,7 @@
             return false;
         }
         $.each($("div[style^='z-index: 10;  position: absolute;']"), function () {
-            $(this).html("&nbsp;")
+           // $(this).html("&nbsp;")
             // $(this).css("background-color", "white")
         });
         $.each($("div[id^='reset_']"), function () {
@@ -97,7 +97,7 @@
                             $("#day_" + day).attr("style", "width: 60px; height: 60px; background-color: white;")
                             $("#day_" + day).html('')
                             $('#day_' + day).append("<div style='z-index: 10;  position: absolute;'>" + day + "</div>")
-                            $('#day_' + day).append("<div id='reset_' class='triangle_trg_" + c1 + "_" + c2 + "' style='background-color:red'" + "></div>")
+                            $('#day_' + day).append("<div id='reset_' class='triangle_trg_" + c1 + "_" + c2 + "' style='background-color:#778DA5'" + "></div>")
 
                         } else {
                             var c1 = v.c.toString().replace("#", '')
@@ -136,7 +136,8 @@
 
 </script>
 <br>
-<div class="row ">
+<div class="row " style="background-image: <%= image_tag('day_off.png') %>">
+
 
     <div class="col-lg-1"><label>Рабочее место</label></div>
     <% unless @workspaces.nil? %>
@@ -213,7 +214,7 @@
             <div id="reset_" class="triangle_trg_FCFCFC_FCFCFC"></div>
         </div>
         <div id="day_33" class="  col-centered" style="width: 60px; height: 60px; background-color: white;">
-            <div style="z-index: 10;  position: absolute;">-</div>
+            <div style="z-index: 10;  position: absolute;"><%=  image_tag('day_off.png',:size => '60x60')%></div>
             <div id="reset_" class="triangle_trg_FCFCFC_FCFCFC"></div>
         </div>
     </div>
