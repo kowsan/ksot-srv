@@ -10,6 +10,6 @@ class WorkSpace < ActiveRecord::Base
   def display_name
     self.name
   end
-  default_scope {where(:is_used => true)}
+  default_scope {where(:is_used => true).order('name asc')}
    after_save :drop_redis_cache
 end
