@@ -1,6 +1,6 @@
 class TurnSchemesController < ApplicationController
   before_action :set_turn_scheme, only: [:show, :edit, :update, :destroy]
-  before_action :check_permission
+  before_action :check_permission, :validate_access
 
   # GET /turn_schemes
   # GET /turn_schemes.json
@@ -91,6 +91,17 @@ class TurnSchemesController < ApplicationController
       format.html { redirect_to turn_schemes_url, notice: 'Turn scheme was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def validate_access
+    unless @can_manage_org_structure
+      respond_to do |format|
+        format.any { render nothing: true, :status => :forbidden }
+      end
+    end
+
   end
 
   private
