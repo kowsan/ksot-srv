@@ -6,6 +6,4 @@ class TurnScheme < ActiveRecord::Base
   validates_presence_of :name,:turn_type_id
   after_save :drop_redis_cache
 
-
-
 end

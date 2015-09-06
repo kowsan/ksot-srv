@@ -1,7 +1,10 @@
-<p id="notice"><%= notice %></p>
-
-<h4>Схемы смен</h4>
-
+<% unless notice.nil? %>
+    <p id="notice" class="alert-success alert"><%= notice %></p>
+<% end %>
+<%= render :partial => 'turn_types/turns_menu' %>
+<h1>Схемы смен</h1>
+<%= link_to 'Новая схема смен', new_turn_scheme_path,:class => 'btn  btn-success  btn-sm' %>
+<br><br>
 <table class="table table-hover table-striped">
 
     <th>ID</th>
@@ -31,7 +34,7 @@
 
 <br>
 
-<%= link_to 'Новая схема смен', new_turn_scheme_path %>
+
 <script type="text/javascript">
     $('#turnschemes').addClass('active')
 </script>
