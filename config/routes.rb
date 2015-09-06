@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :control_list_factor_groups
+  resources :control_list_factors
   resources :turn_schemes
   resources :turn_types
   resources :issue_types do

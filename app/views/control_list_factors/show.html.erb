@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Order num:</strong>
+  <%= @control_list_factor.order_num %>
+</p>
+
+<p>
+  <strong>Factor:</strong>
+  <%= @control_list_factor.factor %>
+</p>
+
+<p>
+  <strong>Is active:</strong>
+  <%= @control_list_factor.is_active %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @control_list_factor.comment %>
+</p>
+
+<%= link_to 'Edit', edit_control_list_factor_path(@control_list_factor) %> |
+<%= link_to 'Back', control_list_factors_path %>
