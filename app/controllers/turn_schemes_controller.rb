@@ -31,13 +31,14 @@ class TurnSchemesController < ApplicationController
       @turn_scheme = TurnScheme.new(turn_scheme_params)
       s=@turn_scheme.save
       if s
+        unless params[:day].nil?
+          params[:day].each_with_index do |i, index|
+            dates=i.split(',')
 
-        params[:day].each_with_index do |i, index|
-          dates=i.split(',')
-
-          dates.each do |d|
-            dt=d.to_date
-            ExclusionDay.find_or_create_by(day: dt, turn_type_id: params[:turn_type_id][index], turn_scheme_id: @turn_scheme.id)
+            dates.each do |d|
+              dt=d.to_date
+              ExclusionDay.find_or_create_by(day: dt, turn_type_id: params[:turn_type_id][index], turn_scheme_id: @turn_scheme.id)
+            end
           end
         end
 
@@ -58,13 +59,15 @@ class TurnSchemesController < ApplicationController
   # PATCH/PUT /turn_schemes/1.json
   def update
     @turn_scheme.transaction do
-     @turn_scheme.exclusion_days.clear
-      params[:day].each_with_index do |i, index|
-        dates=i.split(',')
+      @turn_scheme.exclusion_days.clear
+      unless params[:day].nil?
+        params[:day].each_with_index do |i, index|
+          dates=i.split(',')
 
-        dates.each do |d|
-          dt=d.to_date
-          ExclusionDay.find_or_create_by(day: dt, turn_type_id: params[:turn_type_id][index], turn_scheme_id: @turn_scheme.id)
+          dates.each do |d|
+            dt=d.to_date
+            ExclusionDay.find_or_create_by(day: dt, turn_type_id: params[:turn_type_id][index], turn_scheme_id: @turn_scheme.id)
+          end
         end
       end
 
