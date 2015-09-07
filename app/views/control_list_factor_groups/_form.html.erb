@@ -1,25 +1,24 @@
 <%= form_for(@control_list_factor_group) do |f| %>
-  <% if @control_list_factor_group.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@control_list_factor_group.errors.count, "error") %> prohibited this control_list_factor_group from being saved:</h2>
+    <% if @control_list_factor_group.errors.any? %>
+        <div id="" class="alert alert-danger">
 
-      <ul>
-      <% @control_list_factor_group.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+            <ul>
+                <% @control_list_factor_group.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <div class="form-group">
+        <%= f.label 'Порядок сортировки' %><br>
+        <%= f.number_field :order_num, :class =>'form-control input' %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :order_num %><br>
-    <%= f.number_field :order_num %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="form-group">
+        <%= f.label 'Наименование' %><br>
+        <%= f.text_field :name, :class => 'form-control input' %>
+    </div>
+    <div class="form-group">
+        <%= f.submit %>
+    </div>
 <% end %>

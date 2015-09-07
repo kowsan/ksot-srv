@@ -37,7 +37,7 @@
             <li id="profile"><%= link_to 'Профиль', user_url(@logged_user.id) %></li>
 
             <% if @can_fill_control_list %>
-                <!--<li id="clfactors"><%= link_to 'Факторы КЛ', control_list_factors_path %></li>-->
+                <li id="clfactors"><%= link_to 'Факторы КЛ', control_list_factors_path %>
 
 
             <% end %>
@@ -69,20 +69,12 @@
                 </script>
             <% end %>
 
-
-
-
-
-
             <li class="pull-right">
 
                 <div>Сотрудник:
                     <b> <%= @logged_user.full_name %> </b><%= link_to 'Выйти', destroy_user_session_path, :method => :get, :class => 'btn btn-sm btn-warning' %>
                 </div>
-
-
             </li>
-
 
         <% end %>
 

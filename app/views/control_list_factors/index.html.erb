@@ -1,3 +1,4 @@
+<%= render :partial => 'control_list_factors/menu'%>
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Control List Factors</h1>
@@ -31,3 +32,6 @@
 <br>
 
 <%= link_to 'New Control list factor', new_control_list_factor_path %>
+<script type="text/javascript">
+    $('#factors').addClass('active')
+</script>

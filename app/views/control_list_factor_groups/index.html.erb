@@ -1,24 +1,22 @@
+<%= render :partial => 'control_list_factors/menu' %>
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Control List Factor Groups</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Order num</th>
-      <th>Name</th>
+<table class="table-hover table table-striped">
+
+      <th>Порядок сортировки</th>
+      <th>Наименование</th>
       <th colspan="3"></th>
-    </tr>
-  </thead>
+
 
   <tbody>
     <% @control_list_factor_groups.each do |control_list_factor_group| %>
       <tr>
         <td><%= control_list_factor_group.order_num %></td>
         <td><%= control_list_factor_group.name %></td>
-        <td><%= link_to 'Show', control_list_factor_group %></td>
-        <td><%= link_to 'Edit', edit_control_list_factor_group_path(control_list_factor_group) %></td>
-        <td><%= link_to 'Destroy', control_list_factor_group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to '', edit_control_list_factor_group_path(control_list_factor_group),:class => 'btn glyphicon glyphicon-edit btn-primary  btn-sm ' %></td>
+
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +24,7 @@
 
 <br>
 
-<%= link_to 'New Control list factor group', new_control_list_factor_group_path %>
+<%= link_to 'Новая группа факторов', new_control_list_factor_group_path %>
+<script type="text/javascript">
+    $('#factorsgroup').addClass('active')
+</script>
