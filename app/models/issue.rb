@@ -10,27 +10,16 @@ class Issue < ActiveRecord::Base
 
   validates_presence_of :status_id, :violator_id, :assigned_id
   validates_presence_of :work_space_id
-  after_save :update_cache, :update_cache_new
+  after_save :drop_redis_cache
 
 
   private
-  def update_cache
-    d=created_at.to_date
-    key=d.to_s+'_'+work_space_id.to_s
-    w = Issue.includes(:critical_type).includes(:work_space).where('date(issues.created_at) =?', d).where(:work_space_id => work_space_id).maximum(:weight) || 0
-    if w==0
-      clr='#97D077'
-    else
-      clr=CriticalType.where(:weight => w).first.color.to_s
-    end
-    $redis.set(key, clr)
-  end
 
 
   def update_cache_new
     key='turn_'+work_space_id.to_s+created_at.to_date.to_s
     if $redis.del(key)
-      Issue.max_on_day(created_at.to_date.to_s, work_space_id)
+      Issue.max_on(created_at.to_date.to_s, work_space_id)
     end
   end
 
@@ -85,7 +74,7 @@ class Issue < ActiveRecord::Base
       #get turn type
 
       #get smens count in day
-     sc=tt.count
+      sc=tt.count
       # sc=self.smene_count(date, work_space_id)
 
       case sc

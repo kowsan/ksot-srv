@@ -37,6 +37,7 @@
     <th>Нарушение</th>
     <th>Отвественный</th>
     <th>Дата</th>
+    <th>Рабочее место</th>
     <th>Принятые оперативные меры</th>
     <th colspan="3">Действия</th>
 
@@ -60,6 +61,14 @@
                     &nbsp;
                 <% else %>
                     <%= (issue.due_date).strftime('%d.%m.%Y') unless issue.due_date.nil? %>
+                <% end %>
+            </td>
+
+            <td>
+                <% if issue.work_space.nil? %>
+                    &nbsp;
+                <% else %>
+                    <%= issue.work_space.name %>
                 <% end %>
             </td>
             <td><%= issue.note_measures %></td>
