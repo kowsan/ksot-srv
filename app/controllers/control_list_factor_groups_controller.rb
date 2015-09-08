@@ -42,7 +42,7 @@ class ControlListFactorGroupsController < ApplicationController
   def update
     respond_to do |format|
       if @control_list_factor_group.update(control_list_factor_group_params)
-        format.html { redirect_to @control_list_factor_group, notice: 'Control list factor group was successfully updated.' }
+        format.html { redirect_to control_list_factor_groups_path, notice: 'Control list factor group was successfully updated.' }
         format.json { render :show, status: :ok, location: @control_list_factor_group }
       else
         format.html { render :edit }

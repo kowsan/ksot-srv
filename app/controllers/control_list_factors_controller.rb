@@ -29,7 +29,7 @@ class ControlListFactorsController < ApplicationController
 
     respond_to do |format|
       if @control_list_factor.save
-        format.html { redirect_to @control_list_factor, notice: 'Control list factor was successfully created.' }
+        format.html { redirect_to control_list_factors_path, notice: 'Control list factor was successfully created.' }
         format.json { render :show, status: :created, location: @control_list_factor }
       else
         format.html { render :new }
@@ -43,7 +43,7 @@ class ControlListFactorsController < ApplicationController
   def update
     respond_to do |format|
       if @control_list_factor.update(control_list_factor_params)
-        format.html { redirect_to @control_list_factor, notice: 'Control list factor was successfully updated.' }
+        format.html { redirect_to control_list_factors_url, notice: 'Control list factor was successfully updated.' }
         format.json { render :show, status: :ok, location: @control_list_factor }
       else
         format.html { render :edit }
@@ -79,6 +79,6 @@ class ControlListFactorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def control_list_factor_params
-      params.require(:control_list_factor).permit(:order_num, :factor, :is_active, :comment)
+      params.require(:control_list_factor).permit(:order_num, :factor, :is_active, :comment,:control_list_factor_group_id)
     end
 end

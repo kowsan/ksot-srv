@@ -1,29 +1,28 @@
 <%= render :partial => 'control_list_factors/menu'%>
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Control List Factors</h1>
+<h1>Факторы</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Order num</th>
-      <th>Factor</th>
-      <th>Is active</th>
-      <th>Comment</th>
+<table class="table table-hover table-striped">
+
+      <th>Порядок</th>
+      <th>Фактор</th>
+    <th>Группа</th>
+      <th>Активен</th>
+      <th>Примечание</th>
       <th colspan="3"></th>
-    </tr>
-  </thead>
+
 
   <tbody>
     <% @control_list_factors.each do |control_list_factor| %>
       <tr>
         <td><%= control_list_factor.order_num %></td>
         <td><%= control_list_factor.factor %></td>
+          <td><%= control_list_factor.control_list_factor_group.name %></td>
         <td><%= control_list_factor.is_active %></td>
         <td><%= control_list_factor.comment %></td>
-        <td><%= link_to 'Show', control_list_factor %></td>
-        <td><%= link_to 'Edit', edit_control_list_factor_path(control_list_factor) %></td>
-        <td><%= link_to 'Destroy', control_list_factor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+        <td><%= link_to 'Edit', edit_control_list_factor_path(control_list_factor) %><!--<%= link_to 'Destroy', control_list_factor, method: :delete, data: { confirm: 'Are you sure?' } %>--></td>
       </tr>
     <% end %>
   </tbody>
