@@ -1,8 +1,9 @@
 <%= render :partial => 'control_list_factors/menu' %>
-<p id="notice"><%= notice %></p>
+
 
 <h1>Группа факторов</h1>
-
+<%= link_to 'Новая группа факторов', new_control_list_factor_group_path,:class => 'btn btn-sm btn-success' %>
+<br><br>
 <table class="table-hover table table-striped">
 
     <th>Порядок</th>
@@ -26,7 +27,7 @@
 
 <br>
 
-<%= link_to 'Новая группа факторов', new_control_list_factor_group_path %>
+
 <script type="text/javascript">
     $('#factorsgroup').addClass('active')
 </script>

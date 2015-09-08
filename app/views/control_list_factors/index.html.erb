@@ -1,8 +1,9 @@
 <%= render :partial => 'control_list_factors/menu'%>
-<p id="notice"><%= notice %></p>
+
 
 <h1>Факторы</h1>
-
+<%= link_to 'Добавить фактор', new_control_list_factor_path,:class => 'btn btn-sm btn-success' %>
+<br><br>
 <table class="table table-hover table-striped">
 
       <th>Порядок</th>
@@ -30,7 +31,7 @@
 
 <br>
 
-<%= link_to 'New Control list factor', new_control_list_factor_path %>
+
 <script type="text/javascript">
     $('#factors').addClass('active')
 </script>
