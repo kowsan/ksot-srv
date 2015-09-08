@@ -5,7 +5,7 @@ class ControlListFactorsController < ApplicationController
   # GET /control_list_factors
   # GET /control_list_factors.json
   def index
-    @control_list_factors = ControlListFactor.all
+    @control_list_factors = ControlListFactor.unscoped.all
   end
 
   # GET /control_list_factors/1
@@ -74,7 +74,7 @@ class ControlListFactorsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_control_list_factor
-      @control_list_factor = ControlListFactor.find(params[:id])
+      @control_list_factor = ControlListFactor.unscoped.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
