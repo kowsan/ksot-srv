@@ -39,8 +39,9 @@
                 <span class="label label-success"><%= l.name %></span>
                 <% l.control_list_factors.sort_by { |y| y[:order_num] }.each do |fac| %>
                     <% c_id=l.id.to_s+'_'+fac.id.to_s %>
-                    <div class="row" id="det_<%= c_id %>">
+                    <div class="row" id="det_cb_<%= c_id %>">
                         <div class="col-lg-3">
+
                             <input type="checkbox" id="cb_<%= c_id %>"><textarea rows="5" class="form-control input"><%= fac.factor %></textarea>
                         </div>
                         <div id="div_detail_cb_<%= c_id %>" class="col-lg-9">
@@ -65,13 +66,17 @@
             var id = $(this).attr('id')
             if ($(this).is(":checked")) {
                 //'checked' event code
-                $('#div_detail_' + id).append($('#template').html())
-                console.log('cb is checked',id)
+
+                $('#div_detail_' + id).append($('#template').html()).append("<input type=hidden name=\"factors[]\" value=\'"+id+"\'>")
+                console.log('cb is checked', id)
 
 
             } else {
                 console.log('cb is unchecked')
+
                 $('#div_detail_' + id).html('')
+
+
 
             }
 
