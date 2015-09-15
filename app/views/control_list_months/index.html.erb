@@ -1,0 +1,30 @@
+<%= render :partial => 'control_list_factors/menu' %>
+<p id="notice"><%= notice %></p>
+<%= link_to 'New Control list month', new_control_list_month_path %>
+<br><br>
+<h1>Listing Control List Months</h1>
+
+<table>
+
+    <th>Form date</th>
+    <th colspan="3"></th>
+
+
+    <tbody>
+    <% @control_list_months.each do |control_list_month| %>
+        <tr>
+            <td><%= control_list_month.form_date %></td>
+            <td><%= link_to 'Show', control_list_month %></td>
+            <td><%= link_to 'Edit', edit_control_list_month_path(control_list_month) %></td>
+            <td><%= link_to 'Destroy', control_list_month, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+        </tr>
+    <% end %>
+    </tbody>
+</table>
+
+<br>
+<script type="text/javascript">
+    $('#clmonth').addClass('active')
+</script>
+
+

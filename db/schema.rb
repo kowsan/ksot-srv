@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150908203747) do
+ActiveRecord::Schema.define(version: 20150915200656) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,27 @@ ActiveRecord::Schema.define(version: 20150908203747) do
   end
 
   add_index "control_list_factors", ["order_num"], name: "index_control_list_factors_on_order_num", unique: true, using: :btree
+
+  create_table "control_list_month_links", force: :cascade do |t|
+    t.integer  "control_list_month_id"
+    t.integer  "control_list_factor_group_id"
+    t.integer  "control_list_factor_id"
+    t.integer  "user_id"
+    t.string   "inconsistency"
+    t.string   "note_due"
+    t.string   "note_measures"
+    t.integer  "status_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  create_table "control_list_months", force: :cascade do |t|
+    t.date     "form_date"
+    t.integer  "author_id"
+    t.integer  "subdivision_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
 
   create_table "critical_types", force: :cascade do |t|
     t.string   "name"

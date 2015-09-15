@@ -28,7 +28,7 @@ class ControlListFactorGroupsController < ApplicationController
 
     respond_to do |format|
       if @control_list_factor_group.save
-        format.html { redirect_to @control_list_factor_group, notice: 'Control list factor group was successfully created.' }
+        format.html { redirect_to control_list_factor_groups_path }
         format.json { render :show, status: :created, location: @control_list_factor_group }
       else
         format.html { render :new }
