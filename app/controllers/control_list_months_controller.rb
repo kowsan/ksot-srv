@@ -1,6 +1,6 @@
 class ControlListMonthsController < ApplicationController
   before_action :set_control_list_month, only: [:show, :edit, :update, :destroy]
-   before_action :check_permission
+  before_action :check_permission
   # GET /control_list_months
   # GET /control_list_months.json
   def index
@@ -25,8 +25,26 @@ class ControlListMonthsController < ApplicationController
   # POST /control_list_months
   # POST /control_list_months.json
   def create
-    @control_list_month = ControlListMonth.new(control_list_month_params)
+    ControlListMonth.transaction do
+      @control_list_month = ControlListMonth.new(control_list_month_params)
+      if !params[:factors].nil? && @control_list_month.save
+        params[:factors].each_with_index do |item, index|
+          g_id, f_id=params[:factors][index].gsub('cb_', '').split('_')
+          c=ControlListMonthLink.new
+          c.control_list_month_id=@control_list_month.id
+          c.control_list_factor_group_id=g_id
+          c.control_list_factor_id=f_id
+          c.user_id=params[:f_user_id][index]
+          c.inconsistency=params[:inconsistence][index]
+          c.note_due=params[:note_due][index]
+          c.note_measures=params[:note_measures][index]
+          c.status_id=params[:f_status_id][index]
+          c.save!
+        end
 
+
+      end
+    end
     respond_to do |format|
       if @control_list_month.save
         format.html { redirect_to @control_list_month, notice: 'Control list month was successfully created.' }
@@ -63,13 +81,13 @@ class ControlListMonthsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_control_list_month
-      @control_list_month = ControlListMonth.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_control_list_month
+    @control_list_month = ControlListMonth.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def control_list_month_params
-      params.require(:control_list_month).permit(:form_date)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def control_list_month_params
+    params.require(:control_list_month).permit!
+  end
 end

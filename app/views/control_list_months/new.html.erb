@@ -1,5 +1,9 @@
-<h1>New Control List Month</h1>
+<%= render :partial => 'control_list_factors/menu' %>
+<h1>Новый контрольный лист</h1>
 
 <%= render 'form' %>
 
 <%= link_to 'Back', control_list_months_path %>
+<script type="text/javascript">
+   $('#clmonth').addClass('active')
+</script>

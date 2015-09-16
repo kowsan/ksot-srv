@@ -16,22 +16,22 @@
     <% end %>
     <div class="row">
         <div class="col-md-2">
-            <%= f.label :subdivision %><br>
+            <%= f.label 'Подзразделение' %><br>
             <%= f.collection_select(:subdivision_id, Subdivision.all.sort_by { |x| x['name'] }, :id, :name, {:include_blank => true}, :class => 'form-control input') %>
         </div>
         <div class="col-md-2">
-            <%= f.label :author %><br>
+            <%= f.label 'Составил' %><br>
             <%= f.collection_select(:author_id, User.all.sort_by { |x| x['full_name'] }, :id, :full_name, {:include_blank => true}, :class => 'form-control input') %>
         </div>
         <div class="col-md-2">
-            <%= f.label :form_date %><br>
+            <%= f.label 'Дата' %><br>
             <%= f.text_field :form_date, :class => 'form-control input' %>
         </div>
 
     </div>
 
-
-    <%= f.label :factor_group_id %>
+   <br>
+   <p>Группы факторов</p>
 
     <% ControlListFactorGroup.all.each do |l| %>
         <div class="row">
@@ -41,7 +41,6 @@
                     <% c_id=l.id.to_s+'_'+fac.id.to_s %>
                     <div class="row" id="det_cb_<%= c_id %>">
                         <div class="col-lg-3">
-
                             <input type="checkbox" id="cb_<%= c_id %>"><textarea rows="5" class="form-control input"><%= fac.factor %></textarea>
                         </div>
                         <div id="div_detail_cb_<%= c_id %>" class="col-lg-9">
@@ -53,11 +52,8 @@
         </div>
     <% end %>
 
-
-
-
     <div class="form-group">
-        <%= f.submit %>
+        <%= f.submit(:class=> 'btn btn-sm btn-primary') %>
     </div>
 <% end %>
 <script type="text/javascript">
@@ -65,22 +61,13 @@
         $(this).change(function () {
             var id = $(this).attr('id')
             if ($(this).is(":checked")) {
-                //'checked' event code
-
                 $('#div_detail_' + id).append($('#template').html()).append("<input type=hidden name=\"factors[]\" value=\'"+id+"\'>")
                 console.log('cb is checked', id)
-
-
             } else {
                 console.log('cb is unchecked')
-
                 $('#div_detail_' + id).html('')
-
-
-
             }
 
         });
-
     })
 </script>
