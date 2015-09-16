@@ -11,6 +11,8 @@
     <th>Отчество</th>
     <th>Фамилия</th>
     <th>Логин</th>
+    <th>IP</th>
+    <th>Последний вход</th>
     <th>Роль</th>
     <th>Должность</th>
     <th>Подразделение</th>
@@ -28,6 +30,8 @@
                 <td><%= user.middle_name %></td>
                 <td><%= user.last_name %></td>
                 <td><%= user.login %></td>
+                <td><%= user.last_sign_in_ip || '-' %></td>
+                <td><%= user.last_sign_in_at || '-' %></td>
                 <td><%= user.staff_role.name %></td>
                 <td><%= user.position %></td>
                 <td><%= user.subdivision.name %></td>
