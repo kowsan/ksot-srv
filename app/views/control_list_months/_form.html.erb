@@ -30,8 +30,8 @@
 
     </div>
 
-   <br>
-   <p>Группы факторов</p>
+    <br>
+    <p>Группы факторов</p>
 
     <% ControlListFactorGroup.all.each do |l| %>
         <div class="row">
@@ -41,7 +41,7 @@
                     <% c_id=l.id.to_s+'_'+fac.id.to_s %>
                     <div class="row" id="det_cb_<%= c_id %>">
                         <div class="col-lg-3">
-                            <input type="checkbox" id="cb_<%= c_id %>"><textarea rows="5" class="form-control input"><%= fac.factor %></textarea>
+                            <input type="checkbox" id="cb_<%= c_id %>"><textarea  readonly rows="5" class="form-control input"><%= fac.factor %></textarea>
                         </div>
                         <div id="div_detail_cb_<%= c_id %>" class="col-lg-9">
                         </div>
@@ -53,7 +53,7 @@
     <% end %>
 
     <div class="form-group">
-        <%= f.submit(:class=> 'btn btn-sm btn-primary') %>
+        <%= f.submit(:class => 'btn btn-sm btn-primary',:onclick=>'return validateSelects()') %>
     </div>
 <% end %>
 <script type="text/javascript">
@@ -61,7 +61,7 @@
         $(this).change(function () {
             var id = $(this).attr('id')
             if ($(this).is(":checked")) {
-                $('#div_detail_' + id).append($('#template').html()).append("<input type=hidden name=\"factors[]\" value=\'"+id+"\'>")
+                $('#div_detail_' + id).append($('#template').html()).append("<input type=hidden name=\"factors[]\" value=\'" + id + "\'>")
                 console.log('cb is checked', id)
             } else {
                 console.log('cb is unchecked')
@@ -70,4 +70,38 @@
 
         });
     })
+
+
+    function validateSelects() {
+        var r = true
+        $("select:visible").each(function () {
+            console.log(($(this).val().length), $(this).attr('id'))
+            if ($(this).val().length == 0) {
+                $(this).parent().addClass('has-error')
+                r = false
+            } else {
+                $(this).parent().removeClass('has-error')
+            }
+        })
+
+        $("input:visible").each(function () {
+            console.log(($(this).val().length), $(this).attr('id'))
+            if ($(this).val().length == 0) {
+                $(this).parent().addClass('has-error')
+                r = false
+            } else {
+                $(this).parent().removeClass('has-error')
+            }
+        })
+        $("textarea:visible").each(function () {
+            if ($(this).val().length == 0) {
+                $(this).parent().addClass('has-error')
+                r = false
+            } else {
+                $(this).parent().removeClass('has-error')
+            }
+        })
+
+        return r;
+    }
 </script>
