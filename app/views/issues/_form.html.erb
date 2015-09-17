@@ -62,7 +62,10 @@
         <% end %>
 
     </div>
-
+    <div class="form-group">
+        <%= f.label 'Расшифровка' %><br>
+        <%= f.text_field(:clarification, {:class => ' form-control input'}) %>
+    </div>
     <div class="form-group">
         <%= f.label 'Отметка о выполнении' %><br>
         <%= f.text_field(:note_due, {:class => ' form-control input'}) %>

@@ -175,7 +175,7 @@ class IssuesController < ApplicationController
 
 # Never trust parameters from the scary internet, only allow the white list through.
   def issue_params
-    params.require(:issue).permit(:violator_id, :status_id, :issue_type_id, :assigned_id, :close_date, :note_due, :due_date, :note_measures, :work_space_id)
+    params.require(:issue).permit(:violator_id, :status_id,:clarification, :issue_type_id, :assigned_id, :close_date, :note_due, :due_date, :note_measures, :work_space_id)
   end
 
 end

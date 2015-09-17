@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150917062239) do
+ActiveRecord::Schema.define(version: 20150917161932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,8 +127,8 @@ ActiveRecord::Schema.define(version: 20150917062239) do
     t.integer  "work_space_id"
     t.datetime "close_date"
     t.datetime "due_date"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "author_id"
     t.integer  "assigned_id"
     t.integer  "violator_id"
@@ -137,6 +137,7 @@ ActiveRecord::Schema.define(version: 20150917062239) do
     t.text     "note_measures"
     t.text     "info"
     t.integer  "issue_type_id"
+    t.string   "clarification", default: ""
   end
 
   create_table "managements", force: :cascade do |t|
