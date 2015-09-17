@@ -10,6 +10,7 @@ class Issue < ActiveRecord::Base
 
   validates_presence_of :status_id, :violator_id, :assigned_id
   validates_presence_of :work_space_id
+  validates_presence_of :issue_type_id,:message => 'не может быть пустым'
   after_save :drop_redis_cache
 
 
