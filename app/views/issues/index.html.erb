@@ -46,7 +46,11 @@
     <% @issues.each do |issue| %>
         <tr
         <% unless issue.work_space.is_used? %>
-        class="warning"  title="Рабочее место не задействовано. В кресте не будет отображаться"
+        class="warning" title="Рабочее место не задействовано. В кресте не будет отображаться"
+        <% end %>
+
+        <% unless issue.issue_type.nil? %>
+        class="danger" title="Не задан вид нарушения"
         <% end %>
         >
             <td><%= issue.id %></td>
@@ -54,7 +58,7 @@
             <td><%= (issue.created_at.to_date).strftime('%d.%m.%Y') %></td>
             <td><%= issue.violator.full_name %></td>
             <td><%= issue.status.name %></td>
-            <td><%= issue.issue_type.name %></td>
+            <td><%= issue.issue_type.name unless issue.issue_type.nil? %></td>
             <td><%= issue.assigned.full_name %></td>
             <td>
                 <% if issue.due_date.nil? %>
