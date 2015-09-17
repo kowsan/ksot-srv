@@ -85,9 +85,9 @@
     </div>
     <script>
         function fixOldIt() {
-            <% unless @issue.new_record? %>
+            <% unless @issue.new_record?  %>
 
-
+            <% unless @issue.issue_type.nil?%>
             $('#issue_issue_type_id').find('option').each(function () {
                 console.log($(this).val())
                 if ($(this).val().toString() == '<%= @issue.issue_type.id %>') {
@@ -95,6 +95,7 @@
                 }
 
             });
+            <%end%>
             <%end%>
         }
 
