@@ -1,6 +1,7 @@
 class WorkSpacesController < ApplicationController
-  before_action :set_work_space, only: [:show, :edit, :update, :destroy,:enable]
-  before_action :check_permission, :validate_access
+  before_action :set_work_space, only: [:show, :edit, :update, :destroy, :enable]
+  before_action :check_permission
+  before_action :validate_access, :except => :get_issue_types
 
   # GET /work_spaces
   # GET /work_spaces.json
@@ -77,6 +78,7 @@ class WorkSpacesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
   def enable
     @work_space.is_used=true
     @work_space.save!
@@ -104,6 +106,6 @@ class WorkSpacesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def work_space_params
-    params[:work_space].permit(:name, :code, :short_name, :subdivision_id, :is_used, :issue_type,:turn_scheme_id)
+    params[:work_space].permit(:name, :code, :short_name, :subdivision_id, :is_used, :issue_type, :turn_scheme_id)
   end
 end
