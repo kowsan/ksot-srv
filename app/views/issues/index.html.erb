@@ -49,7 +49,7 @@
         class="warning" title="Рабочее место не задействовано. В кресте не будет отображаться"
         <% end %>
 
-        <% unless issue.issue_type.nil? %>
+        <% if issue.issue_type.nil? %>
         class="danger" title="Не задан вид нарушения"
         <% end %>
         >
