@@ -3,4 +3,9 @@
     <% if @can_manage_org_structure %>
         <li id="krestall"><%= link_to('Посуточно', work_by_day_in_month_path) %></li>
     <% end %>
+
 </ul>
+
+<script type="text/javascript">
+    $('#krest').addClass('active')
+</script>
