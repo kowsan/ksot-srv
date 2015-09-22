@@ -1,10 +1,10 @@
 <%= render :partial => 'work/menu' %>
 <% if @allow_anon %>
-    <%= render :partial => 'work/krest_view' %>
+    <%= render :partial => 'work/krest_all' %>
 
 <% else %>
     <b>Работа в анонимном режиме запрещена или к вашему АРМ не привязаны РАБОЧИЕ МЕСТА </b>
-<% end %>
+<%end%>
 <br>
 
 <% if current_user %>
@@ -16,9 +16,5 @@
 
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('#krest_ws').addClass("active")
-    })
-
-
+    $('#krestall').addClass("active")
 </script>

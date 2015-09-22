@@ -1,0 +1,294 @@
+<style id="s1">
+    <%clrz=CriticalType.distinct(:color).collect { |y| y.color }.append('#FFFFFF').append('#97D077').append('#FCFCFC')%>
+    <% clrz.each do |c|%>
+    <% clrz.each do |c1|%>
+
+    .triangle_<%= c.to_s.gsub('#','')%>_<%= c1.to_s.gsub('#','')%> {
+        width: 0;
+        height: 0;
+        border-top: 60px solid <%=c.to_s%>;
+        border-right: 60px solid transparent;
+        position: relative;
+
+    }
+
+    .triangle_<%= c.to_s.gsub('#','')%>_<%= c1.to_s.gsub('#','')%>:before {
+        content: '';
+        position: absolute;
+        left: -1px;
+        top: -60px;
+        width: 0;
+        height: 1px;
+        border-bottom: 60px solid <%=c1.to_s%>;
+        border-left: 60px solid transparent;
+
+    }
+
+    .triangle_trg_<%= c.to_s.gsub('#','')%>_<%= c1.to_s.gsub('#','')%> {
+        width: 0;
+        height: 0;
+        border-top: 60px solid <%=c.to_s%>;
+        border-right: 60px solid transparent;
+        position: relative;
+
+    }
+
+    .triangle_trg_<%=c.to_s.gsub('#','')%>_<%= c1.to_s.gsub('#','')%>:before {
+        content: '';
+        position: absolute;
+        left: 2px;
+        top: -60px;
+        width: 0;
+        height: 1px;
+        border-bottom: 60px solid <%=c1.to_s%>;
+        border-left: 60px solid transparent;
+
+    }
+
+    <%end%>
+    <%end%>
+    .triangle_333333_333333{
+
+        background-color: #e3e3e3;
+        width: 60px;
+        height: 60px;
+    }
+    /* special  */
+
+</style>
+<input type="hidden" id="styles">
+<script>
+
+
+    function getCalendarData() {
+        if ($('#month').html().toString().length != 7) {
+
+            return false;
+        }
+        $.each($("div[style^='z-index: 10;  position: absolute;']"), function () {
+            $(this).html("&nbsp;")
+            // $(this).css("background-color", "white")
+        });
+        $.each($("div[id^='reset_']"), function () {
+            $(this).removeAttr('class').addClass('triangle_FCFCFC_FCFCFC')
+
+            $(this).removeAttr('style')
+        });
+
+
+        $.ajax({
+            url: "/issues/monthly_by_day.json",
+            data: {
+                date: $('#month').html(),
+                work_space_id: $('#ws_id_work_space_id').val()
+            },
+            cache: true,
+            type: "GET",
+            dataType: "json",
+            statusCode: {
+                304: function () {
+                    console.log("data cached not rewrite");
+                },
+                200: function (json, status, xhr) {
+
+                    $("#data").val(json.length)
+
+                    $.each(json, function (k, v) {
+                        var day = (k + 1).toString()
+                        if (v.c.indexOf(",") != -1) {
+                            var colorz = v.c.split(',')
+                            var c1 = colorz[0].toString().replace("#", '')
+                            var c2 = colorz[1].toString().replace("#", '')
+//
+                            $("#day_" + day).attr("style", "width: 60px; height: 60px; background-color: white;")
+                            $("#day_" + day).html('')
+                            $('#day_' + day).append("<div style='z-index: 10;  position: absolute;'>" + day + "</div>")
+                            $('#day_' + day).append("<div id='reset_' class='triangle_trg_" + c1 + "_" + c2 + "' style='background-color:#778DA5'" + "></div>")
+
+                        } else {
+                            var c1 = v.c.toString().replace("#", '')
+                            var c2 = c1
+//
+                            $("#day_" + day).attr("style", "width: 60px; height: 60px; background-color: white;")
+                            $("#day_" + day).html('')
+                            $('#day_' + day).append("<div style='z-index: 10;  position: absolute;'>" + day + "</div>")
+                            $('#day_' + day).append("<div id='reset_' class='triangle_" + c1 + "_" + c2 + "'></div>")
+                        }
+
+                    })
+                    $('#info_date').html($('#month').html())
+
+
+                }
+            }
+        }).done(function (json) {
+
+
+        })
+    }
+
+    $(document).ready(function () {
+        $('.input-group .date').datetimepicker({
+            locale: 'ru',
+            format: 'MM.YYYY'
+        });
+        $('#ws_id_work_space_id').change(function () {
+            getCalendarData();
+            console.log($('#ws_id_work_space_id').val())
+        })
+        //setInterval(getCalendarData, 60000)
+        getCalendarData()
+    });
+
+</script>
+<br>
+
+<div class="container-fluid">
+
+    <div class="row row-centered">
+        <h2 id="info_date"><%= (Time.current).strftime("%m.%Y") %></h2>
+        <br><br>
+    </div>
+    <div class="row row-centered">
+        <div id="day_1" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_2" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_3" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+    </div>
+    <div class="row row-centered">
+        <div id="day_4" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black; background-color: white;"></div>
+        <div id="day_5" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_6" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+    </div>
+    <div class="row row-centered">
+        <div id="day_7" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_8" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_9" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_10" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_11" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_12" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_13" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+    </div>
+    <div class="row row-centered">
+        <div id="day_14" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_15" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_16" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_17" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_18" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_19" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_20" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+    </div>
+    <div class="row row-centered">
+        <div id="day_21" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_22" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_23" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_24" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_25" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_26" class="col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_27" class="col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+    </div>
+    <div class="row row-centered">
+        <div id="day_28" class="  col-centered" style="width: 60px;height: 60px;border: 1px solid black;background-color: white">
+            <div style="z-index: 10;  position: absolute;">-</div>
+            <div class="triangle_FCFCFC_FCFCFC"></div>
+        </div>
+
+
+        <div id="day_29" class="  col-centered" style="width: 60px; height: 60px; background-color: white;">
+            <div style="z-index: 10;  position: absolute;">-</div>
+            <div id="reset_" class="triangle_trg_FCFCFC_FCFCFC"></div>
+        </div>
+        <div id="day_30" class="  col-centered" style="width: 60px; height: 60px; background-color: white;">
+            <div style="z-index: 10;  position: absolute;">-</div>
+            <div id="reset_" class="triangle_trg_FCFCFC_FCFCFC"></div>
+        </div>
+    </div>
+    <div class="row row-centered" id="footer2">
+        <div id="day_31" class="  col-centered" style="width: 60px; height: 60px; background-color: white;">
+            <div style="z-index: 10;  position: absolute;">-</div>
+            <div id="reset_" class="triangle_trg_FCFCFC_FCFCFC"></div>
+        </div>
+        <div id="day_32" class="  col-centered" style="width: 60px; height: 60px; background-color: white;">
+            <div style="z-index: 10;  position: absolute;">-</div>
+            <div id="reset_" class="triangle_trg_FCFCFC_FCFCFC"></div>
+        </div>
+        <div id="day_33" class="  col-centered" style="width: 60px; height: 60px; background-color: white;">
+            <div style="z-index: 10;  position: absolute;">-</div>
+            <div id="reset_" class="triangle_trg_FCFCFC_FCFCFC"></div>
+        </div>
+    </div>
+
+</div>
+
+
+<% if current_user.nil? %>
+    <div class="alert  alert-warning row row-centered">
+
+        <h4>Внимание!</h4>
+
+        <p>Необходимо ввести нарушения! Нажмите "Авторизация" для продолжения.</p>
+    </div>
+<% end %>
+</div>
+<div class="row col-lg-5 pull-left">
+    <button class="btn btn-primary btn-sm" id="prev_month"><%= (Time.current-1.month).strftime("%m.%Y") %></button>
+    <button class="btn btn-success btn-sm " id="month"><%= (Time.current).strftime("%m.%Y") %></button>
+    <button class="btn btn-primary btn-sm" id="next_month"><%= (Time.current+1.month).strftime("%m.%Y") %></button>
+</div>
+<script>
+
+    $('#month').click(function () {
+
+        getCalendarData()
+
+    })
+
+
+    $("#next_month").click(function () {
+        var pm = ''
+        var cm = ''
+        var cd = $('#month').html()
+        $.getJSON("/issues/next_date.json", {offset: 1, date: $('#month').html()}).done(function (json) {
+            console.log(json);
+            pm = json.toString()
+            $.getJSON("/issues/next_date.json", {offset: 2, date: $('#month').html()}).done(function (json) {
+                console.log(json);
+                cm = json.toString()
+                $('#prev_month').html(cd)
+                $('#month').html(pm)
+                $('#next_month').html(cm)
+                $('#month').click()
+            })
+        })
+
+        console.log(pm, cd, cm)
+
+
+    });
+
+
+    $("#prev_month").click(function () {
+        var pm = ''
+        var cm = ''
+        var cd = $('#month').html()
+        $.getJSON("/issues/next_date.json", {offset: -1, date: $('#month').html()}).done(function (json) {
+            console.log(json);
+            pm = json.toString()
+
+            $.getJSON("/issues/next_date.json", {offset: -2, date: $('#month').html()}).done(function (json) {
+                console.log(json);
+                cm = json.toString()
+                $('#prev_month').html(cm)
+                $('#month').html(pm)
+                $('#next_month').html(cd)
+                $('#month').click()
+            })
+
+        })
+
+        console.log(pm, cd, cm)
+
+
+    });
+</script>
+
+

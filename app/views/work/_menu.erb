@@ -1,0 +1,6 @@
+<ul class="nav nav-pills">
+    <li id="krest_ws"><%= link_to('По рабочим местам', work_user_info_path) %></li>
+    <% if @can_manage_org_structure %>
+        <li id="krestall"><%= link_to('Посуточно', work_by_day_in_month_path) %></li>
+    <% end %>
+</ul>

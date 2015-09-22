@@ -12,15 +12,22 @@ Rails.application.routes.draw do
   resources :critical_types
 
   root 'work#user_info'
-  get 'issues/monthly'
-  get 'work_spaces/get_issue_types'
-  get 'issues/next_date'
-  get 'issues/days_in_month'
 
-  resources :issues
+  get 'work_spaces/get_issue_types'
+  # get 'issues/next_date'
+  # get 'issues/days_in_month'
   get 'work/app_login'
   get 'work/app_logout'
   get 'work/user_info'
+  get 'work/by_day_in_month'
+  resources :issues do
+    collection do
+      get 'monthly'
+      get 'next_date'
+      get 'days_in_month'
+      get 'monthly_by_day'
+    end
+  end
 
   devise_for :users
   devise_for :subdivisions

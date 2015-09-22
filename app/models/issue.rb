@@ -24,10 +24,10 @@ class Issue < ActiveRecord::Base
     end
   end
 
-  def self.max_on_day(date, work_space_id)
-    key=date.to_s+'_'+work_space_id.to_s
+  def self.max_on_day(date)
+    key='max_in_day_'+date.to_s
     if $redis.get(key).nil?
-      w = Issue.includes(:critical_type).includes(:work_space).where('issues.created_at >=? AND issues.created_at <=?', date.at_beginning_of_day, date.at_end_of_day).where(:work_space_id => work_space_id).maximum(:weight) || 0
+      w = Issue.includes(:critical_type).includes(:work_space).where('issues.created_at >=? AND issues.created_at <=?', date.at_beginning_of_day, date.at_end_of_day).maximum(:weight) || 0
       if w==0
         clr='#97D077'
       else
@@ -37,6 +37,7 @@ class Issue < ActiveRecord::Base
     end
     return $redis.get(key)
   end
+
 
   def self.smene_count(date, work_space_id)
     ws= WorkSpace.find(work_space_id)

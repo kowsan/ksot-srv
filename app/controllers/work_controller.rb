@@ -3,7 +3,6 @@ class WorkController < ApplicationController
 
   def user_info
 
-
     ws=AutoWorkSpace.current_aws(cookies[:app_id])
     if ws.nil?
       @allow_anon=false
@@ -11,7 +10,7 @@ class WorkController < ApplicationController
       if ws.work_spaces.count==0
         @allow_anon=false
       else
-       @allow_anon=ws.allow_anonymous?
+        @allow_anon=ws.allow_anonymous?
       end
     end
     if current_user
@@ -30,8 +29,17 @@ class WorkController < ApplicationController
     end
 
 
+  end
 
+  def by_day_in_month
 
+    unless @can_manage_org_structure
+      respond_to do |format|
+        format.html { render :nothing => true, :status => :forbidden }
+      end
+    end
+    @allow_anon='you authed'
+    @workspaces=WorkSpace.unscoped.all
   end
 
   def summary

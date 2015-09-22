@@ -24,13 +24,38 @@ class IssuesController < ApplicationController
     end
   end
 
+  def monthly_by_day
+    @out=Array.new
+    date=Date.strptime(params[:date].to_s, "%m.%Y") || Date.current
+    (date.at_beginning_of_month.yday..date.at_end_of_month.yday).each do |d|
+
+
+      cd=(date.at_beginning_of_year+d-1).to_date
+
+      if Date.current >= cd
+
+        # clr=Issue.max_on_day(cd,ws_id)
+        clr=Issue.max_on_day(cd)
+      else
+        clr='#333333'
+
+
+      end
+      h=Hash.new
+      h["c"]=clr
+      @out << h
+
+    end
+
+
+  end
+
+
   def monthly
     @workspaces=get_available_work_spaces #unless @logged_user.nil?
     ws_id=params[:work_space_id]
     #  w_spaces=WorkSpace.find(ws_id)
     @out=Array.new
-
-
     date=Date.strptime(params[:date].to_s, "%m.%Y") || Date.current
     (date.at_beginning_of_month.yday..date.at_end_of_month.yday).each do |d|
 
@@ -41,12 +66,6 @@ class IssuesController < ApplicationController
 
         # clr=Issue.max_on_day(cd,ws_id)
         clr=Issue.max_on(cd, ws_id)
-        #  iss= Issue.includes(:critical_type).includes(:work_space).where('issues.created_at >=? AND issues.created_at <=?',cd.at_beginning_of_day,cd.at_end_of_day).where(:work_space_id => ws_id).maximum(:weight) || 0
-        #  if iss==0
-        #    clr='#97D077'
-        #  else
-        #    clr=CriticalType.where(:weight => iss).first.color.to_s
-        #  end
       else
         #check for wyh
         sc= Issue.smene_count(cd, ws_id)
@@ -61,8 +80,6 @@ class IssuesController < ApplicationController
 
 
       end
-
-
       h=Hash.new
       h["c"]=clr
       @out << h
@@ -175,7 +192,7 @@ class IssuesController < ApplicationController
 
 # Never trust parameters from the scary internet, only allow the white list through.
   def issue_params
-    params.require(:issue).permit(:violator_id, :status_id,:clarification, :issue_type_id, :assigned_id, :close_date, :note_due, :due_date, :note_measures, :work_space_id)
+    params.require(:issue).permit(:violator_id, :status_id, :clarification, :issue_type_id, :assigned_id, :close_date, :note_due, :due_date, :note_measures, :work_space_id)
   end
 
 end
