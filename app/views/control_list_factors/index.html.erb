@@ -1,32 +1,39 @@
-<%= render :partial => 'control_list_factors/menu'%>
+<%= render :partial => 'control_list_factors/menu' %>
 
 
 <h1>Факторы</h1>
-<%= link_to 'Добавить фактор', new_control_list_factor_path,:class => 'btn btn-sm btn-success' %>
+<%= link_to 'Добавить фактор', new_control_list_factor_path, :class => 'btn btn-sm btn-success' %>
 <br><br>
 <table class="table table-hover table-striped">
 
-      <th>Порядок</th>
-      <th>Фактор</th>
+    <th>Порядок</th>
+    <th>Фактор</th>
     <th>Группа</th>
-      <th>Активен</th>
-      <th>Примечание</th>
-      <th colspan="3"></th>
+    <th>Активен</th>
+    <th>Примечание</th>
+    <th colspan="3"> Действия</th>
 
 
-  <tbody>
+    <tbody>
     <% @control_list_factors.each do |control_list_factor| %>
-      <tr>
-        <td><%= control_list_factor.order_num %></td>
-        <td><%= control_list_factor.factor %></td>
-          <td><%= control_list_factor.control_list_factor_group.name %></td>
-        <td><%= control_list_factor.is_active %></td>
-        <td><%= control_list_factor.comment %></td>
+        <tr>
+            <td><%= control_list_factor.order_num %></td>
+            <td><%= control_list_factor.factor %></td>
+            <td><%= control_list_factor.control_list_factor_group.name %></td>
+            <td>
+                <% if control_list_factor.is_active? %>
+                <i class="glyphicon glyphicon-ok"></i>
+                <% else %>
+                    <i class="glyphicon glyphicon-off"></i>
+                <% end %>
 
-        <td><%= link_to 'Edit', edit_control_list_factor_path(control_list_factor) %><!--<%= link_to 'Destroy', control_list_factor, method: :delete, data: { confirm: 'Are you sure?' } %>--></td>
-      </tr>
+            </td>
+            <td><%= control_list_factor.comment || ' ' %></td>
+
+            <td><%= link_to '', edit_control_list_factor_path(control_list_factor),:class => 'btn btn-sm btn-primary glyphicon glyphicon-edit' %><!--<%= link_to 'Destroy', control_list_factor, method: :delete, data: {confirm: 'Are you sure?'} %>--></td>
+        </tr>
     <% end %>
-  </tbody>
+    </tbody>
 </table>
 
 <br>
