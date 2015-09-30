@@ -50,7 +50,7 @@
     <% @issues.each do |issue| %>
         <% cache(issue) do %>
             <tr
-                <% unless issue.work_space.is_used? %>
+                <% unless issue.work_space.is_active? %>
                 class="warning" title="Рабочее место не задействовано. В кресте не будет отображаться"
                 <% end %>
 
