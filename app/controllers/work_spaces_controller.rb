@@ -105,6 +105,6 @@ class WorkSpacesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def work_space_params
-    params[:work_space].permit(:name, :code, :short_name, :subdivision_id, :is_used, :issue_type, :turn_scheme_id)
+    params[:work_space].permit(:name, :code, :short_name, :subdivision_id, :is_active, :issue_type, :turn_scheme_id)
   end
 end
