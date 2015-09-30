@@ -32,6 +32,7 @@ Rails.application.routes.draw do
       get 'days_in_month'
       get 'monthly_by_day'
       get 'assigned'
+      get 'owned'
     end
   end
 
