@@ -107,6 +107,25 @@ class IssuesController < ApplicationController
     @issues = Issue.includes(:issue_type, :status, :author, :violator, :assigned, :work_space).where(:created_at => @from..@to).page params[:page]
   end
 
+
+  def assigned
+    begin
+      @from_t=Time.strptime((params[:from_t] || '00:00'), "%H:%M")
+      @from=Time.strptime(params[:from], "%d.%m.%Y")
+      @from =@from+@from_t.hour.hours+@from_t.min.minutes
+    rescue
+      @from= Time.current.at_beginning_of_month
+    end
+    begin
+      @to_t=Time.strptime((params[:to_t] || '23:59'), "%H:%M")
+      @to=Time.strptime(params[:to], "%d.%m.%Y")
+      @to =@to+@to_t.hour.hours+@to_t.min.minutes
+    rescue
+      @to=Time.current.at_end_of_month
+    end
+    @issues = Issue.includes(:issue_type, :status, :author, :violator, :assigned, :work_space).where(:assigned_id=> @current_user_id).where(:created_at => @from..@to).page params[:page]
+  end
+
 # GET /issues/1
 # GET /issues/1.json
   def show

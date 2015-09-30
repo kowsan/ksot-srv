@@ -31,6 +31,7 @@ Rails.application.routes.draw do
       get 'next_date'
       get 'days_in_month'
       get 'monthly_by_day'
+      get 'assigned'
     end
   end
 

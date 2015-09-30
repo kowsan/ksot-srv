@@ -1,8 +1,9 @@
+<%= render :partial => 'work/menu' %>
 <% unless notice.nil? %>
     <p id="notice" class="alert alert-dismissible alert-success"><%= notice %></p>
 <% end %>
 <script>
-    $('#issues').addClass("active")
+    $('#krest_wassigned').addClass("active")
 </script>
 
 <h4 style="color: orange">Список нарушений</h4>
@@ -11,5 +12,3 @@
 <br>
 <br>
 <%= render :partial => 'issues/issues_render' %>
-
-
