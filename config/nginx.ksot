@@ -1,0 +1,42 @@
+upstream ksot_app {
+server unix:/www/rails/ksot/shared/unicorn.sock fail_timeout=0;
+}
+
+
+
+
+server {
+    listen 80; # Опять же, если на одном и том же ip находится несколько серверов, то эта строка будет выглядеть как-то так myapp.mydomain.ru:80
+    client_max_body_size 1G; # Максимальный размер тела запроса (а простым языком - ограничение на размер заливаемого на сервер файла).
+    access_log /var/log/nginx/ksot_access.log;
+    error_log /var/log/nginx/ksot_error.log;
+
+    server_name ksot.innovt.ru; # Имя сервера
+    keepalive_timeout 5;
+    root /www/rails/ksot/current/public; # Эта строка всегда должна указывать в директорию public Rails приложения. А current там потому что деплой происходит через Capistrano
+
+    try_files $uri/index.html $uri.html $uri @myapp; # Имя переменной не важно - главное, чтобы в блоке location ниже было аналогичное
+
+
+    location @myapp {
+        proxy_pass http://ksot_app; # Часть после http:// должна полностью соответствовать имени в блоке upstream выше.
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+    }
+
+location ~* ^/assets/ {
+    # Per RFC2616 - 1 year maximum expiry
+    # http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
+    expires 1y;
+    add_header Cache-Control public;
+
+    # Some browsers still send conditional-GET requests if there's a
+    # Last-Modified header or an ETag header even if they haven't
+    # reached the expiry date sent in the Expires header.
+    add_header Last-Modified "";
+    add_header ETag "";
+    break;
+}
+
+}

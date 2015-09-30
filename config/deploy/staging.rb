@@ -6,15 +6,16 @@
 # server 'example.com', user: 'deploy', roles: %w{app db web}, my_property: :my_value
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
-
+set :rails_env, "production"
+set :unicorn_env, "production"
 server 'www.allchargers.ru', user: 'allchg', roles: %w{app db web}, ssh_options: {
-                          user: 'allchg', # overrides user setting above
-                          #     keys: %w(/home/user_name/.ssh/id_rsa),
-                          #     forward_agent: false,
-                          auth_methods: %w(password),
-                          port: 2222
-                          # password: 'rails'
-                      }
+                               user: 'allchg', # overrides user setting above
+                               #     keys: %w(/home/user_name/.ssh/id_rsa),
+                               #     forward_agent: false,
+                               auth_methods: %w(password),
+                               port: 2222
+                               # password: 'rails'
+                           }
 
 # role-based syntax
 # ==================
@@ -29,7 +30,6 @@ server 'www.allchargers.ru', user: 'allchg', roles: %w{app db web}, ssh_options:
 # role :db,  %w{deploy@example.com}
 
 
-
 # Configuration
 # =============
 # You can set any configuration variable like in config/deploy.rb
@@ -37,7 +37,6 @@ server 'www.allchargers.ru', user: 'allchg', roles: %w{app db web}, ssh_options:
 # For available Capistrano configuration variables see the documentation page.
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
-
 
 
 # Custom SSH Options

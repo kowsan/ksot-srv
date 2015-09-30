@@ -32,7 +32,7 @@ gem 'capistrano'
 gem 'capistrano-rvm'
 gem 'capistrano-rails'
 gem 'capistrano-bundler', '~> 1.1.2'
-
+gem 'sshkit-sudo'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
