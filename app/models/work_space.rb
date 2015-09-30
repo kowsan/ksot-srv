@@ -1,5 +1,5 @@
 class WorkSpace < ActiveRecord::Base
-
+   include Blockable
   has_and_belongs_to_many :auto_work_spaces
   belongs_to :subdivision
   has_and_belongs_to_many :issue_types
@@ -10,6 +10,6 @@ class WorkSpace < ActiveRecord::Base
   def display_name
     self.name
   end
-  default_scope {where(:is_used => true).order('name asc')}
+  default_scope {where(:is_active => true).order('name asc')}
    after_save :drop_redis_cache
 end

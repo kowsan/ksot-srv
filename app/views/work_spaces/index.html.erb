@@ -19,7 +19,7 @@
     <% @work_spaces.each do |work_space| %>
         <tr
 
-        <% unless work_space.is_used? %>
+        <% unless work_space.is_active? %>
         class="warning" title="Рабочее место не задействовано. В кресте не будет отображаться"
         <% end %>
         >
@@ -29,7 +29,7 @@
             <td><%= work_space.short_name %></td>
             <td><%= work_space.subdivision.name %></td>
             <td>
-                <% if work_space.is_used? %>
+                <% if work_space.is_active? %>
                     <span class="glyphicon glyphicon-ok"></span>
                 <% else %>
                     <span class="glyphicon glyphicon-off"></span>
@@ -60,7 +60,7 @@
                 <% end %>
             </td>
             <td><%= link_to '', edit_work_space_path(work_space), :class => 'btn glyphicon glyphicon-edit btn-primary  btn-sm' %>
-                <% if work_space.is_used? %>
+                <% if work_space.is_active? %>
                     <%= link_to '', work_space, method: :delete, data: {confirm: 'Вы действительно хотите сделать недостуным данное рабочее место. Все существующие привязки будут сохранены. В дальнейшем вы сможете задействовать рабочее место '}, :class => 'btn glyphicon glyphicon-off btn-danger  btn-sm' %>
                 <% else %>
                     <%= link_to('', enable_work_space_path(work_space), method: :patch, :class => 'btn glyphicon glyphicon-ok btn-success  btn-sm') %>

@@ -1,5 +1,5 @@
 class ControlListFactorsController < ApplicationController
-  before_action :set_control_list_factor, only: [:show, :edit, :update, :destroy]
+  before_action :set_control_list_factor, only: [:show, :edit, :update, :destroy,:enable]
   before_action :check_permission,:validate_access
 
   # GET /control_list_factors
@@ -29,7 +29,7 @@ class ControlListFactorsController < ApplicationController
 
     respond_to do |format|
       if @control_list_factor.save
-        format.html { redirect_to control_list_factors_path, notice: 'Control list factor was successfully created.' }
+        format.html { redirect_to control_list_factors_path, notice: '' }
         format.json { render :show, status: :created, location: @control_list_factor }
       else
         format.html { render :new }
@@ -43,7 +43,7 @@ class ControlListFactorsController < ApplicationController
   def update
     respond_to do |format|
       if @control_list_factor.update(control_list_factor_params)
-        format.html { redirect_to control_list_factors_url, notice: 'Control list factor was successfully updated.' }
+        format.html { redirect_to control_list_factors_url, notice: '' }
         format.json { render :show, status: :ok, location: @control_list_factor }
       else
         format.html { render :edit }
@@ -55,12 +55,20 @@ class ControlListFactorsController < ApplicationController
   # DELETE /control_list_factors/1
   # DELETE /control_list_factors/1.json
   def destroy
-    @control_list_factor.destroy
+    @control_list_factor.block
     respond_to do |format|
       format.html { redirect_to control_list_factors_url, notice: 'Control list factor was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
+  def enable
+    @control_list_factor.block
+    respond_to do |format|
+      format.html { redirect_to control_list_factors_url, notice: 'Control list factor was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
 
   private
   def validate_access

@@ -58,13 +58,13 @@
                 class="danger" title="Не задан вид нарушения"
                 <% end %>
                 >
-                <td class="col-md-1"><%= issue.id %></td>
-                <td class="col-md-1"><%= issue.author.full_name %></td>
+                <td class="col-md-1" style="width: 20px"><%= issue.id %></td>
+                <td class="col-md-2"><%= issue.author.full_name %></td>
                 <td class="col-md-1"><%= (issue.created_at.to_date).strftime('%d.%m.%Y') %></td>
                 <td class="col-md-1"><%= issue.violator.full_name %></td>
                 <td class="col-md-1"><%= issue.status.name %></td>
                 <td class="col-md-2"><%= issue.issue_type.name unless issue.issue_type.nil? %><%= "(#{issue.clarification})" unless issue.clarification.empty? %></td>
-                <td class="col-md-1"><%= issue.assigned.full_name %></td>
+                <td class="col-md-2"><%= issue.assigned.full_name %></td>
                 <td class="col-md-1">
                     <% if issue.due_date.nil? %>
                         &nbsp;
@@ -73,14 +73,14 @@
                     <% end %>
                 </td>
 
-                <td class="col-md-1">
+                <td class="col-md-2">
                     <% if issue.work_space.nil? %>
                         &nbsp;
                     <% else %>
                         <%= issue.work_space.name %>
                     <% end %>
                 </td>
-                <td><%= issue.note_measures %></td>
+                <td class="col-md-2"><%= issue.note_measures %></td>
                 <td class="col-md-1">
                     <%= link_to '', edit_issue_path(issue), {:class => 'btn glyphicon glyphicon-edit btn-primary  btn-sm '} %>
                     <!--

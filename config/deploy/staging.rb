@@ -7,7 +7,14 @@
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
-
+server 'www.allchargers.ru', user: 'allchg', roles: %w{app db web}, ssh_options: {
+                          user: 'allchg', # overrides user setting above
+                          #     keys: %w(/home/user_name/.ssh/id_rsa),
+                          #     forward_agent: false,
+                          auth_methods: %w(password),
+                          port: 2222
+                          # password: 'rails'
+                      }
 
 # role-based syntax
 # ==================
@@ -59,3 +66,7 @@
 #     auth_methods: %w(publickey password)
 #     # password: 'please use keys'
 #   }
+
+
+
+

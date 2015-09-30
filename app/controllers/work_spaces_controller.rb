@@ -71,8 +71,8 @@ class WorkSpacesController < ApplicationController
   # DELETE /work_spaces/1
   # DELETE /work_spaces/1.json
   def destroy
-    @work_space.is_used=false
-    @work_space.save!
+    @work_space.block
+
     respond_to do |format|
       format.html { redirect_to work_spaces_path, notice: 'Рабочее место отключено.' }
       format.json { head :no_content }
@@ -80,8 +80,7 @@ class WorkSpacesController < ApplicationController
   end
 
   def enable
-    @work_space.is_used=true
-    @work_space.save!
+    @work_space.unblock
     respond_to do |format|
       format.html { redirect_to work_spaces_path, notice: 'Рабочее место задействовано.' }
       format.json { head :no_content }

@@ -13,6 +13,9 @@ set :deploy_to, '/www/rails/ksot'
 # Default value for :scm is :git
 set :scm, :git
 
+set :stages, ["production"]
+set :default_stage, "production"
+
 # Default value for :format is :pretty
 # set :format, :pretty
 
