@@ -63,6 +63,7 @@ class Issue < ActiveRecord::Base
 
     if $redis.get(key).nil?
       ws= WorkSpace.find(work_space_id)
+
       q= ws.turn_scheme.exclusion_days.where(:day => date).limit(1)
       if q.blank?
         puts "date not in exclusion day" #do standart check for turn shmeme

@@ -7,6 +7,7 @@ class WorkSpace < ActiveRecord::Base
 
   validates_presence_of :name, :message => 'Наименование должно быть задано'
   validates_presence_of :subdivision_id, :message => 'Подразделение должно быть задано'
+   validates_presence_of :turn_scheme_id, :message => 'Схема смен  должна быть задана'
   def display_name
     self.name
   end
