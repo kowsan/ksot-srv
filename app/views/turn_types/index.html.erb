@@ -24,7 +24,7 @@
     <% @turn_types.each do |turn_type| %>
         <tr
         <% if turn_type.is_day_off? %>
-        class="danger" title="Выходной день"
+        class="info" title="Выходной день"
         <% end %>
         >
             <td><%= turn_type.name %></td>
