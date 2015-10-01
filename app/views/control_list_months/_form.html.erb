@@ -1,6 +1,4 @@
-<div id='template' style="display: none">
-    <%= render :partial => 'factor_detail' %>
-</div>
+<div id='template' style="display: none"><%= render :partial => 'factor_detail' %></div>
 <%= form_for(@control_list_month) do |f| %>
     <% if @control_list_month.errors.any? %>
         <div id="error_explanation">
@@ -55,7 +53,8 @@
     <div class="form-group row">
         <%= f.submit(:class => 'btn btn-sm btn-primary', :onclick => 'return validateSelects()') %><br>
 
-        <div style="display: none" id="fgsubmit" class="col-md-6 alert alert-dismissible alert-danger">Не заполнены некоторые поля
+        <div style="display: none" id="fgsubmit" class="col-md-6 alert alert-dismissible alert-danger">Не заполнены
+            некоторые поля
         </div>
     </div>
 <% end %>
@@ -64,17 +63,65 @@
         $(this).change(function () {
             var id = $(this).attr('id')
             if ($(this).is(":checked")) {
-                $('#div_detail_' + id).append($('#template').html()).append("<input type=hidden name=\"factors[]\" value=\'" + id + "\'>")
+                var d_id = '#div_detail_' + id;
+                if ($(d_id).text().trim() == '') {
+                    $(d_id).append($('#template').html()).append("<input type=hidden name=\"factors[]\" value=\'" + id + "\'>")
+                }
+                // $('#div_detail_' + id).find("input").removeAttr('readonly')
+
                 console.log('cb is checked', id)
+                $(this).val('true');
+                $(d_id).find("input:hidden").each(function () {
+                    $(this).val('true');
+                    console.log('Hidden found', $(this).val())
+                })
+                unreadonlyzediv(d_id)
             } else {
                 console.log('cb is unchecked')
-                $('#div_detail_' + id).html('')
+                var d_id = '#div_detail_' + id;
+
+                readonlyzediv(d_id)
+                $(d_id).find("input:hidden").each(function () {
+                    $(this).val('false');
+
+                })
             }
 
         });
     })
 
+    function unreadonlyzediv(divid) {
 
+        $(divid).find("select").each(function () {
+            $(this).removeAttr('readonly');
+
+        })
+        $(divid).find("input").each(function () {
+            $(this).removeAttr('readonly');
+
+        })
+        $(divid).find("textarea").each(function () {
+            $(this).removeAttr('readonly');
+
+        })
+
+    }
+    function readonlyzediv(divid) {
+
+        $(divid).find("select").each(function () {
+            $(this).attr('readonly', 'readonly');
+
+        })
+        $(divid).find("input").each(function () {
+            $(this).attr('readonly', 'readonly');
+
+        })
+        $(divid).find("textarea").each(function () {
+            $(this).attr('readonly', 'readonly');
+
+        })
+
+    }
     function validateSelects() {
         var r = true
         $("select:visible").each(function () {
