@@ -39,7 +39,7 @@
                     <% c_id=l.id.to_s+'_'+fac.id.to_s %>
                     <div class="row" id="det_cb_<%= c_id %>">
                         <div class="col-lg-3">
-                            <input type="checkbox" id="cb_<%= c_id %>"><textarea readonly rows="5" class="form-control input"><%= fac.factor %></textarea>
+                            <input type="checkbox"  id="cb_<%= c_id %>"><textarea readonly rows="5" class="form-control input"><%= fac.factor %></textarea>
                         </div>
                         <div id="div_detail_cb_<%= c_id %>" class="col-lg-9">
                         </div>
@@ -67,11 +67,11 @@
                 if ($(d_id).text().trim() == '') {
                     $(d_id).append($('#template').html()).append("<input type=hidden name=\"factors[]\" value=\'" + id + "\'>")
                 }
-                // $('#div_detail_' + id).find("input").removeAttr('readonly')
+
 
                 console.log('cb is checked', id)
                 $(this).val('true');
-                $(d_id).find("input:hidden").each(function () {
+                $(d_id).find("input:hidden").find('.hidden').each(function () {
                     $(this).val('true');
                     console.log('Hidden found', $(this).val())
                 })
@@ -81,7 +81,7 @@
                 var d_id = '#div_detail_' + id;
 
                 readonlyzediv(d_id)
-                $(d_id).find("input:hidden").each(function () {
+                $(d_id).find("input:hidden").find('.hidden').each(function () {
                     $(this).val('false');
 
                 })
@@ -125,6 +125,12 @@
     function validateSelects() {
         var r = true
         $("select:visible").each(function () {
+
+            if ($(this).attr('readonly') == 'readonly') {
+
+                return true
+            }
+
             console.log(($(this).val().length), $(this).attr('id'))
             if ($(this).val().length == 0) {
                 $(this).parent().addClass('has-error')
@@ -135,6 +141,10 @@
         })
 
         $("input:visible").each(function () {
+            if ($(this).attr('readonly') == 'readonly') {
+
+                return true
+            }
             console.log(($(this).val().length), $(this).attr('id'))
             if ($(this).val().length == 0) {
                 $(this).parent().addClass('has-error')
@@ -144,6 +154,10 @@
             }
         })
         $("textarea:visible").each(function () {
+            if ($(this).attr('readonly') == 'readonly') {
+
+                return true
+            }
             if ($(this).val().length == 0) {
                 $(this).parent().addClass('has-error')
                 r = false
