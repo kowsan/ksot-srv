@@ -20,8 +20,8 @@
 //= require jquery.plugin
 //= require jquery.datepick
 //= require jquery.datepick-ru
-
-
+//= require bootstrap-table
+//= require bootstrap-table-ru-RU
 $(document).ready(function () {
         $('.dropdown-toggle').dropdown();
     }
