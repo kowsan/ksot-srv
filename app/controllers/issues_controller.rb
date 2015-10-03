@@ -1,7 +1,7 @@
 class IssuesController < ApplicationController
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
   before_action :check_permission, :validate_access_ws, :except => [:monthly, :next_date]
-
+  before_action :set_filter_ws, only: [:index, :assigned, :owned]
 
   def days_in_month
     params[:month]
@@ -90,6 +90,7 @@ class IssuesController < ApplicationController
   end
 
   def index
+
     begin
       @from_t=Time.strptime((params[:from_t] || '00:00'), "%H:%M")
       @from=Time.strptime(params[:from], "%d.%m.%Y")
@@ -104,7 +105,8 @@ class IssuesController < ApplicationController
     rescue
       @to=Time.current.at_end_of_month
     end
-    @issues = Issue.includes(:issue_type, :status, :author, :violator, :assigned, :work_space).where(:created_at => @from.in_time_zone..@to.in_time_zone).page params[:page]
+    @issues = Issue.includes(:issue_type, :status, :author, :violator, :assigned, :work_space).where(:created_at => @from.in_time_zone..@to.in_time_zone).where('work_space_id in (?)',@ws).page params[:page]
+
   end
 
 
@@ -123,7 +125,7 @@ class IssuesController < ApplicationController
     rescue
       @to=Time.current.at_end_of_month
     end
-    @issues = Issue.includes(:issue_type, :status, :author, :violator, :assigned, :work_space).where(:assigned_id=> @current_user_id).where(:created_at => @from..@to).page params[:page]
+    @issues = Issue.includes(:issue_type, :status, :author, :violator, :assigned, :work_space).where(:assigned_id => @current_user_id).where(:created_at => @from..@to).where('work_space_id in (?)',@ws).page params[:page]
   end
 
 
@@ -142,7 +144,7 @@ class IssuesController < ApplicationController
     rescue
       @to=Time.current.at_end_of_month
     end
-    @issues = Issue.includes(:issue_type, :status, :author, :violator, :assigned, :work_space).where(:author_id=> @current_user_id).where(:created_at => @from..@to).page params[:page]
+    @issues = Issue.includes(:issue_type, :status, :author, :violator, :assigned, :work_space).where(:author_id => @current_user_id).where(:created_at => @from..@to).where('work_space_id in (?)',@ws).page params[:page]
   end
 
 # GET /issues/1
@@ -223,10 +225,33 @@ class IssuesController < ApplicationController
 
 # Use callbacks to share common setup or constraints between actions.
   def set_issue
-
     @issue = Issue.find(params[:id])
   end
 
+  def set_filter_ws
+    @ws=Array.new
+    if params[:work_space].nil?
+      q=WorkSpace.all
+      q.each do   |m|
+        @ws<<m.id
+      end
+
+    else
+      w_ids=params[:work_space][:id]
+      if w_ids.class==Array
+        q=WorkSpace.find(w_ids.to_a.reject { |a| a.blank? })
+        if q.empty?
+          q=WorkSpace.all
+        end
+        q.each do   |m|
+          @ws<<m.id
+        end
+      else
+        @ws<<WorkSpace.find(w_ids).id
+      end
+
+    end
+  end
 
 # Never trust parameters from the scary internet, only allow the white list through.
   def issue_params

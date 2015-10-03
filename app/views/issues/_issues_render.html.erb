@@ -9,6 +9,16 @@
         <label>По</label>
         <input value="<%= (@to).strftime("%d.%m.%Y") %>" class="form-control input date input-sm" type="text" id="to" name="to">
     </div>
+    <div class="form-group" style="position: relative">
+        <label>рабочее место</label>
+        <%= collection_select(:work_space, :id, WorkSpace.all, :id, :name, {}, {:class => 'form-control input-sm', :multiple => true}) %>
+        <script>
+            <% @ws.each do |w| %>
+            <% w=w %>
+            $("#work_space_id option[value=<%= w %>]").prop('selected', true)
+            <%end%>
+        </script>
+    </div>
 
     <input type="submit" value="Выбрать" class="btn btn-primary btn-sm">
 
@@ -30,7 +40,7 @@
     <th>Дата</th>
     <th>Рабочее место</th>
     <th>Принятые оперативные меры</th>
-    <th >Действия</th>
+    <th>Действия</th>
     <% @issues.each do |issue| %>
         <% cache(issue) do %>
             <tr

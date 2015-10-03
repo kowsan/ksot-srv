@@ -51,7 +51,5 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.7.14'
 gem 'kaminari'
 
 
-
-
 gem 'redis'
 gem 'unscoped_associations'
