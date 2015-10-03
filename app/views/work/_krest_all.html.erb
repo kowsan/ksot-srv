@@ -58,7 +58,13 @@
 </style>
 <input type="hidden" id="styles">
 <script>
-
+           function day_clickable(day) {
+               $('#day_' + day).click(function () {
+                   var cm = $('#info_date').text()
+                   console.log("Clicked day:", day)
+                   window.location.href = '/issues/?from=' + day + '.' + cm + '&to=' + day + '.' + cm
+               })
+           }
 
     function getCalendarData() {
         if ($('#month').html().toString().length != 7) {
@@ -95,6 +101,7 @@
 
                     $.each(json, function (k, v) {
                         var day = (k + 1).toString()
+                        day_clickable(day)
                         if (v.c.indexOf(",") != -1) {
                             var colorz = v.c.split(',')
                             var c1 = colorz[0].toString().replace("#", '')

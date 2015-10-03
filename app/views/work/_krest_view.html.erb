@@ -47,12 +47,13 @@
 
     <%end%>
     <%end%>
-    .triangle_333333_333333{
+    .triangle_333333_333333 {
 
         background-color: #e3e3e3;
         width: 60px;
         height: 60px;
     }
+
     /* special  */
 
 </style>
@@ -60,6 +61,13 @@
 <script>
 
 
+    function day_clickable(day) {
+        $('#day_' + day).click(function () {
+            var cm = $('#info_date').text()
+            console.log("Clicked day:", day)
+            window.location.href = '/issues/?from=' + day + '.' + cm + '&to=' + day + '.' + cm
+        })
+    }
     function getCalendarData() {
         if ($('#month').html().toString().length != 7) {
 
@@ -95,6 +103,7 @@
 
                     $.each(json, function (k, v) {
                         var day = (k + 1).toString()
+                        day_clickable(day)
                         if (v.c.indexOf(",") != -1) {
                             var colorz = v.c.split(',')
                             var c1 = colorz[0].toString().replace("#", '')
@@ -113,6 +122,7 @@
                             $("#day_" + day).html('')
                             $('#day_' + day).append("<div style='z-index: 10;  position: absolute;'>" + day + "</div>")
                             $('#day_' + day).append("<div id='reset_' class='triangle_" + c1 + "_" + c2 + "'></div>")
+
                         }
 
                     })
@@ -134,6 +144,9 @@
         });
         $('#ws_id_work_space_id').change(function () {
             getCalendarData();
+            $(document).find()
+
+
             console.log($('#ws_id_work_space_id').val())
         })
         //setInterval(getCalendarData, 60000)
@@ -142,7 +155,7 @@
 
 </script>
 <br>
-<div class="row " >
+<div class="row ">
 
 
     <div class="col-lg-1"><label>Рабочее место</label></div>
@@ -244,6 +257,7 @@
 </div>
 <script>
 
+    $()
     $('#month').click(function () {
 
         getCalendarData()
