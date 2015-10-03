@@ -231,7 +231,7 @@ class IssuesController < ApplicationController
   def set_filter_ws
     @ws=Array.new
     if params[:work_space].nil?
-      q=WorkSpace.all
+      q=WorkSpace.unscoped.all
       q.each do   |m|
         @ws<<m.id
       end
@@ -239,15 +239,15 @@ class IssuesController < ApplicationController
     else
       w_ids=params[:work_space][:id]
       if w_ids.class==Array
-        q=WorkSpace.find(w_ids.to_a.reject { |a| a.blank? })
+        q=WorkSpace.unscoped.find(w_ids.to_a.reject { |a| a.blank? })
         if q.empty?
-          q=WorkSpace.all
+          q=WorkSpace.unscoped.all
         end
         q.each do   |m|
           @ws<<m.id
         end
       else
-        @ws<<WorkSpace.find(w_ids).id
+        @ws<<WorkSpace.unscoped.find(w_ids).id
       end
 
     end
