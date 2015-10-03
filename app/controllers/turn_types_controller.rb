@@ -60,7 +60,15 @@ class TurnTypesController < ApplicationController
   # DELETE /turn_types/1
   # DELETE /turn_types/1.json
   def destroy
-    @turn_type.destroy
+    unless @turn_type.can_delete
+      @turn_type.destroy
+      respond_to do |format|
+        format.html { redirect_to turn_types_url, notice: 'Тип смены был удален.' }
+        format.json { head :no_content }
+      end
+      return
+    end
+
     respond_to do |format|
       format.html { redirect_to turn_types_url, notice: 'Тип смены был удален.' }
       format.json { head :no_content }

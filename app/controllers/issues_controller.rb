@@ -104,7 +104,7 @@ class IssuesController < ApplicationController
     rescue
       @to=Time.current.at_end_of_month
     end
-    @issues = Issue.includes(:issue_type, :status, :author, :violator, :assigned, :work_space).where(:created_at => @from..@to).page params[:page]
+    @issues = Issue.includes(:issue_type, :status, :author, :violator, :assigned, :work_space).where(:created_at => @from.in_time_zone..@to.in_time_zone).page params[:page]
   end
 
 

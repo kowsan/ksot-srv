@@ -54,7 +54,7 @@ class Issue < ActiveRecord::Base
     #get turn type
 
     #get smens count in day
-    sc=tt.count
+    sc=tt.smene_count
     sc
   end
 
@@ -77,7 +77,7 @@ class Issue < ActiveRecord::Base
       #get turn type
 
       #get smens count in day
-      sc=tt.count
+      sc=tt.smene_count
       # sc=self.smene_count(date, work_space_id)
 
       case sc

@@ -4,7 +4,7 @@ class TurnType < ActiveRecord::Base
   validates_presence_of :name
   after_save :drop_redis_cache
 
-  def count
+  def smene_count
     if is_day_off?
       return 0
     end
@@ -16,5 +16,10 @@ class TurnType < ActiveRecord::Base
 
     return 1
 
+  end
+
+
+  def can_delete
+    turn_schemes.count==0
   end
 end
