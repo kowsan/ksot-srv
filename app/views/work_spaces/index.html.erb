@@ -1,7 +1,7 @@
 <%= render :partial => 'layouts/org_menu' %>
 <p id="notice"><%= notice %></p>
 
-<h4 style="color: orange">Список рабочих мест</h4>
+<h4 style="color: orange">Список рабочих мест(<%= @work_spaces.count%>)</h4>
 <%= link_to 'Новое рабочее место', new_work_space_path, :class => 'btn btn-success btn-sm' %>
 <br>
 <br>

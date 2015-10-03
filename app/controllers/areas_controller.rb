@@ -29,7 +29,7 @@ class AreasController < ApplicationController
 
     respond_to do |format|
       if @area.save
-        format.html { redirect_to @area, notice: 'Area was successfully created.' }
+        format.html { redirect_to areas_path, notice: 'Участок успешно создан' }
         format.json { render :show, status: :created, location: @area }
       else
         format.html { render :new }
@@ -43,7 +43,7 @@ class AreasController < ApplicationController
   def update
     respond_to do |format|
       if @area.update(area_params)
-        format.html { redirect_to subdivision_path, notice: 'Участок был создан.' }
+        format.html { redirect_to subdivisions_path notice: 'Участок был обновлен.' }
         format.json { render :show, status: :ok, location: @area }
       else
         format.html { render :edit }
@@ -58,7 +58,7 @@ class AreasController < ApplicationController
     if @area.can_delete?
       @area.destroy!
       respond_to do |format|
-        format.html { redirect_to areas_url, notice: 'Участок был обновлен.' }
+        format.html { redirect_to areas_url, notice: 'Участок был удален.' }
         format.json { head :no_content }
       end
     else

@@ -28,6 +28,7 @@ class Issue < ActiveRecord::Base
     key='max_in_day_'+date.to_s
     if $redis.get(key).nil?
       w = Issue.includes(:critical_type).includes(:work_space).where('issues.created_at >=? AND issues.created_at <=?', date.at_beginning_of_day, date.at_end_of_day).maximum(:weight) || 0
+
       if w==0
         clr='#97D077'
       else

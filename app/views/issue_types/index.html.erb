@@ -1,7 +1,7 @@
 <%= render :partial => 'layouts/org_menu' %>
 <p id="notice"><%= notice %></p>
 
-<h4 style="color: orange">Виды нарушений</h4>
+<h4 style="color: orange">Виды нарушений(<%=@issue_types.count%>)</h4>
 <%= link_to 'Новый вид нарушения', new_issue_type_path, :class => 'btn btn-success btn-sm' %>
 <br>
 <br>
