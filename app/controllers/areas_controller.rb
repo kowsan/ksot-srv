@@ -43,7 +43,7 @@ class AreasController < ApplicationController
   def update
     respond_to do |format|
       if @area.update(area_params)
-        format.html { redirect_to areas_url notice: 'Участок был обновлен.' }
+        format.html { redirect_to areas_path notice: 'Участок был обновлен.' }
         format.json { render :show, status: :ok, location: @area }
       else
         format.html { render :edit }
