@@ -7,15 +7,17 @@
 <br>
 
 
-<table  data-toggle="table" data-url="work_spaces.json"
-       data-show-columns="true"
-       data-cache="true" data-search="true" data-show-toggle="true"
-       data-show-refresh="true" class="table-striped"
-       data-cookie="true"
-       data-cookie-id-table="wspaces_<%= @logged_user.login%>"
+<table
+data-toggle="table"
+data-url="work_spaces.json"
+data-show-columns="true"
+data-cache="true" data-search="true" data-show-toggle="true"
+data-show-refresh="true" class="table-striped"
+data-cookie="true"
 
+data-cookie-id-table="wspaces_<%= @logged_user.login %>"
+data-sort-name="id">
 
-       data-sort-name="id">
     <thead>
     <tr>
         <th data-field="id" data-sortable="true">ID</th>
@@ -44,16 +46,6 @@
             return '<i class="glyphicon glyphicon-off"></i>'
     }
     function actions(value, row) {
-
-        /*
-
-         enabled
-
-         <a class="btn glyphicon glyphicon-edit btn-primary  btn-sm" href="/work_spaces/5/edit"></a>
-         <a data-confirm="Вы действительно хотите сделать недостуным данное рабочее место. Все существующие привязки будут сохранены. В дальнейшем вы сможете задействовать рабочее место "
-         class="btn glyphicon glyphicon-off btn-danger  btn-sm" rel="nofollow" data-method="delete" href="/work_spaces/5"></a>
-         */
-
 
         if (row.is_active)
             return '<a class="btn glyphicon glyphicon-edit btn-primary  btn-sm" href="' + row.url + '/edit"></a> <a data-confirm="Вы действительно хотите сделать недостуным данное рабочее место. Все существующие привязки будут сохранены. В дальнейшем вы сможете задействовать рабочее место " class="btn glyphicon glyphicon-off btn-danger  btn-sm" rel="nofollow" data-method="delete" href="' + row.url + '"></a>'

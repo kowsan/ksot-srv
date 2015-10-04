@@ -6,25 +6,47 @@
 <%= link_to 'Новый участок', new_area_path,:class => 'btn btn-success btn-sm' %>
 <br>
 <br>
-<table class="table table-hover table-striped">
-    <th>Наименование</th>
-    <th>Короткое имя</th>
-    <th>Управление</th>
-    <th colspan="2"  >Действия</th>
+<table
+data-toggle="table"
+data-url="areas.json"
+data-show-columns="true"
+data-cache="true" data-search="true" data-show-toggle="true"
+data-show-refresh="true" class="table-striped"
+data-cookie="true"
 
-    <tbody>
-    <% @areas.each do |area| %>
-        <tr>
-            <td><%= area.name %></td>
-            <td><%= area.short_name %></td>
-            <td><%= area.management.name %></td>
+data-cookie-id-table="areas_<%= @logged_user.login %>"
+data-sort-name="id">
 
-            <td><%= link_to '', edit_area_path(area), :class => 'btn glyphicon glyphicon-edit btn-primary  btn-sm' %>
-                <!--%= link_to '', area, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn  glyphicon btn-danger glyphicon-remove btn-sm ' %--></td>
-        </tr>
-    <% end %>
-    </tbody>
+    <thead>
+    <tr>
+        <th data-field="id" data-sortable="true">ID</th>
+        <th data-field="name" data-sortable="true">Наименование</th>
+        <th data-field="short_name" data-sortable="true">Короткое имя</th>
+        <th data-field="management_name" data-sortable="true">Дирекция</th>
+
+        <th data-formatter="actions">Действия</th>
+    </tr>
+    </thead>
 </table>
+<br>
+<script type="text/javascript">
+    function actions(value, row) {
+        return '<a class="btn glyphicon glyphicon-edit btn-primary  btn-sm" href="' + row.url + '/edit"></a>'
+    }
+
+    function i_types(value, row) {
+        var out = '<ul>'
+        console.log(row, row.issue_types)
+        $.each(row.issue_types, function (k, r) {
+
+            out += '<li>' + r.issue_type.toString() + '</li>'
+
+
+        });
+        out += '<ul>'
+        return out;
+    }
+</script>
 
 <br>
 <script type="text/javascript">

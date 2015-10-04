@@ -5,6 +5,7 @@ class AutoWorkSpacesController < ApplicationController
   # GET /auto_work_spaces
   # GET /auto_work_spaces.json
   def index
+    @all=AutoWorkSpace.unscoped.count
     @auto_work_spaces = AutoWorkSpace.all-AutoWorkSpace.unassigned
     #@auto_work_spaces = AutoWorkSpace.joins(:work_spaces).where('work_space_id is not null')
     @unassigned = AutoWorkSpace.unassigned

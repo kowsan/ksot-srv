@@ -1,14 +1,14 @@
 <% unless notice.nil? %>
     <!--<p id="notice" class="alert alert-success alert-dismissible"><%= notice %></p>-->
 <% end %>
-<h4 style="color: orange">Список АРМ </h4>
+<h4 style="color: orange">Список АРМ (<%= @all %>) </h4>
 
 
 <%= render :partial => 'auto_work_spaces/ajax_unassigned' %>
 
 
 
-<p style="color: black">Привязанные(<%= @assigned %>)</p>
+<p style="color: black">Привязанные(<%= @auto_work_spaces.count %>)</p>
 <%= render :partial => 'auto_work_spaces/ajax_assigned' %>
 <br>
 
