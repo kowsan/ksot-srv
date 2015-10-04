@@ -74,7 +74,7 @@ class TurnSchemesController < ApplicationController
     end
     respond_to do |format|
       if @turn_scheme.update(turn_scheme_params)
-        format.html { redirect_to turn_schemes_path, notice: 'Turn scheme was successfully updated.' }
+        format.html { redirect_to turn_schemes_path, notice: 'Схема смен была обновлена.' }
         format.json { render :show, status: :ok, location: @turn_scheme }
       else
         format.html { render :edit }
@@ -88,7 +88,7 @@ class TurnSchemesController < ApplicationController
   def destroy
     @turn_scheme.destroy
     respond_to do |format|
-      format.html { redirect_to turn_schemes_url, notice: 'Turn scheme was successfully destroyed.' }
+      format.html { redirect_to turn_schemes_url, notice: 'Схема смен была удалена.' }
       format.json { head :no_content }
     end
   end
