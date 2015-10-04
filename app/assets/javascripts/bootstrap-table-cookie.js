@@ -135,7 +135,7 @@
 
     $.extend($.fn.bootstrapTable.defaults, {
         cookie: false,
-        cookieExpire: '2h',
+        cookieExpire: '100d',
         cookiePath: null,
         cookieDomain: null,
         cookieSecure: null,
