@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<% unless notice.nil? %>
+    <p id="notice" class="alert alert-dismissible alert-success"><%= notice %></p>
+<% end %>
 <h4 style="color: orange">Список пользователей (<%= @users.count %>)</h4>
 
 <%= link_to 'Новый пользователь', new_user_path, :class => 'btn btn-success btn-sm' %>

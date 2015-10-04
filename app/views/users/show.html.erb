@@ -1,3 +1,6 @@
+<% unless notice.nil? %>
+    <p id="notice" class="alert alert-dismissible alert-success"><%= notice %></p>
+<% end %>
 <div class="col-lg-5">
     <h4>Мой профиль</h4>
     <%= form_for(@user) do |f| %>
@@ -31,11 +34,11 @@
             </div>
             <div class="form-group">
                 <%= f.label 'Имя' %>
-                <%= f.text_field(:first_name, {:class => 'form-control',  :placeholder => 'Имя'}) %>
+                <%= f.text_field(:first_name, {:class => 'form-control', :placeholder => 'Имя'}) %>
             </div>
             <div class="form-group">
                 <%= f.label 'Фамилия' %>
-                <%= f.text_field(:last_name, {:class => 'form-control',  :placeholder => 'Фамилия'}) %>
+                <%= f.text_field(:last_name, {:class => 'form-control', :placeholder => 'Фамилия'}) %>
             </div>
             <div class="form-group">
                 <%= f.label 'Отчество' %>
