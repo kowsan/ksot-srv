@@ -14,8 +14,8 @@
         <%= collection_select(:work_space, :id, WorkSpace.all, :id, :name, {}, {:class => 'form-control input-sm', :multiple => true}) %>
         <script>
             <% @ws.each do |w| %>
-            <% w=w %>
-            $("#work_space_id option[value=<%= w.id %>]").prop('selected', true)
+
+            $("#work_space_id option[value=<%= w %>]").prop('selected', true)
             <%end%>
         </script>
     </div>
