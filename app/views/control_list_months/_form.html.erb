@@ -23,7 +23,7 @@
         </div>
         <div class="col-md-2">
             <%= f.label 'Дата' %><br>
-            <%= f.text_field :form_date, :class => 'form-control input' %>
+            <%= f.text_field :form_date, :class => 'form-control input date' %>
         </div>
 
     </div>
@@ -174,4 +174,8 @@
         }
         return r;
     }
+    $('.date').datetimepicker({
+        locale: 'ru',
+        format: 'DD.MM.YYYY'
+    });
 </script>
