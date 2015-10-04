@@ -4,33 +4,34 @@
 <%= render :partial => 'turn_types/turns_menu' %>
 <h4 style="color: orange">Схемы смен (<%= @turn_schemes.count %>)</h4>
 <%= link_to 'Новая схема смен', new_turn_scheme_path, :class => 'btn  btn-success  btn-sm' %>
-<br><br>
-<table class="table table-hover table-striped">
+<table
+data-toggle="table"
+data-url="turn_schemes.json"
+data-show-columns="true"
+data-cache="true" data-search="true" data-show-toggle="true"
+data-show-refresh="true" class="table-striped"
+data-cookie="true"
 
-    <th>ID</th>
-    <th>Имя</th>
-    <th>Тип смены</th>
-    <th>Комментарий</th>
+data-cookie-id-table="turn_shemes_<%= @logged_user.login %>"
+data-sort-name="id">
 
+    <thead>
+    <tr>
+        <th data-field="id" data-sortable="true">ID</th>
+        <th data-field="name" data-sortable="true">Наименование</th>
+        <th data-field="turn_type_name" data-sortable="true">Тип смены</th>
+        <th data-field="comment" data-sortable="true">Комментарий</th>
 
-    <th colspan="3"></th>
-
-
-
-    <% @turn_schemes.each do |turn_scheme| %>
-        <tr>
-            <td><%= turn_scheme.id %></td>
-            <td><%= turn_scheme.name %></td>
-
-            <td><%= turn_scheme.turn_type.name %></td>
-            <td><%= turn_scheme.comment %></td>
-            <td><%= link_to '', edit_turn_scheme_path(turn_scheme), {:class => 'btn glyphicon glyphicon-edit btn-primary  btn-sm '} %>
-
-            </td>
-        </tr>
-    <% end %>
-
+        <th data-formatter="actions">Действия</th>
+    </tr>
+    </thead>
 </table>
+<br>
+<script type="text/javascript">
+    function actions(value, row) {
+        return '<a class="btn glyphicon glyphicon-edit btn-primary  btn-sm" href="' + row.url + '/edit"></a>'
+    }
+</script>
 
 <br>
 

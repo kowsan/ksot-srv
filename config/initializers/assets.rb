@@ -11,3 +11,4 @@ Rails.application.config.assets.paths << Rails.root.join('app', 'assets', 'fonts
 Rails.application.config.assets.precompile += %w(day_off.png jquery.datepick.css  bootstrap.css bootsrap.js glyphicons-halflings-regular.woff2 glyphicons-halflings-regular.woff glyphicons-halflings-regular.ttf   )
 
 Time::DATE_FORMATS[:default] = '%d.%m.%Y %H:%M'
+Date::DATE_FORMATS[:default] = '%d.%m.%Y'
