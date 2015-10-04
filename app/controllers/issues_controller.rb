@@ -105,7 +105,7 @@ class IssuesController < ApplicationController
     rescue
       @to=Time.current.at_end_of_month
     end
-    @issues = Issue.includes(:issue_type, :status, :author, :violator, :assigned, :work_space).where(:created_at => @from.in_time_zone..@to.in_time_zone).where('work_space_id in (?)',@ws).page params[:page]
+    @issues = Issue.includes(:issue_type, :status, :author, :violator, :assigned, :work_space).where(:created_at => @from.in_time_zone..@to.in_time_zone).where('work_space_id in (?)',@ws)
 
   end
 
@@ -125,7 +125,7 @@ class IssuesController < ApplicationController
     rescue
       @to=Time.current.at_end_of_month
     end
-    @issues = Issue.includes(:issue_type, :status, :author, :violator, :assigned, :work_space).where(:assigned_id => @current_user_id).where(:created_at => @from..@to).where('work_space_id in (?)',@ws).page params[:page]
+    @issues = Issue.includes(:issue_type, :status, :author, :violator, :assigned, :work_space).where(:assigned_id => @current_user_id).where(:created_at => @from..@to).where('work_space_id in (?)',@ws)
   end
 
 
@@ -144,7 +144,7 @@ class IssuesController < ApplicationController
     rescue
       @to=Time.current.at_end_of_month
     end
-    @issues = Issue.includes(:issue_type, :status, :author, :violator, :assigned, :work_space).where(:author_id => @current_user_id).where(:created_at => @from..@to).where('work_space_id in (?)',@ws).page params[:page]
+    @issues = Issue.includes(:issue_type, :status, :author, :violator, :assigned, :work_space).where(:author_id => @current_user_id).where(:created_at => @from..@to).where('work_space_id in (?)',@ws)
   end
 
 # GET /issues/1
