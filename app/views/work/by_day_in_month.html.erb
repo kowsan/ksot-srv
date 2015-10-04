@@ -1,5 +1,8 @@
 <%= render :partial => 'work/menu' %>
 <% if @allow_anon %>
+    <br>
+    <%= link_to 'Новое нарушение', new_issue_path, :class => 'btn btn-success btn-sm' %>
+    <br>
     <%= render :partial => 'work/krest_all' %>
 
 <% else %>
