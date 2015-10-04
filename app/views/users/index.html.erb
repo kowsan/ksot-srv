@@ -5,58 +5,53 @@
 <br>
 <br>
 
-<table class="table table-striped table-hover">
-    <th>ID</th>
-    <th>Имя</th>
-    <th>Отчество</th>
-    <th>Фамилия</th>
-    <th>Логин</th>
-    <th>IP</th>
-    <th>Последний вход</th>
-    <th>Роль</th>
-    <th>Должность</th>
-    <th>Подразделение</th>
-    <th>Активен?</th>
+<table
+data-toggle="table"
+data-url="users.json"
+data-show-columns="true"
+data-cache="true" data-search="true" data-show-toggle="true"
+data-show-refresh="true" class="table-striped"
+data-cookie="true"
 
-    <th>Действия</th>
+data-cookie-id-table="users_<%= @logged_user.login %>"
+data-sort-name="id">
 
-
-    <tbody>
-    <% @users.each do |user| %>
-        <% begin %>
-            <tr>
-                <td><%= user.id %></td>
-                <td><%= user.first_name %></td>
-                <td><%= user.middle_name %></td>
-                <td><%= user.last_name %></td>
-                <td><%= user.login %></td>
-                <td><%= user.current_sign_in_ip || '-' %></td>
-                <td><%= user.current_sign_in_at || '-' %></td>
-                <td><%= user.staff_role.name %></td>
-                <td><%= user.position %></td>
-                <td><%= user.subdivision.name %></td>
-                <td>
-                    <% if user.is_active %>
-                        <span class="glyphicon-ok glyphicon"></span>
-                    <% else %>
-                        <span class="glyphicon-off glyphicon"></span>
-                    <% end %>
-                </td>
-
-
-                <td><%= link_to '', edit_user_path(user), {:class => 'btn glyphicon glyphicon-edit btn-primary  btn-sm '} %>
-                    <!--%= link_to '', user, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn glyphicon glyphicon-remove btn-danger  btn-sm' %--></td>
-            </tr>
-        <% rescue %>
-            <tr>
-                <td><%= user.id %></td>
-            </tr>
-        <% end %>
-    <% end %>
-    </tbody>
+    <thead>
+    <tr>
+        <th data-field="id" data-sortable="true">ID</th>
+        <th data-field="first_name" data-sortable="true">Имя</th>
+        <th data-field="middle_name" data-sortable="true">Отчество</th>
+        <th data-field="last_name" data-sortable="true">Фамилия</th>
+        <th data-field="login" data-sortable="true">Логин</th>
+        <th data-field="ip" data-sortable="true">IP</th>
+        <th data-field="last_sign_in_at" data-sortable="true" data-formatter="dater">Последний вход</th>
+        <th data-field="staff_role" data-sortable="true">Роль</th>
+        <th data-field="position" data-sortable="true">Должность</th>
+        <th data-field="subdivision" data-sortable="true">Подразделение</th>
+        <th data-field="is_active" data-sortable="true" data-formatter="activer">Активен?</th>
+        <th data-formatter="actions">Действия</th>
+    </tr>
+    </thead>
 </table>
-<%= paginate @users %>
 <br>
+<script type="text/javascript">
+    function actions(value, row) {
+
+        return '<a class="btn glyphicon glyphicon-edit btn-primary  btn-sm" href="' + row.url + '/edit"></a>'
+    }
+
+    function activer(value, row) {
+
+        if (value == true)
+            return '<i class="glyphicon glyphicon-ok"></i>'
+        else
+            return '<i class="glyphicon glyphicon-off"></i>'
+    }
+    function dater(value, row) {
+        return  row.last_sign_in_at_human
+    }
+
+</script>
 
 <script type="text/javascript">
     $('#users').addClass('active');
