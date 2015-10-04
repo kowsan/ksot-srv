@@ -22,6 +22,7 @@
 //= require jquery.datepick-ru
 //= require bootstrap-table
 //= require bootstrap-table-ru-RU
+//= require bootstrap-table-cookie
 $(document).ready(function () {
         $('.dropdown-toggle').dropdown();
     }

@@ -7,14 +7,18 @@
 <br>
 
 
-<table data-toggle="table" data-url="work_spaces.json"
+<table  data-toggle="table" data-url="work_spaces.json"
        data-show-columns="true"
        data-cache="true" data-search="true" data-show-toggle="true"
        data-show-refresh="true" class="table-striped"
+       data-cookie="true"
+       data-cookie-id-table="wspaces"
+
+
        data-sort-name="id">
     <thead>
     <tr>
-        <th data-field="id" data-sortable="true" >ID</th>
+        <th data-field="id" data-sortable="true">ID</th>
         <th data-field="name" data-sortable="true">Наименование</th>
         <th data-field="code" data-sortable="true">Код</th>
         <th data-field="short_name" data-sortable="true">Короткое имя</th>
@@ -22,7 +26,7 @@
         <th data-field="is_active" data-sortable="true" data-formatter="activer">Активно</th>
         <th data-field="is_empty" data-sortable="true" data-formatter="activer">Связанные АРМ</th>
         <th data-field="issue_types" data-sortable="true" data-formatter="i_types">Виды нарушений</th>
-        <th data-field="turn_scheme" data-sortable="true" >Схема смен</th>
+        <th data-field="turn_scheme" data-sortable="true">Схема смен</th>
         <th data-formatter="actions">Действия</th>
     </tr>
     </thead>
@@ -30,6 +34,7 @@
 <br>
 <script type="text/javascript">
     $('#workspaces').addClass('active');
+
 
     function activer(value, row) {
 
@@ -46,21 +51,21 @@
 
          <a class="btn glyphicon glyphicon-edit btn-primary  btn-sm" href="/work_spaces/5/edit"></a>
          <a data-confirm="Вы действительно хотите сделать недостуным данное рабочее место. Все существующие привязки будут сохранены. В дальнейшем вы сможете задействовать рабочее место "
-          class="btn glyphicon glyphicon-off btn-danger  btn-sm" rel="nofollow" data-method="delete" href="/work_spaces/5"></a>
+         class="btn glyphicon glyphicon-off btn-danger  btn-sm" rel="nofollow" data-method="delete" href="/work_spaces/5"></a>
          */
 
 
         if (row.is_active)
-        return '<a class="btn glyphicon glyphicon-edit btn-primary  btn-sm" href="'+row.url+'/edit"></a> <a data-confirm="Вы действительно хотите сделать недостуным данное рабочее место. Все существующие привязки будут сохранены. В дальнейшем вы сможете задействовать рабочее место " class="btn glyphicon glyphicon-off btn-danger  btn-sm" rel="nofollow" data-method="delete" href="'+row.url+'"></a>'
+            return '<a class="btn glyphicon glyphicon-edit btn-primary  btn-sm" href="' + row.url + '/edit"></a> <a data-confirm="Вы действительно хотите сделать недостуным данное рабочее место. Все существующие привязки будут сохранены. В дальнейшем вы сможете задействовать рабочее место " class="btn glyphicon glyphicon-off btn-danger  btn-sm" rel="nofollow" data-method="delete" href="' + row.url + '"></a>'
         else
 
-        return '<a class="btn glyphicon glyphicon-edit btn-primary  btn-sm" href="'+row.url+'/edit"></a> <a class="btn glyphicon glyphicon-ok btn-success  btn-sm" rel="nofollow" data-method="patch" href="'+row.url+'/enable"></a>'
+            return '<a class="btn glyphicon glyphicon-edit btn-primary  btn-sm" href="' + row.url + '/edit"></a> <a class="btn glyphicon glyphicon-ok btn-success  btn-sm" rel="nofollow" data-method="patch" href="' + row.url + '/enable"></a>'
     }
 
     function i_types(value, row) {
         var out = '<ul>'
         console.log(row, row.issue_types)
-        $.each(row.issue_types, function (k,r) {
+        $.each(row.issue_types, function (k, r) {
 
             out += '<li>' + r.issue_type.toString() + '</li>'
 
