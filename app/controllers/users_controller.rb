@@ -97,7 +97,7 @@ class UsersController < ApplicationController
     if @logged_user.staff_role.can_manage_org_structure?
       params[:user].permit(:login, :password, :first_name, :last_name, :middle_name, :staff_role_id, :subdivision_id, :is_active, :position)
     else
-      params[:user].permit(:password, :position)
+      params[:user].permit(:password, :position,:first_name, :last_name, :middle_name)
     end
 
   end
