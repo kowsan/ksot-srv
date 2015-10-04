@@ -1204,6 +1204,7 @@ console.log('Init sortable')
                 pageList.push(value.toUpperCase() === that.options.formatAllRows().toUpperCase() ?
                     that.options.formatAllRows() : +value);
             });
+
         }
 
         $.each(pageList, function (i, page) {
@@ -1295,6 +1296,7 @@ console.log('Init sortable')
     };
 
     BootstrapTable.prototype.updatePagination = function (event) {
+
         // Fix #171: IE disabled button can be clicked bug.
         if (event && $(event.currentTarget).hasClass('disabled')) {
             return;
@@ -1323,6 +1325,7 @@ console.log('Init sortable')
         this.$toolbar.find('.page-size').text(this.options.pageSize);
 
         this.updatePagination(event);
+        $('.dropdown-toggle').dropdown();
     };
 
     BootstrapTable.prototype.onPageFirst = function (event) {
