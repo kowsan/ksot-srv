@@ -30,16 +30,22 @@
     }
 </style>
 
-<table
-data-toggle="table"
-data-url="<%= request.fullpath+'&format=json' %>"
-data-show-columns="true"
-data-cache="true" data-search="true" data-show-toggle="true"
-data-show-refresh="true" class="table-striped"
-data-cookie="true"
-
-data-cookie-id-table="issues_<%= save_name %><%= @logged_user.login %>"
-data-sort-name="id">
+<table id="tbl2"
+       data-toggle="table"
+       data-url="<%= request.fullpath+'&fomat=json' %>"
+       data-cache="true"
+       data-show-pagination-switch="true"
+       data-page-list="[50]"
+       data-page-size="50"
+       data-pagination="true"
+       data-show-columns="true"
+       data-search="true"
+       data-show-toggle="true"
+       data-show-refresh="true"
+       class="table-striped"
+       data-cookie="true"
+       data-cookie-id-table="issues_<%= save_name %><%= @logged_user.login %>"
+       data-sort-name="id">
 
     <thead>
     <tr>
@@ -66,12 +72,13 @@ data-sort-name="id">
     function created_human(value, row) {
         return row.created_human
     }
-        function due_date_human(value,row)
-        {
-            return row.due_date_human
-        }
+    function due_date_human(value, row) {
+        return row.due_date_human
+    }
 
-
+    function query_p() {
+        return {format: 'json'}
+    }
 </script>
 
 <script>
@@ -86,6 +93,13 @@ data-sort-name="id">
             showTodayButton: true,
             format: 'DD.MM.YYYY'
         });
+        $('#tbl2').on('load-success.bs.table', function (data) {
+            $('.dropdown-toggle').dropdown();
+        });
+        $('#tbl2').on('onPageChange', function (number,size) {
+            $('.dropdown-toggle').dropdown();
+        });
+        //onPageChange
     });
 </script>
 

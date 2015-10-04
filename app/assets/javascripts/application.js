@@ -14,9 +14,10 @@
 //= require jquery_ujs
 //= require moment
 //= require moment/ru
+//= require bootstrap-sprockets
 //= require bootstrap
 //= require bootstrap-datetimepicker
-//= require bootstrap-sprockets
+
 //= require jquery.plugin
 //= require jquery.datepick
 //= require jquery.datepick-ru
