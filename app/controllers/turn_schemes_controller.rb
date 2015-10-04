@@ -46,7 +46,7 @@ class TurnSchemesController < ApplicationController
     end
     respond_to do |format|
       if s
-        format.html { redirect_to @turn_scheme, notice: 'Turn scheme was successfully created.' }
+        format.html { redirect_to turn_schemes_path, notice: 'Схема смен была создана.' }
         format.json { render :show, status: :created, location: @turn_scheme }
       else
         format.html { render :new }
