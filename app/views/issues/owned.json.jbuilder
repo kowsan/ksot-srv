@@ -14,7 +14,7 @@ json.array!(@issues) do |issue|
 
   json.workspace issue.work_space.name
   json.note_measures issue.note_measures
-  json.edit_url edit_issue_path issue
+  json.url issue_path issue
 
   # json.edit_url issue_url(issue, format: :json)
 end
