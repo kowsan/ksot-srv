@@ -14,12 +14,17 @@ class ControlListMonthsController < ApplicationController
 
   # GET /control_list_months/new
   def new
+    s_id=StaffRole.where(:can_fill_control_list => true).all.map { |s| s.id }
+    @users=User.where('staff_role_id in (?)', s_id)
     @control_list_month = ControlListMonth.new
 
   end
 
   # GET /control_list_months/1/edit
   def edit
+    s_id=StaffRole.where(:can_fill_control_list => true).all.map { |s| s.id }
+    @users=User.where('staff_role_id in (?)', s_id)
+    @control_list_links=ControlListMonthLink.where(:control_list_month_id => @control_list_month.id)
   end
 
   # POST /control_list_months

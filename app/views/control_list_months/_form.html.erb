@@ -1,181 +1,26 @@
-<div id='template' style="display: none"><%= render :partial => 'factor_detail' %></div>
-<%= form_for(@control_list_month) do |f| %>
-    <% if @control_list_month.errors.any? %>
-        <div id="error_explanation">
-            <h2><%= pluralize(@control_list_month.errors.count, "error") %> prohibited this control_list_month from
-                being saved:</h2>
+<div class="row">
+    <input type="hidden" class="hidden" name="is_enabled[]" value="true">
 
-            <ul>
-                <% @control_list_month.errors.full_messages.each do |message| %>
-                    <li><%= message %></li>
-                <% end %>
-            </ul>
-        </div>
-    <% end %>
-    <div class="row">
-        <div class="col-md-2">
-            <%= f.label 'Подзразделение' %><br>
-            <%= f.collection_select(:subdivision_id, Subdivision.all.sort_by { |x| x['name'] }, :id, :name, {:include_blank => true}, :class => 'form-control input') %>
-        </div>
-        <div class="col-md-2">
-            <%= f.label 'Составил' %><br>
-            <%= f.collection_select(:author_id, User.all.sort_by { |x| x['full_name'] }, :id, :full_name, {:include_blank => true}, :class => 'form-control input') %>
-        </div>
-        <div class="col-md-2">
-            <%= f.label 'Дата' %><br>
-            <%= f.text_field :form_date, :class => 'form-control input date' %>
-        </div>
+    <div class="col-md-6"><%= collection_select(:user, :user_id, @users, :id, :full_name, {:include_blank => 'Ответственный за устранение'}, {:name => 'f_user_id[]', :placeholder => 'Ответственный за устранение', :class => 'form-control input',:'data-required'=>true}) %></div>
 
+    <div class="col-md-3">
+        <%= collection_select(:status, :status_id, Status.all, :id, :name, {:include_blank => 'Статус'}, {:name => 'f_status_id[]', :placeholder => 'Статус', :class => 'form-control input',:'data-required'=> true}) %> </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-6">
+        <textarea rows="10" name="inconsistence[]" data-required class="form-control input" placeholder="Выявленные несоответствия (заполняется при наличии несоответствий):"></textarea>
+    </div>
+    <div class="col-md-6">
+        <textarea rows="10" name="note_measures[]"  class="form-control input" placeholder="Принятые меры по устранению несоответствий:"></textarea>
     </div>
 
-    <br>
-    <p>Группы факторов</p>
-
-    <% ControlListFactorGroup.all.each do |l| %>
-        <div class="row">
-            <div class="col-md-12">
-                <span class="label label-success"><%= l.name %></span>
-                <% l.control_list_factors.sort_by { |y| y[:order_num] }.each do |fac| %>
-                    <% c_id=l.id.to_s+'_'+fac.id.to_s %>
-                    <div class="row" id="det_cb_<%= c_id %>">
-                        <div class="col-lg-3">
-                            <input type="checkbox"  id="cb_<%= c_id %>"><textarea readonly rows="5" class="form-control input"><%= fac.factor %></textarea>
-                        </div>
-                        <div id="div_detail_cb_<%= c_id %>" class="col-lg-9">
-                        </div>
-                    </div>
-                    <p></p>
-                <% end %>
-            </div>
-        </div>
-    <% end %>
-
-    <div class="form-group row">
-        <%= f.submit(:class => 'btn btn-sm btn-primary', :onclick => 'return validateSelects()') %><br>
-
-        <div style="display: none" id="fgsubmit" class="col-md-6 alert alert-dismissible alert-danger">Не заполнены
-            некоторые поля
-        </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <input type="text" name="note_due[]"  class="form-control input" value="" placeholder="Отметка о выполнении"/>
     </div>
-<% end %>
-<script type="text/javascript">
-    $('input[id^="cb"]').each(function () {
-        $(this).change(function () {
-            var id = $(this).attr('id')
-            if ($(this).is(":checked")) {
-                var d_id = '#div_detail_' + id;
-                if ($(d_id).text().trim() == '') {
-                    $(d_id).append($('#template').html()).append("<input type=hidden name=\"factors[]\" value=\'" + id + "\'>")
-                }
 
+</div>
 
-                console.log('cb is checked', id)
-                $(this).val('true');
-                $(d_id).find("input:hidden").find('.hidden').each(function () {
-                    $(this).val('true');
-                    console.log('Hidden found', $(this).val())
-                })
-                unreadonlyzediv(d_id)
-            } else {
-                console.log('cb is unchecked')
-                var d_id = '#div_detail_' + id;
-
-                readonlyzediv(d_id)
-                $(d_id).find("input:hidden").find('.hidden').each(function () {
-                    $(this).val('false');
-
-                })
-            }
-
-        });
-    })
-
-    function unreadonlyzediv(divid) {
-
-        $(divid).find("select").each(function () {
-            $(this).removeAttr('readonly');
-
-        })
-        $(divid).find("input").each(function () {
-            $(this).removeAttr('readonly');
-
-        })
-        $(divid).find("textarea").each(function () {
-            $(this).removeAttr('readonly');
-
-        })
-
-    }
-    function readonlyzediv(divid) {
-
-        $(divid).find("select").each(function () {
-            $(this).attr('readonly', 'readonly');
-
-        })
-        $(divid).find("input").each(function () {
-            $(this).attr('readonly', 'readonly');
-
-        })
-        $(divid).find("textarea").each(function () {
-            $(this).attr('readonly', 'readonly');
-
-        })
-
-    }
-    function validateSelects() {
-        var r = true
-        $("select:visible").each(function () {
-
-            if ($(this).attr('readonly') == 'readonly') {
-
-                return true
-            }
-
-            console.log(($(this).val().length), $(this).attr('id'))
-            if ($(this).val().length == 0) {
-                $(this).parent().addClass('has-error')
-                r = false
-            } else {
-                $(this).parent().removeClass('has-error')
-            }
-        })
-
-        $("input:visible").each(function () {
-            if ($(this).attr('readonly') == 'readonly') {
-
-                return true
-            }
-            console.log(($(this).val().length), $(this).attr('id'))
-            if ($(this).val().length == 0) {
-                $(this).parent().addClass('has-error')
-                r = false
-            } else {
-                $(this).parent().removeClass('has-error')
-            }
-        })
-        $("textarea:visible").each(function () {
-            if ($(this).attr('readonly') == 'readonly') {
-
-                return true
-            }
-            if ($(this).val().length == 0) {
-                $(this).parent().addClass('has-error')
-                r = false
-            } else {
-                $(this).parent().removeClass('has-error')
-            }
-        })
-        if (r == false) {
-            $('#fgsubmit').show()
-
-        } else {
-            $('#fgsubmit').hide()
-
-        }
-        return r;
-    }
-    $('.date').datetimepicker({
-        locale: 'ru',
-        format: 'DD.MM.YYYY'
-    });
-</script>

@@ -44,14 +44,14 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-        fp=params[:fromprofile] || false
+    fp=params[:fromprofile] || false
     respond_to do |format|
       if @user.update(user_params)
-         if fp
-           format.html { redirect_to user_path @logged_user, notice: "Пользователь #{@user.login} обновлен" }
-         else
-           format.html { redirect_to users_path, notice: "Пользователь #{@user.login} обновлен" }
-         end
+        if fp
+          format.html { redirect_to user_path @logged_user, notice: "Пользователь #{@user.login} обновлен" }
+        else
+          format.html { redirect_to users_path, notice: "Пользователь #{@user.login} обновлен" }
+        end
 
         format.json { render :show, status: :ok, location: @user }
       else
@@ -73,11 +73,11 @@ class UsersController < ApplicationController
 
   private
   def validate_access
-   # unless @can_manage_org_structure
+    # unless @can_manage_org_structure
     #  respond_to do |format|
     #    format.any { render nothing: true, :status => :forbidden }
-   #   end
-   # end
+    #   end
+    # end
     true
   end
 
@@ -97,7 +97,7 @@ class UsersController < ApplicationController
     if @logged_user.staff_role.can_manage_org_structure?
       params[:user].permit(:login, :password, :first_name, :last_name, :middle_name, :staff_role_id, :subdivision_id, :is_active, :position)
     else
-      params[:user].permit(:password, :position,:first_name, :last_name, :middle_name)
+      params[:user].permit(:password, :position, :first_name, :last_name, :middle_name)
     end
 
   end
