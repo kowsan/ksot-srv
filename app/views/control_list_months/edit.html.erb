@@ -47,9 +47,7 @@
                                 <input type="checkbox" name="enabled_<%= c_id %>" <%= "checked" if is_f_enabled %> id="cb_<%= c_id %>">
 
 
-                            <textarea readonly rows="5" class="form-control input">
-                                <%= fac.factor %>
-                            </textarea>
+                            <textarea readonly rows="5" class="form-control input"><%= fac.factor %></textarea>
                             </div>
                             <div class="col-lg-9" id="toggle_<%= c_id %>">
                                 <div class="row">
