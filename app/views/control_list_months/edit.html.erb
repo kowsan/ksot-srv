@@ -37,6 +37,7 @@
                 <span class="label label-success"><%= l.name %></span>
                 <% l.control_list_factors.sort_by { |y| y[:order_num] }.each do |fac| %>
                     <% c_id=l.id.to_s+'_'+fac.id.to_s %>
+                    <input type="hidden" name="cb_factors[]" value="<%= c_id %>">
                     <!-- iterate factors-->
                     <% clf_link=@control_list_links.where(:control_list_factor_id => fac.id) %>
                     <% is_f_enabled = clf_link.count>0 %>

@@ -67,38 +67,38 @@ class ControlListMonthsController < ApplicationController
   # PATCH/PUT /control_list_months/1
   # PATCH/PUT /control_list_months/1.json
   def update
-    return
-    respond_to do |format|
-      @control_list_month.update(control_list_month_params)
-      if !params[:factors].nil?
-        params[:factors].each_with_index do |item, index|
 
-          if params[:is_enabled][index]
-            g_id, f_id=params[:factors][index].gsub('cb_', '').split('_')
-            c=ControlListMonthLink.new
-            c.control_list_month_id=@control_list_month.id
-            c.control_list_factor_group_id=g_id
-            c.control_list_factor_id=f_id
-            c.user_id=params[:f_user_id][index]
-            c.inconsistency=params[:inconsistence][index]
-            c.note_due=params[:note_due][index]
-            c.note_measures=params[:note_measures][index]
-            c.status_id=params[:f_status_id][index]
-            c.save!
-          end
+
+    @control_list_month.update_attributes(control_list_month_params)
+
+      params[:is_enabled].each_with_index do |item, index|
+
+        if params[:is_enabled][index]=='true'
+          g_id, f_id=params[:is_enabled][index].gsub('enabled_', '').split('_')
+          c=ControlListMonthLink.where(:control_list_month_id => @control_list_month.id).first
+
+          c.control_list_factor_group_id=g_id
+          c.control_list_factor_id=f_id
+          c.user_id=params[:f_user_id][index]
+          c.inconsistency=params[:inconsistence][index]
+          c.note_due=params[:note_due][index]
+          c.note_measures=params[:note_measures][index]
+          c.status_id=params[:f_status_id][index]
+          c.save!
         end
-
-
       end
 
-      if @control_list_month.valid?
-        format.html { redirect_to @control_list_month, notice: 'Control list month was successfully updated.' }
-        format.json { render :show, status: :ok, location: @control_list_month }
-      else
-        format.html { render :edit }
-        format.json { render json: @control_list_month.errors, status: :unprocessable_entity }
-      end
+
+
+
+    if @control_list_month.valid?
+      format.html { redirect_to control_list_months_path, notice: 'Control list month was successfully updated.' }
+      format.json { render :show, status: :ok, location: @control_list_month }
+    else
+      format.html { render :edit }
+      format.json { render json: @control_list_month.errors, status: :unprocessable_entity }
     end
+
   end
 
   # DELETE /control_list_months/1
