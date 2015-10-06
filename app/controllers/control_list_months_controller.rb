@@ -55,7 +55,7 @@ class ControlListMonthsController < ApplicationController
     end
     respond_to do |format|
       if @control_list_month.save
-        format.html { redirect_to @control_list_month }
+        format.html { redirect_to control_list_months_path }
         format.json { render :show, status: :created, location: @control_list_month }
       else
         format.html { render :new }
