@@ -123,8 +123,8 @@
     function validateSelects() {
         var r = true
 
-         $("[data-required]").each(function(){
-            if ($(this).val().length == 0) {
+         $("[data-required]:visible").each(function(){
+            if ($(this).val().length == 0 && $(this).is) {
                 $(this).parent().addClass('has-error')
                 r = false
             } else {

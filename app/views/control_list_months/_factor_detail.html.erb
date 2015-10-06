@@ -1,6 +1,5 @@
 <div class="row">
     <input type="hidden" class="hidden" name="is_enabled[]" value="true">
-
     <div class="col-md-6"><%= collection_select(:user, :user_id, @users, :id, :full_name, {:include_blank => 'Ответственный за устранение'}, {:name => 'f_user_id[]', :placeholder => 'Ответственный за устранение', :class => 'form-control input',:'data-required'=>true}) %></div>
 
     <div class="col-md-3">
@@ -21,6 +20,5 @@
     <div class="col-md-12">
         <input type="text" name="note_due[]"  class="form-control input" value="" placeholder="Отметка о выполнении"/>
     </div>
-
 </div>
 

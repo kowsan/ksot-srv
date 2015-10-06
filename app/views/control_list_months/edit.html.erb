@@ -43,16 +43,16 @@
                     <div id="det_cb<%= c_id %>" class="row">
                         <div class="col-lg-9">
                             <div class="col-lg-3">
-                                <input type="checkbox"
-                                       <%= 'checked' if is_f_enabled %>
-                                       id="cb_<%= c_id %>">
+                                <input type="checkbox" name="enabled_<%= c_id %>" <%= "checked" if is_f_enabled %> id="cb_<%= c_id %>">
+
+
                             <textarea readonly rows="5" class="form-control input">
                                 <%= fac.factor %>
                             </textarea>
                             </div>
-                            <div class="col-lg-9">
+                            <div class="col-lg-9" id="toggle_<%= c_id %>">
                                 <div class="row">
-                                    <input type="hidden" class="hidden" name="is_enabled[]" value="<%= 'true' unless clf_link.nil? %>" style="display: none">
+                                    <input type="hidden" class="hidden" name="is_enabled[]" value="<%= 'true' unless clf_link.empty? %>" style="display: none">
 
                                     <div class="col-md-6">
                                         <% if clf_link.empty? %>
@@ -67,6 +67,7 @@
                                         <% else %>
                                             <%= collection_select(:status, :status_id, Status.all, :id, :name, {:selected => clf_link.first.status_id, :include_blank => 'Статус'}, {:name => 'f_status_id[]', :placeholder => 'Статус', :class => 'form-control input', :'data-required' => true}) %>
                                         <% end %>
+
                                     </div>
 
 
@@ -89,6 +90,30 @@
                                 </div>
                             </div>
                         </div>
+                        <script>
+                            $('#cb_<%= c_id %>').on('change', function () {
+
+                                console.log('on cb factor change')
+                                $('#det_cb<%= c_id %>').find('.hidden').each(function () {
+                                    if ($(this).val() == "true") {
+                                        console.log('enabled detect!Dissable it')
+                                        $(this).val('false');
+                                        $('#toggle_<%= c_id %>').hide()
+
+                                    } else {
+                                        console.log('Disabled detect!Enable it')
+                                        $(this).val('true');
+                                        $('#toggle_<%= c_id %>').show()
+                                    }
+                                })
+                            });
+
+                            if ($('#cb_<%= c_id %>').attr('checked') == undefined) {
+                                $('#toggle_<%= c_id %>').hide()
+                            } else {
+                                $('#toggle_<%= c_id %>').show()
+                            }
+                        </script>
                     </div>
                     <p></p>
                 <% end %>
@@ -108,36 +133,36 @@
     </div>
 <% end %>
 <script type="text/javascript">
-    $('input[id^="cb"]').each(function () {
-        $(this).change(function () {
-            var id = $(this).attr('id')
-            if ($(this).is(":checked")) {
-                var d_id = '#div_detail_' + id;
-                if ($(d_id).text().trim() == '') {
-                    $(d_id).append($('#template').html()).append("<input type=hidden name=\"factors[]\" value=\'" + id + "\'>")
-                }
-
-
-                console.log('cb is checked', id)
-                $(this).val('true');
-                $(d_id).find("input:hidden").find('.hidden').each(function () {
-                    $(this).val('true');
-                    console.log('Hidden found', $(this).val())
-                })
-                unreadonlyzediv(d_id)
-            } else {
-                console.log('cb is unchecked')
-                var d_id = '#div_detail_' + id;
-
-                readonlyzediv(d_id)
-                $(d_id).find("input:hidden").find('.hidden').each(function () {
-                    $(this).val('false');
-
-                })
-            }
-
-        });
-    })
+    //    $('input[id^="cb"]').each(function () {
+    //        $(this).change(function () {
+    //            var id = $(this).attr('id')
+    //            if ($(this).is(":checked")) {
+    //                var d_id = '#div_detail_' + id;
+    //                if ($(d_id).text().trim() == '') {
+    //                    $(d_id).append($('#template').html()).append("<input type=hidden name=\"factors[]\" value=\'" + id + "\'>")
+    //                }
+    //
+    //
+    //                console.log('cb is checked', id)
+    //                $(this).val('true');
+    //                $(d_id).find("input:hidden").find('.hidden').each(function () {
+    //                    $(this).val('true');
+    //                    console.log('Hidden found', $(this).val())
+    //                })
+    //                unreadonlyzediv(d_id)
+    //            } else {
+    //                console.log('cb is unchecked')
+    //                var d_id = '#div_detail_' + id;
+    //
+    //                readonlyzediv(d_id)
+    //                $(d_id).find("input:hidden").find('.hidden').each(function () {
+    //                    $(this).val('false');
+    //
+    //                })
+    //            }
+    //
+    //        });
+    //    })
 
     function unreadonlyzediv(divid) {
 
@@ -174,7 +199,7 @@
     function validateSelects() {
         var r = true
 
-        $("[data-required]").each(function () {
+        $("[data-required]:visible").each(function () {
             if ($(this).val().length == 0) {
                 $(this).parent().addClass('has-error')
                 r = false

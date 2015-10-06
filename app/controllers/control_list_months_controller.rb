@@ -67,6 +67,7 @@ class ControlListMonthsController < ApplicationController
   # PATCH/PUT /control_list_months/1
   # PATCH/PUT /control_list_months/1.json
   def update
+    return
     respond_to do |format|
       @control_list_month.update(control_list_month_params)
       if !params[:factors].nil?
