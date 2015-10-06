@@ -57,14 +57,14 @@ class ControlListFactorsController < ApplicationController
   def destroy
     @control_list_factor.block
     respond_to do |format|
-      format.html { redirect_to control_list_factors_url, notice: 'Control list factor was successfully destroyed.' }
+      format.html { redirect_to control_list_factors_url, notice: '' }
       format.json { head :no_content }
     end
   end
   def enable
     @control_list_factor.block
     respond_to do |format|
-      format.html { redirect_to control_list_factors_url, notice: 'Control list factor was successfully destroyed.' }
+      format.html { redirect_to control_list_factors_url, notice: '' }
       format.json { head :no_content }
     end
   end
