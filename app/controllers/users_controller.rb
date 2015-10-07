@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    du=StaffRole.where(:can_manage_org_structure => true).users.unscoped
+    du=StaffRole.where(:can_manage_org_structure => true).users
     if @can_manage_org_structure
       @users = User.unscoped
       return
