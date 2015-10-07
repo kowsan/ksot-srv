@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     sr=StaffRole.joins(:users).where(:can_manage_org_structure => true).map{|x| x.id}.uniq
-    du=User.includes(:staff_role).where('staff_role_id in (?)',sr)
+    du=User.unscoped.includes(:staff_role).where('staff_role_id in (?)',sr)
     if @can_manage_org_structure
       @users = User.unscoped
       return
@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     end
     if @subdivision_owner
       sr2=StaffRole.where(:area_owner => true).map{|x| x.id}.uniq
-      au=User.includes(:staff_role).where('staff_role_id in (?)',sr2)
+      au=User.unscoped.includes(:staff_role).where('staff_role_id in (?)',sr2)
       @users = @logged_user.subdivision.users.unscoped-du-au #User.unscoped.includes(:staff_role).page params[:page]
       return
     end
