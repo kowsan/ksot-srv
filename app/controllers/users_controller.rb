@@ -15,8 +15,7 @@ class UsersController < ApplicationController
       return
     end
     if @area_owner
-
-      @users = @logged_user.subdivision.area.users.unscoped - du #User.unscoped.includes(:staff_role).page params[:page]
+      @users = @logged_user.area.subdivisions.users.unscoped - du #User.unscoped.includes(:staff_role).page params[:page]
       return
     end
     if @subdivision_owner
