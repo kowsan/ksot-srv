@@ -75,11 +75,14 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
+    if @can_manage_org_structure
+      @user.destroy
+      respond_to do |format|
+        format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
+
   end
 
   private
@@ -95,8 +98,10 @@ class UsersController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_user
-
     @user = User.unscoped.find(params[:id])
+  end
+
+  def set_subdivisions
 
   end
 
@@ -105,7 +110,7 @@ class UsersController < ApplicationController
     if params[:user][:password].to_s==''
       params[:user].reject! { |x| x=='password' }
     end
-    if @logged_user.staff_role.can_manage_org_structure? || @area_owner || @subdivision_owner
+    if @can_manage_org_structure || @area_owner || @subdivision_owner
       params[:user].permit(:login, :password, :first_name, :last_name, :middle_name, :staff_role_id, :subdivision_id, :is_active, :position)
     else
       params[:user].permit(:password, :position, :first_name, :last_name, :middle_name)

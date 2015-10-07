@@ -33,7 +33,7 @@ class WorkController < ApplicationController
 
   def by_day_in_month
 
-    unless @can_manage_org_structure
+    unless @logged_user.nil?
       respond_to do |format|
         format.html { render :nothing => true, :status => :forbidden }
       end
