@@ -61,7 +61,7 @@ class IssueTypesController < ApplicationController
     # @issue_type.work_spaces.clear
     @issue_type.save!
     respond_to do |format|
-      format.html { redirect_to issue_types_path, notice: 'Issue type was successfully destroyed.' }
+      format.html { redirect_to issue_types_path, notice: 'Вид нарушений успешно удален.' }
       format.json { head :no_content }
     end
   end

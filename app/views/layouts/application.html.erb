@@ -30,7 +30,7 @@
             <% if @can_add_issue %>
                 <li id="issues"><%= link_to 'Ведомость', issues_path %>
             <% end %>
-            <% if @can_manage_org_structure %>
+            <% if @can_manage_org_structure || @subdivision_owner || @area_owner %>
                 <li id="users"><%= link_to 'Сотрудники', users_path %></li>
 
             <% end %>

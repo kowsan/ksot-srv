@@ -7,7 +7,18 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.unscoped.includes(:staff_role).page params[:page]
+    if @can_manage_org_structure
+      @users = User.unscoped.includes(:staff_role).page params[:page]
+      return
+    end
+    if @area_owner
+      @users = @logged_user.subdivision.area.users #User.unscoped.includes(:staff_role).page params[:page]
+      return
+    end
+    if @subdivision_owner
+      @users = @logged_user.subdivision.users #User.unscoped.includes(:staff_role).page params[:page]
+      return
+    end
   end
 
   # GET /users/1
@@ -94,7 +105,7 @@ class UsersController < ApplicationController
     if params[:user][:password].to_s==''
       params[:user].reject! { |x| x=='password' }
     end
-    if @logged_user.staff_role.can_manage_org_structure?
+    if @logged_user.staff_role.can_manage_org_structure? || @area_owner || @subdivision_owner
       params[:user].permit(:login, :password, :first_name, :last_name, :middle_name, :staff_role_id, :subdivision_id, :is_active, :position)
     else
       params[:user].permit(:password, :position, :first_name, :last_name, :middle_name)

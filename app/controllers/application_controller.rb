@@ -24,8 +24,8 @@ class ApplicationController < ActionController::Base
     @can_view_work_changes_owned = @staff_role.can_view_work_changes_owned?
     @can_fill_control_list = @staff_role.can_fill_control_list?
     @can_manage_org_structure=@staff_role.can_manage_org_structure?
-
-
+    @subdivision_owner= @staff_role.subdivision_owner?
+    @area_owner= @staff_role.area_owner?
   end
 
   def get_available_work_spaces
