@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     if @area_owner
       out=Array.new
       #get all subdivision by areas
-      sd= @logged_user.subdivision.area.subdivisions.all
+      sd= @logged_user.area.subdivisions.all
       sd.each do |s|
         s.users.all.each do |u|
           out<<u
