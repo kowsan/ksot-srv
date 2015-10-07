@@ -13,7 +13,7 @@ Status.create(:name => 'Закрыто')
 
 StaffRole.delete_all
 user_id=StaffRole.create!(:name => 'Пользователь', :can_add_issue => true, :can_edit_issue => true,
-                  :can_change_issue_status => true)
+                          :can_change_issue_status => true)
 StaffRole.create!(:name => 'Продвинутый пользователь', :can_add_issue => true, :can_edit_issue => true,
                   :can_change_issue_status => true, :can_shutdown_app => true)
 StaffRole.create!(:name => 'Руководитель участка', :can_add_issue => true, :can_edit_issue => true,
@@ -22,8 +22,23 @@ StaffRole.create!(:name => 'Руководитель участка', :can_add_i
                   :can_view_issue_report_local => true,
                   :can_view_employees_list => true,
                   :can_view_work_changes_owned => true,
-                  :can_fill_control_list => true)
+                  :can_fill_control_list => true,
+                  :area_owner => true)
 
+StaffRole.create!(name: 'Руководитель подразделения',
+                  can_add_issue: true,
+                  can_edit_issue: true,
+                  can_change_issue_status: true,
+                  can_shutdown_app: true,
+                  can_view_issue_report_local: true,
+                  can_view_employees_list: true,
+                  can_view_issue_report_owned: false,
+                  can_view_aws_list_owned: false,
+                  can_view_work_changes_owned: true,
+                  can_fill_control_list: true,
+                  can_manage_org_structure: false,
+                  area_owner: false,
+                  subdivision_owner: true)
 
 
 adm_id=StaffRole.create!(:name => 'Инженер по охране труда',
@@ -43,7 +58,7 @@ User.delete_all
 management_id=Management.create!(:name => 'Южная Дирекция скоростного сообщения')
 # Management.create!(:name => 'Дирекция-2')
 Area.create!(:name => 'Участок 1', :management_id => management_id.id)
-Area.create!(:name => 'Участок 2', :management_id =>  management_id.id)
+Area.create!(:name => 'Участок 2', :management_id => management_id.id)
 
 
 Subdivision.create!(:name => 'Подразделение 1', :area_id => Area.first.id)
@@ -60,16 +75,16 @@ u2.staff_role=user_id
 u2.save!
 
 
-ct_yellow=CriticalType.create!(:name => 'Желтый', :color => '#FFFF00',:weight=> 10)
-ct_orange=CriticalType.create!(:name => 'Оранжевый', :color => '#FFB570',:weight=> 20)
-ct_blue=CriticalType.create!(:name => 'Синий', :color => '#7EA6E0',:weight=> 30)
-ct_red=CriticalType.create!(:name => 'Красный', :color => '#EA6B66',:weight=> 50)
+ct_yellow=CriticalType.create!(:name => 'Желтый', :color => '#FFFF00', :weight => 10)
+ct_orange=CriticalType.create!(:name => 'Оранжевый', :color => '#FFB570', :weight => 20)
+ct_blue=CriticalType.create!(:name => 'Синий', :color => '#7EA6E0', :weight => 30)
+ct_red=CriticalType.create!(:name => 'Красный', :color => '#EA6B66', :weight => 50)
 
 
 it1=IssueType.create!(name: "Вскрыт спецпакет", critical_type_id: ct_yellow.id)
-it2=IssueType.create!(name: 'Не явка на рабочее место в срок',critical_type_id: ct_yellow.id)
-it3=IssueType.create!(name: 'Опоздание с обеда',critical_type_id: ct_yellow.id)
-it4=IssueType.create!(name: 'Покинул пост без уважительной причины',critical_type_id: ct_red.id)
+it2=IssueType.create!(name: 'Не явка на рабочее место в срок', critical_type_id: ct_yellow.id)
+it3=IssueType.create!(name: 'Опоздание с обеда', critical_type_id: ct_yellow.id)
+it4=IssueType.create!(name: 'Покинул пост без уважительной причины', critical_type_id: ct_red.id)
 it5=IssueType.create!(name: 'Нарушение правил, обеспечивающих безопасность движения на железнодорожном транспорте',
                       critical_type_id: ct_yellow.id)
 it6=IssueType.create!(name: 'Повреждение железнодорожного пути, защитных лесонасаждений, снегозащитных ограждений и других путевых объектов, сооружений и устройств сигнализации и связи',
@@ -82,7 +97,7 @@ it8=IssueType.create!(name: 'Подкладывание на железнодо�
 it9=IssueType.create!(name: 'Несоблюдение установленных габаритов при погрузке и выгрузке грузов',
                       critical_type_id: ct_yellow.id)
 
-system_ws=WorkSpace.create!(:name=> 'Системное',:short_name=> 'sys',:subdivision_id=>Subdivision.first.id)
+system_ws=WorkSpace.create!(:name => 'Системное', :short_name => 'sys', :subdivision_id => Subdivision.first.id)
 system_ws.issue_types=IssueType.all
 system_ws.save!
 

@@ -2,21 +2,25 @@ class UsersController < ApplicationController
   before_filter :check_permission
   before_filter :validate_access, except: :show
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_subdivisions, :only => [:new, :edit]
 
 
   # GET /users
   # GET /users.json
   def index
+    du=StaffRole.where(:can_manage_org_structure => true).users.unscoped
     if @can_manage_org_structure
-      @users = User.unscoped.includes(:staff_role).page params[:page]
+      @users = User.unscoped
       return
     end
     if @area_owner
-      @users = @logged_user.subdivision.area.users #User.unscoped.includes(:staff_role).page params[:page]
+
+      @users = @logged_user.subdivision.area.users.unscoped - du #User.unscoped.includes(:staff_role).page params[:page]
       return
     end
     if @subdivision_owner
-      @users = @logged_user.subdivision.users #User.unscoped.includes(:staff_role).page params[:page]
+      au=StaffRole.where(:area_owner => true).users.unscoped
+      @users = @logged_user.subdivision.users.unscoped-du-au #User.unscoped.includes(:staff_role).page params[:page]
       return
     end
   end
@@ -29,6 +33,7 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
+
     @user = User.new
   end
 
@@ -102,7 +107,18 @@ class UsersController < ApplicationController
   end
 
   def set_subdivisions
-
+    if @can_manage_org_structure
+      @subdivisions=Subdivision.all
+      return
+    end
+    if @area_owner
+      @subdivisions = @logged_user.subdivision.area.subdivisions #User.unscoped.includes(:staff_role).page params[:page]
+      return
+    end
+    if @subdivision_owner
+      @subdivisions = @logged_user.subdivision #User.unscoped.includes(:staff_role).page params[:page]
+      return
+    end
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
