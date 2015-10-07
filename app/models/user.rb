@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   belongs_to :staff_role
   belongs_to :subdivision
+
   has_many :issues
   default_scope {where(:is_active => true)}
 
