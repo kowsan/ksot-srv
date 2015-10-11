@@ -29,7 +29,7 @@ class UsersController < ApplicationController
 
       end
 
-      @users = out - du #User.unscoped.includes(:staff_role).page params[:page]
+      @users = out - du.all #User.unscoped.includes(:staff_role).page params[:page]
       return
     end
     if @subdivision_owner
@@ -47,7 +47,9 @@ class UsersController < ApplicationController
       puts su
 
 
-      @users = su-du-au #User.unscoped.includes(:staff_role).page params[:page]
+      @users = su.all-du.all-au.all #User.unscoped.includes(:staff_role).page params[:page]
+
+
       puts(@users)
       return
     end
