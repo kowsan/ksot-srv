@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :control_list_months
+  resources :control_list_months do
+
+    member do
+      get 'pdf'
+    end
+  end
   resources :control_list_factor_groups
   resources :control_list_factors do
 

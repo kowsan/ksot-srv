@@ -1,5 +1,5 @@
 class ControlListMonthsController < ApplicationController
-  before_action :set_control_list_month, only: [:show, :edit, :update, :destroy]
+  before_action :set_control_list_month, only: [:show,:pdf, :edit, :update, :destroy]
   before_action :check_permission
   # GET /control_list_months
   # GET /control_list_months.json
@@ -10,6 +10,15 @@ class ControlListMonthsController < ApplicationController
   # GET /control_list_months/1
   # GET /control_list_months/1.json
   def show
+
+
+  end
+
+  def pdf
+    @control_list_links=ControlListMonthLink.includes(:control_list_factor, :control_list_factor_group, :user, :status).where(:control_list_month_id => @control_list_month.id)
+    respond_to do |format|
+      format.html { render :show, layout: false }
+    end
   end
 
   # GET /control_list_months/new
