@@ -35,10 +35,19 @@ class UsersController < ApplicationController
     if @subdivision_owner
       logger.error("Subdivison owner")
       sr2=StaffRole.where(:area_owner => true).map { |x| x.id }.uniq
-      puts(sr2)
+
+
       au=User.unscoped.includes(:staff_role).where('staff_role_id in (?)', sr2)
+      puts "Area owners"
       puts(au)
-      @users = @logged_user.subdivision.users.unscoped-du-au #User.unscoped.includes(:staff_role).page params[:page]
+      puts("logged user subdivision")
+      puts @logged_user.subdivision.name
+      puts "Subdivisions users"
+      su=@logged_user.subdivision.users.unscoped
+      puts su
+
+
+      @users = su-du-au #User.unscoped.includes(:staff_role).page params[:page]
       puts(@users)
       return
     end
