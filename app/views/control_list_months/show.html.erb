@@ -10,33 +10,38 @@
     <strong>Подразделение</strong>
     <%= @control_list_month.subdivision.name %>
 </p>
+<% ControlListFactorGroup.all.each do |g| %>
+    <% if @control_list_links.where(:control_list_factor_group_id => g.id).any? %>
+        <b><%= g.name %></b>
+        <% @control_list_links.where(:control_list_factor_group_id => g.id).all.each do |c| %>
 
-<% @control_list_links.all.each do |c| %>
-    <p>
-        <%= c.control_list_factor.factor %>
-    </p>
-    <table border="1" cellpadding="4" cellspacing="0">
-        <tr>
-            <td>Пользователь</td>
-            <td><%= c.user.full_name %></td>
-        </tr>
-        <tr>
-            <td>Статус</td>
-            <td><%= c.status.name %></td>
-        </tr>
-        <tr>
-            <td>Выявленные несоответствия</td>
-            <td><%= c.inconsistency %></td>
-        </tr>
-        <tr>
-            <td>Принятые меры по устранению несоответствий</td>
-            <td><%= c.note_measures %></td>
-        </tr>
-        <tr>
-            <td>Отметка о выполнении</td>
-            <td><%= c.note_due %></td>
-        </tr>
+            <p>
+                <%= c.control_list_factor.factor %>
+            </p>
+            <table border="1" cellpadding="4" cellspacing="0">
+                <tr>
+                    <td>Пользователь</td>
+                    <td><%= c.user.full_name %></td>
+                </tr>
+                <tr>
+                    <td>Статус</td>
+                    <td><%= c.status.name %></td>
+                </tr>
+                <tr>
+                    <td>Выявленные несоответствия</td>
+                    <td><%= c.inconsistency %></td>
+                </tr>
+                <tr>
+                    <td>Принятые меры по устранению несоответствий</td>
+                    <td><%= c.note_measures %></td>
+                </tr>
+                <tr>
+                    <td>Отметка о выполнении</td>
+                    <td><%= c.note_due %></td>
+                </tr>
 
-    </table>
+            </table>
+            <br>
+        <% end %>
+    <% end %>
 <% end %>
-
