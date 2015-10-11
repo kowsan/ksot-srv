@@ -27,5 +27,10 @@ module Ksot
     config.assets.paths << "#{Rails}/vendor/assets/fonts"
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+
+
+    require 'pdfkit'
+    config.middleware.use PDFKit::Middleware #, :print_media_type => true
   end
 end

@@ -53,3 +53,5 @@ gem 'kaminari'
 
 gem 'redis'
 gem 'unscoped_associations'
+
+gem 'pdfkit'
