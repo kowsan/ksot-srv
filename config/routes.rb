@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   end
   resources :critical_types
 
-  root 'work#user_info'
+  root 'work#by_day_in_month'
 
   get 'work_spaces/get_issue_types'
   # get 'issues/next_date'

@@ -16,6 +16,7 @@ class UsersController < ApplicationController
       @users = User.unscoped
       return
     end
+
     if @area_owner
       logger.error("area owner")
       out=Array.new
@@ -32,6 +33,7 @@ class UsersController < ApplicationController
       @users = out - du.all #User.unscoped.includes(:staff_role).page params[:page]
       return
     end
+
     if @subdivision_owner
       logger.error("Subdivison owner")
       sr2=StaffRole.where(:area_owner => true).map { |x| x.id }.uniq
@@ -53,6 +55,8 @@ class UsersController < ApplicationController
       puts(@users)
       return
     end
+
+
   end
 
   # GET /users/1
@@ -134,6 +138,11 @@ class UsersController < ApplicationController
       @staff_roles = StaffRole.all-StaffRole.where(:can_manage_org_structure => true)-StaffRole.where(:area_owner => true) #User.unscoped.includes(:staff_role).page params[:page]
       return
     end
+
+
+    @staff_roles=Array.new
+    @staff_roles << @logged_user.staff_role
+
   end
 
   private
@@ -166,6 +175,9 @@ class UsersController < ApplicationController
       @subdivisions << @logged_user.subdivision #User.unscoped.includes(:staff_role).page params[:page]
       return
     end
+    @subdivisions=Array.new
+    @subdivisions << @logged_user.subdivision
+
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
