@@ -8,4 +8,7 @@ class Area < ActiveRecord::Base
   def can_delete?
     subdivisions.first.nil?
   end
+  def users
+
+  end
 end

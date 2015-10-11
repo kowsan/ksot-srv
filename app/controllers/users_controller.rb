@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_filter :validate_access, except: :show
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_subdivisions, :only => [:new, :edit]
+  before_action :set_roles, :only => [:new, :edit]
 
 
   # GET /users
@@ -100,6 +101,22 @@ class UsersController < ApplicationController
       end
     end
 
+  end
+
+  private
+  def set_roles
+    if @can_manage_org_structure
+      @staff_roles=StaffRole.all
+      return
+    end
+    if @area_owner
+      @staff_roles = StaffRole.where(:can_manage_org_structure => false)
+      return
+    end
+    if @subdivision_owner
+      @staff_roles = StaffRole.where(:can_manage_org_structure => false).where(:area_owner => false).where(:subdivision_owner => true) #User.unscoped.includes(:staff_role).page params[:page]
+      return
+    end
   end
 
   private
