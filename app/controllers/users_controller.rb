@@ -110,11 +110,11 @@ class UsersController < ApplicationController
       return
     end
     if @area_owner
-      @staff_roles = StaffRole.where(:can_manage_org_structure => false)
+      @staff_roles = StaffRole.all-StaffRole.where(:can_manage_org_structure => false)
       return
     end
     if @subdivision_owner
-      @staff_roles = StaffRole.where(:can_manage_org_structure => false).where(:area_owner => false).where(:subdivision_owner => true) #User.unscoped.includes(:staff_role).page params[:page]
+      @staff_roles = StaffRole.all-StaffRole.where(:can_manage_org_structure => false).where(:area_owner => false) #User.unscoped.includes(:staff_role).page params[:page]
       return
     end
   end
