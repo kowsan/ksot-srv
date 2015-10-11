@@ -1,16 +1,16 @@
-<% unless :format !=:pdf %>
+<% unless :format == 'pdf' %>
     <%= render :partial => 'control_list_factors/menu' %>
 <% end %>
 <p>
-    <strong>Дата</strong>
+    <strong>Дата:</strong>
     <%= @control_list_month.form_date %>
 </p>
 <p>
-    <strong>Составил</strong>
+    <strong>Составил:</strong>
     <%= @control_list_month.author.full_name %>
 </p>
 <p>
-    <strong>Подразделение</strong>
+    <strong>Подразделение:</strong>
     <%= @control_list_month.subdivision.name %>
 </p>
 <% ControlListFactorGroup.all.each do |g| %>
