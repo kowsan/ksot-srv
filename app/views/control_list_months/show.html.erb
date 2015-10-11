@@ -1,4 +1,6 @@
-<%= render :partial => 'control_list_factors/menu' %>
+<% unless :format !=:pdf %>
+    <%= render :partial => 'control_list_factors/menu' %>
+<% end %>
 <p>
     <strong>Дата</strong>
     <%= @control_list_month.form_date %>
