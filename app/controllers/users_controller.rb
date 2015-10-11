@@ -2,8 +2,8 @@ class UsersController < ApplicationController
   before_filter :check_permission
   before_filter :validate_access, except: :show
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :set_subdivisions, :only => [:new, :edit]
-  before_action :set_roles, :only => [:new, :edit]
+  before_action :set_subdivisions, :only => [:new, :edit, :show]
+  before_action :set_roles, :only => [:new, :edit, :show]
 
 
   # GET /users

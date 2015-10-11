@@ -46,11 +46,11 @@
             </div>
             <div class="form-group">
                 <%= f.label 'Роль' %>
-                <%= f.collection_select(:staff_role_id, StaffRole.all, :id, :name, {}, {:class => ' form-control ', :readonly => @readnonly}) %>
+                <%= f.collection_select(:staff_role_id, @staff_roles, :id, :name, {}, {:class => ' form-control ', :readonly => @readnonly}) %>
             </div>
             <div class="form-group">
                 <%= f.label 'Подразделение' %>
-                <%= f.collection_select(:subdivision_id, Subdivision.all, :id, :name, {}, {:class => ' form-control ', :readonly => @readnonly}) %>
+                <%= f.collection_select(:subdivision_id, @subdivisions, :id, :name, {}, {:class => ' form-control ', :readonly => @readnonly}) %>
             </div>
             <div class="form-group">
                 <%= f.label 'Должность' %>
