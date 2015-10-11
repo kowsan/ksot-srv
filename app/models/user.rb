@@ -16,4 +16,7 @@ class User < ActiveRecord::Base
   def area
     subdivision.area
   end
+  def to_s
+    "#{self.first_name} #{self.last_name} #{self.subdivision.name}"
+  end
 end
