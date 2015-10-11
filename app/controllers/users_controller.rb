@@ -145,7 +145,8 @@ class UsersController < ApplicationController
       return
     end
     if @subdivision_owner
-      @subdivisions = @logged_user.subdivision #User.unscoped.includes(:staff_role).page params[:page]
+      @subdivisions=Array.new
+      @subdivisions << @logged_user.subdivision #User.unscoped.includes(:staff_role).page params[:page]
       return
     end
   end
