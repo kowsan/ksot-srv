@@ -63,7 +63,7 @@ class Issue < ActiveRecord::Base
     key='turn_'+work_space_id.to_s+date.to_s
 
     if $redis.get(key).nil?
-      ws= WorkSpace.find(work_space_id)
+      ws= WorkSpace.unscoped.find(work_space_id)
 
       q= ws.turn_scheme.exclusion_days.where(:day => date).limit(1)
       if q.blank?

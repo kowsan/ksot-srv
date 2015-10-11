@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
+    logger.error("Super admin")
     sr=StaffRole.joins(:users).where(:can_manage_org_structure => true).map { |x| x.id }.uniq
     du=User.unscoped.includes(:staff_role).where('staff_role_id in (?)', sr)
     if @can_manage_org_structure
@@ -16,6 +17,7 @@ class UsersController < ApplicationController
       return
     end
     if @area_owner
+      logger.error("area owner")
       out=Array.new
       #get all subdivision by areas
       sd= @logged_user.area.subdivisions.all
@@ -31,9 +33,13 @@ class UsersController < ApplicationController
       return
     end
     if @subdivision_owner
+      logger.error("Subdivison owner")
       sr2=StaffRole.where(:area_owner => true).map { |x| x.id }.uniq
+      puts(sr2)
       au=User.unscoped.includes(:staff_role).where('staff_role_id in (?)', sr2)
+      puts(au)
       @users = @logged_user.subdivision.users.unscoped-du-au #User.unscoped.includes(:staff_role).page params[:page]
+      puts(@users)
       return
     end
   end
