@@ -43,7 +43,7 @@ class UsersController < ApplicationController
       puts("logged user subdivision")
       puts @logged_user.subdivision.name
       puts "Subdivisions users"
-      su=@logged_user.subdivision.users.unscoped
+      su=@logged_user.subdivision.users
       puts su
 
 
