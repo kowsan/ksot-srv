@@ -4,36 +4,58 @@
 <h4 style="color: orange">Контрольные листы (<%= @control_list_months.count %>)</h4>
 <%= link_to 'Добавить', new_control_list_month_path, :class => 'btn btn-sm btn-success' %>
 <br><br>
-<table class="table table-hover table-striped gly">
+<table
+data-toggle="table"
+class="table table-hover table-striped"
+data-url="control_list_months.json"
+data-show-columns="true"
+data-cache="true" data-search="true" data-show-toggle="true"
+data-show-refresh="true" class="table-striped"
+data-cookie="true"
 
-    <th>Код</th>
-    <th>Дата составления</th>
-    <th>Проверяющий</th>
-    <th>Должность</th>
-    <th>Подразделение</th>
-    <th>Участок</th>
-    <th>Действия</th>
-    <% @control_list_months.each do |control_list_month| %>
-        <tr>
-            <td><%= control_list_month.id %></td>
-            <td><%= control_list_month.form_date.strftime("%d.%m.%Y") %></td>
-            <td><%= control_list_month.author.full_name %></td>
-            <td><%= control_list_month.author.position %></td>
-            <td><%= control_list_month.subdivision.name %></td>
-            <td><%= control_list_month.subdivision.area.name %></td>
+data-cookie-id-table="control-list-months_<%= @logged_user.login %>"
+data-sort-name="id">
 
-            <td>
-                <%= link_to '', edit_control_list_month_path(control_list_month), :class => 'glyphicon btn btn-sm btn-primary glyphicon-edit' %>
-                <%= link_to('', control_list_month_path(control_list_month), :class => 'glyphicon btn btn-sm btn-default glyphicon-list',:title => 'Просмотр') %>
-                <%= link_to('', pdf_control_list_month_path(control_list_month, :format => :pdf), {:class => 'glyphicon btn btn-sm btn-success glyphicon-save'}) %>
-                <% if @can_manage_org_structure %>
-                    <%= link_to '', control_list_month, method: :delete, data: {confirm: 'Удалить контрольный лист?'}, :class => 'glyphicon btn btn-sm btn-danger glyphicon-remove' %>
-                <% end %>
-            </td>
-        </tr>
-    <% end %>
-
+    <thead>
+    <tr>
+        <th data-field="id" data-sortable="true">Код</th>
+        <th data-field="form_date" data-sortable="true" data-formatter="dater">Дата составления</th>
+        <th data-field="user_name" data-sortable="true">Проверяющий</th>
+        <th data-field="position" data-sortable="true">Должность</th>
+        <th data-field="subdivision" data-sortable="true">Подразделение</th>
+        <th data-field="area" data-sortable="true">Участок</th>
+        <th data-formatter="actions">Действия</th>
+    </tr>
+    </thead>
 </table>
+<br>
+<script type="text/javascript">
+    function actions(value, row) {
+        var act = ''
+        <% if @can_fill_control_list %>
+        act += '<a class="glyphicon btn btn-sm btn-primary glyphicon-edit" href="' + row.edit_url + '"></a>'
+        <%end%>
+
+        act += '&nbsp;<a class="glyphicon btn btn-sm btn-default glyphicon-list" title="Просмотр" href="' + row.url + '"></a>'
+        act += '&nbsp;<a class="glyphicon btn btn-sm btn-success glyphicon-save" href="' + row.pdf_url + '"></a>'
+        return act
+    }
+
+    function activer(value, row) {
+
+        if (value == true)
+            return '<i class="glyphicon glyphicon-ok"></i>'
+        else
+            return '<i class="glyphicon glyphicon-off"></i>'
+    }
+    function dater(value, row) {
+        return row.date
+    }
+
+
+</script>
+
+
 
 <br>
 <script type="text/javascript">

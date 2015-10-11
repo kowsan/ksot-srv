@@ -1,3 +1,4 @@
+<%= render :partial => 'control_list_factors/menu' %>
 <p>
     <strong>Дата</strong>
     <%= @control_list_month.form_date %>
@@ -45,3 +46,6 @@
         <% end %>
     <% end %>
 <% end %>
+<script type="text/javascript">
+    $('#clmonth').addClass('active')
+</script>
