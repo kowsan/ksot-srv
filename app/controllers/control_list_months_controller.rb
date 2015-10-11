@@ -15,6 +15,7 @@ class ControlListMonthsController < ApplicationController
   end
 
   def pdf
+    @disable_menu=true
     @control_list_links=ControlListMonthLink.includes(:control_list_factor, :control_list_factor_group, :user, :status).where(:control_list_month_id => @control_list_month.id)
     respond_to do |format|
       format.html { render :show, layout: false }

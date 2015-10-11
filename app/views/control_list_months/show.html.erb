@@ -1,4 +1,4 @@
-<% unless :format == 'pdf' %>
+<% if @disable_menu.nil? %>
     <%= render :partial => 'control_list_factors/menu' %>
 <% end %>
 <p>
