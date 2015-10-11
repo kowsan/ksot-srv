@@ -18,10 +18,10 @@
         <b><%= g.name %></b>
         <% @control_list_links.where(:control_list_factor_group_id => g.id).all.each do |c| %>
 
-            <p>
-                <%= c.control_list_factor.factor %>
-            </p>
             <table border="1" cellpadding="4" cellspacing="0">
+                <tr>
+                    <td colspan="2"><%= c.control_list_factor.factor %></td>
+                </tr>
                 <tr>
                     <td>Пользователь</td>
                     <td><%= c.user.full_name %></td>
@@ -51,3 +51,7 @@
 <script type="text/javascript">
     $('#clmonth').addClass('active')
 </script>
+
+<% if @disable_menu.nil? %>
+    <%= link_to 'К списку листов', control_list_months_path %>
+<% end %>
