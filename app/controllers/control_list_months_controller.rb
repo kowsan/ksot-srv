@@ -54,6 +54,7 @@ class ControlListMonthsController < ApplicationController
             c.user_id=params[:f_user_id][index]
             c.inconsistency=params[:inconsistence][index]
             c.note_due=params[:note_due][index]
+            c.date_due=params[:date_due][index]
             c.note_measures=params[:note_measures][index]
             c.status_id=params[:f_status_id][index]
             c.save!
@@ -95,6 +96,7 @@ class ControlListMonthsController < ApplicationController
         c.user_id=params[:f_user_id][index]
         c.inconsistency=params[:inconsistence][index]
         c.note_due=params[:note_due][index]
+        c.date_due=params[:date_due][index]
         c.note_measures=params[:note_measures][index]
         c.status_id=params[:f_status_id][index]
         c.save!

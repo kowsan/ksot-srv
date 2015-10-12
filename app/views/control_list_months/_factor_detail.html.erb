@@ -1,9 +1,10 @@
 <div class="row">
     <input type="hidden" class="hidden" name="is_enabled[]" value="true">
-    <div class="col-md-6"><%= collection_select(:user, :user_id, @users, :id, :full_name, {:include_blank => 'Ответственный за устранение'}, {:name => 'f_user_id[]', :placeholder => 'Ответственный за устранение', :class => 'form-control input',:'data-required'=>true}) %></div>
+
+    <div class="col-md-6"><%= collection_select(:user, :user_id, @users, :id, :full_name, {:include_blank => 'Ответственный за устранение'}, {:name => 'f_user_id[]', :placeholder => 'Ответственный за устранение', :class => 'form-control input', :'data-required' => true}) %></div>
 
     <div class="col-md-3">
-        <%= collection_select(:status, :status_id, Status.all, :id, :name, {:include_blank => 'Статус'}, {:name => 'f_status_id[]', :placeholder => 'Статус', :class => 'form-control input',:'data-required'=> true}) %> </div>
+        <%= collection_select(:status, :status_id, Status.all, :id, :name, {:include_blank => 'Статус'}, {:name => 'f_status_id[]', :placeholder => 'Статус', :class => 'form-control input', :'data-required' => true}) %> </div>
 </div>
 
 <div class="row">
@@ -12,13 +13,24 @@
         <textarea rows="10" name="inconsistence[]" data-required class="form-control input" placeholder="Выявленные несоответствия (заполняется при наличии несоответствий):"></textarea>
     </div>
     <div class="col-md-6">
-        <textarea rows="10" name="note_measures[]"  class="form-control input" placeholder="Принятые меры по устранению несоответствий:"></textarea>
+        <textarea rows="10" name="note_measures[]" class="form-control input" placeholder="Принятые меры по устранению несоответствий:"></textarea>
     </div>
 
 </div>
 <div class="row">
-    <div class="col-md-12">
-        <input type="text" name="note_due[]"  class="form-control input" value="" placeholder="Отметка о выполнении"/>
+    <div class="col-md-4">
+        <input type="text" name="date_due[]"  class="form-control input date" value="" placeholder="Срок исполнения"/>
+    </div>
+    <div class="col-md-8">
+        <input type="text" name="note_due[]" class="form-control input" value="" placeholder="Отметка о выполнении"/>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $('.date').datetimepicker({
+            locale: 'ru',
+            format: 'DD.MM.YYYY'
+        });
 
+    })
+</script>

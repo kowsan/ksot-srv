@@ -140,8 +140,12 @@
         }
         return r;
     }
-    $('.date').datetimepicker({
-        locale: 'ru',
-        format: 'DD.MM.YYYY'
-    });
+    $(document).ready(function(){
+        $('.date').datetimepicker({
+            locale: 'ru',
+            format: 'DD.MM.YYYY'
+        });
+
+    })
+
 </script>
