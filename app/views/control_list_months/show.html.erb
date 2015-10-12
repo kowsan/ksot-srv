@@ -1,18 +1,57 @@
 <% if @disable_menu.nil? %>
     <%= render :partial => 'control_list_factors/menu' %>
 <% end %>
-<p>
-    <strong>Дата:</strong>
-    <%= @control_list_month.form_date %>
-</p>
-<p>
-    <strong>Составил:</strong>
-    <%= @control_list_month.author.full_name %>
-</p>
-<p>
-    <strong>Подразделение:</strong>
-    <%= @control_list_month.subdivision.name %>
-</p>
+
+<table width="80%">
+    <tr>
+        <td align="center" colspan="4"><b>Контрольный лист по охране труда №<%= @control_list_month.id %></b></td>
+    </tr>
+    <tr>
+        <td>Наименование структурного подразделения&nbsp;</td>
+        <td style="text-decoration: underline;"><%= @control_list_month.subdivision.name %>&nbsp;</td>
+        <td>Наименование производственного участка&nbsp;</td>
+        <td style="text-decoration: underline;"><%= @control_list_month.subdivision.area.name %>&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="4">Должность
+            проверяющего&nbsp;<span style="text-decoration: underline"><%= @control_list_month.author.position %>&nbsp;</span>
+
+            ФИО
+            проверяющего&nbsp;<span style="text-decoration: underline"><%= @control_list_month.author.full_name %></span>
+        </td>
+
+    </tr>
+    <tr>
+        <td colspan="4">Дата составления контрольного
+            листа&nbsp;<span style="text-decoration: underline"><%= @control_list_month.form_date.to_s %></span></td>
+
+    </tr>
+</table>
+<table border="1" cellpadding="4" cellspacing="0" width="95%">
+
+    <th>№<br>п/п</th>
+    <th>Оценочный фактор</th>
+    <th>Соответствие требованиям охраны труда<br>(да/нет)</th>
+    <th>Выявленные несоответствия<br>(заполняется при наличии несоответствий)</th>
+    <th>Срок исполнения и ответственный</th>
+    <th>Принятые меры по устранению несоответствий</th>
+    <th>Отметка о выполнении</th>
+    <% ControlListFactorGroup.order('order_num asc').all.each do |g| %>
+        <tr>
+            <td colspan="7"><b><%= g.name %></b></td>
+        </tr>
+
+        <!-- Iterating factors-->
+        <% g.control_list_factors.all.each do |f| %>
+            <tr>
+                <td><i><%= f.factor %></i></td>
+                <td colspan="6">444444444444</td>
+            </tr>
+
+        <% end %>
+    <% end %>
+
+</table>
 <% ControlListFactorGroup.all.each do |g| %>
     <% if @control_list_links.where(:control_list_factor_group_id => g.id).any? %>
         <b><%= g.name %></b>
