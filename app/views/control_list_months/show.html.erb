@@ -4,8 +4,9 @@
 
 <table width="100%">
     <tr>
-        <td align="center" colspan="4"><b>Контрольный лист по охране труда №<%= @control_list_month.id %></b></td>
+        <td align="center" colspan="4"><b>Контрольный лист по охране труда №<%= @control_list_month.id %></b><br></td>
     </tr>
+
     <tr>
         <td colspan="4">Наименование структурного подразделения&nbsp;
             <span style="text-decoration: underline;"><%= @control_list_month.subdivision.name %>&nbsp;</span>
@@ -18,14 +19,16 @@
         </td>
     </tr>
     <tr>
-        <td colspan="4">Должность проверяющего&nbsp;<span style="text-decoration: underline"><%= @control_list_month.author.position %>&nbsp;</span>
+        <td colspan="4">Должность
+            проверяющего&nbsp;<span style="text-decoration: underline"><%= @control_list_month.author.position %>&nbsp;</span>
 
 
         </td>
 
     </tr>
     <tr>
-        <td colspan="4"> ФИО проверяющего&nbsp;<span style="text-decoration: underline"><%= @control_list_month.author.full_name %></span>
+        <td colspan="4"> ФИО
+            проверяющего&nbsp;<span style="text-decoration: underline"><%= @control_list_month.author.full_name %></span>
         </td>
 
     </tr>
@@ -35,6 +38,7 @@
 
     </tr>
 </table>
+<br>
 <table border="1" cellpadding="4" cellspacing="0" width="100%">
 
     <th>№<br>п/п</th>
