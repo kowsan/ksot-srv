@@ -45,7 +45,7 @@
         <% g.control_list_factors.order('order_num asc').all.each do |f| %>
             <tr>
                 <td><%= f.order_num %></td>
-                <td><i><%= f.factor %></i></td>
+                <td><%= f.factor %></td>
                 <% y= @control_list_links.where(:control_list_factor_group_id => g.id).where(:control_list_factor_id => f.id) %>
                 <% if y.any? %>
                     <% y.all.each do |c| %>
@@ -58,11 +58,11 @@
                     <!-- present-->
                 <% else %>
                     <!-- nothing-->
-                    <td>ДА</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
+                    <td align="center">ДА</td>
+                    <td align="center">-</td>
+                    <td align="center">-</td>
+                    <td align="center">-</td>
+                    <td align="center">-</td>
                 <% end %>
             </tr>
 
