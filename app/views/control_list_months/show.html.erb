@@ -6,7 +6,9 @@
     <tr>
         <td align="center" colspan="4"><b>Контрольный лист по охране труда №<%= @control_list_month.id %></b><br></td>
     </tr>
-     <tr><td colspan="4"><br></td><tr>
+    <tr>
+        <td colspan="4"><br></td>
+    <tr>
     <tr>
         <td colspan="4">Наименование структурного подразделения&nbsp;
             <span style="text-decoration: underline;"><%= @control_list_month.subdivision.name %>&nbsp;</span>
@@ -80,6 +82,25 @@
 
         <% end %>
     <% end %>
+
+</table>
+
+<table width="100%">
+    <tr>
+        <td>Контрольный лист для устранения замечаний получил&nbsp;<span style="text-decoration: underline">"&nbsp;&nbsp;"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;г.</span>
+        </td>
+
+
+    </tr>
+    <tr>
+        <td>Руководитель участка&nbsp;<span style="text-decoration: underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+    </tr>
+    <tr>
+        <td>Подпись проверяющего&nbsp;<span style="text-decoration: underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        </td>
+
+    </tr>
+
 
 </table>
 
