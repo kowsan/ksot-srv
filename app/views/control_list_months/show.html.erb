@@ -7,10 +7,10 @@
         <td align="center" colspan="4"><b>Контрольный лист по охране труда №<%= @control_list_month.id %></b></td>
     </tr>
     <tr>
-        <td>Наименование структурного подразделения&nbsp;</td>
-        <td style="text-decoration: underline;"><%= @control_list_month.subdivision.name %>&nbsp;</td>
-        <td>Наименование производственного участка&nbsp;</td>
-        <td style="text-decoration: underline;"><%= @control_list_month.subdivision.area.name %>&nbsp;</td>
+        <td colspan="4">Наименование структурного подразделения&nbsp;
+            <span style="text-decoration: underline;"><%= @control_list_month.subdivision.name %>&nbsp;</span>
+            Наименование производственного участка&nbsp;
+            <span style="text-decoration: underline;"><%= @control_list_month.subdivision.area.name %>&nbsp;</span>
     </tr>
     <tr>
         <td colspan="4">Должность
@@ -38,7 +38,7 @@
     <th>Отметка о выполнении</th>
     <% ControlListFactorGroup.order('order_num asc').all.each do |g| %>
         <tr>
-            <td  align="center" colspan="7"><b><%= g.name %></b></td>
+            <td align="center" colspan="7"><b><%= g.name %></b></td>
         </tr>
 
         <!-- Iterating factors-->
