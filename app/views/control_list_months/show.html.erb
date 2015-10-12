@@ -38,55 +38,39 @@
     <th>Отметка о выполнении</th>
     <% ControlListFactorGroup.order('order_num asc').all.each do |g| %>
         <tr>
-            <td colspan="7"><b><%= g.name %></b></td>
+            <td  align="center" colspan="7"><b><%= g.name %></b></td>
         </tr>
 
         <!-- Iterating factors-->
-        <% g.control_list_factors.all.each do |f| %>
+        <% g.control_list_factors.order('order_num asc').all.each do |f| %>
             <tr>
+                <td><%= f.order_num %></td>
                 <td><i><%= f.factor %></i></td>
-                <td colspan="6">444444444444</td>
+                <% y= @control_list_links.where(:control_list_factor_group_id => g.id).where(:control_list_factor_id => f.id) %>
+                <% if y.any? %>
+                    <% y.all.each do |c| %>
+                        <td>НЕТ</td>
+                        <td><%= c.inconsistency %></td>
+                        <td><%= c.date_due || '-' %><br><%= c.user.full_name %></td>
+                        <td><%= c.note_measures %></td>
+                        <td><%= c.note_due %></td>
+                    <% end %>
+                    <!-- present-->
+                <% else %>
+                    <!-- nothing-->
+                    <td>ДА</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                <% end %>
             </tr>
 
         <% end %>
     <% end %>
 
 </table>
-<% ControlListFactorGroup.all.each do |g| %>
-    <% if @control_list_links.where(:control_list_factor_group_id => g.id).any? %>
-        <b><%= g.name %></b>
-        <% @control_list_links.where(:control_list_factor_group_id => g.id).all.each do |c| %>
 
-            <table border="1" cellpadding="4" cellspacing="0">
-                <tr>
-                    <td colspan="2"><%= c.control_list_factor.factor %></td>
-                </tr>
-                <tr>
-                    <td>Пользователь</td>
-                    <td><%= c.user.full_name %></td>
-                </tr>
-                <tr>
-                    <td>Статус</td>
-                    <td><%= c.status.name %></td>
-                </tr>
-                <tr>
-                    <td>Выявленные несоответствия</td>
-                    <td><%= c.inconsistency %></td>
-                </tr>
-                <tr>
-                    <td>Принятые меры по устранению несоответствий</td>
-                    <td><%= c.note_measures %></td>
-                </tr>
-                <tr>
-                    <td>Отметка о выполнении</td>
-                    <td><%= c.note_due %></td>
-                </tr>
-
-            </table>
-            <br>
-        <% end %>
-    <% end %>
-<% end %>
 <script type="text/javascript">
     $('#clmonth').addClass('active')
 </script>
