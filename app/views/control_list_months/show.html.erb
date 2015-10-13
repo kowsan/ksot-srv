@@ -63,11 +63,11 @@
                 <% y= @control_list_links.where(:control_list_factor_group_id => g.id).where(:control_list_factor_id => f.id) %>
                 <% if y.any? %>
                     <% y.all.each do |c| %>
-                        <td>НЕТ</td>
-                        <td><%= c.inconsistency %></td>
-                        <td><%= c.date_due || '-' %><br><%= c.user.full_name %></td>
-                        <td><%= c.note_measures %></td>
-                        <td><%= c.note_due %></td>
+                        <td valign="top">НЕТ</td>
+                        <td valign="top"><%= c.inconsistency %></td>
+                        <td valign="top"><%= c.date_due || '-' %><br><%= c.user.full_name %></td>
+                        <td valign="top"><%= c.note_measures %></td>
+                        <td valign="top" ><%= c.note_due %></td>
                     <% end %>
                     <!-- present-->
                 <% else %>
