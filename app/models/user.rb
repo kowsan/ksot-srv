@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :rememberable, :trackable
   validates_presence_of :login, :first_name, :last_name, :staff_role_id, :subdivision_id
   def full_name
-    "#{self.first_name} #{self.last_name}"
+    "#{self.last_name} #{self.first_name} "
   end
 
   def area

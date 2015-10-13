@@ -30,7 +30,7 @@
 
     <div class="form-group">
         <%= f.label 'ФИО нарушителя' %><br>
-        <%= f.collection_select(:violator_id, User.all, :id, :full_name, {}, {:class => ' form-control input'}) %>
+        <%= f.collection_select(:violator_id, User.all.sort_by{|x| x['lastname']}, :id, :full_name, {}, {:class => ' form-control input'}) %>
     </div>
     <div class="form-group">
         <%= f.label 'Статус нарушения' %> <br>
