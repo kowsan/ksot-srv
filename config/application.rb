@@ -31,6 +31,6 @@ module Ksot
 
 
     require 'pdfkit'
-    config.middleware.use PDFKit::Middleware #, :print_media_type => true
+    config.middleware.use PDFKit::Middleware , :print_media_type => true
   end
 end
