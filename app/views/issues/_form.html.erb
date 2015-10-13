@@ -41,7 +41,7 @@
 
     <div class="form-group">
         <%= f.label 'Ответственный за устранение' %><br>
-        <%= f.collection_select(:assigned_id, User.all, :id, :full_name, {}, {:class => ' form-control input'}) %>
+        <%= f.collection_select(:assigned_id, User.order('last_name asc').all, :id, :full_name, {}, {:class => ' form-control input'}) %>
     </div>
     <div class="form-group">
         <%= f.label 'Рабочее место' %><br>
