@@ -4,41 +4,46 @@
 <h4 style="color: orange">Факторы (<%= @control_list_factors.count%>)</h4>
 <%= link_to 'Добавить фактор', new_control_list_factor_path, :class => 'btn btn-sm btn-success' %>
 <br><br>
-<table class="table table-hover table-striped">
+<table
+data-toggle="table"
+data-url="control_list_factors.json"
+data-show-columns="true"
+data-cache="true" data-search="true" data-show-toggle="true"
+data-show-refresh="true" class="table-striped"
+data-cookie="true"
 
-    <th>Порядок</th>
-    <th>Фактор</th>
-    <th>Группа</th>
-    <th>Активен</th>
-    <th>Примечание</th>
-    <th colspan="3"> Действия</th>
-
-
-    <tbody>
-    <% @control_list_factors.each do |control_list_factor| %>
-        <tr>
-            <td><%= control_list_factor.order_num %></td>
-            <td><%= control_list_factor.factor %></td>
-            <td><%= control_list_factor.control_list_factor_group.name %></td>
-            <td>
-                <% if control_list_factor.is_active? %>
-                <i class="glyphicon glyphicon-ok"></i>
-                <% else %>
-                    <i class="glyphicon glyphicon-off"></i>
-                <% end %>
-
-            </td>
-            <td><%= control_list_factor.comment || ' ' %></td>
-
-            <td><%= link_to '', edit_control_list_factor_path(control_list_factor),:class => 'btn btn-sm btn-primary glyphicon glyphicon-edit' %><!--<%= link_to 'Destroy', control_list_factor, method: :delete, data: {confirm: 'Are you sure?'} %>--></td>
-        </tr>
-    <% end %>
-    </tbody>
+data-cookie-id-table="clf_<%= @logged_user.login %>"
+data-sort-name="id">
+                                                                                                л
+    <thead>
+    <tr>
+        <th data-field="order_num" data-sortable="true">Порядок</th>
+        <th data-field="factor" data-sortable="true">Фактор</th>
+        <th data-field="facgroup" data-sortable="true">Группа</th>
+        <th data-field="is_active" data-sortable="true" data-formatter="activer">Активен?</th>
+        <th data-field="comment" data-sortable="true" >Примечание</th>
+        <th data-formatter="actions">Действия</th>
+    </tr>
+    </thead>
 </table>
-
 <br>
-
-
 <script type="text/javascript">
+    function actions(value, row) {
+
+        return '<a class="btn glyphicon glyphicon-edit btn-primary  btn-sm" href="' + row.url + '/edit"></a>'
+    }
+
+    function activer(value, row) {
+
+        if (value == true)
+            return '<i class="glyphicon glyphicon-ok"></i>'
+        else
+            return '<i class="glyphicon glyphicon-off"></i>'
+    }
+    function dater(value, row) {
+        return  row.last_sign_in_at_human
+    }
+
+
     $('#factors').addClass('active')
 </script>
