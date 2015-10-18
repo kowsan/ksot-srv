@@ -1,7 +1,7 @@
 <%= render :partial => 'control_list_factors/menu' %>
 
 
-<h4 style="color: orange">Факторы (<%= @control_list_factors.count%>)</h4>
+<h4 style="color: orange">Факторы (<%= @control_list_factors.count %>)</h4>
 <%= link_to 'Добавить фактор', new_control_list_factor_path, :class => 'btn btn-sm btn-success' %>
 <br><br>
 <table
@@ -14,15 +14,18 @@ data-cookie="true"
 
 data-cookie-id-table="clf_<%= @logged_user.login %>"
 data-sort-name="id">
-                                                                                                л
+    л
     <thead>
     <tr>
         <th data-field="order_num" data-sortable="true">Порядок</th>
         <th data-field="factor" data-sortable="true">Фактор</th>
         <th data-field="facgroup" data-sortable="true">Группа</th>
         <th data-field="is_active" data-sortable="true" data-formatter="activer">Активен?</th>
-        <th data-field="comment" data-sortable="true" >Примечание</th>
-        <th data-formatter="actions">Действия</th>
+
+        <th data-field="comment" data-sortable="true">Примечание</th>
+        <% if @can_manage_org_structure %>
+            <th data-formatter="actions">Действия</th>
+        <% end %>
     </tr>
     </thead>
 </table>
@@ -41,7 +44,7 @@ data-sort-name="id">
             return '<i class="glyphicon glyphicon-off"></i>'
     }
     function dater(value, row) {
-        return  row.last_sign_in_at_human
+        return row.last_sign_in_at_human
     }
 
 
