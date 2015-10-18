@@ -11,7 +11,7 @@ json.array!(@issues) do |issue|
 
   json.due_date issue.due_date
   json.due_date_human issue.due_date.to_s || '-'
-
+   json.color issue.issue_type.critical_type.color
   json.workspace issue.work_space.name
   json.note_measures issue.note_measures
   json.url issue_path issue

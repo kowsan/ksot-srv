@@ -49,7 +49,7 @@
 
     <thead>
     <tr>
-        <th data-field="id" data-sortable="true">ID</th>
+        <th data-field="id" data-sortable="true" data-formatter="colorer">ID</th>
         <th data-field="author" data-sortable="true">Выявил</th>
         <th data-field="created" data-sortable="true" data-formatter="created_human">Дата проверки</th>
         <th data-field="violator" data-sortable="true">Нарушитель</th>
@@ -75,6 +75,9 @@
     function due_date_human(value, row) {
         return row.due_date_human
     }
+    function colorer(value, row) {
+        return '<span style="background-color: ' + row.color + '">' + row.id + '</span>';
+    }
 
     function query_p() {
         return {format: 'json'}
@@ -96,7 +99,7 @@
         $('#tbl2').on('load-success.bs.table', function (data) {
             $('.dropdown-toggle').dropdown();
         });
-        $('#tbl2').on('onPageChange', function (number,size) {
+        $('#tbl2').on('onPageChange', function (number, size) {
             $('.dropdown-toggle').dropdown();
         });
         //onPageChange
