@@ -11,7 +11,7 @@ class WorkSpacesController < ApplicationController
 
   def get_issue_types
     ws=params[:work_space_id]
-    @issue_types= WorkSpace.find(ws).issue_types
+    @issue_types= WorkSpace.find(ws).issue_types.joins(:critical_type).order('critical_types.weight')
   end
 
   # GET /work_spaces/1
