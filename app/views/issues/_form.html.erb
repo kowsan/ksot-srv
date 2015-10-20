@@ -187,7 +187,7 @@
                                 case 'Синий':
                                     $('#issue_issue_type_id').append($("<option></option>")
                                             .attr("value", v.id)
-                                            //.attr('data-description', v.critical_type.name)
+                                            .attr('data-description', v.critical_type.name)
                                             .attr('data-imagesrc', '<%= image_path("red.png")%>')
                                             .text(v.name));
                                     break;
@@ -195,21 +195,21 @@
                                     console.log('red')
                                     $('#issue_issue_type_id').append($("<option></option>")
                                             .attr("value", v.id)
-                                            //.attr('data-description', v.critical_type.name)
+                                            .attr('data-description', v.critical_type.name)
                                             .attr('data-imagesrc', '<%= image_path("red.png")%>')
                                             .text(v.name));
                                     break;
                                 case 'Желтый':
                                     $('#issue_issue_type_id').append($("<option></option>")
                                             .attr("value", v.id)
-                                            //.attr('data-description', v.critical_type.name)
+                                            .attr('data-description', v.critical_type.name)
                                             .attr('data-imagesrc', '<%= image_path("red.png")%>')
                                             .text(v.name));
                                     break;
                                 case 'Оранжевый':
                                     $('#issue_issue_type_id').append($("<option></option>")
                                             .attr("value", v.id)
-                                           // .attr('data-description', v.critical_type.name)
+                                           .attr('data-description', v.critical_type.name)
                                             .attr('data-imagesrc', '<%= image_path("red.png")%>')
                                             .text(v.name));
                                     break;
@@ -219,7 +219,7 @@
                         fixOldIt()
                         $('#issue_issue_type_id').ddslick({
                             width: width + 30,
-                            height: 300,
+                            height: 250,
 
                         });
 
