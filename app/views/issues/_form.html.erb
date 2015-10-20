@@ -181,17 +181,45 @@
                         $('#issue_issue_type_id').find('option').remove().end()
                         $.each(json, function (k, v) {
 
-                            $('#issue_issue_type_id').append($("<option></option>")
-                                    .attr("value", v.id)
-                                    .attr('data-description', v.critical_type.name)
-                                //.attr('data-background', v.critical_type.color)
-                                    .text(v.name));
 
+                            switch (v.critical_type.name) {
+
+                                case 'Синий':
+                                    $('#issue_issue_type_id').append($("<option></option>")
+                                            .attr("value", v.id)
+                                            .attr('data-description', v.critical_type.name)
+                                            .attr('data-imagesrc', '<%= image_path("blue.png")%>')
+                                            .text(v.name));
+                                    break;
+                                case 'Красный':
+                                    console.log('red')
+                                    $('#issue_issue_type_id').append($("<option></option>")
+                                            .attr("value", v.id)
+                                            .attr('data-description', v.critical_type.name)
+                                            .attr('data-imagesrc', '<%= image_path("red.png")%>')
+                                            .text(v.name));
+                                    break;
+                                case 'Желтый':
+                                    $('#issue_issue_type_id').append($("<option></option>")
+                                            .attr("value", v.id)
+                                            .attr('data-description', v.critical_type.name)
+                                            .attr('data-imagesrc', '<%= image_path("yellow.png")%>')
+                                            .text(v.name));
+                                    break;
+                                case 'Оранжевый':
+                                    $('#issue_issue_type_id').append($("<option></option>")
+                                            .attr("value", v.id)
+                                            .attr('data-description', v.critical_type.name)
+                                            .attr('data-imagesrc', '<%= image_path("orange.png")%>')
+                                            .text(v.name));
+                                    break;
+                            }
+                            //.attr('data-description', v.critical_type.name)
                         })
                         fixOldIt()
                         $('#issue_issue_type_id').ddslick({
-                            width: width,
-                            height: 200,
+                            width: width + 50,
+                            height: 300,
 
                         });
 
