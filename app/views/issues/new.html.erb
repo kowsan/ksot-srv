@@ -1,7 +1,7 @@
 <h1>Новое нарушение</h1>
 <% @issue.due_date=Time.current+2.days %>
 <% @issue.created_at=Time.current %>
-<div class="col-lg-5">
+<div class="col-lg-7">
     <%= render 'form' %>
 
     <%= link_to 'Назад', issues_path %>
