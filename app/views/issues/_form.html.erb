@@ -177,7 +177,7 @@
             ).done(function (json) {
                         $('#issue_issue_type_id').ddslick('destroy');
                         var width = $('#issue_issue_type_id').width()
-
+                        console.log('length of json :',json.length)
                         $('#issue_issue_type_id').find('option').remove().end()
                         $.each(json, function (k, v) {
 
