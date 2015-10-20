@@ -34,7 +34,7 @@
             onSelected: function () { }
         },
 
-        ddSelectHtml = '<div class="dd-select"><input class="dd-selected-value" type="hidden" /><a class="dd-selected"></a><span class="dd-pointer dd-pointer-down"></span></div>',
+        ddSelectHtml = '<div class="dd-select"><input class="dd-selected-value" type="hidden" /><span class="dd-selected"></span><span class="dd-pointer dd-pointer-down"></span></div>',
         ddOptionsHtml = '<ul class="dd-options"></ul>',
 
     //CSS for ddSlick
@@ -116,12 +116,12 @@
                 $.each(options.data, function (index, item) {
                     if (item.selected) options.defaultSelectedIndex = index;
                     ddOptions.append('<li>' +
-                        '<a class="dd-option">' +
+                        '<span class="dd-option">' +
                         (item.value ? ' <input class="dd-option-value" type="hidden" value="' + item.value + '" />' : '') +
                         (item.imageSrc ? ' <img class="dd-option-image' + (options.imagePosition == "right" ? ' dd-image-right' : '') + '" src="' + item.imageSrc + '" />' : '') +
                         (item.text ? ' <span class="dd-option-text">' + item.text + '</span>' : '') +
                         (item.description ? ' <small class="dd-option-description dd-desc">' + item.description + '</small>' : '') +
-                        '</a>' +
+                        '</span>' +
                         '</li>');
                 });
 
