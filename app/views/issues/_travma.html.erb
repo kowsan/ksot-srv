@@ -1,0 +1,26 @@
+<% lt= Issue.last_travma_at
+   if lt.nil?
+     days='-'
+     months='-'
+     years='-'
+   else
+     days=((Time.current-(Issue.last_travma_at))/1.day).to_i
+     months=((Time.current-(Issue.last_travma_at))/1.month).to_i
+     years=((Time.current-(Issue.last_travma_at))/1.year).to_i
+
+   end
+%>
+<table border="1" style="background-color: #fcfcfc" class="table table-bordered ">
+    <tr >
+        <td>работаем без травм</td>
+        <td><%= days.to_s %> дн.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><%= months.to_s %> мес.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><%= years.to_s %> лет.</td>
+    </tr>
+</table>

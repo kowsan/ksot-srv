@@ -1,13 +1,26 @@
 <%= render :partial => 'work/menu' %>
 <% if @allow_anon %>
     <br>
+
+
     <%= link_to 'Новое нарушение', new_issue_path, :class => 'btn btn-success btn-sm' %>
     <br>
-    <%= render :partial => 'work/krest_all' %>
+    <div class="row">
+        <div class="col-lg-8">
+            <%= render :partial => 'work/krest_all' %></div>
+
+        </div>
+        <div class="col-md-2">
+            <div><%= render :partial => 'issues/travma' %></div>
+        </div>
+
+
+    </div>
+
 
 <% else %>
     <b>Работа в анонимном режиме запрещена или к вашему АРМ не привязаны РАБОЧИЕ МЕСТА </b>
-<%end%>
+<% end %>
 <br>
 
 <% if current_user %>

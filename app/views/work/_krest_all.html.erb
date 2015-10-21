@@ -148,7 +148,7 @@
     });
 
 </script>
-<br>
+
 
 <div class="container-fluid">
 
@@ -224,7 +224,7 @@
         </div>
     </div>
 
-</div>
+
 
 
 <% if current_user.nil? %>
@@ -235,14 +235,14 @@
         <p>Необходимо ввести нарушения! Нажмите "Авторизация" для продолжения.</p>
     </div>
 <% end %>
-</div>
+
 <div class="row col-lg-5 pull-left">
     <button class="btn btn-primary btn-sm" id="prev_month"><%= (Time.current-1.month).strftime("%m.%Y") %></button>
     <button class="btn btn-success btn-sm " id="month"><%= (Time.current).strftime("%m.%Y") %></button>
     <button class="btn btn-primary btn-sm" id="next_month"><%= (Time.current+1.month).strftime("%m.%Y") %></button>
 </div>
 <script>
-
+                                                                       _krest_all
     $('#month').click(function () {
 
         getCalendarData()
