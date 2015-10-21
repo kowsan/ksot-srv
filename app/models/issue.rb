@@ -13,7 +13,9 @@ class Issue < ActiveRecord::Base
   validates_presence_of :issue_type_id, :message => 'не может быть пустым'
   after_save :drop_redis_cache
 
-
+  def self.last_travma_at
+    Issue.joins(:issue_type,:critical_type).where("critical_types.name='Синий'").maximum(:created_at)
+  end
   private
 
 
