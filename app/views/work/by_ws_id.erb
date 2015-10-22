@@ -1,5 +1,7 @@
+<%= render :partial => 'work/menu'%>
 <% WorkSpace.unscoped.all.each_with_index do |item, index| %>
-    <div class="row">
+    <h4 style="color: #0c75d2"><%= item.name %></h4>
+    <div class="container">
         <%=  render :partial => 'work/krest_view', :locals => {:@works_id => item.id} %>
     </div>
 <% end %>
