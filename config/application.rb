@@ -28,7 +28,9 @@ module Ksot
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
-
+    config.action_dispatch.default_headers = {
+        'X-Frame-Options' => 'ALLOWALL'
+    }
 
     require 'pdfkit'
     config.middleware.use PDFKit::Middleware , :print_media_type => true

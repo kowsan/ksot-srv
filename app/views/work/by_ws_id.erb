@@ -1,0 +1,5 @@
+<% WorkSpace.unscoped.all.each_with_index do |item, index| %>
+    <div class="row">
+        <%=  render :partial => 'work/krest_view', :locals => {:@works_id => item.id} %>
+    </div>
+<% end %>

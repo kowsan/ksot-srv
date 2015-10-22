@@ -1,3 +1,9 @@
+<% if @works_id.nil?
+     @works_id=0
+
+   end %>
+
+
 <style id="s1">
     <%clrz=CriticalType.distinct(:color).collect { |y| y.color }.append('#FFFFFF').append('#97D077').append('#FCFCFC')%>
     <% clrz.each do |c|%>
@@ -62,14 +68,14 @@
 
 
     function day_clickable(day) {
-        $('#day_' + day).click(function () {
+        $('#day_<%= @works_id%>_' + day).click(function () {
             var cm = $('#info_date').text()
             console.log("Clicked day:", day)
             window.location.href = '/issues/?from=' + day + '.' + cm + '&to=' + day + '.' + cm
         })
     }
-    function getCalendarData() {
-        if ($('#month').html().toString().length != 7) {
+    function getCalendarData_<%= @works_id %>() {
+        if ($('#month_<%= @works_id%>').html().toString().length != 7) {
 
             return false;
         }
@@ -77,7 +83,7 @@
             $(this).html("&nbsp;")
             // $(this).css("background-color", "white")
         });
-        $.each($("div[id^='reset_']"), function () {
+        $.each($("div[id^='reset_<%= @works_id %>']"), function () {
             $(this).removeAttr('class').addClass('triangle_FCFCFC_FCFCFC')
 
             $(this).removeAttr('style')
@@ -87,8 +93,12 @@
         $.ajax({
             url: "/issues/monthly.json",
             data: {
-                date: $('#month').html(),
-                work_space_id: $('#ws_id_work_space_id').val()
+                date: $('#month_<%= @works_id%>').html(),
+                <% if @works_id==0%>
+                work_space_id: $('#ws_id_work_space_id').val(),
+                <%else%>
+                work_space_id: <%= @works_id.to_s %>
+                <%end%>
             },
             cache: true,
             type: "GET",
@@ -109,24 +119,24 @@
                             var c1 = colorz[0].toString().replace("#", '')
                             var c2 = colorz[1].toString().replace("#", '')
 //
-                            $("#day_" + day).attr("style", "width: 60px; height: 60px; background-color: white;")
-                            $("#day_" + day).html('')
-                            $('#day_' + day).append("<div style='z-index: 10;  position: absolute;'>" + day + "</div>")
-                            $('#day_' + day).append("<div id='reset_' class='triangle_trg_" + c1 + "_" + c2 + "' style='background-color:#778DA5'" + "></div>")
+                            $("#day_<%= @works_id%>_" + day).attr("style", "width: 60px; height: 60px; background-color: white;")
+                            $("#day_<%= @works_id%>_" + day).html('')
+                            $('#day_<%= @works_id%>_' + day).append("<div style='z-index: 10;  position: absolute;'>" + day + "</div>")
+                            $('#day_<%= @works_id%>_' + day).append("<div id='reset_<%= @works_id %>' class='triangle_trg_" + c1 + "_" + c2 + "' style='background-color:#778DA5'" + "></div>")
 
                         } else {
                             var c1 = v.c.toString().replace("#", '')
                             var c2 = c1
 //
-                            $("#day_" + day).attr("style", "width: 60px; height: 60px; background-color: white;")
-                            $("#day_" + day).html('')
-                            $('#day_' + day).append("<div style='z-index: 10;  position: absolute;'>" + day + "</div>")
-                            $('#day_' + day).append("<div id='reset_' class='triangle_" + c1 + "_" + c2 + "'></div>")
+                            $("#day_<%= @works_id%>_" + day).attr("style", "width: 60px; height: 60px; background-color: white;")
+                            $("#day_<%= @works_id%>_" + day).html('')
+                            $('#day_<%= @works_id%>_' + day).append("<div style='z-index: 10;  position: absolute;'>" + day + "</div>")
+                            $('#day_<%= @works_id%>_' + day).append("<div id='reset_<%= @works_id %>' class='triangle_" + c1 + "_" + c2 + "'></div>")
 
                         }
 
                     })
-                    $('#info_date').html($('#month').html())
+                    $('#info_date').html($('#month_<%= @works_id%>').html())
 
 
                 }
@@ -143,27 +153,33 @@
             format: 'MM.YYYY'
         });
         $('#ws_id_work_space_id').change(function () {
-            getCalendarData();
+            getCalendarData_<%=@works_id %>()
             $(document).find()
 
 
             console.log($('#ws_id_work_space_id').val())
         })
         //setInterval(getCalendarData, 60000)
-        getCalendarData()
+        getCalendarData_<%=@works_id %>()
     });
 
 </script>
 <br>
-<div class="row ">
+<% if @works_id==0 %>
+    <div class="row ">
 
 
-    <div class="col-lg-1"><label>Рабочее место</label></div>
-    <% unless @workspaces.nil? %>
-        <div class="col-lg-3 "><%= collection_select(:ws_id, :work_space_id, @workspaces, :id, :name, {}, {multiple: false, :class => ' form-control input'}) %> </div>
-    <% end %>
+        <div class="col-lg-1"><label>Рабочее место</label></div>
+        <% unless @workspaces.nil? %>
+            <div class="col-lg-3 "><%= collection_select(:ws_id, :work_space_id, @workspaces, :id, :name, {}, {multiple: false, :class => ' form-control input'}) %> </div>
+        <% end %>
 
-</div>
+    </div>
+<% else %>
+
+    <input type="hidden" id="ws_id_work_space_id" value="<%= @works_id %>">
+
+<% end %>
 <div class="container-fluid">
 
     <div class="row row-centered">
@@ -171,70 +187,70 @@
         <br><br>
     </div>
     <div class="row row-centered">
-        <div id="day_1" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
-        <div id="day_2" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
-        <div id="day_3" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_1" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_2" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_3" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
     </div>
     <div class="row row-centered">
-        <div id="day_4" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black; background-color: white;"></div>
-        <div id="day_5" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
-        <div id="day_6" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_4" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black; background-color: white;"></div>
+        <div id="day_<%= @works_id %>_5" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_6" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
     </div>
     <div class="row row-centered">
-        <div id="day_7" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
-        <div id="day_8" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
-        <div id="day_9" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
-        <div id="day_10" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
-        <div id="day_11" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
-        <div id="day_12" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
-        <div id="day_13" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_7" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_8" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_9" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_10" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_11" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_12" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_13" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
     </div>
     <div class="row row-centered">
-        <div id="day_14" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
-        <div id="day_15" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
-        <div id="day_16" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
-        <div id="day_17" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
-        <div id="day_18" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
-        <div id="day_19" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
-        <div id="day_20" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_14" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_15" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_16" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_17" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_18" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_19" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_20" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
     </div>
     <div class="row row-centered">
-        <div id="day_21" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
-        <div id="day_22" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
-        <div id="day_23" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
-        <div id="day_24" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
-        <div id="day_25" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
-        <div id="day_26" class="col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
-        <div id="day_27" class="col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_21" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_22" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_23" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_24" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_25" class="  col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_26" class="col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
+        <div id="day_<%= @works_id %>_27" class="col-centered" style="width: 60px;height: 60px; border: 1px solid black;background-color: white"></div>
     </div>
     <div class="row row-centered">
-        <div id="day_28" class="  col-centered" style="width: 60px;height: 60px;border: 1px solid black;background-color: white">
+        <div id="day_<%= @works_id %>_28" class="  col-centered" style="width: 60px;height: 60px;border: 1px solid black;background-color: white">
             <div style="z-index: 10;  position: absolute;">-</div>
             <div class="triangle_FCFCFC_FCFCFC"></div>
         </div>
 
 
-        <div id="day_29" class="  col-centered" style="width: 60px; height: 60px; background-color: white;">
+        <div id="day_<%= @works_id %>_29" class="  col-centered" style="width: 60px; height: 60px; background-color: white;">
             <div style="z-index: 10;  position: absolute;">-</div>
-            <div id="reset_" class="triangle_trg_FCFCFC_FCFCFC"></div>
+            <div id="reset_<%= @works_id %>" class="triangle_trg_FCFCFC_FCFCFC"></div>
         </div>
-        <div id="day_30" class="  col-centered" style="width: 60px; height: 60px; background-color: white;">
+        <div id="day_<%= @works_id %>_30" class="  col-centered" style="width: 60px; height: 60px; background-color: white;">
             <div style="z-index: 10;  position: absolute;">-</div>
-            <div id="reset_" class="triangle_trg_FCFCFC_FCFCFC"></div>
+            <div id="reset_<%= @works_id %>" class="triangle_trg_FCFCFC_FCFCFC"></div>
         </div>
     </div>
     <div class="row row-centered" id="footer2">
-        <div id="day_31" class="  col-centered" style="width: 60px; height: 60px; background-color: white;">
+        <div id="day_<%= @works_id %>_31" class="  col-centered" style="width: 60px; height: 60px; background-color: white;">
             <div style="z-index: 10;  position: absolute;">-</div>
-            <div id="reset_" class="triangle_trg_FCFCFC_FCFCFC"></div>
+            <div id="reset_<%= @works_id %>" class="triangle_trg_FCFCFC_FCFCFC"></div>
         </div>
-        <div id="day_32" class="  col-centered" style="width: 60px; height: 60px; background-color: white;">
+        <div id="day_<%= @works_id %>_32" class="  col-centered" style="width: 60px; height: 60px; background-color: white;">
             <div style="z-index: 10;  position: absolute;">-</div>
-            <div id="reset_" class="triangle_trg_FCFCFC_FCFCFC"></div>
+            <div id="reset_<%= @works_id %>" class="triangle_trg_FCFCFC_FCFCFC"></div>
         </div>
-        <div id="day_33" class="  col-centered" style="width: 60px; height: 60px; background-color: white;">
+        <div id="day_<%= @works_id %>_33" class="  col-centered" style="width: 60px; height: 60px; background-color: white;">
             <div style="z-index: 10;  position: absolute;">-</div>
-            <div id="reset_" class="triangle_trg_FCFCFC_FCFCFC"></div>
+            <div id="reset_<%= @works_id %>" class="triangle_trg_FCFCFC_FCFCFC"></div>
         </div>
     </div>
 
@@ -251,34 +267,40 @@
 <% end %>
 </div>
 <div class="row col-lg-5 pull-left">
-    <button class="btn btn-primary btn-sm" id="prev_month"><%= (Time.current-1.month).strftime("%m.%Y") %></button>
-    <button class="btn btn-success btn-sm " id="month"><%= (Time.current).strftime("%m.%Y") %></button>
-    <button class="btn btn-primary btn-sm" id="next_month"><%= (Time.current+1.month).strftime("%m.%Y") %></button>
+    <button class="btn btn-primary btn-sm" id="prev_month_<%= @works_id %>"><%= (Time.current-1.month).strftime("%m.%Y") %></button>
+    <button class="btn btn-success btn-sm " id="month_<%= @works_id %>"><%= (Time.current).strftime("%m.%Y") %></button>
+    <button class="btn btn-primary btn-sm" id="next_month_<%= @works_id %>"><%= (Time.current+1.month).strftime("%m.%Y") %></button>
 </div>
 <script>
 
-    $()
-    $('#month').click(function () {
 
-        getCalendarData()
+    $('#month_<%= @works_id%>').click(function () {
+
+        getCalendarData_<%=@works_id %>()
 
     })
 
 
-    $("#next_month").click(function () {
+    $("#next_month_<%= @works_id%>").click(function () {
         var pm = ''
         var cm = ''
-        var cd = $('#month').html()
-        $.getJSON("/issues/next_date.json", {offset: 1, date: $('#month').html()}).done(function (json) {
+        var cd = $('#month_<%= @works_id%>').html()
+        $.getJSON("/issues/next_date.json", {
+            offset: 1,
+            date: $('#month_<%= @works_id%>').html()
+        }).done(function (json) {
             console.log(json);
             pm = json.toString()
-            $.getJSON("/issues/next_date.json", {offset: 2, date: $('#month').html()}).done(function (json) {
+            $.getJSON("/issues/next_date.json", {
+                offset: 2,
+                date: $('#month_<%= @works_id%>').html()
+            }).done(function (json) {
                 console.log(json);
                 cm = json.toString()
-                $('#prev_month').html(cd)
-                $('#month').html(pm)
-                $('#next_month').html(cm)
-                $('#month').click()
+                $('#prev_month_<%= @works_id%>').html(cd)
+                $('#month_<%= @works_id%>').html(pm)
+                $('#next_month_<%= @works_id%>').html(cm)
+                $('#month_<%= @works_id%>').click()
             })
         })
 
@@ -288,21 +310,27 @@
     });
 
 
-    $("#prev_month").click(function () {
+    $("#prev_month_<%= @works_id%>").click(function () {
         var pm = ''
         var cm = ''
-        var cd = $('#month').html()
-        $.getJSON("/issues/next_date.json", {offset: -1, date: $('#month').html()}).done(function (json) {
+        var cd = $('#month_<%= @works_id%>').html()
+        $.getJSON("/issues/next_date.json", {
+            offset: -1,
+            date: $('#month_<%= @works_id%>').html()
+        }).done(function (json) {
             console.log(json);
             pm = json.toString()
 
-            $.getJSON("/issues/next_date.json", {offset: -2, date: $('#month').html()}).done(function (json) {
+            $.getJSON("/issues/next_date.json", {
+                offset: -2,
+                date: $('#month_<%= @works_id%>').html()
+            }).done(function (json) {
                 console.log(json);
                 cm = json.toString()
-                $('#prev_month').html(cm)
-                $('#month').html(pm)
-                $('#next_month').html(cd)
-                $('#month').click()
+                $('#prev_month_<%= @works_id%>').html(cm)
+                $('#month_<%= @works_id%>').html(pm)
+                $('#next_month_<%= @works_id%>').html(cd)
+                $('#month_<%= @works_id%>').click()
             })
 
         })

@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   get 'work/app_logout'
   get 'work/user_info'
   get 'work/by_day_in_month'
+  get 'work/by_ws_id'
   resources :issues do
     collection do
       get 'monthly'
