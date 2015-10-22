@@ -1,5 +1,5 @@
 class WorkController < ApplicationController
-  before_action :check_permission, :except => [:app_login, :app_logout, :user_info]
+  before_action :check_permission, :except => [:app_login, :app_logout, :user_info,:by_day_in_month]
 
   def user_info
 
@@ -33,13 +33,31 @@ class WorkController < ApplicationController
 
   def by_day_in_month
 
-    if @logged_user.nil?
-      respond_to do |format|
-        format.html { render :nothing => true, :status => :forbidden }
+    ws=AutoWorkSpace.current_aws(cookies[:app_id])
+    if ws.nil?
+      @allow_anon=false
+    else
+      if ws.work_spaces.count==0
+        @allow_anon=false
+      else
+        @allow_anon=ws.allow_anonymous?
       end
     end
-    @allow_anon='you authed'
-    @workspaces=WorkSpace.unscoped.all
+    if current_user
+      @allow_anon='you authed'
+      check_permission
+      @workspaces= get_available_work_spaces
+      if @workspaces.nil?
+        @allow_anon=false
+      end
+
+    else
+      @workspaces= get_available_work_spaces
+      if @workspaces.nil?
+        @allow_anon=false
+      end
+    end
+
   end
 
   def summary

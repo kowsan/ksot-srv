@@ -1,6 +1,6 @@
 class IssuesController < ApplicationController
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
-  before_action :check_permission, :validate_access_ws, :except => [:monthly, :next_date]
+  before_action :check_permission, :validate_access_ws, :except => [:monthly, :next_date,:monthly_by_day]
   before_action :set_filter_ws, only: [:index, :assigned, :owned]
 
   def days_in_month
