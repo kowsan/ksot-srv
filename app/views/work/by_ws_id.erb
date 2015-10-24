@@ -1,10 +1,15 @@
 <%= render :partial => 'work/menu' %>
+<div class="row">
+    <div class="col-md-offset-8 col-md-2">
+        <div><%= render :partial => 'issues/travma' %></div>
+    </div>
+</div>
 
 <% WorkSpace.unscoped.all.each_with_index do |item, index| %>
 
     <% if index.even? %>
 
-        <div class="container-fluid">
+        <div class="row">
             <div class="col-lg-5">
                 <h4 style="color: #975300"><%= item.name %></h4>
                 <%= render :partial => 'work/krest_view', :locals => {:@works_id => item.id} %>
