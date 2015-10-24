@@ -169,9 +169,9 @@
     <div class="row ">
 
 
-        <div class="col-lg-1"><label>Рабочее место</label></div>
+        <div class="col-md-1"><label>Рабочее место</label></div>
         <% unless @workspaces.nil? %>
-            <div class="col-lg-3 "><%= collection_select(:ws_id, :work_space_id, @workspaces, :id, :name, {}, {multiple: false, :class => ' form-control input'}) %> </div>
+            <div class="col-md-3 "><%= collection_select(:ws_id, :work_space_id, @workspaces, :id, :name, {}, {multiple: false, :class => ' form-control input'}) %> </div>
         <% end %>
 
     </div>
@@ -231,7 +231,7 @@
 
 
         <div id="day_<%= @works_id %>_29" class="  col-centered" style="width: 60px; height: 60px; background-color: white;">
-            <div id='day_content_<%= @works_id %>'  style="z-index: 10;  position: absolute;">-</div>
+            <div id='day_content_<%= @works_id %>' style="z-index: 10;  position: absolute;">-</div>
             <div id="reset_<%= @works_id %>" class="triangle_trg_FCFCFC_FCFCFC"></div>
         </div>
         <div id="day_<%= @works_id %>_30" class="  col-centered" style="width: 60px; height: 60px; background-color: white;">
@@ -265,11 +265,15 @@
         <p>Необходимо ввести нарушения! Нажмите "Авторизация" для продолжения.</p>
     </div>
 <% end %>
-</div>
-<div class="row col-lg-5 pull-left">
-    <button class="btn btn-primary btn-sm" id="prev_month_<%= @works_id %>"><%= (Time.current-1.month).strftime("%m.%Y") %></button>
-    <button class="btn btn-success btn-sm " id="month_<%= @works_id %>"><%= (Time.current).strftime("%m.%Y") %></button>
-    <button class="btn btn-primary btn-sm" id="next_month_<%= @works_id %>"><%= (Time.current+1.month).strftime("%m.%Y") %></button>
+
+<div class="container">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-primary btn-sm" id="prev_month_<%= @works_id %>"><%= (Time.current-1.month).strftime("%m.%Y") %></button>
+        <button class="btn btn-success btn-sm " id="month_<%= @works_id %>"><%= (Time.current).strftime("%m.%Y") %></button>
+        <button class="btn btn-primary btn-sm" id="next_month_<%= @works_id %>"><%= (Time.current+1.month).strftime("%m.%Y") %></button>
+    </div>
 </div>
 <script>
 

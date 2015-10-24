@@ -1,7 +1,24 @@
-<%= render :partial => 'work/menu'%>
+<%= render :partial => 'work/menu' %>
+
 <% WorkSpace.unscoped.all.each_with_index do |item, index| %>
-    <h4 style="color: #0c75d2"><%= item.name %></h4>
-    <div class="container">
-        <%=  render :partial => 'work/krest_view', :locals => {:@works_id => item.id} %>
-    </div>
+
+    <% if index.even? %>
+
+        <div class="row">
+            <div class="col-lg-5">
+                <h4><%= item.name %></h4>
+                <%= render :partial => 'work/krest_view', :locals => {:@works_id => item.id} %>
+            </div>
+    <% else %>
+        <div class="col-lg-5">
+            <h4><%= item.name %></h4>
+            <%= render :partial => 'work/krest_view', :locals => {:@works_id => item.id} %>
+        </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <hr>
+            </div>
+        </div>
+    <% end %>
 <% end %>
