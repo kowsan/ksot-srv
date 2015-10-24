@@ -1,5 +1,5 @@
 class WorkController < ApplicationController
-  before_action :check_permission, :except => [:app_login, :app_logout, :user_info, :by_day_in_month]
+  before_action :check_permission, :except => [:app_login, :app_logout, :user_info, :by_day_in_month,:by_ws_id]
 
   def by_ws_id
     @workspaces= get_available_work_spaces

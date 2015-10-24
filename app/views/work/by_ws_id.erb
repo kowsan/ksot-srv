@@ -1,29 +1,37 @@
 <%= render :partial => 'work/menu' %>
-<div class="row">
-    <div class="col-md-offset-8 col-md-2">
-        <div><%= render :partial => 'issues/travma' %></div>
+<% if !@workspaces.nil? %>
+    <div class="row">
+        <div class="col-md-offset-8 col-md-2">
+            <div><%= render :partial => 'issues/travma' %></div>
+        </div>
     </div>
-</div>
+    <% @workspaces.all.each_with_index do |item, index| %>
 
-<% WorkSpace.unscoped.all.each_with_index do |item, index| %>
+        <% if index.even? %>
 
-    <% if index.even? %>
-
-        <div class="row">
+            <div class="row">
+                <div class="col-lg-5">
+                    <h4 style="color: #975300"><%= item.name %></h4>
+                    <%= render :partial => 'work/krest_view', :locals => {:@works_id => item.id} %>
+                </div>
+        <% else %>
             <div class="col-lg-5">
                 <h4 style="color: #975300"><%= item.name %></h4>
                 <%= render :partial => 'work/krest_view', :locals => {:@works_id => item.id} %>
             </div>
-    <% else %>
-        <div class="col-lg-5">
-            <h4 style="color: #975300"><%= item.name %></h4>
-            <%= render :partial => 'work/krest_view', :locals => {:@works_id => item.id} %>
-        </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <hr>
             </div>
-        </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <hr>
+                </div>
+            </div>
+        <% end %>
     <% end %>
+<% else %>
+
+    <b>Работа в анонимном режиме запрещена или к вашему АРМ не привязаны РАБОЧИЕ МЕСТА </b>
+
 <% end %>
+<script type="text/javascript">
+    $('#krestacombined').addClass('active')
+</script>
