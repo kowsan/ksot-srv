@@ -4,14 +4,14 @@
 
     <% if index.even? %>
 
-        <div class="row">
+        <div class="container-fluid">
             <div class="col-lg-5">
-                <h4><%= item.name %></h4>
+                <h4 style="color: #975300"><%= item.name %></h4>
                 <%= render :partial => 'work/krest_view', :locals => {:@works_id => item.id} %>
             </div>
     <% else %>
         <div class="col-lg-5">
-            <h4><%= item.name %></h4>
+            <h4 style="color: #975300"><%= item.name %></h4>
             <%= render :partial => 'work/krest_view', :locals => {:@works_id => item.id} %>
         </div>
         </div>
