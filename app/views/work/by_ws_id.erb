@@ -32,6 +32,11 @@
     <b>Работа в анонимном режиме запрещена или к вашему АРМ не привязаны РАБОЧИЕ МЕСТА </b>
 
 <% end %>
+<% if current_user %>
+
+<% else %>
+    <%= link_to 'Авторизация', new_user_session_path, :class => 'btn btn-success pull-right' %>
+<% end %>
 <script type="text/javascript">
     $('#krestacombined').addClass('active')
 </script>
