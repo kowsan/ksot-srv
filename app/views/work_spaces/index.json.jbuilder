@@ -3,7 +3,7 @@ json.array!(@work_spaces) do |work_space|
 
   json.turn_scheme work_space.turn_scheme.name
   json.subdivision work_space.subdivision.name
-  json.is_empty work_space.auto_work_spaces.empty?
+  json.is_empty work_space.auto_work_spaces.count>0
   json.issue_types work_space.issue_types do  |i|
     json.issue_type i.name
   end

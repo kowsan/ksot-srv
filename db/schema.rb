@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151012180814) do
+ActiveRecord::Schema.define(version: 20151029194645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,27 @@ ActiveRecord::Schema.define(version: 20151012180814) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
+
+  create_table "control_list_quarter_factor_groups", force: :cascade do |t|
+    t.integer  "order_num"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "control_list_quarter_factor_groups", ["order_num"], name: "index_control_list_quarter_factor_groups_on_order_num", unique: true, using: :btree
+
+  create_table "control_list_quarter_factors", force: :cascade do |t|
+    t.integer  "order_num"
+    t.string   "factor"
+    t.boolean  "is_active"
+    t.string   "comment"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "control_list_quarter_factor_group_id"
+  end
+
+  add_index "control_list_quarter_factors", ["order_num"], name: "index_control_list_quarter_factors_on_order_num", unique: true, using: :btree
 
   create_table "critical_types", force: :cascade do |t|
     t.string   "name"
@@ -241,6 +262,7 @@ ActiveRecord::Schema.define(version: 20151012180814) do
   add_index "work_spaces", ["subdivision_id"], name: "index_work_spaces_on_subdivision_id", using: :btree
 
   add_foreign_key "areas", "managements"
+  add_foreign_key "control_list_quarter_factors", "control_list_quarter_factor_groups"
   add_foreign_key "issues", "issue_types"
   add_foreign_key "subdivisions", "areas"
   add_foreign_key "turn_schemes", "turn_types"

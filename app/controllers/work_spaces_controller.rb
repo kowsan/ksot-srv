@@ -6,7 +6,7 @@ class WorkSpacesController < ApplicationController
   # GET /work_spaces
   # GET /work_spaces.json
   def index
-    @work_spaces = WorkSpace.unscoped.all
+    @work_spaces = WorkSpace.includes(:auto_work_spaces).unscoped.all
   end
 
   def get_issue_types
