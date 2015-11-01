@@ -1,7 +1,7 @@
 class IssuesController < ApplicationController
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
   before_action :check_permission, :validate_access_ws, :except => [:monthly, :next_date,:monthly_by_day]
-  before_action :set_filter_ws, only: [:index, :assigned, :owned]
+  before_action :set_filter_ws, only: [:index,:monthly, :assigned, :owned,:new]
 
   def days_in_month
     params[:month]
@@ -39,20 +39,17 @@ class IssuesController < ApplicationController
       else
         clr='#333333'
 
-
       end
       h=Hash.new
       h["c"]=clr
       @out << h
 
     end
-
-
   end
 
 
   def monthly
-    @workspaces=get_available_work_spaces #unless @logged_user.nil?
+
     ws_id=params[:work_space_id]
     #  w_spaces=WorkSpace.find(ws_id)
     @out=Array.new
@@ -90,7 +87,7 @@ class IssuesController < ApplicationController
   end
 
   def index
-   @workspaces= get_available_work_spaces
+
     begin
       @from_t=Time.strptime((params[:from_t] || '00:00'), "%H:%M")
       @from=Time.strptime(params[:from], "%d.%m.%Y")
@@ -111,7 +108,7 @@ class IssuesController < ApplicationController
 
 
   def assigned
-    @workspaces=get_available_work_spaces
+
     begin
       @from_t=Time.strptime((params[:from_t] || '00:00'), "%H:%M")
       @from=Time.strptime(params[:from], "%d.%m.%Y")
@@ -131,7 +128,7 @@ class IssuesController < ApplicationController
 
 
   def owned
-    @workspaces=get_available_work_spaces
+
     begin
       @from_t=Time.strptime((params[:from_t] || '00:00'), "%H:%M")
       @from=Time.strptime(params[:from], "%d.%m.%Y")
@@ -157,7 +154,7 @@ class IssuesController < ApplicationController
 # GET /issues/new
   def new
 
-    @workspaces=get_available_work_spaces
+
     @issue = Issue.new
 
   end
@@ -231,28 +228,7 @@ class IssuesController < ApplicationController
   end
 
   def set_filter_ws
-    @ws=Array.new
-    if params[:work_space].nil?
-      q=WorkSpace.unscoped.all
-      q.each do   |m|
-        @ws<<m.id
-      end
-
-    else
-      w_ids=params[:work_space][:id]
-      if w_ids.class==Array
-        q=WorkSpace.unscoped.find(w_ids.to_a.reject { |a| a.blank? })
-        if q.empty?
-          q=WorkSpace.unscoped.all
-        end
-        q.each do   |m|
-          @ws<<m.id
-        end
-      else
-        @ws<<WorkSpace.unscoped.find(w_ids).id
-      end
-
-    end
+    @workspaces=get_available_work_spaces
   end
 
 # Never trust parameters from the scary internet, only allow the white list through.
