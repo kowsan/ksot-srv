@@ -11,7 +11,7 @@
     </div>
     <div class="form-group" style="position: relative">
         <label>рабочее место</label>
-        <%= collection_select(:work_space, :id, WorkSpace.all, :id, :name, {}, {:class => 'form-control input-sm', :multiple => true}) %>
+        <%= collection_select(:work_space, :id, @workspaces, :id, :name, {}, {:class => 'form-control input-sm', :multiple => true}) %>
         <script>
             <% @ws.each do |w| %>
 

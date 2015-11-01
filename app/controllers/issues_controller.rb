@@ -90,7 +90,7 @@ class IssuesController < ApplicationController
   end
 
   def index
-
+   @workspaces= get_available_work_spaces
     begin
       @from_t=Time.strptime((params[:from_t] || '00:00'), "%H:%M")
       @from=Time.strptime(params[:from], "%d.%m.%Y")
@@ -111,6 +111,7 @@ class IssuesController < ApplicationController
 
 
   def assigned
+    @workspaces=get_available_work_spaces
     begin
       @from_t=Time.strptime((params[:from_t] || '00:00'), "%H:%M")
       @from=Time.strptime(params[:from], "%d.%m.%Y")
@@ -130,6 +131,7 @@ class IssuesController < ApplicationController
 
 
   def owned
+    @workspaces=get_available_work_spaces
     begin
       @from_t=Time.strptime((params[:from_t] || '00:00'), "%H:%M")
       @from=Time.strptime(params[:from], "%d.%m.%Y")
