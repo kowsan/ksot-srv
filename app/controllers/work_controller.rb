@@ -36,7 +36,7 @@ class WorkController < ApplicationController
     else
       if ws.work_spaces.count==0
         @allow_anon=false
-      else                                                        k
+      else
         @allow_anon=ws.allow_anonymous?
       end
     end
