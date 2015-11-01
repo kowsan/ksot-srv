@@ -1,0 +1,33 @@
+<%= form_for(@control_list_quarter_factor) do |f| %>
+  <% if @control_list_quarter_factor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@control_list_quarter_factor.errors.count, "error") %> prohibited this control_list_quarter_factor from being saved:</h2>
+
+      <ul>
+      <% @control_list_quarter_factor.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :order_num %><br>
+    <%= f.number_field :order_num %>
+  </div>
+  <div class="field">
+    <%= f.label :factor %><br>
+    <%= f.text_field :factor %>
+  </div>
+  <div class="field">
+    <%= f.label :is_active %><br>
+    <%= f.check_box :is_active %>
+  </div>
+  <div class="field">
+    <%= f.label :comment %><br>
+    <%= f.text_field :comment %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
