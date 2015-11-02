@@ -1,5 +1,6 @@
 class ControlListQuarterFactorGroupsController < ApplicationController
   before_action :set_control_list_quarter_factor_group, only: [:show, :edit, :update, :destroy]
+  before_action :check_permission,:validate_access
 
   # GET /control_list_quarter_factor_groups
   # GET /control_list_quarter_factor_groups.json
@@ -60,6 +61,18 @@ class ControlListQuarterFactorGroupsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+
+    def validate_access
+      unless @can_fill_control_list
+        respond_to do |format|
+          format.any { render nothing: true, :status => :forbidden }
+        end
+      end
+
+    end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
