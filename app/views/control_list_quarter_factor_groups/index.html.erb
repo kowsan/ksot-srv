@@ -1,7 +1,10 @@
 <%= render :partial => 'control_list_quarter_factors/menu' %>
 
-<h1>Listing Control List Quarter Factor Groups</h1>
-
+<h4 style="color: orange">Группа факторов (<%= @control_list_quarter_factor_groups.count %>)</h4>
+<% if @can_manage_org_structure %>
+    <%= link_to 'Новая группа факторов', new_control_list_quarter_factor_group_path, :class => 'btn btn-sm btn-success' %>
+<% end %>
+<br><br>
 <table
 data-toggle="table"
 data-url="control_list_quarter_factor_groups.json"
@@ -30,4 +33,4 @@ data-sort-name="id">
 <script>
     $('#quarterfactorsgroup').addClass('active')
 </script>
-<%= link_to 'New Control list quarter factor group', new_control_list_quarter_factor_group_path %>
+

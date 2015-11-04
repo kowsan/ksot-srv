@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029194645) do
+ActiveRecord::Schema.define(version: 20151104093314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,10 +99,10 @@ ActiveRecord::Schema.define(version: 20151029194645) do
   create_table "control_list_quarter_factors", force: :cascade do |t|
     t.integer  "order_num"
     t.string   "factor"
-    t.boolean  "is_active"
+    t.boolean  "is_active",                            default: true
     t.string   "comment"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
     t.integer  "control_list_quarter_factor_group_id"
   end
 
