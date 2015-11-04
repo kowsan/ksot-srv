@@ -31,6 +31,10 @@ data-sort-name="id">
 
 <br>
 <script>
+    function actions(value, row) {
+
+        return '<a class="btn glyphicon glyphicon-edit btn-primary  btn-sm" href="' + row.url + '/edit"></a>'
+    }
     $('#quarterfactorsgroup').addClass('active')
 </script>
 
