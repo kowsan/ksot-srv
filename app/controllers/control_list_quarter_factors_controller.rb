@@ -30,7 +30,7 @@ class ControlListQuarterFactorsController < ApplicationController
 
     respond_to do |format|
       if @control_list_quarter_factor.save
-        format.html { redirect_to @control_list_quarter_factor }
+        format.html { redirect_to control_list_factors_path }
         format.json { render :show, status: :created, location: @control_list_quarter_factor }
       else
         format.html { render :new }
