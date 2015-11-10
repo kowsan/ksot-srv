@@ -16,6 +16,7 @@
             /* reset the text-align */
             text-align: left;
             /* inline-block space fix */
+            /* inline-block space fix */
             margin-right: -1px;
 
         }
@@ -23,7 +24,7 @@
 </head>
 <body>
 <div style="margin: 20px">
-   <h3>Система автоматизированного учета результатов комплексной оценки состояния охраны труда <%= image_tag 'logo.png' %></h3>
+   <h3>Система автоматизированного учета результатов комплексной оценки состояния охраны труда <%= image_tag 'logo.png',:height =>'50px'  %></h3>
 
     <ul class="nav nav-tabs" id="myTab">
         <li id="krest"><%= link_to 'Нарушения', work_by_day_in_month_path %></li>
