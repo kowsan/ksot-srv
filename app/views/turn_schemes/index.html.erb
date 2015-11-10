@@ -1,6 +1,4 @@
-<% unless notice.nil? %>
-    <p id="notice" class="alert-success alert"><%= notice %></p>
-<% end %>
+
 <%= render :partial => 'turn_types/turns_menu' %>
 <h4 style="color: orange">Схемы смен (<%= @turn_schemes.count %>)</h4>
 <%= link_to 'Новая схема смен', new_turn_scheme_path, :class => 'btn  btn-success  btn-sm' %>
