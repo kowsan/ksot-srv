@@ -67,7 +67,7 @@
 <script>
 
 
-    function day_clickable(day) {
+    function day_clickable_<%= @works_id%>(day) {
         $('#day_<%= @works_id%>_' + day).click(function () {
             var cm = $('#info_date_<%= @works_id%>').text()
             console.log("Clicked day:", day)
@@ -113,7 +113,7 @@
 
                     $.each(json, function (k, v) {
                         var day = (k + 1).toString()
-                        day_clickable(day)
+                        day_clickable_<%= @works_id%>(day)
                         if (v.c.indexOf(",") != -1) {
                             var colorz = v.c.split(',')
                             var c1 = colorz[0].toString().replace("#", '')
