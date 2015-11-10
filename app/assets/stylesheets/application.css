@@ -17,3 +17,8 @@
  *= require jquery.datepick
  *= require_self
  */
+
+@font-face {
+    font-family: "RZD Font";
+    src: url('/assets/FSRAIL55.ttf') format("truetype");
+}
