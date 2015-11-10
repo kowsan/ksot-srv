@@ -30,7 +30,7 @@ class ControlListQuarterFactorsController < ApplicationController
 
     respond_to do |format|
       if @control_list_quarter_factor.save
-        format.html { redirect_to control_list_factors_path }
+        format.html { redirect_to control_list_quarter_factors_path }
         format.json { render :show, status: :created, location: @control_list_quarter_factor }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class ControlListQuarterFactorsController < ApplicationController
   def update
     respond_to do |format|
       if @control_list_quarter_factor.update(control_list_quarter_factor_params)
-        format.html { redirect_to @control_list_quarter_factor }
+        format.html { redirect_to control_list_quarter_factors_path }
         format.json { render :show, status: :ok, location: @control_list_quarter_factor }
       else
         format.html { render :edit }
@@ -58,7 +58,7 @@ class ControlListQuarterFactorsController < ApplicationController
   def destroy
     @control_list_quarter_factor.destroy
     respond_to do |format|
-      format.html { redirect_to control_list_quarter_factors_url }
+      format.html { redirect_to control_list_quarter_factors_path }
       format.json { head :no_content }
     end
   end
