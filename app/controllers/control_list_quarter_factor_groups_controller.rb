@@ -29,7 +29,7 @@ class ControlListQuarterFactorGroupsController < ApplicationController
 
     respond_to do |format|
       if @control_list_quarter_factor_group.save
-        format.html { redirect_to @control_list_quarter_factor_group, notice: 'Control list quarter factor group was successfully created.' }
+        format.html { redirect_to control_list_factor_groups_path }
         format.json { render :show, status: :created, location: @control_list_quarter_factor_group }
       else
         format.html { render :new }
@@ -43,7 +43,7 @@ class ControlListQuarterFactorGroupsController < ApplicationController
   def update
     respond_to do |format|
       if @control_list_quarter_factor_group.update(control_list_quarter_factor_group_params)
-        format.html { redirect_to @control_list_quarter_factor_group, notice: 'Control list quarter factor group was successfully updated.' }
+        format.html { redirect_to control_list_factor_groups_path }
         format.json { render :show, status: :ok, location: @control_list_quarter_factor_group }
       else
         format.html { render :edit }
@@ -57,7 +57,7 @@ class ControlListQuarterFactorGroupsController < ApplicationController
   def destroy
     @control_list_quarter_factor_group.destroy
     respond_to do |format|
-      format.html { redirect_to control_list_quarter_factor_groups_url, notice: 'Control list quarter factor group was successfully destroyed.' }
+      format.html { redirect_to control_list_factor_groups_path}
       format.json { head :no_content }
     end
   end
