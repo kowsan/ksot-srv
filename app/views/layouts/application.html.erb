@@ -23,7 +23,8 @@
 </head>
 <body>
 <div style="margin: 20px">
-    <h3>Система автоматизированного учета результатов комплексной оценки состояния охраны труда</h3>
+   <h3>Система автоматизированного учета результатов комплексной оценки состояния охраны труда <%= image_tag 'logo.png' %></h3>
+
     <ul class="nav nav-tabs" id="myTab">
         <li id="krest"><%= link_to 'Нарушения', work_by_day_in_month_path %></li>
         <% unless @logged_user.nil? %>
@@ -76,8 +77,10 @@
 
                 <div>Сотрудник:
                     <b> <%= @logged_user.full_name %> </b><%= link_to 'Выйти', destroy_user_session_path, :method => :get, :class => 'btn btn-sm btn-warning' %>
-                </div>
+                    </div>
+
             </li>
+
 
         <% end %>
 

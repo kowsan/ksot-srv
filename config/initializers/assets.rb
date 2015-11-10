@@ -8,7 +8,7 @@ Rails.application.config.assets.paths << Rails.root.join('app', 'assets', 'fonts
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-Rails.application.config.assets.precompile += %w(day_off.png jquery.datepick.css  ddslick.js bootstrap.css bootsrap.js glyphicons-halflings-regular.woff2 glyphicons-halflings-regular.woff glyphicons-halflings-regular.ttf   )
+Rails.application.config.assets.precompile += %w(logo.png day_off.png jquery.datepick.css  ddslick.js bootstrap.css bootsrap.js glyphicons-halflings-regular.woff2 glyphicons-halflings-regular.woff glyphicons-halflings-regular.ttf   )
 
 Time::DATE_FORMATS[:default] = '%d.%m.%Y %H:%M'
 Date::DATE_FORMATS[:default] = '%d.%m.%Y'
