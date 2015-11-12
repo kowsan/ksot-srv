@@ -34,6 +34,10 @@
         <div class="col-md-3"></div>
         <div class="col-md-1"><%= image_tag 'logo.png', :height => '50px' %></div>
     </div>
+    <div class="row" ><hr style="border: none; /* Убираем границу */
+            background-color: orange; /* Цвет линии */
+            color: orangered; /* Цвет линии для IE6-7 */
+            height: 4px"></div>
     <ul class="nav nav-tabs" id="myTab">
         <li id="krest"><%= link_to 'Нарушения', work_by_day_in_month_path %></li>
         <% unless @logged_user.nil? %>
