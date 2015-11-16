@@ -35,10 +35,19 @@
         <div class="col-md-1"><%= image_tag 'logo.png', :height => '50px' %></div>
     </div>
     <div class="row">
-        <hr style="border: none; /* Убираем границу */
-                background-color: orange; /* Цвет линии */
-                color: orangered; /* Цвет линии для IE6-7 */
-                height: 4px">
+        <div class="col-md-1" style="background-image: url('/assets/bg-a.png') norepeat;">1
+        </div>
+        <div class="col-md-1" style="background-image: url('/assets/bg-b.png')">2
+
+        </div>
+        <div class="col-md-1" style="background-image: url('/assets/bg-c.png')">3
+
+        </div>
+        <div class="col-md-1" style="background-image: url('/assets/bg-d.png')">4
+
+        </div>
+
+
     </div>
     <ul class="nav nav-tabs" id="myTab">
         <li id="krest"><%= link_to 'Нарушения', work_by_day_in_month_path %></li>
@@ -46,15 +55,15 @@
 
         <% unless @logged_user.nil? %>
             <script type="text/javascript">
-                var original_html= $('#krest').html()
+                var original_html = $('#krest').html()
                 monitor_issues()
                 function monitor_issues() {
 
                     $.getJSON('/issues/unreaded.json').done(function (json) {
-                        var  i_count=json['count']
+                        var i_count = json['count']
                         console.log("my iisues: count", i_count)
                         if (i_count > 0) {
-                            $('#krest').html('<a href="/work/by_day_in_month">Нарушения<span class="badge">'+i_count.toString()+'</span></a>')
+                            $('#krest').html('<a href="/work/by_day_in_month">Нарушения<span class="badge">' + i_count.toString() + '</span></a>')
                         } else {
                             $('#krest').html(original_html)
                         }
