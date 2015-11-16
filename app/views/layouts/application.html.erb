@@ -25,22 +25,45 @@
 <body>
 
 
-
 <div style="margin: 12px">
     <div class="row">
         <div class="col-md-8">
-            <h3 style="font-family: 'RZD Font'">Система автоматизированного учета результатов комплексной оценки состояния охраны труда </h3>
+            <h3 style="font-family: 'RZD Font'">Система автоматизированного учета результатов комплексной оценки
+                состояния охраны труда </h3>
         </div>
         <div class="col-md-3"></div>
         <div class="col-md-1"><%= image_tag 'logo.png', :height => '50px' %></div>
     </div>
-    <div class="row" ><hr style="border: none; /* Убираем границу */
-            background-color: orange; /* Цвет линии */
-            color: orangered; /* Цвет линии для IE6-7 */
-            height: 4px"></div>
+    <div class="row">
+        <hr style="border: none; /* Убираем границу */
+                background-color: orange; /* Цвет линии */
+                color: orangered; /* Цвет линии для IE6-7 */
+                height: 4px">
+    </div>
     <ul class="nav nav-tabs" id="myTab">
         <li id="krest"><%= link_to 'Нарушения', work_by_day_in_month_path %></li>
+
+
         <% unless @logged_user.nil? %>
+            <script type="text/javascript">
+                var original_html= $('#krest').html()
+                monitor_issues()
+                function monitor_issues() {
+
+                    $.getJSON('/issues/unreaded.json').done(function (json) {
+                        var  i_count=json['count']
+                        console.log("my iisues: count", i_count)
+                        if (i_count > 0) {
+                            $('#krest').html('<a href="/work/by_day_in_month">Нарушения<span class="badge">'+i_count.toString()+'</span></a>')
+                        } else {
+                            $('#krest').html(original_html)
+                        }
+                    })
+
+                }
+                setInterval(monitor_issues, 30000)
+
+            </script>
             <% if @can_add_issue %>
                 <li id="issues"><%= link_to 'Ведомость', issues_path %>
             <% end %>

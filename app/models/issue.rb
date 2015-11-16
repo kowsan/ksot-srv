@@ -25,10 +25,10 @@ class Issue < ActiveRecord::Base
   end
 
 
-  def assign_to_user_id(user_id)
-    $redis_watch.sadd("issues_for_#{user_id}", id)
-  end
 
+  def self.mark_as_readed(user_id)
+    $redis_watch.del("issues_for_#{user_id}")
+  end
   def self.unreaded_issues(user_id)
     $redis_watch.smembers("issues_for_#{user_id}").count
   end
@@ -53,9 +53,6 @@ class Issue < ActiveRecord::Base
 
     end
   end
-
-  private
-
 
   private
 

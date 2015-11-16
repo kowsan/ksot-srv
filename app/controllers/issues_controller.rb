@@ -14,8 +14,10 @@ class IssuesController < ApplicationController
 
   def unreaded
     count=Issue.unreaded_issues(current_user.id)
+    q=Hash.new
+    q[:count]=count
     respond_to do |format|
-      format.json { render :json => count.to_json }
+      format.json { render :json => q.to_json }
     end
   end
 
@@ -114,7 +116,7 @@ class IssuesController < ApplicationController
 
 
   def assigned
-
+    Issue.mark_as_readed(current_user.id)
     begin
       @from_t=Time.strptime((params[:from_t] || '00:00'), "%H:%M")
       @from=Time.strptime(params[:from], "%d.%m.%Y")
