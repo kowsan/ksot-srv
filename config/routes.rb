@@ -41,6 +41,7 @@ Rails.application.routes.draw do
       get 'monthly_by_day'
       get 'assigned'
       get 'owned'
+      get 'unreaded'
     end
   end
 

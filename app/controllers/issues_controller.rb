@@ -12,6 +12,12 @@ class IssuesController < ApplicationController
     end
   end
 
+  def unreaded
+    count=Issue.unreaded_issues(current_user.id)
+    respond_to do |format|
+      format.json { render :json => count.to_json }
+    end
+  end
 
   def next_date
     offset=params[:offset] || 0
@@ -255,8 +261,8 @@ class IssuesController < ApplicationController
 
 
 # Never trust parameters from the scary internet, only allow the white list through.
-def issue_params
-  params.require(:issue).permit(:violator_id, :status_id, :clarification, :issue_type_id, :assigned_id, :close_date, :note_due, :due_date, :note_measures, :work_space_id)
-end
+  def issue_params
+    params.require(:issue).permit(:violator_id, :status_id, :clarification, :issue_type_id, :assigned_id, :close_date, :note_due, :due_date, :note_measures, :work_space_id)
+  end
 
 end

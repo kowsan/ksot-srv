@@ -55,3 +55,4 @@ gem 'redis'
 gem 'unscoped_associations'
 
 gem 'pdfkit'
+gem 'debase'

@@ -75,7 +75,6 @@
     </div>
     <div class="form-group">
         <%= f.label 'Рабочее место' %><br>
-
         <%= f.collection_select(:work_space_id, @workspaces, :id, :name, {}, {multiple: false, :class => ' form-control input'}) %>
     </div>
 

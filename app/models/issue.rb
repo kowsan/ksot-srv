@@ -1,5 +1,7 @@
 class Issue < ActiveRecord::Base
-  belongs_to :author, :class_name => 'User' ,:unscoped=>true
+  include ActiveModel::Dirty
+
+  belongs_to :author, :class_name => 'User', :unscoped => true
   belongs_to :issue_type, unscoped: true
   belongs_to :status
   belongs_to :work_space, :unscoped => true
@@ -8,14 +10,53 @@ class Issue < ActiveRecord::Base
   belongs_to :modifier, :class_name => 'User', :unscoped => true
   has_one :critical_type, :through => :issue_type
 
+
+  after_create :write_issue_to_user
+  before_update :write_assigned_changes
   validates_presence_of :status_id, :violator_id, :assigned_id
   validates_presence_of :work_space_id
   validates_presence_of :issue_type_id, :message => 'не может быть пустым'
+
+
   after_save :drop_redis_cache
 
   def self.last_travma_at
-    Issue.joins(:issue_type,:critical_type).where("critical_types.name='Синий'").maximum(:created_at)
+    Issue.joins(:issue_type, :critical_type).where("critical_types.name='Синий'").maximum(:created_at)
   end
+
+
+  def assign_to_user_id(user_id)
+    $redis_watch.sadd("issues_for_#{user_id}", id)
+  end
+
+  def self.unreaded_issues(user_id)
+    $redis_watch.smembers("issues_for_#{user_id}").count
+  end
+
+  private
+  def write_issue_to_user
+    $redis_watch.sadd("issues_for_#{assigned_id}", id)
+  end
+
+  private
+  def write_assigned_changes
+    if assigned_id_changed?
+      puts "change modifier"
+      from, to= assigned_id_change
+
+      unless from.nil?
+        $redis_watch.srem("issues_for_#{from}", id)
+      end
+      unless to.nil?
+        $redis_watch.sadd("issues_for_#{to}", id)
+      end
+
+    end
+  end
+
+  private
+
+
   private
 
 
@@ -26,10 +67,11 @@ class Issue < ActiveRecord::Base
     end
   end
 
+
   def self.max_on_day(date)
     key='max_in_day_'+date.to_s
     if $redis.get(key).nil?
-      w = Issue.includes(:critical_type).includes(:work_space).where('issues.created_at >=? AND issues.created_at <=?', date.at_beginning_of_day, date.at_end_of_day).maximum(:weight) || 0
+      w = Issue.includes(:critical_type,:issue_type).includes(:work_space).where('issues.created_at >=? AND issues.created_at <=?', date.at_beginning_of_day, date.at_end_of_day).maximum(:weight) || 0
 
       if w==0
         clr='#97D077'
