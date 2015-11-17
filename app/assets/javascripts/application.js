@@ -24,6 +24,9 @@
 //= require bootstrap-table
 //= require bootstrap-table-ru-RU
 //= require bootstrap-table-cookie
+function colorer(value, row) {
+    return '<span style="background-color: ' + row.color + '">' + row.id + '</span>';
+}
 $(document).ready(function () {
         $('.dropdown-toggle').dropdown();
     }

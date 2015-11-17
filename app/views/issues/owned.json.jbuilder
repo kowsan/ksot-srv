@@ -8,7 +8,7 @@ json.array!(@issues) do |issue|
   json.status issue.status.name
   json.issue_type issue.issue_type.name
   json.assigned issue.assigned.full_name
-
+  json.color issue.issue_type.critical_type.color
   json.due_date issue.due_date
   json.due_date_human issue.due_date.to_s || '-'
 
