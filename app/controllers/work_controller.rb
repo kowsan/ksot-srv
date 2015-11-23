@@ -97,20 +97,30 @@ class WorkController < ApplicationController
     os = app_params[:os] || ''
     osuser = app_params[:os_user] || ''
     a = AutoWorkSpace.where(:uuid => app_id).first_or_create(:computername => name, :os => os, :os_user => osuser)
+    tms=Array.new
+    a.work_spaces.all.each do |w|
+      tms<<TurnType.turn_times(w.id)
+    end
+    a.turn_times=tms
     a.computername=name
     a.os=os
     a.os_user=osuser
     a.updated_at=Time.current
     x= a.save!
 
+
+
+
+
     if x
       cookies[:app_id]=app_id
       if current_user
         check_permission
         a[:deny_close]=false if @can_shutdown_app
+
       end
 
-
+    a.comment=tms
       respond_to do |format|
         format.json { render :json => a.to_json, :status => :created }
       end

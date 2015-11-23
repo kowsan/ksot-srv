@@ -1,6 +1,8 @@
 class AutoWorkSpace < ActiveRecord::Base
   belongs_to :work_space
   has_and_belongs_to_many :work_spaces
+  attr_accessor :turn_times
+
 
   def self.unassigned
     AutoWorkSpace.includes(:work_spaces).all.reject { |x| x.work_spaces.count >0 }
@@ -11,6 +13,9 @@ class AutoWorkSpace < ActiveRecord::Base
   end
 
 
+
+
+
   def self.can_anonymous?(app_id)
     begin
       where(:uuid => app_id).first.allow_anonymous?
@@ -19,6 +24,8 @@ class AutoWorkSpace < ActiveRecord::Base
     end
 
   end
+
+  private
 
 
 end

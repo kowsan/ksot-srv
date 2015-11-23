@@ -100,6 +100,9 @@ class Issue < ActiveRecord::Base
     sc
   end
 
+
+
+
   def self.max_on(date, work_space_id)
     key='turn_'+work_space_id.to_s+date.to_s
 
@@ -116,12 +119,10 @@ class Issue < ActiveRecord::Base
         tt=TurnType.find(q.first.turn_type.id)
 
       end
-      #get turn type
-
+      #get turn typ
       #get smens count in day
       sc=tt.smene_count
       # sc=self.smene_count(date, work_space_id)
-
       case sc
         when 0
           w = Issue.includes(:critical_type).includes(:work_space).where('issues.created_at >=? AND issues.created_at <=?', date.at_beginning_of_day, date.at_end_of_day).where(:work_space_id => work_space_id).maximum(:weight) || 0
@@ -137,8 +138,6 @@ class Issue < ActiveRecord::Base
           else
             clr=CriticalType.where(:weight => w).first.color.to_s
           end
-
-
         when 2
           w1 = Issue.includes(:critical_type).includes(:work_space).where('issues.created_at >=? AND issues.created_at <=?', date.to_datetime+tt.first_start_at.hour.hours+tt.first_start_at.min.minutes, date.to_datetime+tt.first_start_at.hour.hours+tt.first_duration.hour.hours+ tt.first_start_at.min.minutes+ tt.first_duration.min.minutes).where(:work_space_id => work_space_id).maximum(:weight) || 0
           if w1==0
@@ -154,18 +153,13 @@ class Issue < ActiveRecord::Base
           end
           clr="#{clr1},#{clr2}"
           puts "2 smene detect#{clr}"
-
         else
           clr='#97D077'
       end
-
       $redis.set(key, clr)
       puts key, clr
-
     end
-
     return $redis.get(key)
-
   end
 
 
