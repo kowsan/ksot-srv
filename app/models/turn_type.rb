@@ -36,20 +36,25 @@ class TurnType < ActiveRecord::Base
 
 
       case sc
+
         when 0
           return 0
         when 1
           fs=Date.current.to_datetime+tt.first_start_at.seconds_since_midnight.seconds+tt.first_duration.seconds_since_midnight.seconds-Time.current.utc_offset.seconds
+          fs=fs.to_i-Time.current.to_i
         when 2
           fs=Date.current.to_datetime+tt.first_start_at.seconds_since_midnight.seconds+tt.first_duration.seconds_since_midnight.seconds-Time.current.utc_offset.seconds
           fs=fs.to_time
           ss=Date.current.to_datetime+tt.second_start_at.seconds_since_midnight.seconds+tt.second_duration.seconds_since_midnight.seconds-Time.current.utc_offset.seconds
           ss=ss.to_time
+
+          fs=fs.to_i-Time.current.to_i
+          ss=ss.to_i-Time.current.to_i
       end
     rescue Exception => e
       puts e.message
     end
-    return fs, ss
+    return ws.name, fs, ss
   end
 
   def can_delete

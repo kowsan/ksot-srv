@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-lg-6 pull-right">
+        <table class="table table-striped">
+            <th>Рабочее место</th>
+            <th>Завершение первой смены через</th>
+            <th>Завершение второй смены через</th>
+            <% @workspaces.all.each do |w| %>
+                <% name, fs, ls= TurnType.turn_times(w.id) %>
+                <tr>
+                    <td><%= name %></td>
+                    <td><%= fs %></td>
+                    <td><%= ls %></td>
+                </tr>
+            <% end %>
+        </table>
+    </div>
+</div>

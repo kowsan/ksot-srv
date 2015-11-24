@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   get 'work/user_info'
   get 'work/by_day_in_month'
   get 'work/by_ws_id'
+  get 'work/turn_info'
   resources :issues do
     collection do
       get 'monthly'

@@ -28,6 +28,11 @@ class WorkController < ApplicationController
     end
   end
 
+  def turn_info
+    user_info
+     render :partial => 'turn_types/day_view'
+  end
+
   def user_info
 
     ws=AutoWorkSpace.current_aws(cookies[:app_id])
@@ -99,6 +104,8 @@ class WorkController < ApplicationController
     a = AutoWorkSpace.where(:uuid => app_id).first_or_create(:computername => name, :os => os, :os_user => osuser)
     tms=Array.new
     a.work_spaces.all.each do |w|
+
+
       tms<<TurnType.turn_times(w.id)
     end
     a.turn_times=tms
@@ -109,9 +116,6 @@ class WorkController < ApplicationController
     x= a.save!
 
 
-
-
-
     if x
       cookies[:app_id]=app_id
       if current_user
@@ -120,9 +124,9 @@ class WorkController < ApplicationController
 
       end
 
-    a.comment=tms
+      a.comment=tms.to_json
       respond_to do |format|
-        format.json { render :json => a.to_json, :status => :created }
+        format.json { render :json => a, :status => :created }
       end
     end
 
