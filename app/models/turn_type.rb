@@ -57,6 +57,15 @@ class TurnType < ActiveRecord::Base
     return ws.name, fs, ss
   end
 
+  def self.humanize(secs)
+    [[60, 'секунд'], [60, 'минут'], [24, 'часов'], [1000, 'дней']].map { |count, name|
+      if secs > 0
+        secs, n = secs.divmod(count)
+        "#{n.to_i} #{name}"
+      end
+    }.compact.reverse.join(' ')
+  end
+
   def can_delete
     turn_schemes.count==0
   end

@@ -102,12 +102,7 @@ class WorkController < ApplicationController
     os = app_params[:os] || ''
     osuser = app_params[:os_user] || ''
     a = AutoWorkSpace.where(:uuid => app_id).first_or_create(:computername => name, :os => os, :os_user => osuser)
-    tms=Array.new
-    a.work_spaces.all.each do |w|
 
-
-      tms<<TurnType.turn_times(w.id)
-    end
     a.turn_times=tms
     a.computername=name
     a.os=os
@@ -124,7 +119,7 @@ class WorkController < ApplicationController
 
       end
 
-      a.comment=tms.to_json
+
       respond_to do |format|
         format.json { render :json => a, :status => :created }
       end

@@ -8,8 +8,20 @@
                 <% name, fs, ls= TurnType.turn_times(w.id) %>
                 <tr>
                     <td><%= name %></td>
-                    <td><%= fs %></td>
-                    <td><%= ls %></td>
+                    <td>
+                        <% if fs<0 %>
+                            Завершена
+                        <% else %>
+                            <%= TurnType.humanize(fs) %>
+                        <% end %>
+                    </td>
+                    <td>
+                        <% if ls<0 %>
+                            Завершена
+                        <% else %>
+                            <%= TurnType.humanize(ls) %>
+                        <% end %>
+                    </td>
                 </tr>
             <% end %>
         </table>

@@ -20,7 +20,7 @@
 <br>
 
 <% if current_user %>
-    <%= render :partial => 'turn_types/day_view' %>
+
 <% else %>
 
     <%= link_to 'Авторизация', new_user_session_path, :class => 'btn btn-success pull-right' %>
@@ -32,7 +32,7 @@
         $('#krest_ws').addClass("active")
         setInterval(function() {
             $('.dynamic').load('turn_info');
-        }, 3000);
+        }, 60000);
     })
 
 
