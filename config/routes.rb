@@ -15,7 +15,11 @@ Rails.application.routes.draw do
     end
   end
   resources :turn_schemes
-  resources :turn_types
+  resources :turn_types do
+    collection do
+      post 'close_turn'
+    end
+  end
   resources :issue_types do
     member do
       patch 'enable'

@@ -58,7 +58,8 @@ class TurnType < ActiveRecord::Base
   end
 
   def self.humanize(secs)
-    [[60, 'секунд'], [60, 'минут'], [24, 'часов'], [1000, 'дней']].map { |count, name|
+    secs=(secs/60).to_i
+    [[60, 'минут'], [24, 'часов'], [1000, 'дней']].map { |count, name|
       if secs > 0
         secs, n = secs.divmod(count)
         "#{n.to_i} #{name}"
