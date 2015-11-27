@@ -1,6 +1,6 @@
 class TurnTypesController < ApplicationController
   before_action :set_turn_type, only: [:show, :edit, :update, :destroy]
-  before_action :check_permission,:validate_access
+  before_action :check_permission, :validate_access
 
   # GET /turn_types
   # GET /turn_types.json
@@ -14,6 +14,24 @@ class TurnTypesController < ApplicationController
   end
 
   # GET /turn_types/new
+  def close_turn
+    is_first=params[:first] || false
+    is_second=params[:second] || false
+
+    tci=TurnCloseInfo.new()
+    tci.close_date=Date.current
+    tci.first=is_first
+    tci.second=is_second
+    tci.turn_type =TurnType.find(params[:id])
+    tci.closed_by=@logged_user
+    tci.save!
+
+    respond_to do |format|
+      format.json { render :nothing => true }
+    end
+
+  end
+
   def new
     @turn_type = TurnType.new
     @turn_type.reminder_before_end=15
@@ -77,10 +95,11 @@ class TurnTypesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_turn_type
-      @turn_type = TurnType.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_turn_type
+    @turn_type = TurnType.find(params[:id])
+  end
+
   def validate_access
     unless @can_manage_org_structure
       respond_to do |format|
@@ -89,8 +108,8 @@ class TurnTypesController < ApplicationController
     end
   end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def turn_type_params
-      params.require(:turn_type).permit(:name, :first_start_at, :first_duration,:support2, :second_start_at, :second_duration, :reminder_before_end, :is_day_off)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def turn_type_params
+    params.require(:turn_type).permit(:name, :first_start_at, :first_duration, :support2, :second_start_at, :second_duration, :reminder_before_end, :is_day_off)
+  end
 end

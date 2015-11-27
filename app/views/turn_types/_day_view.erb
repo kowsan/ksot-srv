@@ -5,26 +5,33 @@
             <th>Первая смена</th>
             <th>Вторая смена</th>
             <% @workspaces.all.each do |w| %>
-                <% name, fs, ls= TurnType.turn_times(w.id) %>
+                <% id, name, fs, ls= TurnType.turn_times(w.id) %>
                 <tr>
                     <td><%= name %></td>
                     <td>
-                        <% if fs<=0 %>
-                            Завершена
+                        <% if fs== -1 %>
+                            Закрыта
                         <% else %>
-                            <%= TurnType.humanize(fs) %><br>
-                            <a href="#" data-name="<%= name %>" data-number="1" class="btn btn-xs btn-primary">Закрыть</a>
+                            <% if fs <=0 %>
+                                Завершена
+                            <% else %>
+                                <%= TurnType.humanize(fs) %><br>
+                                <a href="<%= close_turn_turn_types_path(:id => id, :first => true, :format => 'json') %>" data-remote="true" data-method="post" data-name="<%= name %>" data-number="1" class="btn btn-xs btn-primary">Закрыть</a>
+                            <% end %>
                         <% end %>
-
                     </td>
                     <td>
-                        <% if ls<=0 %>
-                            Завершена
+                        <% if ls==-1 %>
+                            Закрыта
                         <% else %>
-                            <%= TurnType.humanize(ls) %><br>
-                            <a href="#" data-name="<%= name %>" data-number="2" class="btn btn-xs btn-primary">Закрыть</a>
-                        <% end %>
 
+                            <% if ls<=0 %>
+                                Завершена
+                            <% else %>
+                                <%= TurnType.humanize(ls) %><br>
+                                <a href="<%= close_turn_turn_types_path(:id => id, :second => true) %>" data-method="post" data-remote="true" data-name="<%= name %>" data-number="2" class="btn btn-xs btn-primary">Закрыть</a>
+                            <% end %>
+                        <% end %>
                     </td>
                 </tr>
             <% end %>
