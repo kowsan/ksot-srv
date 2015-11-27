@@ -166,12 +166,12 @@
 </script>
 <br>
 <% if @works_id==0 %>
-    <div class="row ">
+    <div class="container">
 
 
         <div class="col-md-1"><label>Рабочее место</label></div>
         <% unless @workspaces.nil? %>
-            <div class="col-md-3 "><%= collection_select(:ws_id, :work_space_id, @workspaces, :id, :name, {}, {multiple: false, :class => ' form-control input'}) %> </div>
+            <div class="col-md-3"><%= collection_select(:ws_id, :work_space_id, @workspaces, :id, :name, {}, {multiple: false, :class => ' form-control input'}) %> </div>
         <% end %>
 
     </div>
@@ -268,7 +268,7 @@
 
 <div class="row">
 
-    <div class="col-md-offset-4 col-md-5">
+    <div class="col-md-offset-5 col-md-4">
         <button class="btn btn-primary btn-sm" id="prev_month_<%= @works_id %>"><%= (Time.current-1.month).strftime("%m.%Y") %></button>
         <button class="btn btn-success btn-sm " id="month_<%= @works_id %>"><%= (Time.current).strftime("%m.%Y") %></button>
         <button class="btn btn-primary btn-sm" id="next_month_<%= @works_id %>"><%= (Time.current+1.month).strftime("%m.%Y") %></button>
