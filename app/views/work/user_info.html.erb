@@ -1,16 +1,19 @@
 <%= render :partial => 'work/menu' %>
-<% if current_user %>
-    <div class="dynamic">
-        <%= render :partial => 'turn_types/day_view' %>
-    </div>
-<% end %>
+
 <% if @allow_anon %>
     <br>
     <%= link_to 'Новое нарушение', new_issue_path, :class => 'btn btn-success btn-sm' %>
     <br>
     <div class="row">
-        <div class="col-lg-10">
+        <div class="col-lg-7">
             <%= render :partial => 'work/krest_view' %>
+        </div>
+        <div class="col-lg-4">
+            <% if current_user %>
+                <div class="dynamic">
+                    <%= render :partial => 'turn_types/day_view' %>
+                </div>
+            <% end %>
         </div>
     </div>
 
@@ -30,7 +33,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#krest_ws').addClass("active")
-        setInterval(function() {
+        setInterval(function () {
             $('.dynamic').load('turn_info');
         }, 60000);
     })
