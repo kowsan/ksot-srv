@@ -1,26 +1,30 @@
 <div class="row">
-    <div class="col-lg-12 ">
+    <div class="col-lg-12 pull-left">
         <table class="table table-striped">
             <th>Рабочее место</th>
-            <th>Завершение первой смены через</th>
-            <th>Завершение второй смены через</th>
+            <th>Первая смена</th>
+            <th>Вторая смена</th>
             <% @workspaces.all.each do |w| %>
                 <% name, fs, ls= TurnType.turn_times(w.id) %>
                 <tr>
                     <td><%= name %></td>
                     <td>
-                        <% if fs<0 %>
+                        <% if fs<=0 %>
                             Завершена
                         <% else %>
                             <%= TurnType.humanize(fs) %>
+                            <a href="#" data-name="<%= name %>" data-number="1" class="btn btn-sm btn-warning">Закрыть</a>
                         <% end %>
+
                     </td>
                     <td>
-                        <% if ls<0 %>
+                        <% if ls<=0 %>
                             Завершена
                         <% else %>
                             <%= TurnType.humanize(ls) %>
+                            <a href="#" data-name="<%= name %>" data-number="2" class="btn btn-sm btn-warning">Закрыть</a>
                         <% end %>
+
                     </td>
                 </tr>
             <% end %>
