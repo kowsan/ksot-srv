@@ -1,4 +1,4 @@
-<div class="row ">
+<div class="row">
     <div class="col-lg-12">
         <table class="table table-striped">
             <th>Рабочее место</th>
@@ -12,7 +12,7 @@
                         <% if fs<=0 %>
                             Завершена
                         <% else %>
-                            <%= TurnType.humanize(fs) %>
+                            <%= TurnType.humanize(fs) %><br>
                             <a href="#" data-name="<%= name %>" data-number="1" class="btn btn-xs btn-warning">Закрыть</a>
                         <% end %>
 
@@ -21,7 +21,7 @@
                         <% if ls<=0 %>
                             Завершена
                         <% else %>
-                            <%= TurnType.humanize(ls) %>
+                            <%= TurnType.humanize(ls) %><br>
                             <a href="#" data-name="<%= name %>" data-number="2" class="btn btn-xs btn-warning">Закрыть</a>
                         <% end %>
 
