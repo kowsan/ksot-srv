@@ -1,62 +1,52 @@
-
-
 <%= render :partial => 'turn_types/turns_menu' %>
 <h4 style="color: orange">Типы смен (<%= @turn_types.count %>)</h4>
 <%= link_to 'Новый тип смен', new_turn_type_path, :class => 'btn  btn-success  btn-sm' %>
 <br>
 <br>
-<table class="table table-striped table-hover">
-    <th>ID</th>
-    <th>Наименование</th>
-    <th>Начало первой смены</th>
-    <th>Продолжительность первой смены</th>
-    <th>Количество смен</th>
-    <th>Начало второй смены</th>
-    <th>Продолжительность второй смены</th>
-    <th>Напоминать об окончании</th>
+<table
+data-toggle="table"
+data-url="turn_types.json"
+data-show-columns="true"
+data-cache="true" data-search="true" data-show-toggle="true"
+data-show-refresh="true" class="table-striped"
+data-cookie="true"
+data-row-style="rowStyle"
+data-cookie-id-table="turn_types_<%= @logged_user.login %>"
+data-sort-name="id">
 
-    <th colspan="3"></th>
+    <thead>
+    <tr>
+        <th data-field="id" data-sortable="true">ID</th>
+        <th data-field="name" data-sortable="true">Наименование</th>
+        <th data-field="count" data-sortable="true">Количество смен</th>
+        <th data-field="first_start_at_h" data-sortable="true">Начало первой смены</th>
+        <th data-field="first_duration_h" data-sortable="true">Продолжительность первой смены</th>
+        <th data-field="second_start_at_h" data-sortable="true">Начало второй смены</th>
+        <th data-field="second_duration_h" data-sortable="true">Продолжительность второй смены</th>
 
-
-    <tbody>
-    <% @turn_types.each do |turn_type| %>
-        <tr
-        <% if turn_type.is_day_off? %>
-        class="info" title="Выходной день"
-        <% end %>
-        >
-
-            <td><%= turn_type.id %></td>
-            <td><%= turn_type.name %></td>
-            <td><%= turn_type.first_start_at.strftime('%H:%M') unless turn_type.is_day_off? %></td>
-            <td><%= turn_type.first_duration.strftime('%H:%M') unless turn_type.is_day_off? %></td>
-            <td>
-                <% unless turn_type.is_day_off? %>
-                    <% if turn_type.support2? %>
-                        2
-                    <% else %>
-                        1
-                    <% end %>
-                <% end %>
-            </td>
-            <td>
-                <% unless turn_type.is_day_off? %>
-                    <%= turn_type.second_start_at.strftime('%H:%M') if turn_type.support2? %>
-                <% end %>
-                &nbsp;</td>
-            <td>
-                <% unless turn_type.is_day_off? %>
-                    <%= turn_type.second_duration.strftime('%H:%M') if turn_type.support2? %>
-                <% end %>
-                &nbsp;</td>
-            <td> <% unless turn_type.is_day_off? %><%= turn_type.reminder_before_end %><%end%>&nbsp;</td>
-
-
-            <td><%= link_to '', edit_turn_type_path(turn_type), {:class => 'btn glyphicon glyphicon-edit btn-primary  btn-sm '} %><%= link_to '', turn_type, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn glyphicon glyphicon-off btn-danger  btn-sm ' %></td>
-        </tr>
-    <% end %>
-    </tbody>
+        <th data-formatter="actions">Действия</th>
+    </tr>
+    </thead>
 </table>
+<br>
+<script type="text/javascript">
+    function actions(value, row) {
+        return '<a class="btn glyphicon glyphicon-edit btn-primary  btn-sm" href="' + row.url + '/edit"></a>'
+    }
+    function rowStyle(row, index) {
+
+        if (row.is_day_off == true) {
+            return {
+                classes: 'info'
+            };
+        }
+        return {
+            classes: ''
+        };
+    }
+</script>
+
+<br>
 <script type="text/javascript">
     $("#turntypes").addClass("active")
 </script>
