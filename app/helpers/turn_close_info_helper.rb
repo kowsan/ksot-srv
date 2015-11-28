@@ -1,0 +1,2 @@
+module TurnCloseInfoHelper
+end

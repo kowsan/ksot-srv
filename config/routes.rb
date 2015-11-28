@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'turn_close_info/index'
+
   resources :control_list_quarter_factor_groups
   resources :control_list_quarter_factors
   resources :control_list_months do

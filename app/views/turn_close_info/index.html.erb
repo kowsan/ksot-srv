@@ -1,0 +1,58 @@
+<br>
+<h4 style="color: orange">Журнал закрытия смен</h4>
+
+<br>
+<table
+data-toggle="table"
+data-url="/turn_close_info/index.json"
+data-show-columns="true"
+data-cache="true" data-search="true" data-show-toggle="true"
+data-show-refresh="true" class="table-striped"
+data-cookie="true"
+
+data-cookie-id-table="tci_<%= @logged_user.login %>"
+data-sort-name="id">
+
+    <thead>
+    <tr>
+        <th data-field="id" data-sortable="true">ID</th>
+        <th data-field="closed_by" data-sortable="true">Кем закрыта</th>
+        <th data-field="close_date" data-sortable="true">Дата закрытия</th>
+        <th data-field="work_space_name" data-sortable="true">РМ</th>
+        <th data-field="turn_type_name" data-sortable="true">Тип смены</th>
+        <th data-field="first" data-formatter="activer" data-sortable="true">Первая смена</th>
+        <th data-field="second" data-formatter="activer" data-sortable="true">Вторая смена</th>
+    </tr>
+    </thead>
+</table>
+<br>
+<script type="text/javascript">
+    function actions(value, row) {
+        return '<a class="btn glyphicon glyphicon-edit btn-primary  btn-sm" href="' + row.url + '/edit"></a>'
+    }
+    function activer(value, row) {
+
+        if (value == true)
+            return '<i class="glyphicon glyphicon-ok"></i>'
+        else
+            return '<i class="glyphicon glyphicon-off"></i>'
+    }
+
+    function i_types(value, row) {
+        var out = '<ul>'
+        console.log(row, row.issue_types)
+        $.each(row.issue_types, function (k, r) {
+
+            out += '<li>' + r.issue_type.toString() + '</li>'
+
+
+        });
+        out += '<ul>'
+        return out;
+    }
+</script>
+
+<br>
+<script type="text/javascript">
+    $('#turn_close_info').addClass('active');
+</script>
