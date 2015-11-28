@@ -1,7 +1,7 @@
 class AutoWorkSpace < ActiveRecord::Base
   belongs_to :work_space
   has_and_belongs_to_many :work_spaces
-  attr_accessor :turn_times
+
 
 
   def self.unassigned
@@ -25,7 +25,7 @@ class AutoWorkSpace < ActiveRecord::Base
 
   end
 
-  private
+
 
 
 end

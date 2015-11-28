@@ -103,7 +103,7 @@ class WorkController < ApplicationController
     osuser = app_params[:os_user] || ''
     a = AutoWorkSpace.where(:uuid => app_id).first_or_create(:computername => name, :os => os, :os_user => osuser)
 
-    a.turn_times=tms
+
     a.computername=name
     a.os=os
     a.os_user=osuser
