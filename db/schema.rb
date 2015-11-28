@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151127204538) do
+ActiveRecord::Schema.define(version: 20151128192221) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -206,11 +206,15 @@ ActiveRecord::Schema.define(version: 20151127204538) do
     t.integer  "closed_by_id"
     t.integer  "turn_type_id"
     t.date     "close_date"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.boolean  "first",        default: false
-    t.boolean  "second",       default: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.boolean  "first",              default: false
+    t.boolean  "second",             default: false
+    t.integer  "work_space_id"
+    t.integer  "auto_work_space_id"
   end
+
+  add_index "turn_close_infos", ["work_space_id"], name: "index_turn_close_infos_on_work_space_id", using: :btree
 
   create_table "turn_schemes", force: :cascade do |t|
     t.string   "name"
@@ -277,6 +281,7 @@ ActiveRecord::Schema.define(version: 20151127204538) do
   add_foreign_key "subdivisions", "areas"
   add_foreign_key "turn_close_infos", "turn_types"
   add_foreign_key "turn_close_infos", "users", column: "closed_by_id"
+  add_foreign_key "turn_close_infos", "work_spaces"
   add_foreign_key "turn_schemes", "turn_types"
   add_foreign_key "users", "staff_roles"
 end

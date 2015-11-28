@@ -43,7 +43,7 @@ class TurnType < ActiveRecord::Base
         when 1
           fs=Date.current.to_datetime+tt.first_start_at.seconds_since_midnight.seconds+tt.first_duration.seconds_since_midnight.seconds-Time.current.utc_offset.seconds
           fs=fs.to_i-Time.current.to_i
-          if TurnCloseInfo.where(:close_date => Date.current).where(:first => true).where(:turn_type_id => tt.id)
+          if TurnCloseInfo.where(:close_date => Date.current).where(:first => true).where(:turn_type_id => tt.id).where(:work_space_id=> work_space_id).count>0
             fs=0
           end
         when 2
@@ -54,11 +54,11 @@ class TurnType < ActiveRecord::Base
 
           fs=fs.to_i-Time.current.to_i
           ss=ss.to_i-Time.current.to_i
-          if TurnCloseInfo.where(:close_date => Date.current).where(:first => true).where(:turn_type_id => tt.id).count>0
+          if TurnCloseInfo.where(:close_date => Date.current).where(:first => true).where(:turn_type_id => tt.id).where(:work_space_id=> work_space_id).count>0
 
             fs=-1
           end
-          if TurnCloseInfo.where(:close_date => Date.current).where(:second => true).where(:turn_type_id => tt.id).count>0
+          if TurnCloseInfo.where(:close_date => Date.current).where(:second => true).where(:turn_type_id => tt.id).where(:work_space_id=> work_space_id).count>0
             ss=-1
           end
       end

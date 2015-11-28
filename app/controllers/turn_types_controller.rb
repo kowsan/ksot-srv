@@ -22,12 +22,14 @@ class TurnTypesController < ApplicationController
     tci.close_date=Date.current
     tci.first=is_first
     tci.second=is_second
+    tci.work_space_id=params[:work_space_id]
     tci.turn_type =TurnType.find(params[:id])
     tci.closed_by=@logged_user
     tci.save!
 
     respond_to do |format|
       format.json { render :nothing => true }
+      format.js
     end
 
   end

@@ -16,7 +16,7 @@
                                 Завершена
                             <% else %>
                                 <%= TurnType.humanize(fs) %><br>
-                                <a href="<%= close_turn_turn_types_path(:id => id, :first => true, :format => 'json') %>" data-remote="true" data-method="post" data-name="<%= name %>" data-number="1" class="btn btn-xs btn-primary">Закрыть</a>
+                                <a href="<%= close_turn_turn_types_path(:id => id, :first => true, :work_space_id => w.id, :format => 'js') %>" data-remote="true" data-method="post" data-name="<%= name %>" data-number="1" class="btn btn-xs btn-primary">Закрыть</a>
                             <% end %>
                         <% end %>
                     </td>
@@ -29,7 +29,7 @@
                                 Завершена
                             <% else %>
                                 <%= TurnType.humanize(ls) %><br>
-                                <a href="<%= close_turn_turn_types_path(:id => id, :second => true) %>" data-method="post" data-remote="true" data-name="<%= name %>" data-number="2" class="btn btn-xs btn-primary">Закрыть</a>
+                                <a href="<%= close_turn_turn_types_path(:id => id, :work_space_id => w.id, :second => true, :format => 'js') %>" data-method="post" data-remote="true" data-name="<%= name %>" data-number="2" class="btn btn-xs btn-primary">Закрыть</a>
                             <% end %>
                         <% end %>
                     </td>
