@@ -1,6 +1,7 @@
 class TurnTypesController < ApplicationController
   before_action :set_turn_type, only: [:show, :edit, :update, :destroy]
   before_action :check_permission, :validate_access
+  skip_before_action :validate_access, :only => [:close_turn]
 
   # GET /turn_types
   # GET /turn_types.json
