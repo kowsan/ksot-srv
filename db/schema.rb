@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151128192221) do
+ActiveRecord::Schema.define(version: 20151129181947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,28 @@ ActiveRecord::Schema.define(version: 20151128192221) do
   end
 
   add_index "control_list_quarter_factors", ["order_num"], name: "index_control_list_quarter_factors_on_order_num", unique: true, using: :btree
+
+  create_table "control_list_quarter_links", force: :cascade do |t|
+    t.integer "control_list_quarter_id"
+    t.integer "control_list_quarter_factor_group_id"
+    t.integer "control_list_quarter_factor_id"
+    t.string  "inconsistency"
+    t.string  "note_due"
+    t.string  "note_measures"
+    t.integer "status_id"
+    t.date    "date_due"
+  end
+
+  create_table "control_list_quarters", force: :cascade do |t|
+    t.date     "form_date"
+    t.integer  "author_id"
+    t.integer  "subdivision_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "control_list_quarters", ["author_id"], name: "index_control_list_quarters_on_author_id", using: :btree
+  add_index "control_list_quarters", ["subdivision_id"], name: "index_control_list_quarters_on_subdivision_id", using: :btree
 
   create_table "critical_types", force: :cascade do |t|
     t.string   "name"
@@ -276,7 +298,16 @@ ActiveRecord::Schema.define(version: 20151128192221) do
   add_index "work_spaces", ["subdivision_id"], name: "index_work_spaces_on_subdivision_id", using: :btree
 
   add_foreign_key "areas", "managements"
+  add_foreign_key "control_list_month_links", "control_list_factor_groups"
+  add_foreign_key "control_list_month_links", "control_list_factors"
+  add_foreign_key "control_list_month_links", "control_list_months"
+  add_foreign_key "control_list_month_links", "statuses"
+  add_foreign_key "control_list_month_links", "users"
+  add_foreign_key "control_list_months", "subdivisions"
+  add_foreign_key "control_list_months", "users", column: "author_id"
   add_foreign_key "control_list_quarter_factors", "control_list_quarter_factor_groups"
+  add_foreign_key "control_list_quarters", "subdivisions"
+  add_foreign_key "control_list_quarters", "users", column: "author_id"
   add_foreign_key "issues", "issue_types"
   add_foreign_key "subdivisions", "areas"
   add_foreign_key "turn_close_infos", "turn_types"

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  form_date: 2015-11-29
+  author_id: 
+  subdivision_id: 
+
+two:
+  form_date: 2015-11-29
+  author_id: 
+  subdivision_id: 

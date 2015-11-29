@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Form date:</strong>
+  <%= @control_list_quarter.form_date %>
+</p>
+
+<p>
+  <strong>Author:</strong>
+  <%= @control_list_quarter.author %>
+</p>
+
+<p>
+  <strong>Subdivision:</strong>
+  <%= @control_list_quarter.subdivision %>
+</p>
+
+<%= link_to 'Edit', edit_control_list_quarter_path(@control_list_quarter) %> |
+<%= link_to 'Back', control_list_quarters_path %>

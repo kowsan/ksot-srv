@@ -1,0 +1,29 @@
+<%= form_for(@control_list_quarter) do |f| %>
+  <% if @control_list_quarter.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@control_list_quarter.errors.count, "error") %> prohibited this control_list_quarter from being saved:</h2>
+
+      <ul>
+      <% @control_list_quarter.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :form_date %><br>
+    <%= f.date_select :form_date %>
+  </div>
+  <div class="field">
+    <%= f.label :author_id %><br>
+    <%= f.text_field :author_id %>
+  </div>
+  <div class="field">
+    <%= f.label :subdivision_id %><br>
+    <%= f.text_field :subdivision_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
