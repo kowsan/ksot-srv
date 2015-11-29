@@ -1,11 +1,16 @@
 Rails.application.routes.draw do
-  resources :control_list_quarters
+
   get 'turn_close_info/index'
 
   resources :control_list_quarter_factor_groups
   resources :control_list_quarter_factors
   resources :control_list_months do
 
+    member do
+      get 'pdf'
+    end
+  end
+  resources :control_list_quarters do
     member do
       get 'pdf'
     end

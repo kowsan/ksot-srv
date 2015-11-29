@@ -13,7 +13,7 @@
     <% end %>
     <div class="row">
         <div class="col-md-2">
-            <%= f.label 'Подзразделение' %><br>
+            <%= f.label 'Подразделение' %><br>
             <%= f.collection_select(:subdivision_id, Subdivision.all.sort_by { |x| x['name'] }, :id, :name, {:include_blank => true}, :class => 'form-control input', :'data-required' => true) %>
         </div>
         <div class="col-md-2">

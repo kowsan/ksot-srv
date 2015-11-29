@@ -1,6 +1,233 @@
-<h1>Editing Control List Quarter</h1>
+<%=  render :partial => 'control_list_quarter_factors/menu'%>
 
-<%= render 'form' %>
+<h4 style="color: orange">Редактирование контрольного листа</h4>
 
-<%= link_to 'Show', @control_list_quarter %> |
-<%= link_to 'Back', control_list_quarters_path %>
+<%= form_for(@control_list_quarter) do |f| %>
+    <% if @control_list_quarter.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@control_list_quarter.errors.count, "ошибки") %> мешают сохранению </h2>
+            <ul>
+                <% @control_list_quarter.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+    <div class="row">
+        <div class="col-md-2">
+            <%= f.label 'Подразделение' %><br>
+            <%= f.collection_select(:subdivision_id, Subdivision.all.sort_by { |x| x['name'] }, :id, :name, {:include_blank => true}, :class => 'form-control input', :'data-required' => true) %>
+        </div>
+        <div class="col-md-2">
+            <%= f.label 'Составил' %><br>
+            <%= f.collection_select(:author_id, User.all.sort_by { |x| x['full_name'] }, :id, :full_name, {:include_blank => true}, :class => 'form-control input', :'data-required' => true) %>
+        </div>
+        <div class="col-md-2">
+            <%= f.label 'Дата' %><br>
+            <%= f.text_field :form_date, :class => 'form-control input date', :'data-required' => true %>
+        </div>
+
+    </div>
+
+    <br>
+    <p>Группы факторов</p>
+
+    <% ControlListQuarterFactorGroup.all.each do |l| %>
+
+        <div class="row">
+            <div class="col-md-12">
+                <span class="label label-success"><%= l.name %></span>
+                <% l.control_list_quarter_factors.sort_by { |y| y[:order_num] }.each do |fac| %>
+                    <% c_id=l.id.to_s+'_'+fac.id.to_s %>
+                    <input type="hidden" name="cb_factors[]" value="<%= c_id %>">
+                    <!-- iterate factors-->
+                    <% clf_link=@control_list_links.where(:control_list_quarter_factor_id => fac.id) %>
+                    <% is_f_enabled = clf_link.count>0 %>
+                    <div id="det_cb<%= c_id %>" class="row">
+                        <div class="col-lg-9">
+                            <div class="col-lg-3">
+                                <input type="checkbox" name="enabled_<%= c_id %>" <%= "checked" if is_f_enabled %> id="cb_<%= c_id %>">
+
+
+                                <textarea readonly rows="5" class="form-control input"><%= fac.factor %></textarea>
+                            </div>
+                            <div class="col-lg-9" id="toggle_<%= c_id %>">
+                                <div class="row">
+                                    <input type="hidden" class="hidden" name="is_enabled[]" value="<%= 'true' unless clf_link.empty? %>" style="display: none">
+
+                                    <div class="col-md-6">
+                                        <% if clf_link.empty? %>
+                                            <%= collection_select(:user, :user_id, @users, :id, :full_name, {:include_blank => 'Ответственный за устранение'}, {:name => 'f_user_id[]', :placeholder => 'Ответственный за устранение', :class => 'form-control input', :'data-required' => true}) %>
+                                        <% else %>
+                                            <%= collection_select(:user, :user_id, @users, :id, :full_name, {:selected => clf_link.first.user_id, :include_blank => 'Ответственный за устранение'}, {:name => 'f_user_id[]', :placeholder => 'Ответственный за устранение', :class => 'form-control input', :'data-required' => true}) %>
+                                        <% end %>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <% if clf_link.empty? %>
+                                            <%= collection_select(:status, :status_id, Status.all, :id, :name, {:include_blank => 'Статус'}, {:name => 'f_status_id[]', :placeholder => 'Статус', :class => 'form-control input', :'data-required' => true}) %>
+                                        <% else %>
+                                            <%= collection_select(:status, :status_id, Status.all, :id, :name, {:selected => clf_link.first.status_id, :include_blank => 'Статус'}, {:name => 'f_status_id[]', :placeholder => 'Статус', :class => 'form-control input', :'data-required' => true}) %>
+                                        <% end %>
+
+                                    </div>
+
+
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+                                            <textarea rows="10" name="inconsistence[]" data-required class="form-control input" placeholder="Выявленные несоответствия (заполняется при наличии несоответствий):"><%= clf_link.first.inconsistency unless clf_link.empty? %></textarea>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <textarea rows="10" name="note_measures[]" class="form-control input" placeholder="Принятые меры по устранению несоответствий:"><%= clf_link.first.note_measures unless clf_link.empty? %></textarea>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input type="text" name="date_due[]"  class="form-control input date" value="<%= clf_link.first.date_due unless clf_link.empty? %>" placeholder="Срок исполнения"/>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" name="note_due[]" class="form-control input" value="<%= clf_link.first.note_due unless clf_link.empty? %>" placeholder="Отметка о выполнении"/>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            $('#cb_<%= c_id %>').on('change', function () {
+
+                                console.log('on cb factor change')
+                                $('#det_cb<%= c_id %>').find('.hidden').each(function () {
+                                    if ($(this).val() == "true") {
+                                        console.log('enabled detect!Dissable it')
+                                        $(this).val('false');
+                                        $('#toggle_<%= c_id %>').hide()
+
+                                    } else {
+                                        console.log('Disabled detect!Enable it')
+                                        $(this).val('true');
+                                        $('#toggle_<%= c_id %>').show()
+                                    }
+                                })
+                            });
+
+                            if ($('#cb_<%= c_id %>').attr('checked') == undefined) {
+                                $('#toggle_<%= c_id %>').hide()
+                            } else {
+                                $('#toggle_<%= c_id %>').show()
+                            }
+                        </script>
+                    </div>
+                    <p></p>
+                <% end %>
+
+
+    <% end %>
+    </div>
+
+
+    <div class="form-group">
+        <%= f.submit(:class => 'btn btn-sm btn-primary', :onclick => 'return validateSelects()') %><br>
+
+        <div style="display: none" id="fgsubmit" class="col-md-6 alert alert-dismissible alert-danger">Не
+            заполнены
+            некоторые поля
+        </div>
+    </div>
+<% end %>
+<script type="text/javascript">
+    //    $('input[id^="cb"]').each(function () {
+    //        $(this).change(function () {
+    //            var id = $(this).attr('id')
+    //            if ($(this).is(":checked")) {
+    //                var d_id = '#div_detail_' + id;
+    //                if ($(d_id).text().trim() == '') {
+    //                    $(d_id).append($('#template').html()).append("<input type=hidden name=\"factors[]\" value=\'" + id + "\'>")
+    //                }
+    //
+    //
+    //                console.log('cb is checked', id)
+    //                $(this).val('true');
+    //                $(d_id).find("input:hidden").find('.hidden').each(function () {
+    //                    $(this).val('true');
+    //                    console.log('Hidden found', $(this).val())
+    //                })
+    //                unreadonlyzediv(d_id)
+    //            } else {
+    //                console.log('cb is unchecked')
+    //                var d_id = '#div_detail_' + id;
+    //
+    //                readonlyzediv(d_id)
+    //                $(d_id).find("input:hidden").find('.hidden').each(function () {
+    //                    $(this).val('false');
+    //
+    //                })
+    //            }
+    //
+    //        });
+    //    })
+
+    function unreadonlyzediv(divid) {
+
+        $(divid).find("select").each(function () {
+            $(this).removeAttr('readonly');
+
+        })
+        $(divid).find("input").each(function () {
+            $(this).removeAttr('readonly');
+
+        })
+        $(divid).find("textarea").each(function () {
+            $(this).removeAttr('readonly');
+
+        })
+
+    }
+    function readonlyzediv(divid) {
+
+        $(divid).find("select").each(function () {
+            $(this).attr('readonly', 'readonly');
+
+        })
+        $(divid).find("input").each(function () {
+            $(this).attr('readonly', 'readonly');
+
+        })
+        $(divid).find("textarea").each(function () {
+            $(this).attr('readonly', 'readonly');
+
+        })
+
+    }
+    function validateSelects() {
+        var r = true
+
+        $("[data-required]:visible").each(function () {
+            if ($(this).val().length == 0) {
+                $(this).parent().addClass('has-error')
+                r = false
+            } else {
+                $(this).parent().removeClass('has-error')
+            }
+        })
+        if (r == false) {
+            $('#fgsubmit').show()
+
+        } else {
+            $('#fgsubmit').hide()
+
+        }
+        return r;
+    }
+    $('.date').datetimepicker({
+        locale: 'ru',
+        format: 'DD.MM.YYYY'
+    });
+
+
+            $('#clquartermonth').addClass('active')
+
+</script>
+</div>
+<%= link_to 'К списку', control_list_quarters_path %>

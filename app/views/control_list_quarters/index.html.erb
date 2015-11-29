@@ -1,31 +1,64 @@
-<p id="notice"><%= notice %></p>
+<%= render :partial => 'control_list_quarter_factors/menu' %>
+<%= link_to 'New Control list quarter', new_control_list_quarter_path %>
 
-<h1>Listing Control List Quarters</h1>
 
-<table>
-  <thead>
+
+<table
+data-toggle="table"
+class="table table-hover table-striped"
+data-url="control_list_quarters.json"
+data-show-columns="true"
+data-cache="true" data-search="true" data-show-toggle="true"
+data-show-refresh="true" class="table-striped"
+data-cookie="true"
+
+data-cookie-id-table="control-list-quarters_<%= @logged_user.login %>"
+data-sort-name="id">
+
+    <thead>
     <tr>
-      <th>Form date</th>
-      <th>Author</th>
-      <th>Subdivision</th>
-      <th colspan="3"></th>
+        <th data-field="id" data-sortable="true">Код</th>
+        <th data-field="form_date" data-sortable="true" data-formatter="dater">Дата составления</th>
+        <th data-field="user_name" data-sortable="true">Проверяющий</th>
+        <th data-field="position" data-sortable="true">Должность</th>
+        <th data-field="subdivision" data-sortable="true">Подразделение</th>
+        <th data-field="area" data-sortable="true">Участок</th>
+        <th data-formatter="actions">Действия</th>
     </tr>
-  </thead>
-
-  <tbody>
-    <% @control_list_quarters.each do |control_list_quarter| %>
-      <tr>
-        <td><%= control_list_quarter.form_date %></td>
-        <td><%= control_list_quarter.author %></td>
-        <td><%= control_list_quarter.subdivision %></td>
-        <td><%= link_to 'Show', control_list_quarter %></td>
-        <td><%= link_to 'Edit', edit_control_list_quarter_path(control_list_quarter) %></td>
-        <td><%= link_to 'Destroy', control_list_quarter, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
+    </thead>
 </table>
+<br>
+<script type="text/javascript">
+    function actions(value, row) {
+        var act = ''
+        <% if @can_fill_control_list %>
+        act += '<a class="glyphicon btn btn-sm btn-primary glyphicon-edit" href="' + row.edit_url + '"></a>'
+        <%end%>
+
+        act += '&nbsp;<a class="glyphicon btn btn-sm btn-default glyphicon-list" title="Просмотр" href="' + row.url + '"></a>'
+        act += '&nbsp;<a class="glyphicon btn btn-sm btn-success glyphicon-save" href="' + row.pdf_url + '"></a>'
+        return act
+    }
+
+    function activer(value, row) {
+
+        if (value == true)
+            return '<i class="glyphicon glyphicon-ok"></i>'
+        else
+            return '<i class="glyphicon glyphicon-off"></i>'
+    }
+    function dater(value, row) {
+        return row.date
+    }
+
+
+</script>
+
+
 
 <br>
+<script type="text/javascript">
+    $('#clquartermonth').addClass('active')
+</script>
 
-<%= link_to 'New Control list quarter', new_control_list_quarter_path %>
+
