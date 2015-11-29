@@ -1,6 +1,6 @@
 class ControlListQuartersController < ApplicationController
   before_action :set_control_list_quarter, only: [:show, :edit, :update, :destroy]
-
+  before_action :check_permission
   # GET /control_list_quarters
   # GET /control_list_quarters.json
   def index
@@ -14,6 +14,8 @@ class ControlListQuartersController < ApplicationController
 
   # GET /control_list_quarters/new
   def new
+    s_id=StaffRole.where(:can_fill_control_list => true).all.map { |s| s.id }
+    @users=User.where('staff_role_id in (?)', s_id)
     @control_list_quarter = ControlListQuarter.new
   end
 

@@ -1,29 +1,151 @@
+<div id='template' style="display: none"><%= render :partial => 'factor_detail' %></div>
 <%= form_for(@control_list_quarter) do |f| %>
-  <% if @control_list_quarter.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@control_list_quarter.errors.count, "error") %> prohibited this control_list_quarter from being saved:</h2>
+    <% if @control_list_quarter.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@control_list_quarter.errors.count, "ошибки") %> мешают сохранению </h2>
+            <ul>
+                <% @control_list_quarter.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+    <div class="row">
+        <div class="col-md-2">
+            <%= f.label 'Подразделение' %><br>
+            <%= f.collection_select(:subdivision_id, Subdivision.all.sort_by { |x| x['name'] }, :id, :name, {:include_blank => true}, :class => 'form-control input',:'data-required'=> true) %>
+        </div>
+        <div class="col-md-2">
+            <%= f.label 'Составил' %><br>
+            <%= f.collection_select(:author_id, User.all.sort_by { |x| x['full_name'] }, :id, :full_name, {:include_blank => true}, :class => 'form-control input',:'data-required'=> true) %>
+        </div>
+        <div class="col-md-2">
+            <%= f.label 'Дата' %><br>
+            <%= f.text_field :form_date, :class => 'form-control input date',:'data-required'=> true %>
+        </div>
 
-      <ul>
-      <% @control_list_quarter.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :form_date %><br>
-    <%= f.date_select :form_date %>
-  </div>
-  <div class="field">
-    <%= f.label :author_id %><br>
-    <%= f.text_field :author_id %>
-  </div>
-  <div class="field">
-    <%= f.label :subdivision_id %><br>
-    <%= f.text_field :subdivision_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <br>
+    <p>Группы факторов</p>
+
+    <% ControlListQuarterFactorGroup.all.each do |l| %>
+        <div class="row">
+            <div class="col-md-12">
+                <span class="label label-success"><%= l.name %></span>
+                <% l.control_list_quarter_factors.sort_by { |y| y[:order_num] }.each do |fac| %>
+                    <% c_id=l.id.to_s+'_'+fac.id.to_s %>
+                    <div class="row" id="det_cb_<%= c_id %>">
+                        <div class="col-lg-3">
+                            <input type="checkbox" id="cb_<%= c_id %>"><textarea readonly rows="5" class="form-control input"><%= fac.factor %></textarea>
+                        </div>
+                        <div id="div_detail_cb_<%= c_id %>" class="col-lg-9">
+                        </div>
+                    </div>
+                    <p></p>
+                <% end %>
+            </div>
+        </div>
+    <% end %>
+
+    <div class="form-group row">
+        <%= f.submit(:class => 'btn btn-sm btn-primary', :onclick => 'return validateSelects()') %><br>
+
+        <div style="display: none" id="fgsubmit" class="col-md-6 alert alert-dismissible alert-danger">Не заполнены
+            некоторые поля
+        </div>
+    </div>
 <% end %>
+<script type="text/javascript">
+    $('input[id^="cb"]').each(function () {
+        $(this).change(function () {
+            var id = $(this).attr('id')
+            if ($(this).is(":checked")) {
+                var d_id = '#div_detail_' + id;
+                if ($(d_id).text().trim() == '') {
+                    $(d_id).append($('#template').html()).append("<input type=hidden name=\"factors[]\" value=\'" + id + "\'>")
+                }
+
+
+                console.log('cb is checked', id)
+                $(this).val('true');
+                $(d_id).find("input:hidden").find('.hidden').each(function () {
+                    $(this).val('true');
+                    console.log('Hidden found', $(this).val())
+                })
+                unreadonlyzediv(d_id)
+            } else {
+                console.log('cb is unchecked')
+                var d_id = '#div_detail_' + id;
+
+                readonlyzediv(d_id)
+                $(d_id).find("input:hidden").find('.hidden').each(function () {
+                    $(this).val('false');
+
+                })
+            }
+
+        });
+    })
+
+    function unreadonlyzediv(divid) {
+
+        $(divid).find("select").each(function () {
+            $(this).removeAttr('readonly');
+
+        })
+        $(divid).find("input").each(function () {
+            $(this).removeAttr('readonly');
+
+        })
+        $(divid).find("textarea").each(function () {
+            $(this).removeAttr('readonly');
+
+        })
+
+    }
+    function readonlyzediv(divid) {
+
+        $(divid).find("select").each(function () {
+            $(this).attr('readonly', 'readonly');
+
+        })
+        $(divid).find("input").each(function () {
+            $(this).attr('readonly', 'readonly');
+
+        })
+        $(divid).find("textarea").each(function () {
+            $(this).attr('readonly', 'readonly');
+
+        })
+
+    }
+    function validateSelects() {
+        var r = true
+
+        $("[data-required]:visible").each(function(){
+            if ($(this).val().length == 0 && $(this).is) {
+                $(this).parent().addClass('has-error')
+                r = false
+            } else {
+                $(this).parent().removeClass('has-error')
+            }
+        })
+        if (r == false) {
+            $('#fgsubmit').show()
+
+        } else {
+            $('#fgsubmit').hide()
+
+        }
+        return r;
+    }
+    $(document).ready(function(){
+        $('.date').datetimepicker({
+            locale: 'ru',
+            format: 'DD.MM.YYYY'
+        });
+
+    })
+
+</script>
