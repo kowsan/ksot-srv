@@ -1,5 +1,8 @@
+<%= render :partial => 'control_list_quarter_factors/menu' %>
 <h4 style="color: orange">Новый квартальный лист</h4>
 
 <%= render 'form' %>
 
-<%= link_to 'Back', control_list_quarters_path %>
+<script type="text/javascript">
+    $('#clquartermonth').addClass('active')
+</script>
