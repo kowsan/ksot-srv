@@ -34,7 +34,7 @@ class ControlListQuartersController < ApplicationController
     ControlListQuarter.transaction do
       @control_list_quarter = ControlListQuarter.new(control_list_quarter_params)
       if !params[:factors].nil? && @control_list_quarter.save
-        params[:cb_factors].each_with_index do |item, index|
+        params[:factors].each_with_index do |item, index|
 
           if params[:is_enabled][index]
             g_id, f_id=params[:factors][index].gsub('cb_', '').split('_')
