@@ -159,7 +159,7 @@
 
             console.log($('#ws_id_work_space_id').val())
         })
-        //setInterval(getCalendarData, 60000)
+        setInterval(getCalendarData_<%=@works_id %>(), 60000)
         getCalendarData_<%=@works_id %>()
     });
 
