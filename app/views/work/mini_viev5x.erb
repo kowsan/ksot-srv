@@ -3,11 +3,11 @@
 <% if !@workspaces.nil? %>
 
     <% @workspaces.all.each_with_index do |item, index| %>
-
+        <div data-scroll="true"></div>
 
         <% if index%3==0 %>
 
-            <div class="row row-centered" data-scroll="true">
+            <div class="row row-centered" >
                 <div class="col-lg-3">
                     <h4 style="color: #975300"><%= item.name %></h4>
                     <%= render :partial => 'work/krest_view_mini', :locals => {:@works_id => item.id} %>
