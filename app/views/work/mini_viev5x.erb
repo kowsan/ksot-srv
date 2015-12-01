@@ -1,0 +1,44 @@
+<%= render :partial => 'work/menu' %>
+
+<% if !@workspaces.nil? %>
+
+    <% @workspaces.all.each_with_index do |item, index| %>
+
+
+        <% if index%3==0 %>
+
+            <div class="row row-centered">
+                <div class="col-lg-3">
+                    <h4 style="color: #975300"><%= item.name %></h4>
+                    <%= render :partial => 'work/krest_view_mini', :locals => {:@works_id => item.id} %>
+                </div>
+        <% end %>
+        <% if index%3==1 %>
+            <div class="col-lg-3">
+                <h4 style="color: #975300"><%= item.name %></h4>
+                <%= render :partial => 'work/krest_view_mini', :locals => {:@works_id => item.id} %>
+            </div>
+        <% end %>
+        <% if index%3==2 %>
+            <div class="col-lg-3">
+                <h4 style="color: #975300"><%= item.name %></h4>
+                <%= render :partial => 'work/krest_view_mini', :locals => {:@works_id => item.id} %>
+            </div>
+            </div>
+
+        <% end %>
+    <% end %>
+<% else %>
+
+    <b>Работа в анонимном режиме запрещена или к вашему АРМ не привязаны РАБОЧИЕ МЕСТА </b>
+
+<% end %>
+<br>
+<% if current_user %>
+
+<% else %>
+    <%= link_to 'Авторизация', new_user_session_path, :class => 'btn btn-success pull-right' %>
+<% end %>
+<script type="text/javascript">
+    $('#krest_mini').addClass('active')
+</script>

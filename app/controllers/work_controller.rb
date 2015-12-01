@@ -1,6 +1,33 @@
 class WorkController < ApplicationController
   before_action :check_permission, :except => [:app_login, :app_logout, :user_info, :by_day_in_month, :by_ws_id]
 
+  def mini_viev5x
+    ws=AutoWorkSpace.current_aws(cookies[:app_id])
+    if ws.nil?
+      @allow_anon=false
+    else
+      if ws.work_spaces.count==0
+        @allow_anon=false
+      else
+        @allow_anon=ws.allow_anonymous?
+      end
+    end
+    if current_user
+      @allow_anon='you authed'
+      check_permission
+      @workspaces= get_available_work_spaces
+      if @workspaces.nil?
+        @allow_anon=false
+      end
+
+    else
+      @workspaces= get_available_work_spaces
+      if @workspaces.nil?
+        @allow_anon=false
+      end
+    end
+  end
+
   def by_ws_id
     ws=AutoWorkSpace.current_aws(cookies[:app_id])
     if ws.nil?
@@ -30,7 +57,7 @@ class WorkController < ApplicationController
 
   def turn_info
     user_info
-     render :partial => 'turn_types/day_view'
+    render :partial => 'turn_types/day_view'
   end
 
   def user_info

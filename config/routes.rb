@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   get 'work/by_day_in_month'
   get 'work/by_ws_id'
   get 'work/turn_info'
+  get 'work/mini_viev5x'
   resources :issues do
     collection do
       get 'monthly'
