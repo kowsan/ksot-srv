@@ -6,7 +6,7 @@
         <div data-scroll="true"></div>
 
         <% if index%3==0 %>
-
+            <br>
             <div class="row row-centered">
                 <div class="col-md-3">
                     <label style="color: #975300"><%= item.name %></label>
@@ -25,7 +25,8 @@
                 <%= render :partial => 'work/krest_view_mini', :locals => {:@works_id => item.id} %>
             </div>
             </div>
-            <br>
+
+
 
         <% end %>
     <% end %>
