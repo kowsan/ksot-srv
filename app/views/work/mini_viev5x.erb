@@ -7,24 +7,25 @@
 
         <% if index%3==0 %>
 
-            <div class="row row-centered" >
-                <div class="col-lg-3">
-                    <h4 style="color: #975300"><%= item.name %></h4>
+            <div class="row row-centered">
+                <div class="col-md-3">
+                    <label style="color: #975300"><%= item.name %></label>
                     <%= render :partial => 'work/krest_view_mini', :locals => {:@works_id => item.id} %>
                 </div>
         <% end %>
         <% if index%3==1 %>
-            <div class="col-lg-3">
-                <h4 style="color: #975300"><%= item.name %></h4>
+            <div class="col-md-3">
+                <label style="color: #975300"><%= item.name %></label>
                 <%= render :partial => 'work/krest_view_mini', :locals => {:@works_id => item.id} %>
             </div>
         <% end %>
         <% if index%3==2 %>
-            <div class="col-lg-3">
-                <h4 style="color: #975300"><%= item.name %></h4>
+            <div class="col-md-3">
+                <label style="color: #975300"><%= item.name %></label>
                 <%= render :partial => 'work/krest_view_mini', :locals => {:@works_id => item.id} %>
             </div>
             </div>
+            <br>
 
         <% end %>
     <% end %>
