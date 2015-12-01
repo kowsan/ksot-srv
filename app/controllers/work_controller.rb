@@ -1,5 +1,5 @@
 class WorkController < ApplicationController
-  before_action :check_permission, :except => [:app_login, :app_logout, :user_info, :by_day_in_month, :by_ws_id]
+  before_action :check_permission, :except => [:app_login, :app_logout, :user_info, :by_day_in_month, :by_ws_id,:mini_viev5x]
 
   def mini_viev5x
     ws=AutoWorkSpace.current_aws(cookies[:app_id])
