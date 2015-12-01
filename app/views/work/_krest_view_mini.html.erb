@@ -136,7 +136,7 @@
                         }
 
                     })
-                    $('#info_date_<%= @works_id%>').html($('#month_<%= @works_id%>').html())
+                    //$('#info_date_<%= @works_id%>').html($('#month_<%= @works_id%>').html())
 
 
                 }
@@ -164,7 +164,6 @@
     });
 
 </script>
-<br>
 <% if @works_id==0 %>
     <div class="container">
         <div class="col-md-1"><label>Рабочее место</label></div>
@@ -180,10 +179,6 @@
 <% end %>
 <div class="row">
 
-    <div class="row row-centered">
-        <h2 id="info_date_<%= @works_id %>"><%= (Time.current).strftime("%m.%Y") %></h2>
-
-    </div>
     <div class="row row-centered">
         <div id="day_<%= @works_id %>_1" class="  col-centered" style="width: 30px;height: 30px; border: 1px solid black;background-color: white"></div>
         <div id="day_<%= @works_id %>_2" class="  col-centered" style="width: 30px;height: 30px; border: 1px solid black;background-color: white"></div>
