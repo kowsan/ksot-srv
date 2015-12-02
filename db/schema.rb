@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151129191826) do
+ActiveRecord::Schema.define(version: 20151202193310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -307,6 +307,10 @@ ActiveRecord::Schema.define(version: 20151129191826) do
   add_foreign_key "control_list_months", "subdivisions"
   add_foreign_key "control_list_months", "users", column: "author_id"
   add_foreign_key "control_list_quarter_factors", "control_list_quarter_factor_groups"
+  add_foreign_key "control_list_quarter_links", "control_list_quarter_factor_groups"
+  add_foreign_key "control_list_quarter_links", "control_list_quarter_factors"
+  add_foreign_key "control_list_quarter_links", "control_list_quarters"
+  add_foreign_key "control_list_quarter_links", "statuses"
   add_foreign_key "control_list_quarter_links", "users"
   add_foreign_key "control_list_quarters", "subdivisions"
   add_foreign_key "control_list_quarters", "users", column: "author_id"
