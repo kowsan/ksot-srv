@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'report/index'
+
   get 'turn_close_info/index'
 
   resources :control_list_quarter_factor_groups
