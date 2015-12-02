@@ -30,7 +30,7 @@
         <td>Полностью соответствует
             от 90 до 100 баллов
         </td>
-        <td><%=ControlListQuarter.in_list(:from => DateTime.current.beginning_of_year.at_beginning_of_quarter, :to => DateTime.current.beginning_of_year.at_end_of_quarter, :start_bal => 90, :stop_bal => 100).count%></td>
+        <td><%= ControlListQuarter.in_list(:from => DateTime.current.beginning_of_year.at_beginning_of_quarter, :to => DateTime.current.beginning_of_year.at_end_of_quarter, :start_bal => 90, :stop_bal => 100).count %></td>
         <td></td>
         <td></td>
         <td></td>
@@ -86,13 +86,13 @@
         <td><%= ControlListQuarter.in_list(:from => DateTime.current.beginning_of_year.at_beginning_of_quarter, :to => DateTime.current.beginning_of_year.at_end_of_quarter, :start_bal => 0, :stop_bal => 60).count %></td>
         <td></td>
         <td></td>
+        <td><%= ControlListQuarter.in_list(:from => (DateTime.current.beginning_of_year+4.months).at_beginning_of_quarter, :to => (DateTime.current.beginning_of_year+4.months).at_end_of_quarter, :start_bal => 0, :stop_bal => 60).count %></td>
         <td></td>
         <td></td>
+        <td><%= ControlListQuarter.in_list(:from => (DateTime.current.end_of_year-4.months).at_beginning_of_quarter, :to => (DateTime.current.end_of_year-4.months).at_end_of_quarter, :start_bal => 0, :stop_bal => 60).count %></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><%= ControlListQuarter.in_list(:from => DateTime.current.end_of_year.at_beginning_of_quarter, :to => DateTime.current.end_of_year.at_end_of_quarter, :start_bal => 0, :stop_bal => 60).count %></td>
         <td></td>
         <td></td>
     </tr>
