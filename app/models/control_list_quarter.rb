@@ -5,6 +5,13 @@ class ControlListQuarter < ActiveRecord::Base
   has_many :control_list_quarter_factors, :through => :control_list_quarter_links
 
   def total
-     control_list_quarter_factors.count
+    control_list_quarter_factors.count
   end
+
+  def self.in_list(from: '', to: '', start_bal: '', stop_bal: '')
+    ControlListQuarter.where(:form_date => from..to).select{|x| x.total.between?(start_bal,stop_bal)}
+
+  end
+
+  #ControlListQuarter.in_list(:from => '', :to => '', :start_bal => '', :stop_bal => '')
 end

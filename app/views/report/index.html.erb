@@ -1,10 +1,117 @@
 <h4 style="color: orange">Report#index</h4>
 
 
-<table class="table table-responsive">
+<table border="1" class="table table-responsive">
     <thead>
+    <tr>
+        <td></td>
+        <td colspan="12">Количество производственных участков</td>
+    </tr>
+    <tr>
+        <td>Оцениваемый
+            период <br>
+            Оценка
+        </td>
+        <td>Всего</td>
+        <td>от пред.</td>
+        <td>% от общего кол-ва</td>
+        <td>Всего</td>
+        <td>от пред.</td>
+        <td>% от общего кол-ва</td>
+        <td>Всего</td>
+        <td>от пред.</td>
+        <td>% от общего кол-ва</td>
+        <td>Всего</td>
+        <td>от пред.</td>
+        <td>% от общего кол-ва</td>
+    </tr>
     </thead>
+    <tr>
+        <td>Полностью соответствует
+            от 90 до 100 баллов
+        </td>
+        <td><%=ControlListQuarter.in_list(:from => DateTime.current.beginning_of_year.at_beginning_of_quarter, :to => DateTime.current.beginning_of_year.at_end_of_quarter, :start_bal => 90, :stop_bal => 100).count%></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
 
+    </tr>
+    <tr>
+        <td>В основном соответствует
+            от 80 до 90 баллов
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Частично соответствует
+            от 60 до 80 баллов
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>Не соответствует
+            ниже 60 баллов
+        </td>
+        <td><%= ControlListQuarter.in_list(:from => DateTime.current.beginning_of_year.at_beginning_of_quarter, :to => DateTime.current.beginning_of_year.at_end_of_quarter, :start_bal => 0, :stop_bal => 60).count %></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Всего производственных участков
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
 </table>
 
 
