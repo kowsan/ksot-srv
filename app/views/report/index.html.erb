@@ -1,6 +1,8 @@
 <h4 style="color: orange">Report#index</h4>
-
-
+<% quarter1s, quarter1e=DateTime.current.beginning_of_year.at_beginning_of_quarter, DateTime.current.beginning_of_year.at_end_of_quarter %>
+<% quarter2s, quarter2e=(DateTime.current.beginning_of_year+4.months).at_beginning_of_quarter, (DateTime.current.beginning_of_year+4.months).at_end_of_quarter %>
+<% quarter3s, quarter3e=(DateTime.current.beginning_of_year+8.months).at_beginning_of_quarter, (DateTime.current.beginning_of_year+8.months).at_end_of_quarter %>
+<% quarter4s, quarter4e=(DateTime.current.beginning_of_year+11.months).at_beginning_of_quarter, (DateTime.current.beginning_of_year+11.months).at_end_of_quarter %>
 <table border="1" class="table table-responsive">
     <thead>
     <tr>
@@ -30,16 +32,18 @@
         <td>Полностью соответствует
             от 90 до 100 баллов
         </td>
-        <td><%= ControlListQuarter.in_list(:from => DateTime.current.beginning_of_year.at_beginning_of_quarter, :to => DateTime.current.beginning_of_year.at_end_of_quarter, :start_bal => 90, :stop_bal => 100).count %></td>
+        <!-- 1 квартал -->
+
+        <td><%= ControlListQuarter.in_list(:from => quarter1s, :to => quarter1e, :start_bal => 90, :stop_bal => 101).count %></td>
         <td></td>
         <td></td>
+        <td><%= ControlListQuarter.in_list(:from => quarter2s, :to => quarter2e, :start_bal => 90, :stop_bal => 101).count %></td>
         <td></td>
         <td></td>
+        <td><%= ControlListQuarter.in_list(:from => quarter3s, :to => quarter3e, :start_bal => 90, :stop_bal => 101).count %></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><%= ControlListQuarter.in_list(:from => quarter4s, :to => quarter4e, :start_bal => 90, :stop_bal => 101).count %></td>
         <td></td>
         <td></td>
 
@@ -48,16 +52,16 @@
         <td>В основном соответствует
             от 80 до 90 баллов
         </td>
+        <td><%= ControlListQuarter.in_list(:from => quarter1s, :to => quarter1e, :start_bal => 80, :stop_bal => 90).count %></td>
         <td></td>
         <td></td>
+        <td><%= ControlListQuarter.in_list(:from => quarter2s, :to => quarter2e, :start_bal => 80, :stop_bal => 90).count %></td>
         <td></td>
         <td></td>
+        <td><%= ControlListQuarter.in_list(:from => quarter3s, :to => quarter3e, :start_bal => 80, :stop_bal => 90).count %></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><%= ControlListQuarter.in_list(:from => quarter4s, :to => quarter4e, :start_bal => 80, :stop_bal => 90).count %></td>
         <td></td>
         <td></td>
     </tr>
@@ -65,16 +69,16 @@
         <td>Частично соответствует
             от 60 до 80 баллов
         </td>
+        <td><%= ControlListQuarter.in_list(:from => quarter1s, :to => quarter1e, :start_bal => 60, :stop_bal => 80).count %></td>
         <td></td>
         <td></td>
+        <td><%= ControlListQuarter.in_list(:from => quarter2s, :to => quarter2e, :start_bal => 60, :stop_bal => 80).count %></td>
         <td></td>
         <td></td>
+        <td><%= ControlListQuarter.in_list(:from => quarter3s, :to => quarter3e, :start_bal => 60, :stop_bal => 80).count %></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><%= ControlListQuarter.in_list(:from => quarter4s, :to => quarter4e, :start_bal => 60, :stop_bal => 80).count %></td>
         <td></td>
         <td></td>
     </tr>
@@ -83,32 +87,32 @@
         <td>Не соответствует
             ниже 60 баллов
         </td>
-        <td><%= ControlListQuarter.in_list(:from => DateTime.current.beginning_of_year.at_beginning_of_quarter, :to => DateTime.current.beginning_of_year.at_end_of_quarter, :start_bal => 0, :stop_bal => 60).count %></td>
+        <td><%= ControlListQuarter.in_list(:from => quarter1s, :to => quarter1e, :start_bal => 0, :stop_bal => 60).count %></td>
         <td></td>
         <td></td>
-        <td><%= ControlListQuarter.in_list(:from => (DateTime.current.beginning_of_year+4.months).at_beginning_of_quarter, :to => (DateTime.current.beginning_of_year+4.months).at_end_of_quarter, :start_bal => 0, :stop_bal => 60).count %></td>
+        <td><%= ControlListQuarter.in_list(:from => quarter2s, :to => quarter2e, :start_bal => 0, :stop_bal => 60).count %></td>
         <td></td>
         <td></td>
-        <td><%= ControlListQuarter.in_list(:from => (DateTime.current.end_of_year-4.months).at_beginning_of_quarter, :to => (DateTime.current.end_of_year-4.months).at_end_of_quarter, :start_bal => 0, :stop_bal => 60).count %></td>
+        <td><%= ControlListQuarter.in_list(:from => quarter3s, :to => quarter3e, :start_bal => 0, :stop_bal => 60).count %></td>
         <td></td>
         <td></td>
-        <td><%= ControlListQuarter.in_list(:from => DateTime.current.end_of_year.at_beginning_of_quarter, :to => DateTime.current.end_of_year.at_end_of_quarter, :start_bal => 0, :stop_bal => 60).count %></td>
+        <td><%= ControlListQuarter.in_list(:from => quarter4s, :to => quarter4e, :start_bal => 0, :stop_bal => 60).count %></td>
         <td></td>
         <td></td>
     </tr>
     <tr>
         <td>Всего производственных участков
         </td>
+        <td><%= ControlListQuarter.in_list(:from => quarter1s, :to => quarter1e, :start_bal => 0, :stop_bal => 101).count %></td>
         <td></td>
         <td></td>
+        <td><%= ControlListQuarter.in_list(:from => quarter2s, :to => quarter2e, :start_bal => 0, :stop_bal => 101).count %></td>
         <td></td>
         <td></td>
+        <td><%= ControlListQuarter.in_list(:from => quarter3s, :to => quarter3e, :start_bal => 0, :stop_bal => 101).count %></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><%= ControlListQuarter.in_list(:from => quarter4s, :to => quarter4e, :start_bal => 0, :stop_bal => 101).count %></td>
         <td></td>
         <td></td>
     </tr>

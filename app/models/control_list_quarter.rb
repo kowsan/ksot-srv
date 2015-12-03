@@ -9,7 +9,7 @@ class ControlListQuarter < ActiveRecord::Base
   end
 
   def self.in_list(from: '', to: '', start_bal: '', stop_bal: '')
-    ControlListQuarter.where(:form_date => from..to).select{|x| x.total.between?(start_bal,stop_bal)}
+    ControlListQuarter.includes(:control_list_quarter_factors, :control_list_quarter_links).where(:form_date => from..to).select { |x| x.total>= start_bal && x.total < stop_bal }
 
   end
 
