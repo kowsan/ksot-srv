@@ -1,8 +1,14 @@
 <h4 style="color: orange">Report#index</h4>
 <% quarter1s, quarter1e=DateTime.current.beginning_of_year.at_beginning_of_quarter, DateTime.current.beginning_of_year.at_end_of_quarter %>
 <% quarter2s, quarter2e=(DateTime.current.beginning_of_year+4.months).at_beginning_of_quarter, (DateTime.current.beginning_of_year+4.months).at_end_of_quarter %>
+
 <% quarter3s, quarter3e=(DateTime.current.beginning_of_year+8.months).at_beginning_of_quarter, (DateTime.current.beginning_of_year+8.months).at_end_of_quarter %>
 <% quarter4s, quarter4e=(DateTime.current.beginning_of_year+11.months).at_beginning_of_quarter, (DateTime.current.beginning_of_year+11.months).at_end_of_quarter %>
+<% quarter1_total= ControlListQuarter.in_list(:from => quarter1s, :to => quarter1e, :start_bal => 0, :stop_bal => 101).count %>
+<% quarter2_total= ControlListQuarter.in_list(:from => quarter2s, :to => quarter2e, :start_bal => 0, :stop_bal => 101).count %>
+<% quarter3_total= ControlListQuarter.in_list(:from => quarter3s, :to => quarter3e, :start_bal => 0, :stop_bal => 101).count %>
+<% quarter4_total= ControlListQuarter.in_list(:from => quarter4s, :to => quarter4e, :start_bal => 0, :stop_bal => 101).count %>
+
 <table border="1" class="table table-responsive">
     <thead>
     <tr>
@@ -103,16 +109,16 @@
     <tr>
         <td>Всего производственных участков
         </td>
-        <td><%= ControlListQuarter.in_list(:from => quarter1s, :to => quarter1e, :start_bal => 0, :stop_bal => 101).count %></td>
+        <td><%= quarter1_total %></td>
         <td></td>
         <td></td>
-        <td><%= ControlListQuarter.in_list(:from => quarter2s, :to => quarter2e, :start_bal => 0, :stop_bal => 101).count %></td>
+        <td><%= quarter2_total %></td>
         <td></td>
         <td></td>
-        <td><%= ControlListQuarter.in_list(:from => quarter3s, :to => quarter3e, :start_bal => 0, :stop_bal => 101).count %></td>
+        <td><%= quarter3_total %></td>
         <td></td>
         <td></td>
-        <td><%= ControlListQuarter.in_list(:from => quarter4s, :to => quarter4e, :start_bal => 0, :stop_bal => 101).count %></td>
+        <td><%= quarter4_total %></td>
         <td></td>
         <td></td>
     </tr>
