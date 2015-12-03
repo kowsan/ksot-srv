@@ -9,6 +9,7 @@
 <% quarter2_total= ControlListQuarter.in_list(:from => quarter2s, :to => quarter2e, :start_bal => 0, :stop_bal => 101).count %>
 <% quarter3_total= ControlListQuarter.in_list(:from => quarter3s, :to => quarter3e, :start_bal => 0, :stop_bal => 101).count %>
 <% quarter4_total= ControlListQuarter.in_list(:from => quarter4s, :to => quarter4e, :start_bal => 0, :stop_bal => 101).count %>
+
 <% q1_90_100=ControlListQuarter.in_list(:from => quarter1s, :to => quarter1e, :start_bal => 90, :stop_bal => 101).count %>
 <% q2_90_100=ControlListQuarter.in_list(:from => quarter2s, :to => quarter2e, :start_bal => 90, :stop_bal => 101).count %>
 <% q3_90_100=ControlListQuarter.in_list(:from => quarter3s, :to => quarter3e, :start_bal => 90, :stop_bal => 101).count %>
