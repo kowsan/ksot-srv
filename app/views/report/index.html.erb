@@ -1,4 +1,5 @@
-<h4 style="color: orange">Сводный отчет</h4>
+<h4 style="color: orange">Сводная ведомость бальной оценки состояния охраны труда в структурных подразделениях Дирекции
+    скоростного сообщения</h4>
 <% quarter1s, quarter1e=DateTime.current.beginning_of_year.at_beginning_of_quarter, DateTime.current.beginning_of_year.at_end_of_quarter %>
 <% quarter2s, quarter2e=(DateTime.current.beginning_of_year+4.months).at_beginning_of_quarter, (DateTime.current.beginning_of_year+4.months).at_end_of_quarter %>
 <% quarter3s, quarter3e=(DateTime.current.beginning_of_year+8.months).at_beginning_of_quarter, (DateTime.current.beginning_of_year+8.months).at_end_of_quarter %>
@@ -30,15 +31,21 @@
 <% q3_0_60=ControlListQuarter.in_list(:from => quarter3s, :to => quarter3e, :start_bal => 0, :stop_bal => 60).count %>
 <% q4_0_60=ControlListQuarter.in_list(:from => quarter4s, :to => quarter4e, :start_bal => 0, :stop_bal => 60).count %>
 
-<table border="1" class="table table-responsive">
+<table  class="table table-hover table-striped table-bordered">
     <thead>
     <tr>
-        <td></td>
-        <td colspan="12">Количество производственных участков</td>
+        <td rowspan="2">Оцениваемый период <%= Date.current.year %> года</td>
+        <td colspan="12" align="center">Количество производственных участков</td>
     </tr>
     <tr>
-        <td>Оцениваемый
-            период <br>
+
+        <td align="center" colspan="3">1 квартал</td>
+        <td align="center" colspan="3">2 квартал</td>
+        <td align="center" colspan="3">3 квартал</td>
+        <td align="center" colspan="3">4 квартал</td>
+    </tr>
+    <tr>
+        <td>
             Оценка
         </td>
         <td>Всего</td>
@@ -55,15 +62,17 @@
         <td>% от общего кол-ва</td>
     </tr>
     </thead>
+
+
     <tr>
         <td>Полностью соответствует
             от 90 до 100 баллов
         </td>
         <!-- 1 квартал -->
 
-        <td><%= q1_90_100 %></td>
-        <td></td>
-        <td>
+        <td align="right"><%= q1_90_100 %></td>
+        <td align="right">?</td>
+        <td align="right">
             <% if quarter1_total >0 %>
                 <%= ((q1_90_100/quarter1_total)*100).to_i %>
             <% else %>
@@ -71,9 +80,9 @@
             <% end %>
         </td>
         <!-- 2 квартал -->
-        <td><%= q2_90_100 %></td>
-        <td></td>
-        <td>
+        <td align="right"><%= q2_90_100 %></td>
+        <td align="right"><%= q2_90_100-q1_90_100 %></td>
+        <td align="right">
             <% if quarter2_total >0 %>
                 <%= ((q2_90_100/quarter2_total)*100).to_i %>
             <% else %>
@@ -81,9 +90,9 @@
             <% end %>
         </td>
         <!-- 3 квартал -->
-        <td><%= q3_90_100 %></td>
-        <td></td>
-        <td>
+        <td align="right"><%= q3_90_100 %></td>
+        <td align="right"><%= q3_90_100-q2_90_100 %></td>
+        <td align="right">
             <% if quarter3_total >0 %>
                 <%= ((q3_90_100/quarter3_total)*100).to_i %>
             <% else %>
@@ -91,9 +100,9 @@
             <% end %>
         </td>
         <!-- 4 квартал -->
-        <td><%= q4_90_100 %></td>
-        <td></td>
-        <td>
+        <td align="right"><%= q4_90_100 %></td>
+        <td align="right"><%= q4_90_100-q3_90_100 %></td>
+        <td align="right">
             <% if quarter4_total >0 %>
                 <%= ((q4_90_100/quarter4_total)*100).to_i %>
             <% else %>
@@ -107,36 +116,36 @@
         <td>В основном соответствует
             от 80 до 90 баллов
         </td>
-        <td><%= q1_80_90 %></td>
-        <td></td>
-        <td>
+        <td align="right"><%= q1_80_90 %></td>
+        <td align="right">?</td>
+        <td align="right">
             <% if quarter1_total >0 %>
                 <%= ((q1_80_90/quarter2_total)*100).to_i %>
             <% else %>
                 -
             <% end %>
         </td>
-        <td><%= q2_80_90 %></td>
-        <td></td>
-        <td>
+        <td align="right"><%= q2_80_90 %></td>
+        <td align="right"><%= q2_80_90-q1_80_90 %></td>
+        <td align="right">
             <% if quarter2_total >0 %>
                 <%= ((q2_80_90/quarter2_total)*100).to_i %>
             <% else %>
                 -
             <% end %>
         </td>
-        <td><%= q3_80_90 %></td>
-        <td></td>
-        <td>
+        <td align="right"><%= q3_80_90 %></td>
+        <td align="right"><%= q3_80_90-q2_80_90 %></td>
+        <td align="right">
             <% if quarter3_total >0 %>
                 <%= ((q3_80_90/quarter3_total)*100).to_i %>
             <% else %>
                 -
             <% end %>
         </td>
-        <td><%= q4_80_90 %></td>
-        <td></td>
-        <td>
+        <td align="right"><%= q4_80_90 %></td>
+        <td align="right"><%= q4_80_90-q3_80_90 %></td>
+        <td align="right">
             <% if quarter4_total >0 %>
                 <%= ((q4_80_90/quarter4_total)*100).to_i %>
             <% else %>
@@ -148,18 +157,18 @@
         <td>Частично соответствует
             от 60 до 80 баллов
         </td>
-        <td><%= q1_60_80 %></td>
-        <td></td>
-        <td>
+        <td align="right"><%= q1_60_80 %></td>
+        <td align="right">?</td>
+        <td align="right">
             <% if quarter1_total >0 %>
                 <%= ((q1_60_80/quarter1_total)*100).to_i %>
             <% else %>
                 -
             <% end %>
         </td>
-        <td><%= q2_60_80 %></td>
-        <td></td>
-        <td>
+        <td align="right"><%= q2_60_80 %></td>
+        <td align="right"><%= q2_60_80-q1_60_80 %></td>
+        <td align="right">
 
             <% if quarter2_total >0 %>
                 <%= ((q2_60_80/quarter2_total)*100).to_i %>
@@ -167,18 +176,18 @@
                 -
             <% end %>
         </td>
-        <td><%= q3_60_80 %></td>
-        <td></td>
-        <td>
+        <td align="right"><%= q3_60_80 %></td>
+        <td align="right"><%= q3_60_80-q2_60_80 %></td>
+        <td align="right">
             <% if quarter3_total >0 %>
                 <%= ((q3_60_80/quarter3_total)*100).to_i %>
             <% else %>
                 -
             <% end %>
         </td>
-        <td><%= q4_60_80 %></td>
-        <td></td>
-        <td>
+        <td align="right"><%= q4_60_80 %></td>
+        <td align="right"><%= q4_60_80-q3_60_80 %></td>
+        <td align="right">
             <% if quarter4_total >0 %>
                 <%= ((q4_60_80/quarter4_total)*100).to_i %>
             <% else %>
@@ -191,36 +200,36 @@
         <td>Не соответствует
             ниже 60 баллов
         </td>
-        <td><%= q1_0_60 %></td>
-        <td></td>
-        <td>
+        <td align="right"><%= q1_0_60 %></td>
+        <td align="right">?</td>
+        <td align="right">
             <% if quarter1_total >0 %>
                 <%= ((q1_0_60/quarter1_total)*100).to_i %>
             <% else %>
                 -
             <% end %>
         </td>
-        <td><%= q2_0_60 %></td>
-        <td></td>
-        <td>
+        <td align="right"><%= q2_0_60 %></td>
+        <td align="right"><%= q2_0_60-q1_0_60 %></td>
+        <td align="right">
             <% if quarter2_total >0 %>
                 <%= ((q2_0_60/quarter2_total)*100).to_i %>
             <% else %>
                 -
             <% end %>
         </td>
-        <td><%= q3_0_60 %></td>
-        <td></td>
-        <td>
+        <td align="right"><%= q3_0_60 %></td>
+        <td align="right"><%= q3_0_60-q2_0_60 %></td>
+        <td align="right">
             <% if quarter3_total >0 %>
                 <%= ((q3_0_60/quarter3_total)*100).to_i %>
             <% else %>
                 -
             <% end %>
         </td>
-        <td><%= q4_0_60 %></td>
-        <td></td>
-        <td>
+        <td align="right"><%= q4_0_60 %></td>
+        <td align="right"><%= q4_0_60-q3_0_60 %></td>
+        <td align="right">
             <% if quarter4_total >0 %>
                 <%= ((q4_0_60/quarter4_total)*100).to_i %>
             <% else %>
@@ -231,18 +240,18 @@
     <tr>
         <td>Всего производственных участков
         </td>
-        <td><%= quarter1_total %></td>
-        <td></td>
-        <td></td>
-        <td><%= quarter2_total %></td>
-        <td></td>
-        <td></td>
-        <td><%= quarter3_total %></td>
-        <td></td>
-        <td></td>
-        <td><%= quarter4_total %></td>
-        <td></td>
-        <td></td>
+        <td align="right"><%= quarter1_total %></td>
+        <td align="right"></td>
+        <td align="right"></td>
+        <td align="right"><%= quarter2_total %></td>
+        <td align="right"></td>
+        <td align="right"></td>
+        <td align="right"><%= quarter3_total %></td>
+        <td align="right"></td>
+        <td align="right"></td>
+        <td align="right"><%= quarter4_total %></td>
+        <td align="right"></td>
+        <td align="right"></td>
     </tr>
 </table>
 
