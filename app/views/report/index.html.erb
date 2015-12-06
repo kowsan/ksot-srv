@@ -2,6 +2,29 @@
 
 <h4 style="color: orange">Сводная ведомость бальной оценки состояния охраны труда в структурных подразделениях Дирекции
     скоростного сообщения</h4>
+
+<form method="get">
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-3 pull-right">
+            <div class="form-inline" style="position: relative">
+                <label>Год</label>
+                <input id="date" type="text" name="year" class="form-control input" value="<%= @date.year %>">
+                <input type="submit" value="Построить" class="btn btn-sm btn-primary">
+            </div>
+        </div>
+    </div>
+</form>
+<br>
+<br>
+<script>
+    $('#date').datetimepicker(
+            {
+                locale: 'ru',
+                format: 'YYYY'
+            });
+</script>
+
 <% quarter4_prevs, quarter4_preve=(@date.beginning_of_year-1.months).at_beginning_of_quarter, (@date.beginning_of_year-1.months).at_end_of_quarter %>
 
 
