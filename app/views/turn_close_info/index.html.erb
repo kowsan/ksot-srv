@@ -3,12 +3,21 @@
 
 <br>
 <table
+id="tbl2"
 data-toggle="table"
 data-url="/turn_close_info/index.json"
 data-show-columns="true"
-data-cache="true" data-search="true" data-show-toggle="true"
-data-show-refresh="true" class="table-striped"
+data-cache="true"
+data-search="true"
+data-show-toggle="true"
+data-show-refresh="true"
+class="table-striped"
 data-cookie="true"
+
+data-show-pagination-switch="true"
+data-page-list="[10,20,50,100,500]"
+data-page-size="50"
+data-pagination="true"
 
 data-cookie-id-table="tci_<%= @logged_user.login %>"
 data-sort-name="id">
@@ -27,6 +36,16 @@ data-sort-name="id">
 </table>
 <br>
 <script type="text/javascript">
+    $(document).ready(function () {
+
+
+        $('#tbl2').on('load-success.bs.table', function (data) {
+            $('.dropdown-toggle').dropdown();
+        });
+        $('#tbl2').on('onPageChange', function (number, size) {
+            $('.dropdown-toggle').dropdown();
+        });
+    })
     function actions(value, row) {
         return '<a class="btn glyphicon glyphicon-edit btn-primary  btn-sm" href="' + row.url + '/edit"></a>'
     }
