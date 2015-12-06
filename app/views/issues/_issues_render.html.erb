@@ -97,7 +97,7 @@
         $('#tbl2').on('load-success.bs.table', function (data) {
             $('.dropdown-toggle').dropdown();
         });
-        $('#tbl2').on('onPageChange', function (number, size) {
+        $('#tbl2').on('page-change.bs.table', function (number, size) {
             $('.dropdown-toggle').dropdown();
         });
         //onPageChange
