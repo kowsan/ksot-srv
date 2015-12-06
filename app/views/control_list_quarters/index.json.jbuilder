@@ -7,5 +7,5 @@ json.array!(@control_list_quarters) do |control_list_quarter|
   json.area control_list_quarter.author.subdivision.area.name
   json.url control_list_quarter_path(control_list_quarter)
   json.edit_url edit_control_list_quarter_path(control_list_quarter)
-  #json.pdf_url pdf_control_list_month_path(control_list_month,:format=> :pdf)
+  json.pdf_url pdf_control_list_quarter_path(control_list_quarter,:format=> :pdf)
 end
