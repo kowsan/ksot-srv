@@ -1,40 +1,52 @@
+<% %>
+
 <h4 style="color: orange">Сводная ведомость бальной оценки состояния охраны труда в структурных подразделениях Дирекции
     скоростного сообщения</h4>
-<% quarter1s, quarter1e=DateTime.current.beginning_of_year.at_beginning_of_quarter, DateTime.current.beginning_of_year.at_end_of_quarter %>
-<% quarter2s, quarter2e=(DateTime.current.beginning_of_year+4.months).at_beginning_of_quarter, (DateTime.current.beginning_of_year+4.months).at_end_of_quarter %>
-<% quarter3s, quarter3e=(DateTime.current.beginning_of_year+8.months).at_beginning_of_quarter, (DateTime.current.beginning_of_year+8.months).at_end_of_quarter %>
-<% quarter4s, quarter4e=(DateTime.current.beginning_of_year+11.months).at_beginning_of_quarter, (DateTime.current.beginning_of_year+11.months).at_end_of_quarter %>
+<% quarter4_prevs, quarter4_preve=(@date.beginning_of_year-1.months).at_beginning_of_quarter, (@date.beginning_of_year-1.months).at_end_of_quarter %>
 
 
+<% quarter1s, quarter1e=@date.beginning_of_year.at_beginning_of_quarter, @date.beginning_of_year.at_end_of_quarter %>
+<% quarter2s, quarter2e=(@date.beginning_of_year+4.months).at_beginning_of_quarter, (@date.beginning_of_year+4.months).at_end_of_quarter %>
+<% quarter3s, quarter3e=(@date.beginning_of_year+8.months).at_beginning_of_quarter, (@date.beginning_of_year+8.months).at_end_of_quarter %>
+<% quarter4s, quarter4e=(@date.beginning_of_year+11.months).at_beginning_of_quarter, (@date.beginning_of_year+11.months).at_end_of_quarter %>
+
+
+
+
+<% quarter4_prev_total=ControlListQuarter.in_list(:from => quarter4_prevs, :to => quarter4_preve, :start_bal => 0, :stop_bal => 101).count %>
 <% quarter1_total= ControlListQuarter.in_list(:from => quarter1s, :to => quarter1e, :start_bal => 0, :stop_bal => 101).count %>
 <% quarter2_total= ControlListQuarter.in_list(:from => quarter2s, :to => quarter2e, :start_bal => 0, :stop_bal => 101).count %>
 <% quarter3_total= ControlListQuarter.in_list(:from => quarter3s, :to => quarter3e, :start_bal => 0, :stop_bal => 101).count %>
 <% quarter4_total= ControlListQuarter.in_list(:from => quarter4s, :to => quarter4e, :start_bal => 0, :stop_bal => 101).count %>
 
+<% q4_prev_90_100=ControlListQuarter.in_list(:from => quarter4_prevs, :to => quarter4_preve, :start_bal => 90, :stop_bal => 101).count %>
 <% q1_90_100=ControlListQuarter.in_list(:from => quarter1s, :to => quarter1e, :start_bal => 90, :stop_bal => 101).count %>
 <% q2_90_100=ControlListQuarter.in_list(:from => quarter2s, :to => quarter2e, :start_bal => 90, :stop_bal => 101).count %>
 <% q3_90_100=ControlListQuarter.in_list(:from => quarter3s, :to => quarter3e, :start_bal => 90, :stop_bal => 101).count %>
 <% q4_90_100=ControlListQuarter.in_list(:from => quarter4s, :to => quarter4e, :start_bal => 90, :stop_bal => 101).count %>
 
+<% q4_prev_80_90=ControlListQuarter.in_list(:from => quarter4_prevs, :to => quarter4_preve, :start_bal => 80, :stop_bal => 90).count %>
 <% q1_80_90=ControlListQuarter.in_list(:from => quarter1s, :to => quarter1e, :start_bal => 80, :stop_bal => 90).count %>
 <% q2_80_90=ControlListQuarter.in_list(:from => quarter2s, :to => quarter2e, :start_bal => 80, :stop_bal => 90).count %>
 <% q3_80_90=ControlListQuarter.in_list(:from => quarter3s, :to => quarter3e, :start_bal => 80, :stop_bal => 90).count %>
 <% q4_80_90=ControlListQuarter.in_list(:from => quarter4s, :to => quarter4e, :start_bal => 80, :stop_bal => 90).count %>
 
+<% q4_prev_60_80=ControlListQuarter.in_list(:from => quarter4_prevs, :to => quarter4_preve, :start_bal => 60, :stop_bal => 80).count %>
 <% q1_60_80=ControlListQuarter.in_list(:from => quarter1s, :to => quarter1e, :start_bal => 60, :stop_bal => 80).count %>
 <% q2_60_80=ControlListQuarter.in_list(:from => quarter2s, :to => quarter2e, :start_bal => 60, :stop_bal => 80).count %>
 <% q3_60_80=ControlListQuarter.in_list(:from => quarter3s, :to => quarter3e, :start_bal => 60, :stop_bal => 80).count %>
 <% q4_60_80=ControlListQuarter.in_list(:from => quarter4s, :to => quarter4e, :start_bal => 60, :stop_bal => 80).count %>
 
+<% q4_prev_0_60=ControlListQuarter.in_list(:from => quarter4_prevs, :to => quarter4_preve, :start_bal => 0, :stop_bal => 60).count %>
 <% q1_0_60=ControlListQuarter.in_list(:from => quarter1s, :to => quarter1e, :start_bal => 0, :stop_bal => 60).count %>
 <% q2_0_60=ControlListQuarter.in_list(:from => quarter2s, :to => quarter2e, :start_bal => 0, :stop_bal => 60).count %>
 <% q3_0_60=ControlListQuarter.in_list(:from => quarter3s, :to => quarter3e, :start_bal => 0, :stop_bal => 60).count %>
 <% q4_0_60=ControlListQuarter.in_list(:from => quarter4s, :to => quarter4e, :start_bal => 0, :stop_bal => 60).count %>
 
-<table  class="table table-hover table-striped table-bordered">
+<table class="table table-hover table-striped table-bordered">
     <thead>
     <tr>
-        <td rowspan="2">Оцениваемый период <%= Date.current.year %> года</td>
+        <td rowspan="2">Оцениваемый период <%= @date.year %> года</td>
         <td colspan="12" align="center">Количество производственных участков</td>
     </tr>
     <tr>
@@ -71,7 +83,8 @@
         <!-- 1 квартал -->
 
         <td align="right"><%= q1_90_100 %></td>
-        <td align="right">?</td>
+        <td align="right">
+            <%= q1_90_100-q4_prev_90_100 %></td>
         <td align="right">
             <% if quarter1_total >0 %>
                 <%= ((q1_90_100/quarter1_total)*100).to_i %>
@@ -117,7 +130,7 @@
             от 80 до 90 баллов
         </td>
         <td align="right"><%= q1_80_90 %></td>
-        <td align="right">?</td>
+        <td align="right"><%= q1_80_90-q4_prev_80_90 %></td>
         <td align="right">
             <% if quarter1_total >0 %>
                 <%= ((q1_80_90/quarter2_total)*100).to_i %>
@@ -158,7 +171,7 @@
             от 60 до 80 баллов
         </td>
         <td align="right"><%= q1_60_80 %></td>
-        <td align="right">?</td>
+        <td align="right"> <%= q1_60_80-q4_prev_60_80 %></td>
         <td align="right">
             <% if quarter1_total >0 %>
                 <%= ((q1_60_80/quarter1_total)*100).to_i %>
@@ -201,7 +214,7 @@
             ниже 60 баллов
         </td>
         <td align="right"><%= q1_0_60 %></td>
-        <td align="right">?</td>
+        <td align="right"><%= q1_0_60-q4_prev_0_60 %></td>
         <td align="right">
             <% if quarter1_total >0 %>
                 <%= ((q1_0_60/quarter1_total)*100).to_i %>
@@ -241,7 +254,7 @@
         <td>Всего производственных участков
         </td>
         <td align="right"><%= quarter1_total %></td>
-        <td align="right"></td>
+        <td align="right"><%= quarter1_total-quarter4_prev_total %></td>
         <td align="right"></td>
         <td align="right"><%= quarter2_total %></td>
         <td align="right"></td>
