@@ -1,5 +1,5 @@
 class ControlListQuartersController < ApplicationController
-  before_action :set_control_list_quarter, only: [:show, :edit, :update, :destroy]
+  before_action :set_control_list_quarter, only: [:show, :edit, :update, :destroy,:pdf]
   before_action :check_permission
   # GET /control_list_quarters
   # GET /control_list_quarters.json
