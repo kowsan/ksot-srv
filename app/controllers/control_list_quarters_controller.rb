@@ -10,6 +10,7 @@ class ControlListQuartersController < ApplicationController
   # GET /control_list_quarters/1
   # GET /control_list_quarters/1.json
   def show
+    @control_list_links=ControlListQuarterLink.includes(:control_list_quarter_factor, :control_list_quarter_factor_group).where(:control_list_quarter_id => @control_list_quarter.id)
   end
 
   # GET /control_list_quarters/new
@@ -19,6 +20,13 @@ class ControlListQuartersController < ApplicationController
     @control_list_quarter = ControlListQuarter.new
   end
 
+  def pdf
+    @disable_menu=true
+    @control_list_links=ControlListQuarterLink.includes(:control_list_quarter_factor, :control_list_quarter_factor_group).where(:control_list_quarter_id => @control_list_quarter.id)
+    respond_to do |format|
+      format.html { render :show, layout: false }
+    end
+  end
   # GET /control_list_quarters/1/edit
   def edit
     s_id=StaffRole.where(:can_fill_control_list => true).all.map { |s| s.id }

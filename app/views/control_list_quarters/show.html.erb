@@ -1,19 +1,113 @@
-<p id="notice"><%= notice %></p>
+<% if @disable_menu.nil? %>
+    <%= render :partial => 'control_list_factors/menu' %>
+<% end %>
 
-<p>
-  <strong>Form date:</strong>
-  <%= @control_list_quarter.form_date %>
-</p>
+<table width="100%">
+    <tr>
+        <td align="center" colspan="4"><b><span style="font-size: 15pt"> Контрольный лист по охране труда №2</span></b><br></td>
+    </tr>
+    <tr>
+        <td colspan="4"><br></td>
+    <tr>
+    <tr>
+        <td colspan="4">Наименование структурного подразделения&nbsp;
+            <span style="text-decoration: underline;"><%= @control_list_quarter.subdivision.name %>&nbsp;</span>
 
-<p>
-  <strong>Author:</strong>
-  <%= @control_list_quarter.author %>
-</p>
+    </tr>
+    <tr>
+        <td colspan="4">
+            Наименование производственного участка&nbsp;
+            <span style="text-decoration: underline;"><%= @control_list_quarter.subdivision.area.name %>&nbsp;</span>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">Должность
+            проверяющего&nbsp;<span style="text-decoration: underline"><%= @control_list_quarter.author.position %>&nbsp;</span>
 
-<p>
-  <strong>Subdivision:</strong>
-  <%= @control_list_quarter.subdivision %>
-</p>
 
-<%= link_to 'Edit', edit_control_list_quarter_path(@control_list_quarter) %> |
-<%= link_to 'Back', control_list_quarters_path %>
+        </td>
+
+    </tr>
+    <tr>
+        <td colspan="4"> ФИО
+            проверяющего&nbsp;<span style="text-decoration: underline"><%= @control_list_quarter.author.full_name %></span>
+        </td>
+
+    </tr>
+    <tr>
+        <td colspan="4">Дата составления контрольного
+            листа&nbsp;<span style="text-decoration: underline"><%= @control_list_quarter.form_date.to_s %></span></td>
+
+    </tr>
+</table>
+<br>
+<table border="1" cellpadding="4" cellspacing="0" width="100%">
+
+    <th>№<br>п/п</th>
+    <th>Оценочный фактор</th>
+    <th>Соответствие требованиям охраны труда<br>(да/нет)</th>
+    <th>Выявленные несоответствия<br>(заполняется при наличии несоответствий)</th>
+    <th>Срок исполнения и ответственный</th>
+    <th>Принятые меры по устранению несоответствий</th>
+    <th>Отметка о выполнении</th>
+    <% ControlListQuarterFactorGroup.order('order_num asc').all.each do |g| %>
+        <tr>
+            <td align="center" colspan="7"><b><%= g.name %></b></td>
+        </tr>
+
+        <!-- Iterating factors-->
+        <% g.control_list_quarter_factors.order('order_num asc').all.each do |f| %>
+            <tr>
+                <td><%= f.order_num %></td>
+                <td><%= f.factor %></td>
+                <% y= @control_list_links.where(:control_list_quarter_factor_group_id => g.id).where(:control_list_quarter_factor_id => f.id) %>
+                <% if y.any? %>
+                    <% y.all.each do |c| %>
+                        <td valign="top">НЕТ</td>
+                        <td valign="top"><%= c.inconsistency %></td>
+                        <td valign="top"><%= c.date_due || '-' %><br><%= c.user.full_name %></td>
+                        <td valign="top"><%= c.note_measures %></td>
+                        <td valign="top" ><%= c.note_due %></td>
+                    <% end %>
+                    <!-- present-->
+                <% else %>
+                    <!-- nothing-->
+                    <td>ДА</td>
+                    <td align="center">-</td>
+                    <td align="center">-</td>
+                    <td align="center">-</td>
+                    <td align="center">-</td>
+                <% end %>
+            </tr>
+
+        <% end %>
+    <% end %>
+
+</table>
+<br><br>
+<table width="100%">
+    <tr>
+        <td>Контрольный лист для устранения замечаний получил&nbsp;<span style="text-decoration: underline">"&nbsp;&nbsp;"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;г.</span>
+        </td>
+
+
+    </tr>
+    <tr>
+        <td>Руководитель участка&nbsp;<span style="text-decoration: underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+    </tr>
+    <tr>
+        <td>Подпись проверяющего&nbsp;<span style="text-decoration: underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        </td>
+
+    </tr>
+
+
+</table>
+
+<script type="text/javascript">
+    $('#clmonth').addClass('active')
+</script>
+
+<% if @disable_menu.nil? %>
+    <%= link_to 'К списку листов', control_list_quarters_path %>
+<% end %>
