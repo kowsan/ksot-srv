@@ -38,12 +38,13 @@
 
         if (this.options.showExport) {
             var that = this,
-                $btnGroup = this.$toolbar.find('.btn-group'),
+                $btnGroup = this.$toolbar,
                 $export = $btnGroup.find('div.export');
 
             if (!$export.length) {
-                $export = $(
-                    '<div class="export btn-group"><button class="btn glyphicon btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-export"></i><span class="caret"></span></button><ul class="dropdown-menu" role="menu"></ul></div>').appendTo($btnGroup);
+                $export = $([
+                    '<div class="export btn-group"><button class="btn glyphicon btn-default dropdown-toggle" data-toggle="dropdown" type="button"><i class="glyphicon glyphicon-export"></i> <span class="caret"></span></button>',
+                    '<ul class="dropdown-menu" role="menu"></ul></div>'].join('')).appendTo($btnGroup);
 
                 var $menu = $export.find('.dropdown-menu'),
                     exportTypes = this.options.exportTypes;
