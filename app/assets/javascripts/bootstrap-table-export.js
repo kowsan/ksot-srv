@@ -14,7 +14,7 @@
         txt: 'TXT',
         sql: 'SQL',
         doc: 'MS-Word',
-        excel: 'MS-Excel',
+        excel: 'Excel',
         powerpoint: 'MS-Powerpoint',
         pdf: 'PDF'
     };
@@ -46,7 +46,7 @@
                     '<div class="export btn-group">',
                         '<button class="btn btn-default dropdown-toggle" ' +
                             'data-toggle="dropdown" type="button">',
-                            '<i class="glyphicon glyphicon-export icon-share"></i> ',
+                            '<i class="glyphicon glyphicon-export  icon-share"></i> ',
                             '<span class="caret"></span>',
                         '</button>',
                         '<ul class="dropdown-menu" role="menu">',
@@ -103,4 +103,7 @@
             }
         }
     };
+
+
+    $('.dropdown-toggle').dropdown();
 })(jQuery);
