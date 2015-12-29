@@ -44,9 +44,9 @@
             if (!$export.length) {
                 $export = $([
                     '<div class="export btn-group">',
-                        '<button class="btn btn-default dropdown-toggle" ' +
+                        '<button class="btn glyphicon glyphicon-export btn-default dropdown-toggle " ' +
                             'data-toggle="dropdown" type="button">',
-                            '<i class="glyphicon glyphicon-export  icon-share"></i> ',
+                            '<i class="glyphicon glyphicon-export"></i> ',
                             '<span class="caret"></span>',
                         '</button>',
                         '<ul class="dropdown-menu" role="menu">',
