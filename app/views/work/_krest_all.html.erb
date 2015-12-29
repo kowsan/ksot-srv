@@ -47,24 +47,25 @@
 
     <%end%>
     <%end%>
-    .triangle_333333_333333{
+    .triangle_333333_333333 {
 
         background-color: #e3e3e3;
         width: 60px;
         height: 60px;
     }
+
     /* special  */
 
 </style>
 <input type="hidden" id="styles">
 <script>
-           function day_clickable(day) {
-               $('#day_' + day).click(function () {
-                   var cm = $('#info_date').text()
-                   console.log("Clicked day:", day)
-                   window.location.href = '/issues/?from=' + day + '.' + cm + '&to=' + day + '.' + cm
-               })
-           }
+    function day_clickable(day) {
+        $('#day_' + day).click(function () {
+            var cm = $('#info_date').text()
+            console.log("Clicked day:", day)
+            window.location.href = '/issues/?from=' + day + '.' + cm + '&to=' + day + '.' + cm
+        })
+    }
 
     function getCalendarData() {
         if ($('#month').html().toString().length != 7) {
@@ -227,74 +228,75 @@
 
 
 
-<% if current_user.nil? %>
-    <div class="alert  alert-warning row row-centered">
+    <% if current_user.nil? %>
+        <div class="alert  alert-warning row row-centered">
 
-        <h4>Внимание!</h4>
+            <h4>Внимание!</h4>
 
-        <p>Необходимо ввести нарушения! Нажмите "Авторизация" для продолжения.</p>
+            <p>Необходимо ввести нарушения! Нажмите "Авторизация" для продолжения.</p>
+        </div>
+    <% end %>
+
+    <div class="row col-lg-5 pull-left">
+        <button class="btn btn-primary btn-sm" id="prev_month"><%= (Time.current-1.month).strftime("%m.%Y") %></button>
+        <button class="btn btn-success btn-sm " id="month"><%= (Time.current).strftime("%m.%Y") %></button>
+        <button class="btn btn-primary btn-sm" id="next_month"><%= (Time.current+1.month).strftime("%m.%Y") %></button>
     </div>
-<% end %>
+    <script>
+        $('#month').click(function () {
 
-<div class="row col-lg-5 pull-left">
-    <button class="btn btn-primary btn-sm" id="prev_month"><%= (Time.current-1.month).strftime("%m.%Y") %></button>
-    <button class="btn btn-success btn-sm " id="month"><%= (Time.current).strftime("%m.%Y") %></button>
-    <button class="btn btn-primary btn-sm" id="next_month"><%= (Time.current+1.month).strftime("%m.%Y") %></button>
+            getCalendarData()
+
+        })
+
+
+        $("#next_month").click(function () {
+            var pm = ''
+            var cm = ''
+            var cd = $('#month').html()
+            $.getJSON("/issues/next_date.json", {offset: 1, date: $('#month').html()}).done(function (json) {
+                console.log(json);
+                pm = json.toString()
+                $.getJSON("/issues/next_date.json", {offset: 2, date: $('#month').html()}).done(function (json) {
+                    console.log(json);
+                    cm = json.toString()
+                    $('#prev_month').html(cd)
+                    $('#month').html(pm)
+                    $('#next_month').html(cm)
+                    $('#month').click()
+                })
+            })
+
+            console.log(pm, cd, cm)
+
+
+        });
+
+
+        $("#prev_month").click(function () {
+            var pm = ''
+            var cm = ''
+            var cd = $('#month').html()
+            $.getJSON("/issues/next_date.json", {offset: -1, date: $('#month').html()}).done(function (json) {
+                console.log(json);
+                pm = json.toString()
+
+                $.getJSON("/issues/next_date.json", {offset: -2, date: $('#month').html()}).done(function (json) {
+                    console.log(json);
+                    cm = json.toString()
+                    $('#prev_month').html(cm)
+                    $('#month').html(pm)
+                    $('#next_month').html(cd)
+                    $('#month').click()
+                })
+
+            })
+
+            console.log(pm, cd, cm)
+
+
+        });
+    </script>
+
+
 </div>
-<script>
-    $('#month').click(function () {
-
-        getCalendarData()
-
-    })
-
-
-    $("#next_month").click(function () {
-        var pm = ''
-        var cm = ''
-        var cd = $('#month').html()
-        $.getJSON("/issues/next_date.json", {offset: 1, date: $('#month').html()}).done(function (json) {
-            console.log(json);
-            pm = json.toString()
-            $.getJSON("/issues/next_date.json", {offset: 2, date: $('#month').html()}).done(function (json) {
-                console.log(json);
-                cm = json.toString()
-                $('#prev_month').html(cd)
-                $('#month').html(pm)
-                $('#next_month').html(cm)
-                $('#month').click()
-            })
-        })
-
-        console.log(pm, cd, cm)
-
-
-    });
-
-
-    $("#prev_month").click(function () {
-        var pm = ''
-        var cm = ''
-        var cd = $('#month').html()
-        $.getJSON("/issues/next_date.json", {offset: -1, date: $('#month').html()}).done(function (json) {
-            console.log(json);
-            pm = json.toString()
-
-            $.getJSON("/issues/next_date.json", {offset: -2, date: $('#month').html()}).done(function (json) {
-                console.log(json);
-                cm = json.toString()
-                $('#prev_month').html(cm)
-                $('#month').html(pm)
-                $('#next_month').html(cd)
-                $('#month').click()
-            })
-
-        })
-
-        console.log(pm, cd, cm)
-
-
-    });
-</script>
-
-
