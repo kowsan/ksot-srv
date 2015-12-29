@@ -19,6 +19,7 @@
 //= require bootstrap-datetimepicker
 
 //= require jquery.plugin
+//= require tableExport
 //= require jquery.datepick
 //= require jquery.datepick-ru
 //= require bootstrap-table
