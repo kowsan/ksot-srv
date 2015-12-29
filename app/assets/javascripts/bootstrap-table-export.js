@@ -38,7 +38,7 @@
 
         if (this.options.showExport) {
             var that = this,
-                $btnGroup = this.$toolbar.find('>.btn-group'),
+                $btnGroup = this.$toolbar.find('.btn-group'),
                 $export = $btnGroup.find('div.export');
 
             if (!$export.length) {
