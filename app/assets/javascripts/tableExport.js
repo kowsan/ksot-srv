@@ -1057,7 +1057,7 @@
             else if (typeof DownloadLink.onclick == 'function')
               DownloadLink.onclick();
 
-            document.body.removeChild(DownloadLink);
+           // document.body.removeChild(DownloadLink);
           }
         }
       }

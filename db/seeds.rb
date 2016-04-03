@@ -97,7 +97,16 @@ it8=IssueType.create!(name: 'Подкладывание на железнодо�
 it9=IssueType.create!(name: 'Несоблюдение установленных габаритов при погрузке и выгрузке грузов',
                       critical_type_id: ct_yellow.id)
 
-system_ws=WorkSpace.create!(:name => 'Системное', :short_name => 'sys', :subdivision_id => Subdivision.first.id)
+
+turntype5day=TurnType.create!(:name => 'Пятидневка (с 8 до 17)',
+                              :first_start_at => '2000-01-01T08:00:00.000+03:00', :first_duration => '2000-01-01T12:00:00.000+03:00',
+                              :second_start_at => '2000-01-01T17:00:00.000+03:00', :second_duration => '2000-01-01T23:59:00.000+03:00',
+                              :reminder_before_end => 15, :is_day_off => false
+)
+turnsheme_default=TurnScheme.create!(:name => 'Пятидневка', :comment => 'Предустановленная схема смен', :turn_type_id => turntype5day.id)
+
+
+system_ws=WorkSpace.create!(:name => 'Системное', :short_name => 'sys', :subdivision_id => Subdivision.first.id,:turn_scheme_id=> turnsheme_default)
 system_ws.issue_types=IssueType.all
 system_ws.save!
 
