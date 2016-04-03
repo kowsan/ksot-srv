@@ -106,7 +106,7 @@ turntype5day=TurnType.create!(:name => 'Пятидневка (с 8 до 17)',
 turnsheme_default=TurnScheme.create!(:name => 'Пятидневка', :comment => 'Предустановленная схема смен', :turn_type_id => turntype5day.id)
 
 
-system_ws=WorkSpace.create!(:name => 'Системное', :short_name => 'sys', :subdivision_id => Subdivision.first.id,:turn_scheme_id=> turnsheme_default)
+system_ws=WorkSpace.create!(:name => 'Системное', :short_name => 'sys', :subdivision_id => Subdivision.first.id,:turn_scheme_id=> turnsheme_default.id)
 system_ws.issue_types=IssueType.all
 system_ws.save!
 
