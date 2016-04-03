@@ -16,14 +16,16 @@ user_id=StaffRole.create!(:name => 'Пользователь', :can_add_issue =>
                           :can_change_issue_status => true)
 StaffRole.create!(:name => 'Продвинутый пользователь', :can_add_issue => true, :can_edit_issue => true,
                   :can_change_issue_status => true, :can_shutdown_app => true)
-StaffRole.create!(:name => 'Руководитель участка', :can_add_issue => true, :can_edit_issue => true,
+StaffRole.create!(:name => 'Руководитель участка',
+                  :can_add_issue => true,
+                  :can_edit_issue => true,
                   :can_change_issue_status => true,
                   :can_shutdown_app => true,
                   :can_view_issue_report_local => true,
                   :can_view_employees_list => true,
                   :can_view_work_changes_owned => true,
-                  :can_fill_control_list => true,
-                  :area_owner => true)
+                  :can_fill_control_list => true
+)
 
 StaffRole.create!(name: 'Руководитель подразделения',
                   can_add_issue: true,
@@ -37,8 +39,7 @@ StaffRole.create!(name: 'Руководитель подразделения',
                   can_view_work_changes_owned: true,
                   can_fill_control_list: true,
                   can_manage_org_structure: false,
-                  area_owner: false,
-                  subdivision_owner: true)
+)
 
 
 adm_id=StaffRole.create!(:name => 'Инженер по охране труда',
